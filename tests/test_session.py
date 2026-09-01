@@ -1,4 +1,4 @@
-from primeagent.session import SessionStore
+from sentinelprime.session import SessionStore
 
 
 def test_append_and_read_roundtrip(tmp_path):

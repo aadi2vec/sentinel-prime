@@ -6,8 +6,8 @@ from datetime import datetime, timezone
 
 import dspy
 
-from primeagent.memory import MemoryBackend, MemoryItem
-from primeagent.feedback import Feedback
+from sentinelprime.memory import MemoryBackend, MemoryItem
+from sentinelprime.feedback import Feedback
 
 
 @dataclass

@@ -1,5 +1,5 @@
 import pytest
-from primeagent.memory import MemoryItem, JsonMemoryBackend
+from sentinelprime.memory import MemoryItem, JsonMemoryBackend
 
 
 def _item(id, scope="global", kind="note", text="t"):

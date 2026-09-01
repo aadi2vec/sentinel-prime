@@ -1,7 +1,7 @@
 # tests/test_config.py
 import textwrap
 import dspy
-from primeagent.config import load_config, _make_lm, Models
+from sentinelprime.config import load_config, _make_lm, Models
 
 
 def test_make_lm_builds_dspy_lm_with_params():

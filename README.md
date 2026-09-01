@@ -1,62 +1,84 @@
-# Recursive Language Models (RLMs)
+# sentinel-prime
 
-This project is a Python implementation of **Recursive Language Models (RLMs)**, an inference strategy where language models can decompose and recursively interact with input context of unbounded length through REPL environments.
+**A DSPy-native, self-improving agent harness.** The headline contribution is
+`ContinualHarness` — an **online, label-free, reversible** memory ledger that lets a DSPy
+program improve itself across live sessions. This is the piece DSPy lacks today: it ships
+offline, labeled optimizers (GEPA/MIPRO) but nothing for online, unlabeled, runtime
+self-improvement.
 
-It is based on the research and minimal implementation by [Alex L. Zhang](https://alexzhang13.github.io/blog/2025/rlm/).
+Scaffolding around the harness: `dspy.RLM` for per-turn reasoning and `dspy.GEPA` for offline
+optimization. The target domain and evaluation is Harvey **LAB** (Legal Agent Benchmark), M&A
+due-diligence slice.
 
-## Project Structure
+> Status: **Plan A shipped** — the standalone `ContinualHarness` core (config, session store,
+> feedback parser, versioned memory backend, harness) is implemented and tested (21 tests).
+> The agent runtime + Harvey LAB eval (Plan B) is next. See `docs/superpowers/`.
 
+## Why this exists
+
+- **Two complementary learning loops.** `ContinualHarness.refine()` runs *online* after each task
+  with **no labels** — it reads the trajectory and rubric-failure text and proposes small
+  create/update/delete edits to a supplemental memory ledger. `dspy.GEPA` runs *offline* on a
+  labeled subset. The base prompt is never mutated; the ledger is supplemental only.
+- **Reversible by construction.** Every `refine()` writes before/after snapshots; `rollback(version)`
+  restores prior state — the safety property GEPA structurally cannot provide.
+- **Pluggable memory backend.** A narrow `MemoryBackend` protocol; the default `JsonMemoryBackend`
+  is zero-dependency. An optional TraceMind backend (a local memory OS over MCP) can drop in.
+
+## Install
+
+```bash
+python -m venv .venv
+.venv/bin/pip install -e ".[dev]"
 ```
-rlm_project/
-├── main.py                        # Needle-in-a-haystack demo entry point
-├── requirements.txt               # Dependencies (google-generativeai, rich, dotenv)
-├── .env                           # Your API keys (rename from .env.example)
-└── rlm/                           # Core package
-    ├── rlm.py                     # Abstract Base Class for RLMs
-    ├── repl.py                    # REPL Environment and Sub-LM implementation
-    ├── rlm_repl.py                # Main RLM class with REPL orchestration
-    ├── logger/                   # Logging utilities
-    │   ├── root_logger.py         # Colorful step-by-step terminal logger
-    │   └── repl_logger.py         # Rich-based Jupyter-like REPL display
-    └── utils/                    # Utility functions
-        ├── llm.py                 # Gemini API client wrapper
-        ├── prompts.py             # System and recursive prompt templates
-        └── utils.py               # Parsing and execution helpers
+
+Requires Python 3.10+.
+
+## Quickstart
+
+```python
+from sentinelprime import ContinualHarness
+from sentinelprime.memory import JsonMemoryBackend
+from sentinelprime.feedback import parse_lab_result
+
+harness = ContinualHarness(JsonMemoryBackend("harness_state.json"))
+
+# after a run, feed the trajectory + rubric failures back — no labels needed
+feedback = parse_lab_result({
+    "task_id": "ma-001",
+    "criteria": [{"id": "c1", "passed": False, "reason": "missed change-of-control clause"}],
+})
+result = harness.refine(trajectory=[...], feedback=feedback)
+
+# the ledger is now injectable into the next run's prompt
+guidance = harness.read()
+
+# and every refine is reversible
+harness.rollback(result.from_version)
 ```
 
-## How It Works
+## Configuration
 
-RLMs solve the "context rot" and "context window" limitations of standard LLMs by never showing the root model the entire context directly. Instead:
+Models are declared as swappable `dspy.LM` instances — nothing hardcoded, no baked-in provider.
+Copy `config.example.yaml` and point each role (`root_lm`, `sub_lm`, `reflection_lm`, `judge_lm`)
+at any provider DSPy supports. Provider API keys are read from the environment
+(see `.env.example`).
 
-1.  **Iterative Loop**: The root model receives only the user query and a tiny system prompt.
-2.  **REPL Environment**: The context is loaded into a Python REPL environment as a variable.
-3.  **Active Exploration**: The root model writes Python code in ` ```repl ` blocks to:
-    -   Peek at substrings of the context.
-    -   Search for keywords using regex.
-    -   Chunk the context and call `llm_query()` on specific parts (recursive sub-calls).
-4.  **Final Answer**: Once the root model identifies the information it needs, it returns a final answer using `FINAL(answer)` or `FINAL_VAR(variable_name)`.
+## Testing
 
-## Design Decisions
+```bash
+.venv/bin/pytest -q
+```
 
--   **Provider**: Adopted to use **Google Gemini** (v1.5 Flash/Flash-8B) for high performance and long context support.
--   **Architecture**: Follows a "Depth-1" recursion model where a root agent calls a standard LLM inside the REPL. This can be extended to deeper recursion by nesting `RLM_REPL` instances.
--   **Logging**: Includes a custom rich-rendered logger and support for exporting **trajectories** (the full sequence of thoughts, code, and results) to JSON or HTML for post-run analysis.
--   **Compatibility**: Uses `from __future__ import annotations` to support Python 3.9+ typing.
+## Roadmap
 
-## Getting Started
+- **Plan A (done):** `ContinualHarness` core — config, `SessionStore`, `Feedback` parser,
+  `MemoryBackend` + `JsonMemoryBackend`, `ContinualHarness`.
+- **Plan B (next):** `dspy.RLM` integration — real fs/bash interpreter, non-blocking `spawn_child`
+  sub-agents, `PrimeAgent`, offline GEPA runner, Harvey LAB adapter + self-improvement curve,
+  optional TraceMind backend.
+- **Phase 2 (future):** a Rust durable-execution runtime (daemon/supervisor/leases,
+  crash-recovery, reconnect/replay) over a hybrid gRPC control plane + ZeroMQ message bus.
 
-1.  Install dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-2.  Set up environment:
-    ```bash
-    cp .env.example .env
-    # Edit .env and add your GOOGLE_API_KEY
-    ```
-3.  Run the demo:
-    ```bash
-    python3 main.py
-    ```
-
-The demo generates a 1-million-line "haystack" of random text with a hidden 7-digit number and tasks the RLM with finding it.
+Design docs live in `docs/superpowers/specs/` and the implementation plan in
+`docs/superpowers/plans/`.

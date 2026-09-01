@@ -1,7 +1,7 @@
 import json
-from primeagent.memory import JsonMemoryBackend, MemoryItem
-from primeagent.feedback import parse_lab_result
-from primeagent.harness import ContinualHarness, RefineResult
+from sentinelprime.memory import JsonMemoryBackend, MemoryItem
+from sentinelprime.feedback import parse_lab_result
+from sentinelprime.harness import ContinualHarness, RefineResult
 
 
 def _backend(tmp_path):

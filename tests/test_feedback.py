@@ -1,4 +1,4 @@
-from primeagent.feedback import parse_lab_result, Feedback, CriterionResult
+from sentinelprime.feedback import parse_lab_result, Feedback, CriterionResult
 
 
 SAMPLE = {
