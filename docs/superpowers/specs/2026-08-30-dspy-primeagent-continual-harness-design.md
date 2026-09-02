@@ -143,6 +143,20 @@ A `dspy.Module` with a persisted, versioned ledger.
 (`~/.primeagent/harness/`) for cross-task lessons — the M&A-specific strategy notes and reusable
 sub-agent specs that accumulate across the slice and drive the self-improvement curve.
 
+### 5.1 Deferred to Plan B (what makes the harness non-trivial)
+
+The Plan-A core intentionally applies every proposed edit and serializes the whole ledger. Three
+mechanisms turn that minimal core into the real learning system, and all three are deferred to
+Plan B because they depend on the LAB eval score that only exists once the eval loop lands:
+
+- **Credit assignment (the key one):** keep a proposed edit only if it *measurably* raises the
+  rubric pass-rate — e.g. an A/B gate that re-scores the same task with vs. without the edit and
+  auto-`rollback()`s edits that don't help. Without a real score to gate on, `refine()` cannot
+  tell a good lesson from a bad one; this is why it belongs with the eval harness, not before it.
+- **Relevance retrieval in `read()`:** rank/filter ledger items by relevance to the current task
+  instead of dumping all of them (the TraceMind backend's bandit retrieval is the intended engine).
+- **Decay / dedup:** expire stale or superseded notes so the ledger doesn't grow without bound.
+
 ### 5.2 Pluggable `MemoryBackend` (default JSON, optional TraceMind)
 
 `ContinualHarness` reads/writes its ledger through a narrow `MemoryBackend` interface so the

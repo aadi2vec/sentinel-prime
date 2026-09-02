@@ -1,3 +1,21 @@
+"""ContinualHarness: online, label-free, reversible self-improvement for a DSPy program.
+
+The three properties that make this more than "an LLM editing a JSON file" — and that the
+rest of the code exists to guarantee — are:
+
+  1. Online + label-free: refine() runs after any live task using only the trajectory and the
+     rubric-failure *text*. It never needs gold answers, so it can improve on unlabeled traffic
+     (this is the gap vs. dspy.GEPA, which is offline and needs a labeled trainset).
+  2. Reversible: every refine() brackets its edits between two backend snapshots, so any change
+     can be undone with rollback(). GEPA cannot offer this — it rewrites prompts in place.
+  3. Supplemental-only: the base task prompt is immutable. read() emits an *additional* block;
+     it is prepended to instructions, never a substitute for them.
+
+Known limitations (deliberately deferred — see docs/superpowers/specs): there is no credit
+assignment yet (edits are applied whether or not they later help the rubric), no relevance
+retrieval in read() (it serializes the whole ledger), and no decay/dedup. Those are what turn
+this from a minimal core into the real mechanism.
+"""
 from __future__ import annotations
 import json
 import uuid
@@ -12,6 +30,8 @@ from sentinelprime.feedback import Feedback
 
 @dataclass
 class RefineResult:
+    # created/updated/deleted are the ledger item ids touched this round.
+    # from_version..to_version is the reversibility window: rollback(from_version) undoes the round.
     created: list[str]
     updated: list[str]
     deleted: list[str]
@@ -19,6 +39,8 @@ class RefineResult:
     to_version: int
 
 
+# This Signature is a real dspy.Predict predictor, so the harness's own edit-proposing prompt
+# is itself GEPA-optimizable via named_predictors() — the online loop can be tuned offline.
 class ProposeLedgerEdits(dspy.Signature):
     """Propose small, additive edits to a supplemental memory ledger so a future run
     avoids the rubric failures just observed. Never rewrite the base task; only add,
@@ -45,6 +67,10 @@ class ContinualHarness(dspy.Module):
         self.propose = dspy.Predict(ProposeLedgerEdits)
 
     def read(self, scope: str | None = None) -> str:
+        # Serialize the ledger into a supplemental prompt block. Empty ledger -> "" so that
+        # nothing is prepended and the base prompt is used verbatim (the immutability invariant).
+        # NOTE: this currently emits *every* item; there is no relevance retrieval yet, so it does
+        # not scale to large ledgers. Relevance-ranked recall is the planned TraceMind-backend job.
         items = self.backend.read(scope=scope)
         if not items:
             return ""
@@ -67,9 +93,13 @@ class ContinualHarness(dspy.Module):
         return "\n".join(out)
 
     def _apply_edits(self, edits: list[dict]) -> tuple[list[str], list[str], list[str]]:
+        # Deterministic, no LM call — this is the part we can unit-test exhaustively. refine()
+        # keeps the (nondeterministic) LM call in propose() and hands the parsed ops to this.
         created: list[str] = []
         updated: list[str] = []
         deleted: list[str] = []
+        # Snapshot the id set up front so a create vs. update is classified against the pre-batch
+        # state (backend.write is an upsert, so it can't distinguish the two on its own).
         existing = {i.id for i in self.backend.read()}
         for op in edits:
             kind = op.get("op")
@@ -91,16 +121,24 @@ class ContinualHarness(dspy.Module):
         return created, updated, deleted
 
     def refine(self, trajectory: list[dict], feedback: Feedback) -> RefineResult:
+        # The reversibility protocol: snapshot BEFORE and AFTER the edits, so `before.number`
+        # names the exact restore point that undoes this whole round.
         before = self.backend.snapshot()
+        # Label-free seam: the only signals are the trajectory and the rubric-failure *text*
+        # (feedback.as_text()). No gold labels enter here — that is what lets this run online.
         pred = self.propose(
-            trajectory_summary=json.dumps(trajectory)[:4000],
+            trajectory_summary=json.dumps(trajectory)[:4000],  # bound prompt size on long runs
             rubric_failures=feedback.as_text(),
             current_ledger=self.read() or "(empty)",
         )
+        # NOTE: edits are applied unconditionally. There is no check that they improved anything —
+        # credit assignment (keep a lesson only if it later raises the pass-rate) is the key
+        # mechanism still to build. Until then, rollback() is the manual safety net.
         edits = json.loads(pred.edits)
         created, updated, deleted = self._apply_edits(edits)
         after = self.backend.snapshot()
         return RefineResult(created, updated, deleted, before.number, after.number)
 
     def rollback(self, version: int) -> None:
+        # Restore the ledger to a snapshot taken by refine() (typically RefineResult.from_version).
         self.backend.rollback(version)
