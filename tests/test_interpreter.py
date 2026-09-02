@@ -42,3 +42,35 @@ def test_injected_tool_is_callable_from_code():
 
 def test_satisfies_protocol():
     assert isinstance(LocalInterpreter(), CodeInterpreter)
+
+
+from dspy.primitives.code_interpreter import _validate_interpreter_factory
+from sentinelprime.interpreter import _confine_path, InterpreterFactory
+
+
+def test_confine_path_allows_inside(tmp_path):
+    p = _confine_path(str(tmp_path), "docs/a.txt")
+    assert p.startswith(str(tmp_path))
+
+
+def test_confine_path_rejects_escape(tmp_path):
+    with pytest.raises(ValueError):
+        _confine_path(str(tmp_path), "../../etc/passwd")
+
+
+def test_factory_is_zero_arg_and_makes_fresh_interpreters(tmp_path):
+    factory = InterpreterFactory(str(tmp_path))
+    _validate_interpreter_factory(factory)          # dspy accepts it
+    a, b = factory(), factory()
+    assert a is not b
+    assert a.workdir == str(tmp_path)
+    assert isinstance(factory.execution_instructions, str)
+    assert factory.execution_instructions            # non-empty
+
+
+def test_factory_accepts_callable_workdir_source():
+    current = {"dir": "/tmp/one"}
+    factory = InterpreterFactory(lambda: current["dir"])
+    assert factory().workdir == "/tmp/one"
+    current["dir"] = "/tmp/two"
+    assert factory().workdir == "/tmp/two"

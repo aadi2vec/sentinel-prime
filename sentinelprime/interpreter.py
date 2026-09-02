@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import contextlib
 import io
+import os
 from typing import Any, Callable
 
 from dspy.primitives.code_interpreter import CodeExecutionError, FinalOutput
@@ -28,7 +29,8 @@ class _SubmitSignal(Exception):
 class LocalInterpreter:
     """A CodeInterpreter that execs model code in a persistent namespace."""
 
-    def __init__(self) -> None:
+    def __init__(self, workdir: str | None = None) -> None:
+        self.workdir = workdir
         self._ns: dict[str, Any] | None = None
         self._tools: dict[str, Callable[..., Any]] = {}
         # dspy.RLM sets output_fields (SUBMIT field metadata) and toggles
@@ -80,3 +82,36 @@ class LocalInterpreter:
     def shutdown(self) -> None:
         self._ns = None
         self._tools_registered = False
+
+
+def _confine_path(workdir: str, path: str) -> str:
+    """Resolve `path` under `workdir`; raise if it escapes.
+
+    Best-effort document scoping — a convenience for the agent, NOT a security
+    boundary (executed code can still call open() on any absolute path).
+    """
+    root = os.path.realpath(workdir)
+    resolved = os.path.realpath(os.path.join(root, path))
+    if resolved != root and not resolved.startswith(root + os.sep):
+        raise ValueError(f"path {path!r} escapes workdir {workdir!r}")
+    return resolved
+
+
+class InterpreterFactory:
+    """Zero-arg factory binding a workdir for dspy.RLM's interpreter_factory."""
+
+    execution_instructions = (
+        "You are in a real Python process with full filesystem and subprocess "
+        "access. The task's documents live in the working directory. This is a "
+        "control environment, NOT a security sandbox."
+    )
+
+    def __init__(self, workdir_source: "str | Callable[[], str]") -> None:
+        self._workdir_source = workdir_source
+
+    def _resolve(self) -> str:
+        src = self._workdir_source
+        return src() if callable(src) else src
+
+    def __call__(self) -> LocalInterpreter:
+        return LocalInterpreter(workdir=self._resolve())
