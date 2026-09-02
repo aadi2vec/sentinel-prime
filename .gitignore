@@ -13,3 +13,6 @@ venv/
 
 # SDD scratch workspace (git-ignored per skill)
 .superpowers/
+
+# Git worktrees (git-ignored per skill)
+.worktrees/
