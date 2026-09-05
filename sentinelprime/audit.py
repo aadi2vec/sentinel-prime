@@ -88,6 +88,13 @@ class AuditLog:
         """Records whose reversibility window ends at `version`."""
         return [r for r in self._records if r.to_version == version]
 
+    def latest_for(self, edit_id: str) -> AuditRecord | None:
+        """The most recent record for a ledger id (highest to_version), or None."""
+        matches = [r for r in self._records if r.edit_id == edit_id]
+        if not matches:
+            return None
+        return max(matches, key=lambda r: r.to_version)
+
     def explain(self, version: int) -> str:
         """Render the derivation of the edit(s) at `version` as a compliance chain.
 

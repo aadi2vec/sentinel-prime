@@ -27,6 +27,7 @@ import dspy
 from sentinelprime.audit import AuditLog, AuditRecord, content_hash, digest
 from sentinelprime.memory import MemoryBackend, MemoryItem
 from sentinelprime.feedback import Feedback
+from sentinelprime.reuse import ReuseController
 
 
 @dataclass
@@ -62,18 +63,25 @@ def _now() -> str:
 
 
 class ContinualHarness(dspy.Module):
-    def __init__(self, backend: MemoryBackend, audit_log: AuditLog | None = None):
+    def __init__(self, backend: MemoryBackend, audit_log: AuditLog | None = None,
+                 reuse_controller: ReuseController | None = None):
         super().__init__()
         self.backend = backend
         self.audit_log = audit_log
+        self.reuse_controller = reuse_controller
         self.propose = dspy.Predict(ProposeLedgerEdits)
 
-    def read(self, scope: str | None = None) -> str:
+    def read(self, scope: str | None = None, context: dict | None = None) -> str:
         # Serialize the ledger into a supplemental prompt block. Empty ledger -> "" so that
         # nothing is prepended and the base prompt is used verbatim (the immutability invariant).
-        # NOTE: this currently emits *every* item; there is no relevance retrieval yet, so it does
+        # NOTE: this emits *every* admissible item; there is no relevance ranking yet, so it does
         # not scale to large ledgers. Relevance-ranked recall is the planned TraceMind-backend job.
         items = self.backend.read(scope=scope)
+        if context is not None:
+            # Reuse gating: drop items whose provenance says they are inadmissible in the
+            # current context (e.g. an external note whose source has moved). Items with no
+            # audit record are not blocked. No context -> ungated (base behavior preserved).
+            items = [it for it in items if self._admissible(it, context)]
         if not items:
             return ""
         notes = [i for i in items if i.kind == "note"]
@@ -93,6 +101,18 @@ class ContinualHarness(dspy.Module):
                 when = s.meta.get("when_to_use", "")
                 out.append(f"- {name}: {when} — {s.text}")
         return "\n".join(out)
+
+    def _admissible(self, item: MemoryItem, context: dict) -> bool:
+        # Gate a ledger item by its latest audit record's reuse decision. Absent a
+        # record (e.g. externally seeded items) or a configured audit log/controller,
+        # the item is retained — gating only ever *removes* provably-stale reuse.
+        if self.audit_log is None:
+            return True
+        record = self.audit_log.latest_for(item.id)
+        if record is None:
+            return True
+        controller = self.reuse_controller or ReuseController()
+        return controller.should_reuse(record, context).reuse
 
     def _apply_edits(self, edits: list[dict]) -> tuple[list[str], list[str], list[str]]:
         # Deterministic, no LM call — this is the part we can unit-test exhaustively. refine()

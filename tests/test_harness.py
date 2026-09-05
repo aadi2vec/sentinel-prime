@@ -2,6 +2,8 @@ import json
 from sentinelprime.memory import JsonMemoryBackend, MemoryItem
 from sentinelprime.feedback import parse_lab_result
 from sentinelprime.harness import ContinualHarness, RefineResult
+from sentinelprime.audit import AuditLog, AuditRecord
+from sentinelprime.reuse import ReuseController
 
 
 def _backend(tmp_path):
@@ -67,6 +69,64 @@ def test_refine_is_reversible(tmp_path, monkeypatch):
 
     h.rollback(result.from_version)
     assert {i.id for i in be.read()} == {"n1"}
+
+
+def _audit_rec(edit_id, scope, depends_on=None, to_version=2):
+    return AuditRecord(
+        edit_id=edit_id, op="create", scope=scope, from_version=1, to_version=to_version,
+        cause_task_id="t", cause_failures="", trajectory_digest="d", score=1.0,
+        created_at="t", content_hash=edit_id + str(to_version), depends_on=depends_on or {},
+    )
+
+
+def _harness_with_audit(tmp_path):
+    be = _backend(tmp_path)
+    log = AuditLog(str(tmp_path / "audit.json"))
+    h = ContinualHarness(be, audit_log=log, reuse_controller=ReuseController())
+    return be, log, h
+
+
+def test_read_without_context_is_ungated(tmp_path):
+    be, log, h = _harness_with_audit(tmp_path)
+    _seed(be, id="ext1", text="external note", scope="session")
+    log.append(_audit_rec("ext1", "external", depends_on={"playbook_version": 5}))
+    # no context -> current behavior, item retained even though source could be stale
+    assert "external note" in h.read()
+
+
+def test_read_gates_stale_external_but_keeps_intrinsic(tmp_path):
+    be, log, h = _harness_with_audit(tmp_path)
+    _seed(be, id="ext1", text="external note", scope="session")
+    _seed(be, id="intr1", text="intrinsic note", scope="global")
+    log.append(_audit_rec("ext1", "external", depends_on={"playbook_version": 5}))
+    log.append(_audit_rec("intr1", "intrinsic"))
+
+    block = h.read(context={"playbook_version": 6})  # source moved 5 -> 6
+    assert "external note" not in block
+    assert "intrinsic note" in block
+
+
+def test_read_keeps_external_when_source_current(tmp_path):
+    be, log, h = _harness_with_audit(tmp_path)
+    _seed(be, id="ext1", text="external note", scope="session")
+    log.append(_audit_rec("ext1", "external", depends_on={"playbook_version": 5}))
+    assert "external note" in h.read(context={"playbook_version": 5})
+
+
+def test_read_keeps_items_without_provenance(tmp_path):
+    be, log, h = _harness_with_audit(tmp_path)
+    _seed(be, id="seeded", text="no audit record", scope="session")
+    # no audit record for 'seeded' -> not blocked
+    assert "no audit record" in h.read(context={"playbook_version": 6})
+
+
+def test_read_uses_latest_record_per_item(tmp_path):
+    be, log, h = _harness_with_audit(tmp_path)
+    _seed(be, id="ext1", text="external note", scope="session")
+    # older record depended on v5; newer refinement re-derived against v6
+    log.append(_audit_rec("ext1", "external", depends_on={"playbook_version": 5}, to_version=2))
+    log.append(_audit_rec("ext1", "external", depends_on={"playbook_version": 6}, to_version=4))
+    assert "external note" in h.read(context={"playbook_version": 6})
 
 
 def test_refine_exposes_predictor_to_gepa(tmp_path):
