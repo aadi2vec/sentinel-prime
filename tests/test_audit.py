@@ -1,0 +1,98 @@
+import dspy
+
+from sentinelprime.audit import AuditRecord, AuditLog
+from sentinelprime.harness import ContinualHarness
+from sentinelprime.memory import JsonMemoryBackend
+from sentinelprime.feedback import parse_lab_result
+
+
+def _record(**over):
+    base = dict(
+        edit_id="checklist.change_of_control",
+        op="create",
+        scope="intrinsic",
+        from_version=4,
+        to_version=5,
+        cause_task_id="ma-001",
+        cause_failures="- [c1] missed change-of-control clause",
+        trajectory_digest="abc",
+        score=0.88,
+        created_at="t",
+        content_hash="h1",
+    )
+    base.update(over)
+    return AuditRecord(**base)
+
+
+def test_append_and_roundtrip(tmp_path):
+    log = AuditLog(str(tmp_path / "audit.json"))
+    log.append(_record())
+    reloaded = AuditLog(str(tmp_path / "audit.json"))
+    assert reloaded.records()[0].edit_id == "checklist.change_of_control"
+    assert reloaded.by_version(5)[0].op == "create"
+
+
+def test_content_hash_dedup(tmp_path):
+    log = AuditLog(str(tmp_path / "audit.json"))
+    assert log.seen("h1") is False
+    log.append(_record(content_hash="h1"))
+    assert log.seen("h1") is True
+    # a second identical-hash edit is not re-appended
+    log.append(_record(content_hash="h1"))
+    assert len(log.records()) == 1
+
+
+def test_by_version_filters_on_window_end(tmp_path):
+    log = AuditLog(str(tmp_path / "audit.json"))
+    log.append(_record(content_hash="h1", to_version=5))
+    log.append(_record(content_hash="h2", edit_id="k2", to_version=7))
+    assert [r.edit_id for r in log.by_version(7)] == ["k2"]
+
+
+class _StubPropose:
+    """Stands in for the dspy.Predict proposer: returns canned edit ops."""
+
+    def __init__(self, edits_json):
+        self._edits_json = edits_json
+
+    def __call__(self, **kwargs):
+        return dspy.Prediction(edits=self._edits_json)
+
+
+def test_refine_emits_audit_record(tmp_path):
+    backend = JsonMemoryBackend(str(tmp_path / "state.json"))
+    log = AuditLog(str(tmp_path / "audit.json"))
+    harness = ContinualHarness(backend, audit_log=log)
+    harness.propose = _StubPropose(
+        '[{"op":"create","id":"checklist.change_of_control",'
+        '"kind":"note","text":"check change-of-control","scope":"global"}]'
+    )
+    fb = parse_lab_result(
+        {"task_id": "ma-001",
+         "criteria": [{"id": "c1", "passed": False,
+                       "reason": "missed change-of-control clause"}]}
+    )
+    result = harness.refine(trajectory=[{"step": 1}], feedback=fb)
+
+    recs = log.records()
+    assert len(recs) == 1
+    rec = recs[0]
+    assert rec.edit_id == "checklist.change_of_control"
+    assert rec.op == "create"
+    assert rec.from_version == result.from_version
+    assert rec.to_version == result.to_version
+    assert rec.cause_task_id == "ma-001"
+    assert "change-of-control" in rec.cause_failures
+    assert rec.score == fb.score
+
+
+def test_refine_without_log_is_unchanged(tmp_path):
+    backend = JsonMemoryBackend(str(tmp_path / "state.json"))
+    harness = ContinualHarness(backend)  # no audit_log
+    harness.propose = _StubPropose(
+        '[{"op":"create","id":"n1","kind":"note","text":"x","scope":"global"}]'
+    )
+    fb = parse_lab_result({"task_id": "t", "criteria": []})
+    # must not raise, returns a normal RefineResult
+    result = harness.refine(trajectory=[], feedback=fb)
+    assert result.created == ["n1"]

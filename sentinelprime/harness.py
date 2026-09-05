@@ -24,6 +24,7 @@ from datetime import datetime, timezone
 
 import dspy
 
+from sentinelprime.audit import AuditLog, AuditRecord, content_hash, digest
 from sentinelprime.memory import MemoryBackend, MemoryItem
 from sentinelprime.feedback import Feedback
 
@@ -61,9 +62,10 @@ def _now() -> str:
 
 
 class ContinualHarness(dspy.Module):
-    def __init__(self, backend: MemoryBackend):
+    def __init__(self, backend: MemoryBackend, audit_log: AuditLog | None = None):
         super().__init__()
         self.backend = backend
+        self.audit_log = audit_log
         self.propose = dspy.Predict(ProposeLedgerEdits)
 
     def read(self, scope: str | None = None) -> str:
@@ -135,9 +137,48 @@ class ContinualHarness(dspy.Module):
         # credit assignment (keep a lesson only if it later raises the pass-rate) is the key
         # mechanism still to build. Until then, rollback() is the manual safety net.
         edits = json.loads(pred.edits)
+        # Pre-assign ids for create ops that omit one, so every edit is traceable to an
+        # AuditRecord (otherwise _apply_edits would generate an id we couldn't observe).
+        for op in edits:
+            if op.get("op") != "delete" and not op.get("id"):
+                op["id"] = str(uuid.uuid4())
         created, updated, deleted = self._apply_edits(edits)
         after = self.backend.snapshot()
+        if self.audit_log is not None:
+            self._emit_audit(edits, feedback, trajectory, before.number, after.number)
         return RefineResult(created, updated, deleted, before.number, after.number)
+
+    @staticmethod
+    def _provenance_scope(op: dict) -> str:
+        # Explicit override wins; otherwise map ledger scope -> validity boundary.
+        # global guidance depends on document invariants (reusable across sessions =
+        # intrinsic); session guidance depends on mutable state (external).
+        override = op.get("meta", {}).get("provenance")
+        if override in ("intrinsic", "external"):
+            return override
+        return "intrinsic" if op.get("scope") == "global" else "external"
+
+    def _emit_audit(self, edits: list[dict], feedback: Feedback, trajectory: list[dict],
+                    from_version: int, to_version: int) -> None:
+        traj_digest = digest(json.dumps(trajectory)[:4000])
+        failures = feedback.as_text()
+        for op in edits:
+            kind = op.get("op")
+            edit_id = op["id"]
+            text = op.get("text", "")
+            self.audit_log.append(AuditRecord(
+                edit_id=edit_id,
+                op=kind,
+                scope=self._provenance_scope(op),
+                from_version=from_version,
+                to_version=to_version,
+                cause_task_id=feedback.task_id,
+                cause_failures=failures,
+                trajectory_digest=traj_digest,
+                score=feedback.score,
+                created_at=_now(),
+                content_hash=content_hash(kind, edit_id, text, feedback.task_id),
+            ))
 
     def rollback(self, version: int) -> None:
         # Restore the ledger to a snapshot taken by refine() (typically RefineResult.from_version).
