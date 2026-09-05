@@ -69,6 +69,38 @@ def test_default_rlm_is_named_predictor(tmp_path):
     assert any("propose" in n for n in names)
 
 
+def test_default_rlm_dedups_subqueries_and_reports_stats(tmp_path):
+    """Real CachingRLM + LocalInterpreter: identical llm_query calls hit the cache.
+
+    Scripted root LM issues two identical llm_query('same') calls in one REPL
+    turn, then SUBMITs. The sub-LM is a bare callable returning a list; the
+    SubQueryCache should serve the second call from cache so the sub-LM runs
+    once, and the per-run stats surface on the agent.
+    """
+    from dspy.utils.dummies import DummyLM
+
+    sub_calls = []
+
+    def sub_lm(prompt):
+        sub_calls.append(prompt)
+        return ["ANS"]
+
+    lm = DummyLM([
+        {"reasoning": "query twice",
+         "code": "```python\na = llm_query('same')\nb = llm_query('same')\nprint(a, b)\n```"},
+        {"reasoning": "submit",
+         "code": "```python\nSUBMIT(deliverable='done')\n```"},
+    ])
+
+    harness = _harness(tmp_path)
+    agent = PrimeAgent(harness=harness, root_lm=lm, sub_lm=sub_lm)
+    pred = agent.run_task("dedup demo", workdir=str(tmp_path))
+
+    assert pred.deliverable == "done"
+    assert sub_calls == ["same"]  # underlying sub-LM hit once, not twice
+    assert agent.last_cache_stats == {"hits": 1, "misses": 1, "calls": 2}
+
+
 @pytest.mark.integration
 def test_end_to_end_with_scripted_lm(tmp_path, monkeypatch):
     """Real dspy.RLM + LocalInterpreter driven by a scripted LM.
