@@ -83,3 +83,27 @@ class AuditLog:
     def by_version(self, version: int) -> list[AuditRecord]:
         """Records whose reversibility window ends at `version`."""
         return [r for r in self._records if r.to_version == version]
+
+    def explain(self, version: int) -> str:
+        """Render the derivation of the edit(s) at `version` as a compliance chain.
+
+        The chain a compliance officer reads:
+            failure -> (verifier justification) -> ledger edit -> reversibility point -> reuse
+
+        `[verification]` and `[reuse]` lines are added by later components; this renders
+        whatever fields are present, so it degrades gracefully today.
+        """
+        recs = self.by_version(version)
+        if not recs:
+            return f"(no audit records at version {version})"
+        blocks: list[str] = []
+        for r in recs:
+            lines = [
+                f"[failure       ] task {r.cause_task_id}: {r.cause_failures}",
+                f"[ledger_edit   ] {r.op} '{r.edit_id}' "
+                f"(v{r.from_version}->v{r.to_version}, scope={r.scope}, id={r.content_hash[:8]})",
+                f"[reversibility ] rollback(from_version={r.from_version}) "
+                f"restores prior ledger state exactly",
+            ]
+            blocks.append("\n".join(lines))
+        return "\n\n".join(blocks)

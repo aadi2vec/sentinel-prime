@@ -183,3 +183,9 @@ class ContinualHarness(dspy.Module):
     def rollback(self, version: int) -> None:
         # Restore the ledger to a snapshot taken by refine() (typically RefineResult.from_version).
         self.backend.rollback(version)
+
+    def explain(self, version: int) -> str:
+        # The compliance UI: reconstruct why the ledger changed at `version`.
+        if self.audit_log is None:
+            return "(no audit log configured)"
+        return self.audit_log.explain(version)

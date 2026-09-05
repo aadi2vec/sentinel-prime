@@ -49,6 +49,42 @@ def test_by_version_filters_on_window_end(tmp_path):
     assert [r.edit_id for r in log.by_version(7)] == ["k2"]
 
 
+def test_explain_renders_causal_chain(tmp_path):
+    log = AuditLog(str(tmp_path / "audit.json"))
+    log.append(_record(edit_id="checklist.change_of_control", op="create",
+                        scope="intrinsic", from_version=4, to_version=5,
+                        cause_task_id="ma-001",
+                        cause_failures="missed change-of-control clause",
+                        content_hash="9da22988"))
+    out = log.explain(5)
+    assert "ma-001" in out
+    assert "create" in out
+    assert "v4->v5" in out
+    assert "scope=intrinsic" in out
+    assert "rollback(from_version=4)" in out
+
+
+def test_explain_unknown_version(tmp_path):
+    log = AuditLog(str(tmp_path / "audit.json"))
+    assert "no audit records" in log.explain(99).lower()
+
+
+def test_harness_explain_delegates(tmp_path):
+    backend = JsonMemoryBackend(str(tmp_path / "state.json"))
+    log = AuditLog(str(tmp_path / "audit.json"))
+    harness = ContinualHarness(backend, audit_log=log)
+    harness.propose = _StubPropose(
+        '[{"op":"create","id":"k1","kind":"note","text":"t","scope":"global"}]'
+    )
+    fb = parse_lab_result(
+        {"task_id": "ma-002", "criteria": [{"id": "c1", "passed": False, "reason": "boom"}]}
+    )
+    result = harness.refine(trajectory=[], feedback=fb)
+    out = harness.explain(result.to_version)
+    assert "ma-002" in out
+    assert "k1" in out
+
+
 class _StubPropose:
     """Stands in for the dspy.Predict proposer: returns canned edit ops."""
 
