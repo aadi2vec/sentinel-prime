@@ -17,7 +17,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 
 
 @dataclass
@@ -33,6 +33,10 @@ class AuditRecord:
     score: float            # feedback score (later: verifier logit-expectation)
     created_at: str         # ISO-8601 UTC
     content_hash: str       # sha256(op, edit_id, text, cause_task_id) — dedup key
+    # For external-scope records: the mutable sources this edit depended on, mapped
+    # to their value at derivation time. Lets the ReuseController detect a moved
+    # source. Empty for intrinsic records (they depend only on document invariants).
+    depends_on: dict = field(default_factory=dict)
 
 
 def digest(text: str) -> str:

@@ -178,6 +178,7 @@ class ContinualHarness(dspy.Module):
                 score=feedback.score,
                 created_at=_now(),
                 content_hash=content_hash(kind, edit_id, text, feedback.task_id),
+                depends_on=op.get("meta", {}).get("depends_on", {}),
             ))
 
     def rollback(self, version: int) -> None:
