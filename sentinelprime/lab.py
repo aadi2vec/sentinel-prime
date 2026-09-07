@@ -259,3 +259,36 @@ def read_output(workspace: str | Path) -> str:
     for path in sorted(p for p in out.rglob("*") if p.is_file()):
         chunks.append(f"===== {path.relative_to(out)} =====\n{document_text(path)}")
     return "\n\n".join(chunks)
+
+
+def verdict_map(results: list[dict]) -> dict[str, str]:
+    """{criterion id: verdict} from a judge run."""
+    return {r.get("id", ""): r.get("verdict", "") for r in results}
+
+
+def verdict_stability(replicates: list[dict[str, str]]) -> dict:
+    """How much repeated grading moves on its own — the noise floor.
+
+    An A/B whose effect is smaller than this is not an effect. Two numbers matter:
+    `spread` (the range of pooled criterion pass rates across replicates) bounds the
+    aggregate any experiment has to beat, and `flipped` names the criteria that changed
+    verdict at all — which is the more actionable half, because it says *where* the
+    instability lives rather than just how big it is.
+    """
+    if len(replicates) < 2:
+        raise ValueError("need at least two replicates to measure stability")
+    rates = []
+    for rep in replicates:
+        passed = sum(1 for v in rep.values() if v == "pass")
+        rates.append(passed / len(rep) if rep else 0.0)
+    ids = sorted({cid for rep in replicates for cid in rep})
+    flipped = [cid for cid in ids
+               if len({rep.get(cid) for rep in replicates}) > 1]
+    return {
+        "replicates": len(replicates),
+        "rates": rates,
+        "mean": sum(rates) / len(rates),
+        "spread": max(rates) - min(rates),
+        "flipped": flipped,
+        "flip_rate": len(flipped) / len(ids) if ids else 0.0,
+    }

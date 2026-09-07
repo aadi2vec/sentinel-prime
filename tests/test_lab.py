@@ -316,3 +316,56 @@ def test_read_output_survives_a_mixture_of_real_and_fake_docx(tmp_path):
     text = read_output(tmp_path)
     assert "genuine zip content" in text
     assert "plain text body" in text
+
+
+# ---- noise floor: how much do repeated verdicts move on their own? --------------------
+
+def test_stability_reports_zero_spread_for_identical_replicates():
+    from sentinelprime.lab import verdict_stability
+
+    rep = [{"C-001": "pass", "C-002": "fail"}] * 3
+    s = verdict_stability(rep)
+    assert s["replicates"] == 3
+    assert s["rates"] == [0.5, 0.5, 0.5]
+    assert s["spread"] == 0.0
+    assert s["flipped"] == []
+
+
+def test_stability_names_the_criteria_that_flipped():
+    """The unstable criteria matter more than the aggregate — they say where noise lives."""
+    from sentinelprime.lab import verdict_stability
+
+    s = verdict_stability([
+        {"C-001": "pass", "C-002": "fail", "C-003": "pass"},
+        {"C-001": "pass", "C-002": "pass", "C-003": "pass"},
+        {"C-001": "fail", "C-002": "pass", "C-003": "pass"},
+    ])
+    assert s["flipped"] == ["C-001", "C-002"]
+    assert s["flip_rate"] == pytest.approx(2 / 3)
+
+
+def test_stability_spread_is_the_range_of_pooled_rates():
+    from sentinelprime.lab import verdict_stability
+
+    s = verdict_stability([
+        {"C-001": "pass", "C-002": "pass"},   # 1.0
+        {"C-001": "pass", "C-002": "fail"},   # 0.5
+    ])
+    assert s["rates"] == [1.0, 0.5]
+    assert s["spread"] == 0.5
+    assert s["mean"] == 0.75
+
+
+def test_stability_needs_at_least_two_replicates():
+    from sentinelprime.lab import verdict_stability
+
+    with pytest.raises(ValueError):
+        verdict_stability([{"C-001": "pass"}])
+
+
+def test_verdict_map_extracts_id_to_verdict_from_judge_results():
+    from sentinelprime.lab import verdict_map
+
+    assert verdict_map([{"id": "C-001", "verdict": "pass"},
+                        {"id": "C-002", "verdict": "fail"}]) == {"C-001": "pass",
+                                                                 "C-002": "fail"}
