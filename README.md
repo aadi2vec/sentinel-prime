@@ -1,150 +1,130 @@
 # sentinel-prime
 
-**An auditable reasoning ledger for a self-improving DSPy agent.**
+**Can an RLM improve the machinery it uses to solve problems?**
 
-When an agent learns from its own mistakes at runtime, someone eventually has to answer three
-questions about a conclusion it reached: *what guidance did it use, why was that guidance
-there, and was it still valid at the time?* SentinelPrime is a DSPy-native harness where every
-self-improvement edit is a provenance-scoped, verifier-gated, reversible entry in an
-append-only ledger — so those questions have answers a compliance officer can read.
+Not "can it remember more advice" — can it change *how it computes*: how work is decomposed,
+how context is allocated, when results get checked, when to try again, when to delegate. This
+repo is a harness for asking that experimentally. The system proposes bounded changes to its
+own execution policy, trials them in isolation, evaluates them on unseen tasks under a fixed
+ceiling, and promotes or discards.
+
+Harvey LAB (M&A due diligence) is the first demanding environment. **It is the stress test,
+not the product.** No legal application is being built here.
 
 ```
-[failure       ] task ma-001: Failed rubric criteria:
-- [c1] always extract the change of control clause
-- [c2] always report the governing law
-[verification  ] ladder[grounding_probe] admitted (cost 1): grounding_probe: grounding: 0.42 vocabulary overlap with the observed failures
-[ledger_edit   ] create 'lesson.revision' (v1->v2, scope=external, id=285a62ed)
-[reversibility ] rollback(from_version=1) restores prior ledger state exactly
+round 1: promoted=False gain=0.0
+round 2: promoted=True  gain=1.0
+test initial:  score=0.0 solves=3 checks=0
+test champion: score=1.0 solves=6 checks=12
 ```
 
-That is `harness.explain(version)`, verbatim — reproduce it with
-`.venv/bin/python scripts/run_lab.py --epochs 3`. On the live path the ladder has a second
-rung, and the verification line reads
-`ladder[grounding_probe -> llm_verifier] admitted (cost 101): …`.
+That is `scripts/policy_lab.py`, verbatim, hermetic and network-free. Read [Status](#status)
+before it means anything: the solver's failures and the proposal sequence are **scripted**.
+What executes for real is the assembled RLM, the interpreter, the checks, the selection rule,
+and the persistence.
 
-## Relationship to Prime Agent
+## The one mutable surface
 
-The continual-harness *idea* is not ours. [Prime Intellect's Prime
-Agent](https://github.com/PrimeIntellect-ai/prime-agent) introduced it: durable supplemental
-state (prompts, memories, skill descriptions, sub-agent specs) refined by `/refine` through
-small evidence-backed updates that never rewrite the immutable base prompt, with snapshots
-supporting rollback. Our `ContinualHarness` is a **DSPy-native reimplementation of that
-design**, and the taxonomy (`note | memory | sub_agent_spec`) is theirs.
+Deliberately one thing, so attribution stays possible: **which verification checks run, and
+whether a failed check triggers another solver attempt.**
 
-Two things here are ours, and they are the reason the project exists:
+A candidate `Policy` selects registered checks and a bounded revision count. It **cannot**
+supply code, alter a check's implementation, change the evaluator, or raise its budget.
+`Policy.parse` rejects unknown fields outright — the evaluation boundary is a type, not a
+convention. `Case.gold` reaches the evaluator only, never the solver, checker, or proposer.
+Development, each validation batch, and the final test are family-disjoint and reserved before
+work begins, so a restart cannot re-spend the test set.
 
-**1. The audit and admission layer.** Prime Agent has snapshots and rollback. This adds a
-provenance-scoped, content-addressed, append-only `AuditRecord` per edit and an `explain()`
-that renders the causal chain above; a **verifier admission ladder** that gates an edit
-*before* it enters the ledger and records why; **reuse gating** that withholds a lesson whose
-source has moved; and **credit assignment** that retires a lesson once the failures it claimed
-to fix stop clearing. Rollback is a capability. A chain someone can audit is a product.
+That constraint is the whole game. A candidate that can redefine success improves its score
+without improving its problem-solving, and model agreement does not become truth by being
+called a quorum.
 
-**2. It is DSPy-native, which makes the online loop itself optimizable.** The proposer and the
-verifier are ordinary `dspy.Predict`s, so `named_predictors()` exposes them
-(`verifier.verifiers[1].verify_predict`) and GEPA can tune *the machinery that does the online
-learning*. Neither framework can do that alone: DSPy ships offline, labeled optimizers
-(GEPA/MIPRO) and nothing for online unlabeled self-improvement; Prime Agent ships the online
-loop but not as tunable modules.
+## Status
+
+**Proven:** 314 tests, hermetic, TDD'd. The policy-search substrate runs end to end — bounded
+candidates, schema and budget validation, family reservation, staged promotion, rollback, and
+persisted per-attempt evidence. Every agent comes from `assemble()`, so a policy is
+expressible only as assembler arguments and cannot reach around the assembler.
+
+**Not proven, and this is the important part:** that any model improves its own computation.
+`policy_lab.py` is a *mechanism* demo with a scripted solver and a scripted proposal sequence.
+The checkers are hand-written, not synthesized. The budget counts solver attempts and check
+calls, not tokens — so a candidate can spend more of the shared ceiling than the baseline, and
+a gain does not by itself establish compute efficiency. There are **no real-model results.**
+
+**What was measured, and what it cost the previous direction:**
+
+| Finding | Value |
+|---|---|
+| Pooled criterion rate across five runs of one *identical* no-ledger config | **0.400 – 0.691** (29pp spread) |
+| A hand-written oracle lesson vs. an empty ledger (arm F) | **−5.4pp**, at 40–84% more tokens |
+| Judge calls that hit rate limits and were scored as criterion *failures* | **44 of 220 (20%)** |
+
+The third was a real defect. The exception text flowed into `Feedback.as_text()` — the
+proposer's only view of why a run fell short — so a learning arm wrote ledger lessons about
+the provider's rate limiter. Fixed: `RubricJudge` retries, then emits a third `error` verdict
+that `to_feedback` excludes from both the pooled rate and the proposer's input.
+
+The first two are why the object of study moved from *what the agent remembers* to *how the
+agent computes*. Content-learning effects on this benchmark are smaller than the measurement
+noise, and no amount of mechanism fixes an unreadable objective. Both numbers come from
+`graveyard/scripts/arm_f.py`, retired because it answered its question.
 
 ## The mechanisms
 
 | | What it does | Why it is there |
 |---|---|---|
-| `ContinualHarness` | `read()` / `refine()` / `rollback()` / `explain()` — versioned WAL + copy-on-write ledger | online, label-free, reversible self-improvement |
-| `AuditLog` | append-only, content-addressed `AuditRecord` per edit | a rolled-back edit is still a fact that happened |
-| `LadderVerifier` | short-circuited cost ladder: cheap deterministic probe → generative judge | verification is asymmetric; don't pay the LM to reject the obvious |
+| `policy_search.py` | bounded candidates, fixed evaluator, family-disjoint splits, staged promotion, rollback | the search, and the boundary that keeps it honest |
+| `policy_experiment.py` | full-`assemble()` RLM adapter, check catalog, generated tasks, independent scorer | a trial that runs the real stack |
+| `assembly.py` | `assemble(lm=..., root=...)` — the only wiring path | a candidate cannot reach around the assembler |
+| `ContinualHarness` | `read()` / `refine()` / `rollback()` / `explain()` — versioned WAL + copy-on-write ledger | supporting machinery: reversible, auditable state |
+| `LadderVerifier` | short-circuited cost ladder: cheap deterministic probe → generative judge | verification is asymmetric — and it is the fixed policy the search must beat |
+| `AuditLog` | append-only, content-addressed record per edit | a rolled-back edit is still a fact that happened |
 | `CreditAssigner` | retires a lesson whose targeted criteria stop passing | a polluted ledger is worse than an empty one |
-| `ReuseController` | scope / currency / verifier gates on cross-task reuse | a near-match can be wrong, and the world moves |
-| `ProgressMonitor` | detects thrash, records a `replan` audit event | the RLM loop is greedy with no progress signal |
-| `SubQueryCache` | intra-run sub-query dedup, exact + optional semantic | VDR-scale context is where the tokens go |
-| `PrimeAgent` | `dspy.RLM` + workdir interpreter + sub-agents, wired to the ledger | the thing being improved |
+| `PrimeAgent` | `dspy.RLM` + workdir interpreter + sub-agents | the thing being improved |
+| `lab.py` | Harvey LAB loader and rubric judge, using **LAB's own prompt** | grading our own loop against a rubric we wrote would not be an evaluation |
 
-## Status — read this before believing anything
+## Relationship to Prime Agent
 
-**Proven:** 147 tests, all TDD'd. Every mechanism is wired end to end and independently
-ablatable, and the live path has been driven end to end with a scripted LM.
+The continual-harness *idea* is not ours. [Prime Intellect's Prime
+Agent](https://github.com/PrimeIntellect-ai/prime-agent) introduced it: durable supplemental
+state refined through small evidence-backed updates that never rewrite the immutable base
+prompt, with snapshots supporting rollback. `ContinualHarness` is a DSPy-native
+reimplementation of that design, and the taxonomy (`note | memory | sub_agent_spec`) is theirs.
 
-**Not proven:** that any of it improves legal reasoning. There are **no benchmark results
-yet.** The Harvey LAB M&A slice is not in this repo; `scripts/run_lab.py` ships synthetic
-fixtures whose simulated agent is *stipulated* to be misled by bad guidance. Those fixtures
-demonstrate that the mechanisms engage and that ablating one changes behavior. They are not
-evidence about real models. See [the evaluation
-plan](docs/plans/2026-09-06-harvey-lab-eval-plan.md) for the design that would produce real
-evidence — including why the headline number has to be a *gap between arms*, not the shape of
-a single curve.
+What is ours sits one level out. Prime Agent refines the agent's *context*. This searches over
+the agent's *execution policy* — with an evaluator the candidate cannot touch, a budget it
+cannot raise, and held-out families it cannot see.
 
 ## Install
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -e ".[dev]"   # Python 3.10+
-cp .env.example .env                                         # add a provider API key
 .venv/bin/pytest -q
 ```
 
-## Quickstart
-
-```python
-from sentinelprime import ContinualHarness, PrimeAgent
-from sentinelprime.audit import AuditLog
-from sentinelprime.credit import CreditAssigner
-from sentinelprime.memory import JsonMemoryBackend
-from sentinelprime.feedback import parse_lab_result
-
-audit = AuditLog("audit.json")
-harness = ContinualHarness(
-    JsonMemoryBackend("ledger.json"),
-    audit_log=audit,
-    credit_assigner=CreditAssigner(audit),   # retire lessons that stop earning their place
-)
-agent = PrimeAgent(harness, root_lm=lm, sub_lm=lm, enable_children=True)
-
-pred = agent.run_task(task.instructions, workdir=task.dir,
-                      context={"matter": "project-crestview", "doc_sha": sha},
-                      task_id="ma-001")
-
-feedback = parse_lab_result(grade(pred.deliverable))   # criterion pass/fail — no labels
-result = agent.learn(agent.last_trajectory, feedback)  # credit → propose → verify → audit
-
-print(harness.explain(result.to_version))              # the compliance chain
-harness.rollback(result.from_version)                  # and it is all reversible
-```
-
-## Ablation
-
-Every component is opt-in and independently switchable, so a benchmark can attribute a result
-to a mechanism rather than to the stack:
+## Run it
 
 ```bash
-.venv/bin/python scripts/run_lab.py --epochs 6                 # everything wired
-.venv/bin/python scripts/run_lab.py --epochs 6 --no-verifier   # no admission control
-.venv/bin/python scripts/run_lab.py --epochs 6 --no-credit     # lessons are never retired
+.venv/bin/python scripts/policy_lab.py --out lab_runs/first     # scripted, no network
+.venv/bin/python scripts/policy_lab.py --live --model PROVIDER/MODEL \
+    --rounds 2 --cases 3 --out lab_runs/live-first              # real proposer
 ```
 
-On the synthetic fixtures, the verifier and credit assignment turn out to be **two independent
-defenses against a polluted ledger**:
+`--out` must name a directory that does not exist — a run resuming into a used archive could
+silently re-read a final test it had already spent. Live mode does not load `.env`; put
+credentials in the process environment. No default provider is assumed.
 
-| Run | curve | rejected | retired |
-|---|---|---|---|
-| all wired | 50 → 100 → 100 → 100 → 100 → 100% | 1 | 0 |
-| `--no-verifier` | 25 → 75 → 75 → **100** → 100 → 100% | 0 | 2 |
-| `--no-verifier --no-credit` | 25 → 50 → 50 → 50 → 50 → 50% | 0 | 0 |
+Artifacts: `archive.json`, `report.json`, and per-attempt `execution.json` carrying assembly
+descriptions, model identities, RLM trajectories, cache statistics, and reported usage.
 
-Admission control keeps the bad lesson out. With it off, credit assignment notices the lesson
-is not earning its place and retires it — recovery takes four epochs instead of two. With both
-off, the ledger stays poisoned. *(Synthetic fixtures. The agent is stipulated to follow bad
-guidance; this shows what each gate protects against, not how a real model behaves.)*
+## Documents
 
-## Roadmap
+Two, and only two, are live:
 
-- **Now:** the LAB adapter and the M2 pilot in the [eval plan](docs/plans/2026-09-06-harvey-lab-eval-plan.md).
-  If online learning does not beat a frozen-ledger control, this README says so and the project
-  stands on the audit layer.
-- **Next:** criterion-kind verifier probes (citations, amounts, formatting) so the cost ladder is
-  ordered by real ledger statistics; provider prefix-cache measurement.
-- **Phase 2:** a Rust durable-execution runtime — WAL, supervision, deterministic replay: the
-  audit guarantee under failure.
+- [Plan of attack](docs/plans/2026-09-07-rlm-policy-evolution-plan.md) — phases, invariants, go/no-go
+- [Design](docs/superpowers/specs/2026-09-07-execution-policy-search-design.md) — policy
+  representation, the evaluation boundary, replay evaluation, and four ways this fails
 
-Design docs in [`docs/`](docs/): [architecture](docs/ARCHITECTURE.md) ·
-[eval plan](docs/plans/2026-09-06-harvey-lab-eval-plan.md) · specs and plans under
-`docs/superpowers/`.
+Everything else was retired on 2026-09-07 into [`graveyard/`](graveyard/README.md), kept rather
+than deleted because the surviving documents cite its measurements.

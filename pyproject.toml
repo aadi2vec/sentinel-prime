@@ -2,7 +2,7 @@
 name = "sentinelprime"
 version = "0.0.1"
 requires-python = ">=3.10"
-dependencies = ["dspy>=2.6", "pyyaml>=6.0"]
+dependencies = ["dspy>=2.6"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
@@ -15,4 +15,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
+# graveyard/ holds retired code kept for reference only. It imports modules that no
+# longer exist, so it must never be collected.
+testpaths = ["tests"]
 markers = ["integration: exercises the real dspy.RLM loop (scripted LM, still no network)"]

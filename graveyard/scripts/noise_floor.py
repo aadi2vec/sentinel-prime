@@ -78,10 +78,7 @@ def main() -> None:
 
     _load_dotenv()
     import dspy
-    from sentinelprime.agent import PrimeAgent
-    from sentinelprime.audit import AuditLog
-    from sentinelprime.harness import ContinualHarness
-    from sentinelprime.memory import JsonMemoryBackend
+    from sentinelprime.assembly import assemble
 
     task = load_task(args.task)
     model = os.environ.get("OPENAI_MODEL", "openai/gpt-5.6-luna")
@@ -120,9 +117,10 @@ def main() -> None:
         for i in range(args.n):
             # A fresh, empty ledger each run: this measures the *baseline* agent's spread,
             # with no learning carried between replicates.
-            backend = JsonMemoryBackend(str(run_root / f"noise-ledger-{i}.json"))
-            harness = ContinualHarness(backend, audit_log=AuditLog(str(run_root / f"noise-audit-{i}.json")))
-            agent = PrimeAgent(harness, root_lm=lm, sub_lm=lm)
+            # Everything off, stated rather than implied: this measures the *baseline*
+            # agent's spread, so any mechanism left on would be measuring something else.
+            agent = assemble(lm=lm, root=run_root / f"noise-{i}", sub_lm=lm, gate=None,
+                             credit=False, monitor=False, record=False).agent
             ws = prepare_workspace(task, run_root / f"workspace-noise-{i}")
             started = time.time()
             agent.run_task(

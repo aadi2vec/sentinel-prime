@@ -1,10 +1,20 @@
 """paired_ab.py — the experiment: does the ledger help, measured task-by-task.
 
-Two arms over the SAME task sequence:
+Four arms over the SAME task sequence, each adding exactly one mechanism to the one before
+it, so a delta is attributable to that mechanism and not to the stack:
 
   control   : empty ledger, refine() disabled. The agent never learns anything.
   learning  : one ledger carried across the whole sequence — task 1's failures become
               task 2's guidance. This is the online setting the project claims.
+  gated     : learning + the untuned admission ladder (grounding probe -> generative
+              judge). Isolates admission control: does refusing bad edits beat taking them?
+  tuned     : gated, with the judge GEPA-compiled by scripts/gepa_runner.py. Isolates the
+              *tuning*, which is the prediction worth testing — under the solver/verifier
+              gap model the ladder's fidelity sets the ceiling on everything downstream,
+              so a better judge should move the asymptote and not merely the mean.
+
+`gated` is the arm `tuned` must be compared against. Comparing `tuned` to `learning` would
+credit the tuning for the gate's effect, and the gate is the larger of the two.
 
 Reported per task and then paired, because per-run agent variance on this benchmark is
 ~7% stdev (see scripts/noise_floor.py) — large enough to swamp any plausible effect if the
@@ -18,8 +28,14 @@ usage. Tail it live with `scripts/watch_run.py`.
     .venv/bin/python scripts/paired_ab.py --plan
     .venv/bin/python scripts/paired_ab.py --arm control --concurrency 3
     .venv/bin/python scripts/paired_ab.py --arm learning         # concurrency forced to 1
+    .venv/bin/python scripts/paired_ab.py --arm gated
+    .venv/bin/python scripts/paired_ab.py --arm tuned --verifier-program compiled/verifier.json
     .venv/bin/python scripts/paired_ab.py --arm control --terminal   # run in a new window
     .venv/bin/python scripts/paired_ab.py --report
+
+The learning arms also write `_proposals.jsonl`, which is the trainset `gepa_runner.py`
+compiles from — the online loop manufactures the offline optimizer's training data, so the
+`tuned` arm is only runnable after a `gated` (or `learning`) arm has produced one.
 """
 from __future__ import annotations
 
@@ -32,14 +48,21 @@ import subprocess
 import sys
 import time
 
-from sentinelprime.audit import AuditLog
-from sentinelprime.credit import CreditAssigner, grounding_from_trajectory
-from sentinelprime.harness import ContinualHarness
-from sentinelprime.lab import (RubricJudge, all_pass, load_task, output_files,
-                               paired_summary, prepare_workspace, read_output, to_feedback)
-from sentinelprime.memory import JsonMemoryBackend
-from sentinelprime.monitor import ProgressMonitor
+from sentinelprime.assembly import assemble
+from sentinelprime.credit import grounding_from_trajectory
+from sentinelprime.lab import (RubricJudge, all_pass, judge_errors, load_task,
+                               output_files,
+                               paired_summary, prepare_workspace, read_output, task_prompt,
+                               to_feedback)
 from sentinelprime.telemetry import RunLog, UsageMeter, load_prices
+
+# Every arm that carries a ledger across tasks. Ordered: each adds one mechanism to the
+# previous, which is what makes a between-arm delta attributable.
+ARMS = ("control", "learning", "gated", "tuned")
+LEARNING_ARMS = ("learning", "gated", "tuned")
+# What each arm should be measured against. `tuned` vs `control` would bundle the ledger,
+# the gate and the tuning into one number.
+BASELINE = {"learning": "control", "gated": "learning", "tuned": "gated"}
 
 TASKS_DIR = pathlib.Path("lab_tasks/corporate-ma")
 RUNS = pathlib.Path("lab_runs/paired")
@@ -69,12 +92,9 @@ def result_path(arm: str, task_id: str) -> pathlib.Path:
     return RUNS / arm / f"{task_id}.json"
 
 
-def prompt_for(task, ws) -> str:
-    return (f"{task.instructions}\n\n"
-            f"The source documents are the .txt files in {ws / 'documents'}. "
-            f"You MUST write your deliverable(s) as files into {ws / 'output'} — "
-            f"named {', '.join(task.deliverables)}. "
-            f"Returning text without writing the file(s) scores zero.")
+# The prompt itself lives in lab.py: gepa_runner's rollout must send a byte-identical one,
+# and two copies that drift by a word are two different tasks.
+prompt_for = task_prompt
 
 
 def _token_total(usage: dict) -> int:
@@ -180,20 +200,21 @@ async def _run_one(task_dir, arm, agent, judge, harness, backend, log, meter, le
 
         dest.write_text(json.dumps({
             "task_id": task.task_id, "arm": arm, "pooled": fb.score,
-            "all_pass": all_pass(fb), "n_criteria": len(results),
+            "all_pass": all_pass(fb, results), "n_criteria": len(results),
+            "n_graded": len(fb.criteria), "judge_errors": judge_errors(results),
             "wrote": produced, "elapsed_s": elapsed, "tokens": total_tok,
             "criteria": results,
         }, indent=2))
         log.event("task_done", task_id=task.task_id, arm=arm, pooled=round(fb.score, 4),
-                  passed=f"{sum(1 for r in results if r['verdict'] == 'pass')}/{len(results)}",
-                  all_pass=all_pass(fb), wrote=produced or "NOTHING",
+                  passed=f"{sum(1 for r in results if r['verdict'] == 'pass')}/{len(fb.criteria)}",
+                  judge_errors=judge_errors(results), all_pass=all_pass(fb, results), wrote=produced or "NOTHING",
                   elapsed_s=round(elapsed), tokens=total_tok,
                   cached=(total_tok == 0))
 
 
-def run_arm(arm: str, limit: int | None, concurrency: int) -> None:
+def run_arm(arm: str, limit: int | None, concurrency: int,
+            verifier_program: str | None = None, explore: float = 0.0) -> None:
     import dspy
-    from sentinelprime.agent import PrimeAgent
 
     _load_dotenv()
     model = os.environ.get("OPENAI_MODEL", "openai/gpt-5.6-luna")
@@ -203,7 +224,7 @@ def run_arm(arm: str, limit: int | None, concurrency: int) -> None:
     log = RunLog(LOG)
     meter = UsageMeter(prices=load_prices())
 
-    learning = arm == "learning"
+    learning = arm in LEARNING_ARMS
     if learning and concurrency != 1:
         # The ledger is the dependency between tasks: task 2 must see what task 1 taught.
         # Running them concurrently would break exactly the causal chain under test, and
@@ -212,18 +233,33 @@ def run_arm(arm: str, limit: int | None, concurrency: int) -> None:
                   why="the learning arm is sequential by construction")
         concurrency = 1
 
-    audit_log = AuditLog(str(RUNS / arm / "_audit.json"))
-    backend = JsonMemoryBackend(str(RUNS / arm / "_ledger.json"))
-    harness = ContinualHarness(
-        backend, audit_log=audit_log,
-        credit_assigner=CreditAssigner(audit_log) if learning else None)
-    agent = PrimeAgent(harness, root_lm=lm, sub_lm=lm,
-                       monitor=ProgressMonitor() if learning else None)
+    # The gate, and whether it has been tuned, is the only difference between the three
+    # learning arms. Everything else is held identical because they share one assembly.
+    if arm == "tuned" and (not verifier_program
+                           or not pathlib.Path(verifier_program).is_file()):
+        raise SystemExit(
+            f"--arm tuned needs a compiled judge; {verifier_program!r} is not a file.\n"
+            f"Produce one from a completed learning arm:\n"
+            f"    .venv/bin/python scripts/gepa_runner.py --inspect\n"
+            f"    .venv/bin/python scripts/gepa_runner.py --target verifier "
+            f"--out {verifier_program or 'compiled/verifier.json'}")
+    system = assemble(
+        lm=lm, root=RUNS / arm, sub_lm=lm,
+        gate="ladder" if arm in ("gated", "tuned") else None,
+        program=verifier_program if arm == "tuned" else None,
+        explore=explore,
+        # The trainset is a by-product of running the loop: every proposal this arm judges,
+        # admitted or not, is a labelled-in-hindsight example for gepa_runner.py.
+        credit=learning, monitor=learning, record=learning)
+    harness, agent, backend = system.harness, system.agent, system.backend
     judge = RubricJudge(lm, parallel=8, run_log=log)
 
     tasks = task_dirs()[:limit] if limit else task_dirs()
+    # The admission bar in force for this arm, stamped on every AuditRecord it writes.
+    # Logging it here is what makes two arms' ledgers comparable after the fact.
     log.event("arm_start", arm=arm, tasks=len(tasks), model=model,
-              concurrency=concurrency, log=str(LOG))
+              concurrency=concurrency, log=str(LOG),
+              system=system.describe())
 
     sem = asyncio.Semaphore(concurrency)
 
@@ -246,31 +282,57 @@ def run_arm(arm: str, limit: int | None, concurrency: int) -> None:
               % meter.unpriced()[0])
 
 
-def report() -> None:
+def _pairs(baseline: str, arm: str) -> list[tuple[str, float, float]]:
     rows = []
     for d in task_dirs():
         tid = d.name
-        c, t = result_path("control", tid), result_path("learning", tid)
-        if c.exists() and t.exists():
-            rows.append((tid, json.loads(c.read_text())["pooled"],
-                         json.loads(t.read_text())["pooled"]))
-    if len(rows) < 2:
-        print(f"only {len(rows)} paired task(s) complete — run both arms first")
-        return
+        b, a = result_path(baseline, tid), result_path(arm, tid)
+        if b.exists() and a.exists():
+            rows.append((tid, json.loads(b.read_text())["pooled"],
+                         json.loads(a.read_text())["pooled"]))
+    return rows
 
-    print(f"{'task':<48} {'control':>8} {'learning':>9} {'delta':>8}")
-    for tid, ctl, trt in rows:
-        print(f"{tid:<48} {ctl:>7.1%} {trt:>8.1%} {trt - ctl:>+7.1%}")
+
+def _report_pair(baseline: str, arm: str) -> None:
+    rows = _pairs(baseline, arm)
+    print(f"\n{'=' * 78}\n{arm}  vs  {baseline}")
+    if len(rows) < 2:
+        print(f"  only {len(rows)} paired task(s) complete — run both arms first")
+        return
+    print(f"  {'task':<46} {baseline:>9} {arm:>9} {'delta':>8}")
+    for tid, base, treat in rows:
+        print(f"  {tid:<46} {base:>8.1%} {treat:>8.1%} {treat - base:>+7.1%}")
     s = paired_summary(rows)
-    print(f"\nmean control  : {sum(r[1] for r in rows) / len(rows):.1%}")
-    print(f"mean learning : {sum(r[2] for r in rows) / len(rows):.1%}")
-    print(f"mean delta    : {s['mean_delta']:+.1%}  (sd {s['sd']:.1%}, se {s['se']:.1%})")
-    print(f"win/loss/tie  : {s['wins']}/{s['losses']}/{s['ties']}")
-    print(f"detectable at : +-{s['detectable_at']:.1%} with n={s['n']}")
-    print(f"\nVERDICT: {'effect exceeds its own error bar' if s['significant'] else 'INSIDE the noise — not a result'}")
+    print(f"\n  mean {baseline:<9}: {sum(r[1] for r in rows) / len(rows):.1%}")
+    print(f"  mean {arm:<9}: {sum(r[2] for r in rows) / len(rows):.1%}")
+    print(f"  mean delta    : {s['mean_delta']:+.1%}  (sd {s['sd']:.1%}, se {s['se']:.1%})")
+    print(f"  win/loss/tie  : {s['wins']}/{s['losses']}/{s['ties']}")
+    print(f"  detectable at : +-{s['detectable_at']:.1%} with n={s['n']}")
+    print(f"  VERDICT: {'effect exceeds its own error bar' if s['significant'] else 'INSIDE the noise — not a result'}")
     if not s["significant"]:
-        print("An effect this size cannot be distinguished from run-to-run variance at "
-              f"n={s['n']}. More tasks or more orders, or the effect is not there.")
+        print(f"  An effect this size cannot be distinguished from run-to-run variance "
+              f"at n={s['n']}. More tasks or more orders, or the effect is not there.")
+
+
+def report() -> None:
+    """Each arm against the arm it adds one mechanism to — never against control.
+
+    A `tuned` vs `control` number would bundle the ledger, the gate and the tuning into one
+    figure and attribute all of it to whichever the reader had in mind.
+    """
+    present = [a for a in ARMS if any(result_path(a, d.name).exists() for d in task_dirs())]
+    if not present:
+        print("no completed tasks in any arm yet")
+        return
+    print(f"arms with results: {', '.join(present)}")
+    for arm in ARMS[1:]:
+        if arm in present and BASELINE[arm] in present:
+            _report_pair(BASELINE[arm], arm)
+    missing = [a for a in ARMS[1:] if a in present and BASELINE[a] not in present]
+    for arm in missing:
+        print(f"\n{arm}: cannot be scored — its baseline arm '{BASELINE[arm]}' has no "
+              f"results. Run that arm; comparing it to control instead would credit this "
+              f"mechanism for every mechanism below it.")
 
 
 def plan() -> None:
@@ -305,7 +367,14 @@ def in_terminal(argv: list[str]) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--arm", choices=["control", "learning"])
+    ap.add_argument("--arm", choices=list(ARMS))
+    ap.add_argument("--verifier-program", default="compiled/verifier.json",
+                    help="compiled judge for --arm tuned (from scripts/gepa_runner.py)")
+    ap.add_argument("--explore", type=float, default=0.0,
+                    help="fraction of rejected rounds that also run the rungs behind the "
+                         "rejection, for observation only. Costs the expensive rung on "
+                         "edits already refused; buys training rows the judge has actually "
+                         "seen. Use ~0.2 on a run whose purpose is to produce a trainset.")
     ap.add_argument("--limit", type=int, default=None, help="first N tasks only")
     ap.add_argument("--concurrency", type=int, default=1,
                     help="overlap N tasks (control arm only; memory-hungry)")
@@ -322,7 +391,8 @@ def main() -> None:
     elif args.report:
         report()
     elif args.arm:
-        run_arm(args.arm, args.limit, args.concurrency)
+        run_arm(args.arm, args.limit, args.concurrency, args.verifier_program,
+                args.explore)
     else:
         ap.error("pick --plan, --arm, or --report")
 

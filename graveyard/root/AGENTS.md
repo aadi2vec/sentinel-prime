@@ -1,63 +1,47 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Commands
 
 ```bash
 python -m venv .venv && .venv/bin/pip install -e ".[dev]"   # setup (Python 3.10+)
 .venv/bin/pytest -q                                          # full suite (hermetic, no network)
-.venv/bin/pytest tests/test_policy_search.py -v              # one file
+.venv/bin/pytest tests/test_harness.py -v                    # one file
 .venv/bin/pytest tests/test_harness.py::test_read_empty_ledger_returns_empty_string  # one test
-.venv/bin/python scripts/policy_lab.py --out lab_runs/<new>  # policy search, scripted, no network
-.venv/bin/python scripts/policy_lab.py --live --model PROVIDER/MODEL \
-    --rounds 2 --cases 3 --out lab_runs/<new>                # same loop, real proposer
+.venv/bin/python scripts/run_lab.py                          # scripted self-improvement demo (no network)
+.venv/bin/python scripts/run_lab.py --live --epochs 3        # same loop against a real LM
+.venv/bin/python scripts/run_lab.py --no-verifier            # ablate one component (see below)
+.venv/bin/python scripts/smoke_live.py                       # one-task live smoke test
+.venv/bin/python scripts/gepa_runner.py --inspect            # is the trainset viable? no LM
+.venv/bin/python scripts/gepa_runner.py --target verifier --out compiled/verifier.json
+.venv/bin/python scripts/paired_ab.py --arm gated            # learning + untuned ladder
+.venv/bin/python scripts/paired_ab.py --arm tuned            # + the compiled judge
 ```
 
-`--out` must name a directory that does not exist: a run that resumed into a used archive
-could silently re-read a final test it had already spent. `policy_lab.py` does **not** load
-`.env`; put the provider credentials in the process environment for `--live`.
+`run_lab.py` takes `--no-verifier` / `--no-monitor` / `--no-context` / `--no-credit` /
+`--no-children` / `--no-semantic-cache` (the last two are live-only). Each switch is an ablation: the
+fixtures are built so the proposer emits an ungrounded lesson, the simulated agent thrashes
+while unguided and *follows* bad guidance, and a document is amended mid-run — so turning a
+component off changes the curve and the printed counts. Keep it that way; a fixture set where
+ablation is a no-op cannot attribute the curve to a mechanism. Note that `_SimulatedAgent`
+being misled is a *stipulation*, not evidence about real LMs — say so whenever you quote
+those deltas.
 
-Always use `.venv/bin/...` — there is no runner script or task file. No linter/formatter is
-configured. `graveyard/` holds retired code and is excluded from collection via
-`testpaths` in `pyproject.toml`; read `graveyard/README.md` before restoring anything.
+Always use `.venv/bin/...` — there is no runner script or task file. No linter/formatter is configured.
+
+Live runs need `.env` (copy `.env.example`); both scripts load it with their own tiny dotenv
+reader and auto-detect the provider from whichever API key is present, preferring
+`OPENAI_MODEL` (default `openai/gpt-5.6-luna`) with an optional `OPENAI_BASE_URL` proxy.
+`config.yaml` is gitignored; `config.example.yaml` is the template.
 
 ## Architecture
 
-SentinelPrime is an **agent-systems research harness**: can an RLM improve the machinery it
-uses to solve problems — decomposition, context allocation, verification, recovery,
-delegation — by proposing and testing bounded changes to its own execution policy?
-
-Harvey LAB (M&A due-diligence slice) is a **demanding evaluation environment, not a product
-direction**. Legal is the stress test. Do not reintroduce product framing; that direction was
-retired on 2026-09-07 and its plan is in `graveyard/docs/`.
-
-The current mutable surface is deliberately one thing: **which verification checks run, and
-whether a failed check triggers another solver attempt**. Everything else in this repo —
-the ledger, the audit trail, the admission ladder, credit assignment — is *supporting
-machinery and instrumentation* for that search, not the thesis.
-
-Read `docs/plans/2026-09-07-rlm-policy-evolution-plan.md` (plan of attack) and
-`docs/superpowers/specs/2026-09-07-execution-policy-search-design.md` (design) first. They
-are the only two live documents.
-
-### The policy search (`policy_search.py`, `policy_experiment.py`, `scripts/policy_lab.py`)
-
-A candidate `Policy` selects registered checks and a bounded revision count. It **cannot**
-supply code, alter a check's implementation, change the evaluator, or raise the `Budget`.
-`Policy.parse` rejects unknown fields outright — that is the evaluation boundary as a type
-rather than a convention, and it is the invariant the whole design rests on: a candidate that
-can redefine success improves its score without improving its problem-solving.
-
-`Case.gold` reaches the evaluator only, never solve/check/propose. Development, each
-validation batch, and the final test are **family-disjoint**, reserved before work begins so
-a restart cannot re-spend the test set. Incomplete evaluation cannot promote. `PolicyArchive`
-versions every promotion with its evidence and supports `rollback(version)`.
-
-Two honest limits, kept in the docstrings: the checkers are hand-written, not synthesized;
-and the budget counts solver attempts and check calls, not tokens — so a candidate may spend
-more of the common ceiling than the baseline, and a gain does not by itself establish
-compute efficiency.
+SentinelPrime is a DSPy-native **online / label-free / reversible** self-improvement harness
+for a legal-reasoning agent (target eval: Harvey LAB, M&A due-diligence slice). The thesis:
+DSPy's optimizers (GEPA/MIPRO) are offline, labeled, and irreversible; this adds an online,
+unlabeled, *reversible and auditable* loop on top. `docs/ARCHITECTURE.md` is the full
+walkthrough; the design/plan docs live in `docs/superpowers/{specs,plans}/`.
 
 ### Two loops, two caches — every module belongs to exactly one
 
@@ -86,13 +70,56 @@ Same hazard as the two caches: do not conflate them.
 dropped) while `AuditLog` is one JSON document. Outcome rows are appended, never edited —
 `outcomes()` reports last-wins, so the file stays append-only.
 
+### The offline loop (`optimize.py` + `scripts/gepa_runner.py`)
+
+The claim is *not* "our predictors are GEPA-visible" (any DSPy module can say that). It is
+that **the online loop manufactures the offline optimizer's training set, without labels**:
+`refine()` writes a `ProposalRecord`, `credit()` writes an `OutcomeRecord`, and
+`label_proposals` turns those into supervised examples nobody annotated.
+
+Three things here are load-bearing:
+
+1. **Labels are not probe/judge agreement.** Training the generative judge to agree with
+   `GroundingProbe` collapses it into a 100x-more-expensive copy of the probe, and the
+   ladder's second rung becomes dead weight. Labels come from the two places a verdict is
+   *earned*: probe **rejections** (ungrounded by construction) and downstream credit
+   outcomes. Probe *admissions* are deliberately left unlabelled.
+2. **Precedence is probe over outcome.** A lesson that scored well downstream while
+   ungrounded is the lucky-guess case; the deterministic signal outranks the outcome.
+3. **A single-class trainset is refused, not scored.** `trainset_report().viable` is the
+   guard — an all-positive log yields an excellent-looking score for a gate that admits
+   everything.
+
+Probe-rejection rows are drawn from proposals the ladder short-circuits, so by default the
+judge is trained on a region it never faces. `LadderVerifier(explore=eps)` is the fix: on
+that fraction of *rejected* rounds it runs the rungs behind the rejection anyway, recording
+**shadow** verdicts that never touch the decision, never enter `last_verdicts`, and never
+appear in the compliance trail (their cost is reported separately as
+`last_exploration_cost`). Those rows join the judge's real input distribution at rate eps.
+It also thaws the frozen P(fail) statistics the class docstring warns about — one mechanism,
+both payoffs. Use `--explore 0.2` on a run whose purpose is to produce a trainset.
+
+The residual gap is *measured*, not asserted: `TrainsetReport.on_distribution_rate` and
+`.caveat` print next to every compile, `balance()` stops the cheap stratum swamping the
+expensive one, and `stratified_scores()` splits a gain by where it came from — the pooled
+mean is the number that can lie. `rollout_metric` remains the real downstream measure at one
+agent run per candidate, injected so the expensive path stays opt-in.
+
+### The experiment arms (`scripts/paired_ab.py`)
+
+`control → learning → gated → tuned`, each adding exactly one mechanism to the previous:
+the ledger, then the admission ladder, then the GEPA-compiled judge. `BASELINE` pins what
+each is scored against — `tuned` vs `gated`, never `tuned` vs `control`, which would bundle
+three mechanisms into one number and credit whichever the reader had in mind.
+
 ### One assembly point (`assembly.py`)
 
-`assemble(lm=..., root=...)` is the only place the system is wired, and every entry point
-calls it — including `policy_experiment.py`, so a candidate policy is expressible only as
-`assemble()` arguments and cannot reach around the assembler. Before it existed, six entry
-points each hand-built an agent and had begun to drift apart; those runners are now in
-`graveyard/scripts/`, but the rule they motivated is the reason this module exists.
+`assemble(lm=..., root=...)` is the only place the system is wired, and every script calls
+it. Before it existed, six entry points each hand-built an agent: `paired_ab.py` had the
+full stack, `run_lab.py` hand-rolled a private ladder that could neither explore nor load a
+compiled program, and `lab_eval.py` / `smoke_live.py` silently ran with no gate and no
+training record. Nothing was broken; "what is a wired SentinelPrime agent?" simply had six
+answers that had started to drift.
 
 Two rules keep it that way:
 
@@ -104,7 +131,7 @@ Two rules keep it that way:
   second way nobody controlled for.
 
 `gate` is `None | "probe" | "ladder"` — `"probe"` is the hermetic deterministic-only rung
-set, which is what a no-network run needs. Two combinations are **refused rather than
+set that `run_lab`'s scripted mode needs. Two combinations are **refused rather than
 degraded**: `credit=True, audit=False` (CreditAssigner reads targets off the AuditRecord, so
 it would attribute nothing while reporting itself on) and `program=` with a non-ladder gate
 (there is no judge to load the compiled prompt into, and ignoring it would report a tuned

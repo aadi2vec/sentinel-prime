@@ -57,9 +57,7 @@ def main() -> None:
 
     import dspy
 
-    from sentinelprime.agent import PrimeAgent
-    from sentinelprime.harness import ContinualHarness
-    from sentinelprime.memory import JsonMemoryBackend
+    from sentinelprime.assembly import assemble
 
     lm = dspy.LM(model, **_lm_kwargs())
 
@@ -77,9 +75,11 @@ def main() -> None:
             "the State of Delaware.\n"
         )
 
-        backend = JsonMemoryBackend(str(tmp / "ledger.json"))
-        harness = ContinualHarness(backend)
-        agent = PrimeAgent(harness, root_lm=lm)
+        # The full stack, not a bare agent: a smoke test that skips the gate and the
+        # proposal log is not smoke-testing the system anyone actually runs.
+        system = assemble(lm=lm, root=tmp / "state")
+        agent = system.agent
+        print(f"[smoke] {system.describe()}")
 
         task = (
             "Read contract.txt in the working directory. In one or two sentences, "

@@ -24,13 +24,9 @@ import os
 import pathlib
 import time
 
-from sentinelprime.audit import AuditLog
-from sentinelprime.credit import CreditAssigner
-from sentinelprime.harness import ContinualHarness
+from sentinelprime.assembly import assemble
 from sentinelprime.lab import (RubricJudge, all_pass, load_task, output_files,
                                prepare_workspace, read_output, to_feedback)
-from sentinelprime.memory import JsonMemoryBackend
-from sentinelprime.monitor import ProgressMonitor
 
 
 def _load_dotenv(path: str = ".env") -> None:
@@ -118,17 +114,14 @@ def main() -> None:
         return
 
     import dspy
-    from sentinelprime.agent import PrimeAgent
 
     model = _pick_model()
     lm = dspy.LM(model, **_lm_kwargs())
     dspy.configure(lm=lm)
 
-    audit_log = AuditLog(str(run_root / "audit.json"))
-    backend = JsonMemoryBackend(str(run_root / "ledger.json"))
-    harness = ContinualHarness(backend, audit_log=audit_log,
-                               credit_assigner=CreditAssigner(audit_log))
-    agent = PrimeAgent(harness, root_lm=lm, sub_lm=lm, monitor=ProgressMonitor())
+    system = assemble(lm=lm, root=run_root, sub_lm=lm)
+    agent, backend = system.agent, system.backend
+    print(f"[lab] system    : {system.describe()}")
     judge = RubricJudge(lm)
     criteria = task.criteria[:args.max_criteria] if args.max_criteria else task.criteria
 
