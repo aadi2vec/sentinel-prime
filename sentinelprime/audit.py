@@ -40,6 +40,11 @@ class AuditRecord:
     # The verifier's one-line justification for admitting this edit. Empty when no
     # verifier gated the refine() (admission was unconditional).
     verification: str = ""
+    # The rubric criterion ids this edit was written to fix, as declared by the proposer.
+    # Credit assignment scores the edit against *these* rather than against every criterion
+    # that happened to fail in the same round — without it, a lesson answering c1 is blamed
+    # when c2 fails. Empty for edits from a proposer that did not declare them.
+    targets: list[str] = field(default_factory=list)
 
 
 def digest(text: str) -> str:

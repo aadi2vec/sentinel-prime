@@ -41,6 +41,11 @@ class LadderResult:
 _CRITERION_RE = re.compile(r"\[([^\]]+)\]")
 
 
+def criterion_ids(text: str) -> set[str]:
+    """The rubric criterion ids named in a failure text (``- [c1] missed …`` -> {"c1"})."""
+    return set(_CRITERION_RE.findall(text or ""))
+
+
 def criterion_failure_counts(audit_log) -> dict[str, int]:
     """Count how often each rubric criterion id appears in the ledger's failures.
 
@@ -50,7 +55,7 @@ def criterion_failure_counts(audit_log) -> dict[str, int]:
     """
     counts: dict[str, int] = {}
     for rec in audit_log.records():
-        seen = set(_CRITERION_RE.findall(rec.cause_failures or ""))
+        seen = criterion_ids(rec.cause_failures)
         for cid in seen:
             counts[cid] = counts.get(cid, 0) + 1
     return counts

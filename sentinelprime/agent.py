@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import dspy
 
+from sentinelprime.children import ChildSessionManager
 from sentinelprime.harness import ContinualHarness
 from sentinelprime.interpreter import InterpreterFactory
 from sentinelprime.subcache import SubQueryCache
@@ -111,12 +112,19 @@ def cacheable_prefix(guidance: str, tasks: list[str],
 class PrimeAgent(dspy.Module):
     def __init__(self, harness: ContinualHarness, root_lm, sub_lm=None,
                  spawn_manager=None, rlm=None, subquery_embedder=None,
-                 monitor=None) -> None:
+                 monitor=None, enable_children: bool = False, child_runner=None,
+                 max_child_depth: int = 1) -> None:
         super().__init__()
         self.harness = harness
         self.root_lm = root_lm
         self.sub_lm = sub_lm
         self.spawn_manager = spawn_manager
+        # Children are opt-in: they cost a thread pool and a sub-agent's tokens. When on,
+        # the manager is built lazily on first spawn, rooted at the current task's workdir,
+        # so an agent that never delegates never allocates one.
+        self.enable_children = enable_children or spawn_manager is not None
+        self._child_runner = child_runner
+        self.max_child_depth = max_child_depth
         # Optional thrash detector. When set, every run_task feeds the real RLM
         # trajectory + sub-query cache stats to it, so a live loop (not just the
         # scripted run_lab harness) emits `replan` audit events. None -> no monitoring.
@@ -125,9 +133,17 @@ class PrimeAgent(dspy.Module):
         # *real* trajectory to learn() instead of an empty list.
         self.last_trajectory: list[dict] = []
         self.last_monitor_decision = None
+        # The guidance ids actually surfaced for the last task — the exposure set credit
+        # assignment scores. Not the whole ledger: a lesson gating withheld cannot be
+        # blamed for that task's outcome.
+        self.last_exposed_ids: list[str] = []
+        self.last_child_errors: list = []
         self._current_workdir = "."
+        self._subquery_embedder = subquery_embedder
         if rlm is None:
-            tools = [spawn_manager.spawn_child] if spawn_manager is not None else []
+            # Bind both halves. Spawning without collecting is what made subagents dead
+            # weight before: the model could start work it had no way to read back.
+            tools = [self.spawn_child, self.collect_child] if self.enable_children else []
             rlm = CachingRLM(
                 PrimeTask,
                 tools=tools,
@@ -136,6 +152,43 @@ class PrimeAgent(dspy.Module):
                 subquery_embedder=subquery_embedder,
             )
         self.rlm = rlm
+
+    def spawn_child(self, task: str, name: str = "child") -> str:
+        """Start a sub-agent on `task` in its own session directory. Returns its child id.
+
+        Call with keyword arguments: spawn_child(task="...").
+        Returns immediately — the child runs in the background. Pass the id to
+        collect_child(child_id=...) to read its result.
+        """
+        return self._children().spawn_child(task, name=name).child_id
+
+    def collect_child(self, child_id: str) -> str:
+        """Wait for a spawned sub-agent and return its deliverable.
+
+        Call with keyword arguments: collect_child(child_id=...).
+        """
+        return self._children().result(child_id)
+
+    def _children(self):
+        if self.spawn_manager is None:
+            self.spawn_manager = ChildSessionManager(
+                self._child_runner or self._default_child_runner,
+                root_dir=self._current_workdir,
+                max_depth=self.max_child_depth,
+            )
+        return self.spawn_manager
+
+    def _default_child_runner(self, task: str, name: str, session_dir: str) -> str:
+        """A child is another PrimeAgent sharing the parent's ledger — read-only.
+
+        It reads the same learned guidance but never calls learn(), so the ledger keeps a
+        single writer (the parent, between tasks) even though children run on threads.
+        Children cannot spawn their own children: depth is capped at the parent's limit.
+        """
+        child = PrimeAgent(self.harness, root_lm=self.root_lm, sub_lm=self.sub_lm,
+                           subquery_embedder=self._subquery_embedder)
+        pred = child.run_task(task, workdir=session_dir)
+        return getattr(pred, "deliverable", str(pred))
 
     @property
     def last_cache_stats(self) -> dict | None:
@@ -149,11 +202,17 @@ class PrimeAgent(dspy.Module):
         # `context` carries the live task state (document/playbook versions, matter ids)
         # that ReuseController gates on, so a lesson whose source has moved is withheld
         # from the prompt. None -> ungated read, the base behavior.
+        exposed = self.harness.admissible_items(context=context)
+        self.last_exposed_ids = [item.id for item in exposed]
         guidance = self.harness.read(context=context) or "(no learned guidance yet)"
         with dspy.context(lm=self.root_lm):
             pred = self.rlm(task=task, guidance=guidance)
         # dspy.RLM returns the REPL history as `trajectory` ([{reasoning, code, output}]),
         # which is exactly the shape ProgressMonitor and refine() consume.
+        # Bound every child's lifetime to the task that spawned it: the parent edits the
+        # ledger between tasks, and a child still reading it then would race that write.
+        if self.spawn_manager is not None:
+            self.last_child_errors = self.spawn_manager.drain()
         self.last_trajectory = list(getattr(pred, "trajectory", None) or [])
         if self.monitor is not None:
             self.last_monitor_decision = self.monitor.check_and_record(
@@ -167,4 +226,7 @@ class PrimeAgent(dspy.Module):
 
     def learn(self, trajectory: list[dict], feedback):
         # Applied only BETWEEN tasks — never mid-task.
+        # Credit first: this task's outcome is evidence about the guidance that was in the
+        # prompt for it, and refine() consumes that evidence when it retires.
+        self.harness.credit(self.last_exposed_ids, feedback)
         return self.harness.refine(trajectory, feedback)

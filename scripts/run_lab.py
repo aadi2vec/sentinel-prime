@@ -20,6 +20,8 @@ time by switching it off and re-reading the curve:
     --no-verifier        drop admission control (edits enter the ledger unjudged)
     --no-monitor         drop thrash detection (no `replan` audit events)
     --no-context         drop reuse gating (read() stops seeing live task state)
+    --no-credit          drop credit assignment (lessons are never retired)
+    --no-children        drop sub-agent delegation (live)
     --no-semantic-cache  drop semantic sub-query dedup (live; exact dedup still runs)
 
 Usage:
@@ -37,6 +39,7 @@ import pathlib
 import tempfile
 
 from sentinelprime.audit import AuditLog, digest
+from sentinelprime.credit import CreditAssigner
 from sentinelprime.harness import ContinualHarness
 from sentinelprime.memory import JsonMemoryBackend
 from sentinelprime.monitor import ProgressMonitor
@@ -129,15 +132,30 @@ def build_verifier(live: bool) -> LadderVerifier:
     return LadderVerifier(levels, adaptive=True)
 
 
-def print_config(mode: str, verifier, monitor, use_context: bool, embedder) -> None:
+def build_credit(audit_log: AuditLog) -> CreditAssigner:
+    """Retire a lesson that is not beating a coin flip on the criteria it claimed.
+
+    min_success_rate is 0.6, not 0.5: a lesson that helps exactly half the time is not
+    earning the prompt budget it costs on every single run.
+    """
+    return CreditAssigner(audit_log, min_exposures=3, min_success_rate=0.6)
+
+
+def print_config(mode: str, verifier, monitor, use_context: bool, embedder,
+                 credit=None, children=None) -> None:
     on = lambda flag: "on " if flag else "off"
+    extra = ""
+    if children is not None:
+        extra = f" children={on(children)}"
     print(f"[run_lab] {mode} | verifier={on(verifier is not None)} "
           f"monitor={on(monitor is not None)} context={on(use_context)} "
-          f"semantic_cache={on(embedder is not None)}\n")
+          f"credit={on(credit is not None)} semantic_cache={on(embedder is not None)}"
+          f"{extra}\n")
 
 
 def print_summary(curve: list[float], audit_log: AuditLog, rejected: int,
-                  cache_stats: dict | None = None, withheld: int | None = None) -> None:
+                  cache_stats: dict | None = None, withheld: int | None = None,
+                  retired: int | None = None) -> None:
     replans = [r for r in audit_log.records() if r.op == "replan"]
     print(f"\n[run_lab] self-improvement curve: "
           f"{' -> '.join(f'{r:.0%}' for r in curve)}")
@@ -145,6 +163,8 @@ def print_summary(curve: list[float], audit_log: AuditLog, rejected: int,
           f"| replan events: {len(replans)} | edits rejected by the verifier: {rejected}")
     if withheld is not None:
         print(f"[run_lab] stale lessons withheld by reuse gating: {withheld}")
+    if retired is not None:
+        print(f"[run_lab] lessons retired by credit assignment: {retired}")
     if cache_stats:
         print(f"[run_lab] sub-query cache: {cache_stats}")
 
@@ -240,22 +260,36 @@ def _stub_proposer(harness: ContinualHarness, context_holder: dict | None = None
 
     One lesson it emits is *session*-scoped and declares the document revision it was
     derived from, so it becomes provably stale the moment that document is amended.
+
+    Every edit declares `meta.targets` — the criterion ids it claims to fix. That is what
+    credit assignment scores it against. The hallucinated one declares targets too: a
+    proposer inventing a lesson still believes it is relevant, and the point is that the
+    *outcome*, not the claim, is what retires it.
+
+    It hallucinates once, on the first round, rather than identically forever — a proposer
+    that re-emits the same bad lesson every round can never be recovered from by any
+    retirement policy, which would make the credit ablation untestable rather than honest.
     """
     context_holder = context_holder if context_holder is not None else {}
+    rounds = {"n": 0}
 
     def propose(**kw):
         failures = kw.get("rubric_failures", "")
         edits = []
         if failures.strip() and "All rubric criteria passed" not in failures:
-            edits.append({
-                "op": "create", "id": "lesson.hallucinated", "kind": "note",
-                "text": "prefer tabular output for board minutes", "scope": "global",
-            })
+            rounds["n"] += 1
+            if rounds["n"] == 1:
+                edits.append({
+                    "op": "create", "id": "lesson.hallucinated", "kind": "note",
+                    "text": "prefer tabular output for board minutes", "scope": "global",
+                    "meta": {"targets": ["c1", "c2"]},
+                })
             edits.append({
                 "op": "create", "id": "lesson.revision", "kind": "note",
                 "text": "for this revision the change of control clause sits in section 9",
                 "scope": "session",
-                "meta": {"depends_on": {"doc_sha": context_holder.get("doc_sha", "")}},
+                "meta": {"depends_on": {"doc_sha": context_holder.get("doc_sha", "")},
+                         "targets": ["c1"]},
             })
         for task in FIXTURES:
             for cid, _needle, reason in task["rubric"]:
@@ -263,6 +297,7 @@ def _stub_proposer(harness: ContinualHarness, context_holder: dict | None = None
                     edits.append({
                         "op": "create", "id": f"lesson.{cid}", "kind": "note",
                         "text": reason, "scope": "global",
+                        "meta": {"targets": [cid]},
                     })
         # dedup by id (a criterion may recur across tasks)
         seen, uniq = set(), []
@@ -276,13 +311,15 @@ def _stub_proposer(harness: ContinualHarness, context_holder: dict | None = None
 
 
 def run_scripted(epochs: int, *, use_verifier: bool = True, use_monitor: bool = True,
-                 use_context: bool = True) -> None:
+                 use_context: bool = True, use_credit: bool = True) -> None:
     with tempfile.TemporaryDirectory() as tmp:
         tmp = pathlib.Path(tmp)
         backend = JsonMemoryBackend(str(tmp / "ledger.json"))
         audit_log = AuditLog(str(tmp / "audit.json"))
         verifier = build_verifier(live=False) if use_verifier else None
-        harness = ContinualHarness(backend, audit_log=audit_log, verifier=verifier)
+        credit = build_credit(audit_log) if use_credit else None
+        harness = ContinualHarness(backend, audit_log=audit_log, verifier=verifier,
+                                   credit_assigner=credit)
         # Mutable holder: the proposer stamps each session-scoped lesson with the document
         # revision it was derived from, which is what makes it gateable later.
         context_holder: dict = {}
@@ -291,9 +328,9 @@ def run_scripted(epochs: int, *, use_verifier: bool = True, use_monitor: bool = 
         agent = _SimulatedAgent()
 
         print("[run_lab] scripted mechanism demo (deterministic, no network)")
-        print_config("scripted", verifier, monitor, use_context, None)
+        print_config("scripted", verifier, monitor, use_context, None, credit)
         curve: list[float] = []
-        rejected_total = withheld_total = 0
+        rejected_total = withheld_total = retired_total = 0
         for epoch in range(1, epochs + 1):
             passed_criteria = total_criteria = 0
             for task in FIXTURES:
@@ -302,8 +339,8 @@ def run_scripted(epochs: int, *, use_verifier: bool = True, use_monitor: bool = 
                 ctx = task_context(task) if use_context else None
                 context_holder.clear()
                 context_holder.update(task_context(task))
-                withheld = (len(backend.read()) -
-                            len(harness.admissible_items(context=ctx)))
+                exposed = harness.admissible_items(context=ctx)
+                withheld = len(backend.read()) - len(exposed)
                 withheld_total += withheld
                 guidance = harness.read(context=ctx)
                 deliverable, trajectory = agent.run(task, guidance)
@@ -313,18 +350,24 @@ def run_scripted(epochs: int, *, use_verifier: bool = True, use_monitor: bool = 
                 if monitor is not None:
                     monitor.check_and_record(trajectory, agent.last_cache_stats,
                                              audit_log, version, task["id"])
+                # Credit the guidance that was actually in the prompt for this task,
+                # then refine — which retires whatever stopped earning its place.
+                harness.credit([i.id for i in exposed], fb)
                 refine = harness.refine(trajectory, fb)
                 rejected_total += len(refine.rejected)
+                retired_total += len(refine.retired)
                 passed_criteria += sum(1 for c in result["criteria"] if c["passed"])
                 total_criteria += len(result["criteria"])
                 print(f"  epoch {epoch} {task['id']}: score={fb.score:.2f} "
                       f"created={refine.created} updated={refine.updated} "
-                      f"rejected={refine.rejected} withheld_by_context={withheld}")
+                      f"rejected={refine.rejected} retired={refine.retired} "
+                      f"withheld_by_context={withheld}")
             rate = passed_criteria / total_criteria if total_criteria else 0.0
             curve.append(rate)
             print(f"  epoch {epoch} pass-rate: {rate:.0%}\n")
 
-        print_summary(curve, audit_log, rejected_total, withheld=withheld_total)
+        print_summary(curve, audit_log, rejected_total, withheld=withheld_total,
+                      retired=retired_total)
         print_prefix_report(harness, FIXTURES, use_context)
         # Show the compliance chain for the first learned edit.
         first_edit_version = min(
@@ -337,7 +380,8 @@ def run_scripted(epochs: int, *, use_verifier: bool = True, use_monitor: bool = 
 
 
 def run_live(epochs: int, *, use_verifier: bool = True, use_monitor: bool = True,
-             use_context: bool = True, semantic_cache: bool = True) -> None:
+             use_context: bool = True, semantic_cache: bool = True,
+             use_credit: bool = True, use_children: bool = True) -> None:
     import dspy
     from sentinelprime.agent import PrimeAgent
 
@@ -353,14 +397,17 @@ def run_live(epochs: int, *, use_verifier: bool = True, use_monitor: bool = True
         backend = JsonMemoryBackend(str(tmp / "ledger.json"))
         audit_log = AuditLog(str(tmp / "audit.json"))
         verifier = build_verifier(live=True) if use_verifier else None
-        harness = ContinualHarness(backend, audit_log=audit_log, verifier=verifier)
+        credit = build_credit(audit_log) if use_credit else None
+        harness = ContinualHarness(backend, audit_log=audit_log, verifier=verifier,
+                                   credit_assigner=credit)
         monitor = ProgressMonitor() if use_monitor else None
         agent = PrimeAgent(harness, root_lm=lm, sub_lm=lm, monitor=monitor,
-                           subquery_embedder=embedder)
+                           subquery_embedder=embedder, enable_children=use_children)
 
-        print_config(f"live ({model})", verifier, monitor, use_context, embedder)
+        print_config(f"live ({model})", verifier, monitor, use_context, embedder,
+                     credit, use_children)
         curve: list[float] = []
-        rejected_total = 0
+        rejected_total = retired_total = 0
         for epoch in range(1, epochs + 1):
             passed = total = 0
             for task in FIXTURES:
@@ -378,17 +425,23 @@ def run_live(epochs: int, *, use_verifier: bool = True, use_monitor: bool = True
                 result = grade(deliverable, task)
                 fb = parse_lab_result(result)
                 # Learn from the *real* RLM trajectory, not an empty list.
+                # learn() credits the exposed guidance, then refines and retires.
                 refine = agent.learn(agent.last_trajectory, fb)
                 rejected_total += len(refine.rejected)
+                retired_total += len(refine.retired)
+                for child_id, err in agent.last_child_errors:
+                    print(f"    child {child_id} failed: {err!r}")
                 decision = agent.last_monitor_decision
                 if decision is not None and decision.replan:
                     print(f"    replan detected: {'; '.join(decision.reasons)}")
                 passed += sum(1 for c in result["criteria"] if c["passed"])
                 total += len(result["criteria"])
                 print(f"  epoch {epoch} {task['id']}: score={fb.score:.2f} "
-                      f"created={refine.created} rejected={refine.rejected}")
+                      f"created={refine.created} rejected={refine.rejected} "
+                      f"retired={refine.retired}")
             curve.append(passed / total if total else 0.0)
-        print_summary(curve, audit_log, rejected_total, agent.last_cache_stats)
+        print_summary(curve, audit_log, rejected_total, agent.last_cache_stats,
+                      retired=retired_total)
         print_prefix_report(harness, FIXTURES, use_context)
 
 
@@ -463,13 +516,18 @@ def main() -> None:
                     help="ablate thrash detection (no replan audit events)")
     ap.add_argument("--no-context", action="store_true",
                     help="ablate reuse gating (read() stops seeing live task state)")
+    ap.add_argument("--no-credit", action="store_true",
+                    help="ablate credit assignment (lessons are never retired)")
+    ap.add_argument("--no-children", action="store_true",
+                    help="ablate sub-agent delegation (live only)")
     ap.add_argument("--no-semantic-cache", action="store_true",
                     help="ablate semantic sub-query dedup (live only; exact dedup remains)")
     args = ap.parse_args()
     common = dict(use_verifier=not args.no_verifier, use_monitor=not args.no_monitor,
-                  use_context=not args.no_context)
+                  use_context=not args.no_context, use_credit=not args.no_credit)
     if args.live:
-        run_live(args.epochs, semantic_cache=not args.no_semantic_cache, **common)
+        run_live(args.epochs, semantic_cache=not args.no_semantic_cache,
+                 use_children=not args.no_children, **common)
     else:
         if args.no_semantic_cache:
             print("[run_lab] --no-semantic-cache applies to --live only; ignoring.")

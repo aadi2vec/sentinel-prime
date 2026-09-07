@@ -56,12 +56,13 @@ And two *distinct* cache layers that people conflate at their peril:
 | `harness.py` | `ContinualHarness` — `read()` (supplemental prompt block), `refine()` (propose→verify→apply→audit), `rollback()`, `explain()`. | online |
 | `verifier.py` | `PredictVerifier` — GEPA-optimizable admission gate; `GroundingProbe` — deterministic LM-free rung; `LadderVerifier` — the two composed as a short-circuited cost ladder. | online |
 | `reuse.py` | `ReuseController` — three-gate admission (scope-valid ∧ causally-current ∧ verifier-admitted) for cross-task reuse. | cross-task |
+| `credit.py` | `CreditAssigner` — scores an exposed lesson against the criteria it declared, retires the ones that stop earning their place. | online |
+| `children.py` | `ChildSessionManager` — non-blocking `spawn_child` admission, `drain()` bounds child lifetime to the parent's task. | runtime |
 | `planner.py` | `CostLadderPlanner` — orders verification checks cheapest-detection-first, short-circuits; statistics from the ledger or the ladder's own rejections. | verification |
 | `monitor.py` | `ProgressMonitor` — detects thrash (reasoning stall + cache hit-rate spike), records a `replan` audit event. | online |
 | `subcache.py` | `SubQueryCache` — intra-run sub-query dedup, exact + optional semantic. | intra-run |
 | `agent.py` | `PrimeAgent` + `CachingRLM` — wires the RLM per-turn reasoning to the ledger; `run_task` (gated read + progress monitoring) / `learn`. | online |
 | `interpreter.py` | `InterpreterFactory` / `LocalInterpreter` — workdir-confined code execution for the RLM REPL. | runtime |
-| `children.py` | `ChildSessionManager` — non-blocking `spawn_child` sub-agent admission. | runtime |
 | `session.py` | `SessionStore` — per-session persistence. | runtime |
 | `feedback.py` | `Feedback` + `parse_lab_result` — turns a LAB rubric result into the label-free signal `refine()` consumes. | eval adapter |
 | `config.py` | Swappable `dspy.LM` roles (`root_lm`, `sub_lm`, `reflection_lm`, `judge_lm`). | config |
@@ -96,7 +97,11 @@ reversible, audited lesson. The protocol, in order:
    GEPA-optimizable.
 4. **Apply (deterministic, no LM).** `_apply_edits` upserts/deletes against the backend and
    classifies each op as created/updated/deleted against the pre-batch id set.
-5. **Snapshot AFTER + audit.** `backend.snapshot()` closes the reversibility window
+5. **Retire (optional gate).** With a `credit_assigner`, lessons whose declared criteria have
+   stopped passing are deleted *inside the same window* as the additions, so one rollback undoes
+   the whole round — a lesson removed on weak evidence is as recoverable as one added on it.
+   Reported on `RefineResult.retired` and audited with `op="retire"`.
+6. **Snapshot AFTER + audit.** `backend.snapshot()` closes the reversibility window
    `before..after`; `_emit_audit` writes one provenance-scoped `AuditRecord` per admitted
    edit (with `content_hash` dedup, `trajectory_digest`, and the verifier justification).
 
@@ -141,6 +146,32 @@ Why intra-run and not cross-task: near-duplicate chunk questions are the dominan
 *within* a trajectory and the blast radius is one run, so a cosine threshold is a reasonable
 heuristic there. Cross-task reuse is a compliance decision — that is the `ReuseController`'s
 job, with scope/currency/verifier gates that a bare cosine cannot provide.
+
+---
+
+## 4b. Credit assignment — the second defence
+
+Admission control asks *is this edit grounded in an observed failure?* It cannot ask *did it
+help*, because at write time nothing has happened yet. `CreditAssigner` closes that loop from
+data the system already has:
+
+- **What the lesson was for** — the proposer declares `meta.targets` (criterion ids), recorded
+  on the `AuditRecord`. The fallback (every criterion that failed in the creating round) is
+  coarse and cross-contaminating: it blames a lesson answering `c1` whenever `c2` fails, which
+  is enough to retire perfectly good guidance. Declare targets.
+- **Whether it was in the room** — `harness.admissible_items()` is the exact guidance surfaced
+  for a task, so a lesson gating withheld is never blamed for that task's outcome.
+
+Scoring is a **bounded window**, not a lifetime tally. The environment is non-stationary — one
+lesson can poison a criterion and later be retired — so a lifetime average would convict a
+lesson for a period that has already been fixed, and it could never recover. Retirement also
+*forgets* the record: a lesson the proposer writes again is a new attempt and gets a fair
+trial, otherwise the ledger oscillates (write → retire → rewrite) instead of converging.
+
+**This is correlational, not causal.** Two lessons targeting one criterion share its outcome,
+and nothing runs the counterfactual where the lesson was withheld. The honest upgrade is an
+A/B — cheap to express since the ledger is reversible, but it doubles eval cost, so it is
+parked until there is a real benchmark to spend that budget on.
 
 ---
 
@@ -243,12 +274,21 @@ goes stale (reuse gating's job). Each run prints the curve plus `audit records`,
 `replan events`, `edits rejected by the verifier`, `stale lessons withheld by reuse gating`,
 and the cacheable prefix boundary. On the 3-epoch scripted fixtures:
 
-| Run | curve | audit records | replans | rejected | withheld |
-|---|---|---|---|---|---|
-| all wired | 50% → 100% → 100% | 4 | 1 | 1 | 5 |
-| `--no-verifier` | 25% → 50% → 50% | 8 | 1 | 0 | 3 |
-| `--no-monitor` | 50% → 100% → 100% | 3 | 0 | 1 | 5 |
-| `--no-context` | 50% → 75% → 75% | 4 | 1 | 3 | 0 |
+| Run | curve (6 epochs) | audit | replans | rejected | withheld | retired |
+|---|---|---|---|---|---|---|
+| all wired | 50 → 100 → 100 → 100 → 100 → 100% | 4 | 1 | 1 | 11 | 0 |
+| `--no-verifier` | 25 → 75 → 75 → **100** → 100 → 100% | 9 | 1 | 0 | 6 | 2 |
+| `--no-credit` | 50 → 100 → 100 → 100 → 100 → 100% | 4 | 1 | 1 | 11 | 0 |
+| `--no-verifier --no-credit` | 25 → 50 → 50 → 50 → 50 → 50% | 7 | 1 | 0 | 6 | 0 |
+| `--no-monitor` | 50 → 100 → 100 → 100 → 100 → 100% | 3 | 0 | 1 | 11 | 0 |
+| `--no-context` | 50 → 75 → 50 → 75 → 50 → 75% | 10 | 1 | 1 | 0 | 4 |
+
+The verifier and credit assignment are **two independent defences against a polluted ledger**:
+either alone recovers (credit more slowly — four epochs instead of two, because it needs
+exposures before it can convict); neither leaves the ledger poisoned at 50%. `--no-credit`
+shows no delta on its own precisely because with admission control on, nothing bad gets in.
+`--no-context` oscillates: the stale lesson is recreated each round and retired each round,
+which is the two mechanisms fighting in the absence of the one that should have caught it.
 
 Read these carefully — two of the three deltas are *stipulated*, one is structural:
 
@@ -260,6 +300,11 @@ Read these carefully — two of the three deltas are *stipulated*, one is struct
 - **`--no-monitor` leaves the curve untouched.** That is correct and by design: the monitor
   detects and records, it does not yet change control flow (§5). Its ablation is visible in
   `replan events`, which is exactly the honest claim for it.
+
+None of these numbers belong in a results table. See
+[`docs/plans/2026-09-06-harvey-lab-eval-plan.md`](plans/2026-09-06-harvey-lab-eval-plan.md) for
+the design that would produce real ones — in particular §4, on why a headline number has to be
+a gap between arms rather than the shape of one curve.
 
 Run it on the built-in fixtures:
 

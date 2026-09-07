@@ -42,3 +42,48 @@ def test_session_dir_created(tmp_path):
     assert os.path.isdir(handle.session_dir)
     assert "worker" in handle.session_dir
     mgr.shutdown()
+
+
+def test_drain_waits_for_outstanding_children_without_closing_the_pool():
+    """A task must not leak worker threads, but the manager outlives one task."""
+    import threading
+    from sentinelprime.children import ChildSessionManager
+    import tempfile
+
+    gate = threading.Event()
+    done = []
+
+    def run_child(task, name, session_dir):
+        gate.wait(timeout=5)
+        done.append(task)
+        return f"done:{task}"
+
+    with tempfile.TemporaryDirectory() as tmp:
+        mgr = ChildSessionManager(run_child, tmp)
+        mgr.spawn_child("a")
+        mgr.spawn_child("b")
+        assert done == []          # non-blocking admission
+        gate.set()
+        mgr.drain()
+        assert sorted(done) == ["a", "b"]
+        # pool still usable afterwards
+        handle = mgr.spawn_child("c")
+        mgr.drain()
+        assert mgr.result(handle.child_id) == "done:c"
+        mgr.shutdown()
+
+
+def test_drain_surfaces_a_child_failure_instead_of_swallowing_it():
+    from sentinelprime.children import ChildSessionManager
+    import tempfile
+
+    def run_child(task, name, session_dir):
+        raise ValueError("child blew up")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        mgr = ChildSessionManager(run_child, tmp)
+        mgr.spawn_child("a")
+        errors = mgr.drain()
+        assert len(errors) == 1
+        assert isinstance(errors[0][1], ValueError)
+        mgr.shutdown()
