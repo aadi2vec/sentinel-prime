@@ -84,6 +84,39 @@ def load_task(task_dir: str | Path) -> LabTask:
     )
 
 
+_OOXML_PARTS = ("word/document.xml", "xl/sharedStrings.xml", "ppt/slides/")
+
+
+def _ooxml_text(path: Path) -> str:
+    """Text from any OOXML container — .docx, .xlsx, .pptx are all zips of XML.
+
+    One path for all three because a deliverable's extension follows the task
+    (`contract-risk-assessment.xlsx` is a real LAB deliverable), and reading a compressed
+    zip as text yields mojibake that the judge would silently grade.
+    """
+    with zipfile.ZipFile(path) as z:
+        names = z.namelist()
+        if "word/document.xml" in names:
+            return _paragraphs(z.read("word/document.xml").decode("utf-8", "replace"))
+        # Spreadsheets/decks: cell and slide text lives across several parts.
+        wanted = [n for n in names
+                  if n.startswith(("xl/sharedStrings", "xl/worksheets/", "ppt/slides/"))
+                  and n.endswith(".xml")]
+        chunks = [_paragraphs(z.read(n).decode("utf-8", "replace"), tag="t")
+                  for n in sorted(wanted)]
+        return "\n".join(c for c in chunks if c.strip())
+
+
+def _paragraphs(xml: str, tag: str = "p") -> str:
+    parts = re.findall(rf"<(?:\w+:)?{tag}[ >].*?</(?:\w+:)?{tag}>", xml, re.S)
+    out = []
+    for part in parts:
+        text = html.unescape(_TAG_RE.sub("", part))
+        if text.strip():
+            out.append(text.strip())
+    return "\n".join(out)
+
+
 def _docx_text(path: Path) -> str:
     with zipfile.ZipFile(path) as z:
         xml = z.read("word/document.xml").decode("utf-8", "replace")
@@ -109,12 +142,15 @@ def document_text(path: str | Path) -> str:
     the grader — so a `.docx` that is not a valid zip is read as text.
     """
     path = Path(path)
-    if path.suffix.lower() == ".docx":
+    if path.suffix.lower() in (".docx", ".xlsx", ".pptx"):
         try:
-            return _docx_text(path)
-        except zipfile.BadZipFile:
-            pass
-    return path.read_text(errors="replace")
+            return _ooxml_text(path)
+        except (zipfile.BadZipFile, KeyError):
+            pass  # an agent asked for report.docx will often just write markdown
+    try:
+        return path.read_text(errors="replace")
+    except OSError:
+        return ""
 
 
 def prepare_workspace(task: LabTask, dest: str | Path) -> Path:
@@ -291,4 +327,44 @@ def verdict_stability(replicates: list[dict[str, str]]) -> dict:
         "spread": max(rates) - min(rates),
         "flipped": flipped,
         "flip_rate": len(flipped) / len(ids) if ids else 0.0,
+    }
+
+
+def paired_summary(pairs: list[tuple[str, float, float]]) -> dict:
+    """Summarize a paired A/B: one (task, control_rate, treatment_rate) per task.
+
+    Pairing is what makes a small task set usable. Per-run agent variance measured on this
+    benchmark is ~7% (stdev), which swamps any plausible ledger effect if arms are compared
+    as independent samples. Comparing the two arms *on the same task* cancels the
+    task-difficulty term, leaving only the within-task difference.
+
+    `significant` is deliberately crude — |mean delta| > 2 x standard error — because the
+    honest use of this number is to refuse to over-read a result, not to certify one. With
+    a dozen tasks and one task order it is a screen, not a p-value: the deltas are not
+    independent (in the learning arm the ledger grows across the sequence, so later tasks
+    see more guidance than earlier ones), which a real analysis has to handle with multiple
+    randomized orders.
+    """
+    if len(pairs) < 2:
+        raise ValueError("need at least two paired tasks")
+    deltas = [treatment - control for _, control, treatment in pairs]
+    n = len(deltas)
+    mean = sum(deltas) / n
+    var = sum((d - mean) ** 2 for d in deltas) / (n - 1)
+    sd = var ** 0.5
+    se = sd / (n ** 0.5)
+    return {
+        "n": n,
+        "deltas": deltas,
+        "mean_delta": mean,
+        "sd": sd,
+        "se": se,
+        "wins": sum(1 for d in deltas if d > 0),
+        "losses": sum(1 for d in deltas if d < 0),
+        "ties": sum(1 for d in deltas if d == 0),
+        # se == 0 means every task moved by the same amount: a perfectly consistent
+        # effect, not an absent one. Real data never lands here, but the guard should not
+        # invert the verdict when it does.
+        "significant": bool(abs(mean) > 2 * se) if se > 0 else bool(mean != 0),
+        "detectable_at": 2 * se,
     }

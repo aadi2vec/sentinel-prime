@@ -15,7 +15,7 @@ def _docx(path, paragraphs):
         '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
         f"<w:body>{body}</w:body></w:document>"
     )
-    with zipfile.ZipFile(path, "w") as z:
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("word/document.xml", xml)
 
 
@@ -369,3 +369,77 @@ def test_verdict_map_extracts_id_to_verdict_from_judge_results():
     assert verdict_map([{"id": "C-001", "verdict": "pass"},
                         {"id": "C-002", "verdict": "fail"}]) == {"C-001": "pass",
                                                                  "C-002": "fail"}
+
+
+def _xlsx(path, strings):
+    """A minimal .xlsx: shared strings are where cell text actually lives."""
+    shared = "".join(f"<si><t>{s}</t></si>" for s in strings)
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("xl/sharedStrings.xml",
+                   '<?xml version="1.0"?><sst>' + shared + "</sst>")
+        z.writestr("xl/worksheets/sheet1.xml",
+                   '<?xml version="1.0"?><worksheet><sheetData/></worksheet>')
+
+
+def test_xlsx_deliverables_are_readable(tmp_path):
+    """One task in the set expects .xlsx; reading it as bytes would feed the judge noise."""
+    from sentinelprime.lab import document_text
+
+    p = tmp_path / "risk.xlsx"
+    _xlsx(p, ["Contract", "Change of Control", "High"])
+    text = document_text(p)
+    assert "Change of Control" in text
+    assert "High" in text
+
+
+def test_office_formats_share_one_extraction_path(tmp_path):
+    from sentinelprime.lab import document_text
+
+    d, x = tmp_path / "a.docx", tmp_path / "b.xlsx"
+    _docx(d, ["docx body"])
+    _xlsx(x, ["xlsx body"])
+    assert "docx body" in document_text(d)
+    assert "xlsx body" in document_text(x)
+
+
+def test_unreadable_binary_does_not_crash_the_grader(tmp_path):
+    from sentinelprime.lab import document_text
+
+    p = tmp_path / "weird.xlsx"
+    p.write_bytes(b"\x00\x01\x02not a zip and not utf8 \xff\xfe")
+    document_text(p)   # must not raise
+
+
+# ---- paired A/B analysis --------------------------------------------------------------
+
+def test_paired_summary_reports_the_mean_delta_and_its_error():
+    from sentinelprime.lab import paired_summary
+
+    s = paired_summary([("t1", 0.50, 0.60), ("t2", 0.40, 0.45), ("t3", 0.30, 0.30)])
+    assert s["n"] == 3
+    assert s["mean_delta"] == pytest.approx(0.05)
+    assert s["wins"] == 2 and s["losses"] == 0 and s["ties"] == 1
+    assert s["se"] > 0
+
+
+def test_paired_summary_flags_an_effect_smaller_than_its_own_error():
+    """The whole point: a delta inside the noise is not a result."""
+    from sentinelprime.lab import paired_summary
+
+    s = paired_summary([("t1", 0.50, 0.52), ("t2", 0.40, 0.30), ("t3", 0.30, 0.40)])
+    assert s["significant"] is False
+
+
+def test_paired_summary_calls_a_large_consistent_effect_significant():
+    from sentinelprime.lab import paired_summary
+
+    s = paired_summary([(f"t{i}", 0.30, 0.55) for i in range(6)])
+    assert s["mean_delta"] == pytest.approx(0.25)
+    assert s["significant"] is True
+
+
+def test_paired_summary_needs_at_least_two_pairs():
+    from sentinelprime.lab import paired_summary
+
+    with pytest.raises(ValueError):
+        paired_summary([("t1", 0.5, 0.6)])
