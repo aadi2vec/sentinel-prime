@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import html
 import json
+import time
 import re
 import shutil
 import zipfile
@@ -170,6 +171,22 @@ def prepare_workspace(task: LabTask, dest: str | Path) -> Path:
     return dest
 
 
+def task_prompt(task: LabTask, workspace: str | Path) -> str:
+    """The prompt a LAB task is run with.
+
+    Lives here rather than in a runner because more than one runner sends it — the paired
+    experiment and the counterfactual rollout in `scripts/gepa_runner.py`. Two copies that
+    drift by a word are two different tasks, and the rollout would then be scoring
+    something the experiment never ran.
+    """
+    workspace = Path(workspace)
+    return (f"{task.instructions}\n\n"
+            f"The source documents are the .txt files in {workspace / 'documents'}. "
+            f"You MUST write your deliverable(s) as files into {workspace / 'output'} — "
+            f"named {', '.join(task.deliverables)}. "
+            f"Returning text without writing the file(s) scores zero.")
+
+
 def to_feedback(task_id: str, criteria_results: list[dict]) -> Feedback:
     """LAB rubric verdicts -> the label-free signal `refine()` consumes.
 
@@ -186,12 +203,36 @@ def to_feedback(task_id: str, criteria_results: list[dict]) -> Feedback:
                 "reason": c.get("reasoning", "") or c.get("title", ""),
             }
             for c in criteria_results
+            # An `error` row means the judge never rendered an opinion — the call failed.
+            # Dropping it here does two things. It keeps the pooled rate a rate over
+            # *graded* criteria, and, more importantly, it keeps the transport error out of
+            # `as_text()`. That string is the proposer's only view of why the run fell
+            # short, so an error left in teaches the ledger about the provider's rate
+            # limiter. Seen live: 44 of 220 calls in one run, scored as rubric failures.
+            if str(c.get("verdict", "")).strip().lower() != "error"
         ],
     })
 
 
-def all_pass(feedback: Feedback) -> bool:
-    """LAB's headline metric: complete only if every criterion passed."""
+def judge_errors(criteria_results: list[dict]) -> int:
+    """How many criteria the judge failed to grade. Report it next to every score.
+
+    A pooled rate over 37 of 55 criteria is a different number from one over 55, and
+    nothing in the rate itself says which it is.
+    """
+    return sum(1 for c in criteria_results
+               if str(c.get("verdict", "")).strip().lower() == "error")
+
+
+def all_pass(feedback: Feedback, criteria_results: list[dict] | None = None) -> bool:
+    """LAB's headline metric: complete only if every criterion passed.
+
+    Pass `criteria_results` — the judge's raw rows — and an ungraded criterion refuses the
+    claim. Without them the answer is over what was graded, which for an all-pass metric is
+    the optimistic reading: "every criterion we managed to score passed" is not "complete".
+    """
+    if criteria_results is not None and judge_errors(criteria_results):
+        return False
     return bool(feedback.criteria) and not feedback.failures
 
 
@@ -213,8 +254,14 @@ class RubricJudge:
     """
 
     def __init__(self, lm, prompt_path: str | Path | None = None,
-                 parallel: int = 8, run_log=None) -> None:
+                 parallel: int = 8, run_log=None, retries: int = 3,
+                 backoff: float = 1.0) -> None:
         self.lm = lm
+        # A transport failure is not a verdict. Retry it, then record it as `error` — see
+        # grade(). Default 3 attempts with exponential backoff, which cleared the rate
+        # limiting observed at parallel=8 on this provider.
+        self.retries = max(1, retries)
+        self.backoff = max(0.0, backoff)
         # Criteria are graded independently — LAB's own scorer parallelises this too.
         # Sequentially, one sweep is 1346 calls at ~2.2s = ~50 minutes of pure waiting.
         self.parallel = max(1, parallel)
@@ -271,14 +318,24 @@ class RubricJudge:
                 criterion_title=criterion.get("title", ""),
                 match_criteria=criterion.get("match_criteria", ""),
             )
-            try:
-                reply = self.lm(messages=[{"role": "user", "content": prompt}])
-            except Exception as exc:
-                # One flaky call costs one criterion, never the task. Failing closed keeps
-                # the transport error from being scored as a pass.
-                return {**base, "verdict": "fail", "reasoning": f"judge error: {exc}"}
-            verdict, reasoning = self._verdict(reply[0] if reply else "")
-            return {**base, "verdict": verdict, "reasoning": reasoning}
+            for attempt in range(self.retries):
+                try:
+                    reply = self.lm(messages=[{"role": "user", "content": prompt}])
+                except Exception as exc:
+                    if attempt + 1 < self.retries:
+                        # Transport failures on this provider are overwhelmingly rate
+                        # limits, which clear on their own. Retrying is what keeps a
+                        # transient 429 from becoming a permanent hole in the rubric.
+                        time.sleep(self.backoff * (2 ** attempt))
+                        continue
+                    # Out of retries. `error` is a third verdict, not a failure: the judge
+                    # never saw the deliverable, so it has said nothing about it. Scoring
+                    # this as `fail` was the old behavior and it was wrong twice over — it
+                    # deflated the rate, and it fed the exception text to the proposer as
+                    # if it were a rubric failure.
+                    return {**base, "verdict": "error", "reasoning": f"judge error: {exc}"}
+                verdict, reasoning = self._verdict(reply[0] if reply else "")
+                return {**base, "verdict": verdict, "reasoning": reasoning}
 
         if self.parallel == 1 or len(todo) <= 1:
             results = [grade(c) for c in todo]

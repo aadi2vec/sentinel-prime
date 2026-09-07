@@ -518,8 +518,127 @@ def test_one_failing_criterion_does_not_lose_the_others(tmp_path):
             return ['{"reasoning": "r", "verdict": "pass"}']
 
     task = load_task(_task_dir(tmp_path, criteria=_many_criteria(4)))
+    # retries=1 so the flaky call exhausts immediately; with the default it would simply
+    # succeed on the retry, which is the happy path and not what this test is about.
     results = RubricJudge(_Flaky(), prompt_path=_prompt_file(tmp_path),
-                          parallel=1).judge(task, "out")
+                          parallel=1, retries=1).judge(task, "out")
     assert len(results) == 4
-    assert sum(1 for r in results if r["verdict"] == "fail") == 1
+    # `error`, not `fail`: the isolation this test guards is unchanged, but a call that
+    # never returned is not evidence that the criterion was missed.
+    assert sum(1 for r in results if r["verdict"] == "error") == 1
+    assert sum(1 for r in results if r["verdict"] == "pass") == 3
     assert any("rate limited" in r["reasoning"] for r in results)
+
+
+# --- the task prompt, shared so two runners cannot drift apart ------------------------
+
+def test_task_prompt_names_the_documents_output_and_deliverables(tmp_path):
+    from sentinelprime.lab import LabTask, task_prompt
+    task = LabTask(task_id="ma-001", title="t", instructions="Summarize the CoC clauses.",
+                   work_type="w", criteria=[], deliverables=["memo.md", "table.csv"],
+                   tags=[], dir=tmp_path)
+    prompt = task_prompt(task, tmp_path / "ws")
+    assert "Summarize the CoC clauses." in prompt
+    assert str(tmp_path / "ws" / "documents") in prompt
+    assert str(tmp_path / "ws" / "output") in prompt
+    assert "memo.md" in prompt and "table.csv" in prompt
+
+
+def test_task_prompt_is_identical_for_the_same_task_and_workspace(tmp_path):
+    # Two runners scoring the same task must send the same prompt, or the rollout is
+    # measuring a different task than the experiment did.
+    from sentinelprime.lab import LabTask, task_prompt
+    task = LabTask(task_id="ma-001", title="t", instructions="i", work_type="w",
+                   criteria=[], deliverables=["a.md"], tags=[], dir=tmp_path)
+    assert task_prompt(task, tmp_path / "ws") == task_prompt(task, tmp_path / "ws")
+
+
+# --- transport errors are not verdicts -------------------------------------------------
+# A rate-limited judge call says nothing about the deliverable. Scoring it as a failure
+# deflates the pooled rate AND — the defect that matters — sends the transport error's text
+# into Feedback.as_text(), where the proposer reads it as a rubric failure and writes ledger
+# lessons about the provider's rate limiter. Observed live: 44 of 220 calls in one arm_f run.
+
+class _ExplodingLM:
+    """Fails the first `n` calls, then answers normally. Records the attempt count."""
+
+    def __init__(self, failures, reply='{"reasoning": "ok", "verdict": "pass"}'):
+        self.calls = 0
+        self._failures = failures
+        self._reply = reply
+
+    def __call__(self, messages=None, **kw):
+        self.calls += 1
+        if self.calls <= self._failures:
+            raise RuntimeError("RateLimitError: slow down")
+        return [self._reply]
+
+
+def test_a_transport_error_is_an_error_verdict_not_a_failure(tmp_path):
+    from sentinelprime.lab import RubricJudge, load_task
+
+    task = load_task(_task_dir(tmp_path))
+    judge = RubricJudge(_ExplodingLM(failures=99), prompt_path=_prompt_file(tmp_path),
+                        retries=1)
+    r = judge.judge(task, "out")
+    assert r[0]["verdict"] == "error"
+    assert "RateLimitError" in r[0]["reasoning"]
+
+
+def test_the_judge_retries_a_transport_error_before_giving_up(tmp_path):
+    from sentinelprime.lab import RubricJudge, load_task
+
+    task = load_task(_task_dir(tmp_path))
+    lm = _ExplodingLM(failures=2)
+    r = RubricJudge(lm, prompt_path=_prompt_file(tmp_path), retries=3, backoff=0).judge(
+        task, "out")
+    assert r[0]["verdict"] == "pass"
+    assert lm.calls == 3
+
+
+def test_an_unparseable_reply_is_still_a_failure_not_an_error(tmp_path):
+    """The model answered; it just answered badly. That is evidence, and it stays a fail."""
+    from sentinelprime.lab import RubricJudge, load_task
+
+    task = load_task(_task_dir(tmp_path))
+    r = RubricJudge(_StubLM(["I cannot evaluate this"]),
+                    prompt_path=_prompt_file(tmp_path)).judge(task, "out")
+    assert r[0]["verdict"] == "fail"
+
+
+def test_error_rows_are_excluded_from_the_pooled_rate(tmp_path):
+    from sentinelprime.lab import to_feedback
+
+    fb = to_feedback("t", [{"id": "a", "verdict": "pass", "reasoning": ""},
+                           {"id": "b", "verdict": "fail", "reasoning": "missed it"},
+                           {"id": "c", "verdict": "error", "reasoning": "judge error: 429"}])
+    # 1 of 2 *graded* criteria, not 1 of 3. An ungraded criterion is not a failed one.
+    assert fb.score == 0.5
+    assert [c.id for c in fb.criteria] == ["a", "b"]
+
+
+def test_an_error_never_reaches_the_proposer_as_a_rubric_failure(tmp_path):
+    """The defect this whole change exists to close."""
+    from sentinelprime.lab import to_feedback
+
+    fb = to_feedback("t", [{"id": "c", "verdict": "error", "reasoning": "judge error: 429"}])
+    assert "429" not in fb.as_text()
+    assert fb.failures == []
+
+
+def test_all_pass_is_refused_when_a_criterion_was_never_graded(tmp_path):
+    """Every graded criterion passing is not the same as every criterion passing."""
+    from sentinelprime.lab import all_pass, to_feedback
+
+    results = [{"id": "a", "verdict": "pass", "reasoning": ""},
+               {"id": "b", "verdict": "error", "reasoning": "judge error: 429"}]
+    fb = to_feedback("t", results)
+    assert all_pass(fb) is True            # unchanged for callers that pass only feedback
+    assert all_pass(fb, results) is False  # the honest answer when errors are visible
+
+
+def test_judge_errors_are_counted_for_the_run_record(tmp_path):
+    from sentinelprime.lab import judge_errors
+
+    assert judge_errors([{"verdict": "pass"}, {"verdict": "error"},
+                         {"verdict": "error"}]) == 2
