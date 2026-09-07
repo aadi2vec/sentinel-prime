@@ -19,14 +19,16 @@ this from a minimal core into the real mechanism.
 from __future__ import annotations
 import json
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 
 import dspy
 
-from sentinelprime.audit import AuditLog, AuditRecord, content_hash, digest
+from sentinelprime.audit import (AuditLog, AuditRecord, content_hash, digest,
+                                 machinery_fingerprint)
 from sentinelprime.memory import MemoryBackend, MemoryItem
 from sentinelprime.feedback import Feedback
+from sentinelprime.proposals import ProposalLog, ProposalRecord, proposal_id
 from sentinelprime.reuse import ReuseController
 
 
@@ -75,7 +77,8 @@ def _now() -> str:
 class ContinualHarness(dspy.Module):
     def __init__(self, backend: MemoryBackend, audit_log: AuditLog | None = None,
                  reuse_controller: ReuseController | None = None,
-                 verifier=None, credit_assigner=None):
+                 verifier=None, credit_assigner=None,
+                 proposal_log: ProposalLog | None = None):
         super().__init__()
         self.backend = backend
         self.audit_log = audit_log
@@ -88,6 +91,11 @@ class ContinualHarness(dspy.Module):
         # verifier before it is applied and audited. None -> unconditional admission
         # (the base behavior; rollback() remains the safety net).
         self.verifier = verifier
+        # Optional training record. The audit log is deliberately a record of what entered
+        # the ledger, so it never sees a rejection — which makes it an all-positive dataset
+        # and useless for tuning the gate. This records every proposal the round produced,
+        # admitted or not. None -> nothing is written (the base behavior).
+        self.proposal_log = proposal_log
         self.propose = dspy.Predict(ProposeLedgerEdits)
 
     def admissible_items(self, scope: str | None = None,
@@ -177,14 +185,47 @@ class ContinualHarness(dspy.Module):
             (updated if item_id in existing else created).append(item_id)
         return created, updated, deleted
 
-    def credit(self, exposed_ids: list[str], feedback: Feedback) -> None:
+    def credit(self, exposed_ids: list[str], feedback: Feedback,
+               grounded: dict[str, bool | None] | None = None) -> None:
         """Record this task's outcome against the guidance that was actually surfaced.
 
         Separate from refine() because exposure and outcome are known at *task* time,
         while retirement is a ledger edit that belongs in refine()'s snapshot window.
+
+        `grounded` is passed straight to the assigner's lucky-guess filter; None leaves
+        credit exactly as it was before that filter existed.
         """
-        if self.credit_assigner is not None:
-            self.credit_assigner.observe(exposed_ids, feedback)
+        if self.credit_assigner is None:
+            return
+        self.credit_assigner.observe(exposed_ids, feedback, grounded=grounded)
+        self._record_outcomes(exposed_ids)
+
+    def _record_outcomes(self, exposed_ids: list[str]) -> None:
+        """Feed the downstream verdict back to the proposal that produced the lesson.
+
+        This is what makes the offline trainset self-supervising: the online loop learns
+        whether a lesson held up, and writes that back as a label on the proposal the
+        verifier was once asked to judge. Without it the only labels available are
+        deterministic probe rejections — proposals the ladder short-circuits and the
+        generative judge therefore never sees in production.
+
+        Items with no proposal record (externally seeded guidance) are skipped rather than
+        invented: nothing here proposed them, so there is nothing to attribute.
+        """
+        if self.proposal_log is None:
+            return
+        for item_id in exposed_ids:
+            record = self.proposal_log.for_edit(item_id)
+            if record is None:
+                continue
+            credit = self.credit_assigner.stats().get(item_id)
+            if credit is None or not credit.exposures:
+                continue
+            self.proposal_log.append_outcome(
+                record.proposal_id, edit_id=item_id,
+                targets=sorted(self.credit_assigner.targets(item_id)),
+                exposures=credit.exposures, successes=credit.successes,
+                created_at=_now())
 
     def _retire(self, feedback: Feedback, from_version: int, to_version: int) -> list[str]:
         # Only retire what is actually in the ledger; the assigner may still hold
@@ -220,10 +261,15 @@ class ContinualHarness(dspy.Module):
         before = self.backend.snapshot()
         # Label-free seam: the only signals are the trajectory and the rubric-failure *text*
         # (feedback.as_text()). No gold labels enter here — that is what lets this run online.
+        trajectory_summary = json.dumps(trajectory)[:4000]  # bound prompt size on long runs
+        # Captured rather than re-read below: the proposal log records the prompt the
+        # proposer actually saw, and re-reading after the edits land would record a
+        # different ledger than the one that produced them.
+        current_ledger = self.read() or "(empty)"
         pred = self.propose(
-            trajectory_summary=json.dumps(trajectory)[:4000],  # bound prompt size on long runs
+            trajectory_summary=trajectory_summary,
             rubric_failures=feedback.as_text(),
-            current_ledger=self.read() or "(empty)",
+            current_ledger=current_ledger,
         )
         # NOTE: edits are applied unconditionally. There is no check that they improved anything —
         # credit assignment (keep a lesson only if it later raises the pass-rate) is the key
@@ -240,16 +286,34 @@ class ContinualHarness(dspy.Module):
         # admitted edits threads the verifier's reasoning into the audit trail.
         verifications: dict[str, str] = {}
         rejected: list[str] = []
+        # (op, admitted, justification, per-rung verdicts) for every proposal this round,
+        # kept whole so the proposal log can record the rejections too.
+        judged: list[tuple[dict, bool, str, dict]] = []
         if self.verifier is not None:
             admitted: list[dict] = []
             for op in edits:
                 verdict = self.verifier.verify(op, feedback, trajectory)
+                # A ladder knows which rungs ran and how each voted; a bare verifier does
+                # not, and reports nothing rather than pretending to a breakdown. Shadow
+                # verdicts (rungs the ladder ran past a rejection, for observation only)
+                # are recorded alongside but explicitly flagged: they are training signal,
+                # never part of why the edit was admitted or refused.
+                rungs = {name: {**asdict(v), "shadow": False} for name, v
+                         in getattr(self.verifier, "last_verdicts", {}).items()}
+                rungs.update({name: {**asdict(v), "shadow": True} for name, v
+                              in getattr(self.verifier, "last_shadow", {}).items()})
+                judged.append((op, verdict.admitted, verdict.justification, rungs))
                 if verdict.admitted:
                     verifications[op["id"]] = verdict.justification
                     admitted.append(op)
                 else:
                     rejected.append(op["id"])
             edits = admitted
+        else:
+            # Ungated rounds are still training data: the probe that labels a proposal is
+            # deterministic and recomputed at training time, so a row needs no verdict.
+            judged = [(op, True, "", {}) for op in edits]
+        self._record_proposals(judged, feedback, trajectory_summary, current_ledger)
         created, updated, deleted = self._apply_edits(edits)
         # Retire inside the same window as the additions, so one rollback undoes the whole
         # round — a lesson removed on weak evidence is as recoverable as one added on it.
@@ -272,12 +336,43 @@ class ContinualHarness(dspy.Module):
             return override
         return "intrinsic" if op.get("scope") == "global" else "external"
 
+    def _record_proposals(self, judged: list[tuple[dict, bool, str, dict]],
+                          feedback: Feedback, trajectory_summary: str,
+                          current_ledger: str) -> None:
+        """Persist every proposal the verifier was asked about, admitted or not.
+
+        This is the *only* place a rejected edit's text survives: `RefineResult.rejected`
+        carries bare ids and the audit log refuses rejections by design. Without it there
+        are no negatives, and a gate fit to the audit log alone learns to admit everything.
+        """
+        if self.proposal_log is None:
+            return
+        traj_digest = digest(trajectory_summary)
+        for op, admitted, justification, rungs in judged:
+            self.proposal_log.append(ProposalRecord(
+                proposal_id=proposal_id(op, feedback.task_id),
+                task_id=feedback.task_id,
+                op=op,
+                rubric_failures=feedback.as_text(),
+                trajectory_digest=traj_digest,
+                trajectory_summary=trajectory_summary,
+                current_ledger=current_ledger,
+                admitted=admitted,
+                justification=justification,
+                rungs=rungs,
+                created_at=_now(),
+            ))
+
     def _emit_audit(self, edits: list[dict], feedback: Feedback, trajectory: list[dict],
                     from_version: int, to_version: int,
                     verifications: dict[str, str] | None = None) -> None:
         traj_digest = digest(json.dumps(trajectory)[:4000])
         failures = feedback.as_text()
         verifications = verifications or {}
+        # The admission bar in force for this round. Computed once: it is identical for
+        # every edit in the round, and it is what makes an optimizer run auditable — two
+        # records that read alike came from measurably different prompts.
+        machinery = machinery_fingerprint(self)
         for op in edits:
             kind = op.get("op")
             edit_id = op["id"]
@@ -297,6 +392,7 @@ class ContinualHarness(dspy.Module):
                 depends_on=op.get("meta", {}).get("depends_on", {}),
                 verification=verifications.get(edit_id, ""),
                 targets=list(op.get("meta", {}).get("targets", []) or []),
+                machinery=machinery,
             ))
 
     def rollback(self, version: int) -> None:

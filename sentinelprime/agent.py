@@ -16,14 +16,21 @@ path exercises the same seams the scripted harness does:
     SubQueryCache stats, so live thrash emits a `replan` audit event.
   - `last_trajectory` exposes that trajectory so the caller can hand it to
     `learn()` rather than refining on an empty list.
+  - `last_coverage` reports which workspace documents the run never named, an
+    LM-free read on the failure mode that has no reasoning in it at all.
 
-All three are opt-in: with no context and no monitor the behavior is unchanged.
+All four are opt-in: with no context and no monitor the behavior is unchanged,
+and a workspace with no documents/ directory reports no coverage.
 """
 from __future__ import annotations
+
+import os
 
 import dspy
 
 from sentinelprime.children import ChildSessionManager
+from sentinelprime.credit import grounding_from_trajectory
+from sentinelprime.grounding import document_coverage, document_names
 from sentinelprime.harness import ContinualHarness
 from sentinelprime.interpreter import InterpreterFactory
 from sentinelprime.subcache import SubQueryCache
@@ -58,6 +65,14 @@ class CachingRLM(dspy.RLM):
 
     def forward(self, interpreter=None, /, **input_args):
         result = super().forward(interpreter, **input_args)
+        if self._active_cache is not None:
+            self.last_cache_stats = self._active_cache.stats()
+        return result
+
+    async def aforward(self, interpreter=None, /, **input_args):
+        # dspy's aforward calls _prepare_execution_tools too, so the sub-query cache is
+        # already wrapped; this only mirrors forward's stats capture.
+        result = await super().aforward(interpreter, **input_args)
         if self._active_cache is not None:
             self.last_cache_stats = self._active_cache.stats()
         return result
@@ -137,6 +152,10 @@ class PrimeAgent(dspy.Module):
         # assignment scores. Not the whole ledger: a lesson gating withheld cannot be
         # blamed for that task's outcome.
         self.last_exposed_ids: list[str] = []
+        # Which of the workspace's documents the last run ever named. In due diligence the
+        # dominant failure is not faulty reasoning, it is never opening a document — and
+        # that costs no LM call to detect. None when the workdir has no documents/ dir.
+        self.last_coverage = None
         self.last_child_errors: list = []
         self._current_workdir = "."
         self._subquery_embedder = subquery_embedder
@@ -195,8 +214,7 @@ class PrimeAgent(dspy.Module):
         # Per-run sub-query cache stats, when the RLM tracks them (CachingRLM).
         return getattr(self.rlm, "last_cache_stats", None)
 
-    def run_task(self, task: str, workdir: str, context: dict | None = None,
-                 task_id: str = "") -> dspy.Prediction:
+    def _before_task(self, workdir: str, context: dict | None) -> str:
         # Reproducibility invariant: freeze the ledger snapshot at task start.
         self._current_workdir = workdir
         # `context` carries the live task state (document/playbook versions, matter ids)
@@ -204,16 +222,19 @@ class PrimeAgent(dspy.Module):
         # from the prompt. None -> ungated read, the base behavior.
         exposed = self.harness.admissible_items(context=context)
         self.last_exposed_ids = [item.id for item in exposed]
-        guidance = self.harness.read(context=context) or "(no learned guidance yet)"
-        with dspy.context(lm=self.root_lm):
-            pred = self.rlm(task=task, guidance=guidance)
-        # dspy.RLM returns the REPL history as `trajectory` ([{reasoning, code, output}]),
-        # which is exactly the shape ProgressMonitor and refine() consume.
+        return self.harness.read(context=context) or "(no learned guidance yet)"
+
+    def _after_task(self, pred, task_id: str):
         # Bound every child's lifetime to the task that spawned it: the parent edits the
         # ledger between tasks, and a child still reading it then would race that write.
         if self.spawn_manager is not None:
             self.last_child_errors = self.spawn_manager.drain()
+        # dspy.RLM returns the REPL history as `trajectory` ([{reasoning, code, output}]),
+        # which is exactly the shape ProgressMonitor and refine() consume.
         self.last_trajectory = list(getattr(pred, "trajectory", None) or [])
+        docs = document_names(os.path.join(self._current_workdir, "documents"))
+        self.last_coverage = (document_coverage(self.last_trajectory, docs)
+                              if docs else None)
         if self.monitor is not None:
             self.last_monitor_decision = self.monitor.check_and_record(
                 self.last_trajectory,
@@ -224,9 +245,38 @@ class PrimeAgent(dspy.Module):
             )
         return pred
 
-    def learn(self, trajectory: list[dict], feedback):
+    async def arun_task(self, task: str, workdir: str, context: dict | None = None,
+                        task_id: str = "") -> dspy.Prediction:
+        """Async twin of run_task.
+
+        A single RLM loop cannot be parallelised — turn N+1 reads turn N's REPL output —
+        so this does not make one task faster. What it enables is overlapping *whole
+        tasks*, which is where a sweep's wall time actually goes.
+        """
+        guidance = self._before_task(workdir, context)
+        with dspy.context(lm=self.root_lm):
+            pred = await self.rlm.acall(task=task, guidance=guidance)
+        return self._after_task(pred, task_id)
+
+    def run_task(self, task: str, workdir: str, context: dict | None = None,
+                 task_id: str = "") -> dspy.Prediction:
+        guidance = self._before_task(workdir, context)
+        with dspy.context(lm=self.root_lm):
+            pred = self.rlm(task=task, guidance=guidance)
+        # dspy.RLM returns the REPL history as `trajectory` ([{reasoning, code, output}]),
+        # which is exactly the shape ProgressMonitor and refine() consume.
+        return self._after_task(pred, task_id)
+
+    def learn(self, trajectory: list[dict], feedback, criterion_texts=None):
         # Applied only BETWEEN tasks — never mid-task.
+        # With the rubric's criterion texts, the same trajectory answers a second question
+        # before it is scored: did the run actually read the facts each criterion names?
+        # A pass it could not have derived is dropped rather than credited — otherwise a
+        # lucky guess keeps a useless lesson's success rate up and it never retires.
+        # Omitted -> no filter, and credit behaves exactly as it did before.
+        grounded = (grounding_from_trajectory(trajectory, criterion_texts)
+                    if criterion_texts else None)
         # Credit first: this task's outcome is evidence about the guidance that was in the
         # prompt for it, and refine() consumes that evidence when it retires.
-        self.harness.credit(self.last_exposed_ids, feedback)
+        self.harness.credit(self.last_exposed_ids, feedback, grounded=grounded)
         return self.harness.refine(trajectory, feedback)

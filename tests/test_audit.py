@@ -211,3 +211,61 @@ def test_refine_reports_no_rejections_when_ungated(tmp_path):
     )
     fb = parse_lab_result({"task_id": "t", "criteria": []})
     assert harness.refine(trajectory=[], feedback=fb).rejected == []
+
+
+# --- machinery provenance: auditing the optimizer, not just the ledger -------------
+# GEPA rewrites the instructions of the very predictors that propose and admit edits.
+# Without a fingerprint on the record, "prove the guidance was valid at the time" holds
+# for the ledger but breaks one level up: nothing says which prompt admitted it.
+
+def test_machinery_fingerprint_is_stable_for_the_same_module():
+    from sentinelprime.audit import machinery_fingerprint
+    from sentinelprime.harness import ContinualHarness
+    from sentinelprime.memory import JsonMemoryBackend
+    import tempfile, os
+    with tempfile.TemporaryDirectory() as d:
+        h = ContinualHarness(JsonMemoryBackend(os.path.join(d, "m.json")))
+        assert machinery_fingerprint(h) == machinery_fingerprint(h)
+
+
+def test_machinery_fingerprint_changes_when_a_prompt_is_rewritten(tmp_path):
+    from sentinelprime.audit import machinery_fingerprint
+    from sentinelprime.harness import ContinualHarness
+    from sentinelprime.memory import JsonMemoryBackend
+    h = ContinualHarness(JsonMemoryBackend(str(tmp_path / "m.json")))
+    before = machinery_fingerprint(h)
+    # exactly what GEPA does to a predictor
+    h.propose.signature = h.propose.signature.with_instructions("tuned instructions")
+    assert machinery_fingerprint(h) != before
+
+
+def test_machinery_fingerprint_of_something_with_no_predictors_is_empty():
+    # "No LM machinery was involved" is a real answer, and it must render as an *unstamped*
+    # record rather than as the digest of nothing — which reads like a real fingerprint.
+    from sentinelprime.audit import machinery_fingerprint
+    from sentinelprime.verifier import GroundingProbe
+    assert machinery_fingerprint(GroundingProbe()) == ""
+
+
+def test_audit_record_defaults_machinery_to_empty_for_old_logs(tmp_path):
+    # Back-compat: records written before this field exists must still load.
+    import json
+    path = tmp_path / "audit.json"
+    path.write_text(json.dumps({"records": [{
+        "edit_id": "e", "op": "create", "scope": "intrinsic", "from_version": 1,
+        "to_version": 2, "cause_task_id": "t", "cause_failures": "f",
+        "trajectory_digest": "d", "score": 0.5, "created_at": "t", "content_hash": "h",
+    }]}))
+    assert AuditLog(str(path)).records()[0].machinery == ""
+
+
+def test_explain_renders_the_machinery_that_admitted_the_edit(tmp_path):
+    log = AuditLog(str(tmp_path / "audit.json"))
+    log.append(_record(machinery="3f9a1c2b"))
+    assert "3f9a1c2b" in log.explain(5)
+
+
+def test_explain_omits_the_machinery_line_when_unstamped(tmp_path):
+    log = AuditLog(str(tmp_path / "audit.json"))
+    log.append(_record())
+    assert "machinery" not in log.explain(5)

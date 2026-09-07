@@ -44,7 +44,8 @@ from sentinelprime.harness import ContinualHarness
 from sentinelprime.memory import JsonMemoryBackend
 from sentinelprime.monitor import ProgressMonitor
 from sentinelprime.feedback import parse_lab_result
-from sentinelprime.verifier import GroundingProbe, LadderVerifier, VerifierLevel
+from sentinelprime.assembly import assemble
+from sentinelprime.verifier import build_ladder
 
 
 # ---- Built-in fixture set (stand-in for the LAB M&A slice) -------------------------
@@ -112,24 +113,6 @@ def amend(task: dict, epoch: int) -> dict:
     amended = dict(task)
     amended["content"] = task["content"] + "Section 12. Amendment No. 1 dated 2026-03-01.\n"
     return amended
-
-
-def build_verifier(live: bool) -> LadderVerifier:
-    """The admission ladder: cheap deterministic rung first, generative judge second.
-
-    The planner orders by cost / P(fail), so the LM rung only runs on edits the free
-    grounding probe could not already reject. Scripted mode keeps the deterministic rung
-    alone so the demo stays hermetic.
-
-    `adaptive=True` lets the ladder re-derive P(fail) from its own observed rejections, so
-    the ordering sharpens over a run instead of resting on the declared costs alone.
-    """
-    levels = [VerifierLevel("grounding_probe", cost=1.0, verifier=GroundingProbe())]
-    if live:
-        from sentinelprime.verifier import PredictVerifier
-        levels.append(VerifierLevel("llm_verifier", cost=100.0,
-                                    verifier=PredictVerifier(min_score=0.0)))
-    return LadderVerifier(levels, adaptive=True)
 
 
 def build_credit(audit_log: AuditLog) -> CreditAssigner:
@@ -316,7 +299,8 @@ def run_scripted(epochs: int, *, use_verifier: bool = True, use_monitor: bool = 
         tmp = pathlib.Path(tmp)
         backend = JsonMemoryBackend(str(tmp / "ledger.json"))
         audit_log = AuditLog(str(tmp / "audit.json"))
-        verifier = build_verifier(live=False) if use_verifier else None
+        # Probe-only: the scripted demo must stay hermetic, so no generative rung.
+        verifier = build_ladder(generative=False) if use_verifier else None
         credit = build_credit(audit_log) if use_credit else None
         harness = ContinualHarness(backend, audit_log=audit_log, verifier=verifier,
                                    credit_assigner=credit)
@@ -383,7 +367,6 @@ def run_live(epochs: int, *, use_verifier: bool = True, use_monitor: bool = True
              use_context: bool = True, semantic_cache: bool = True,
              use_credit: bool = True, use_children: bool = True) -> None:
     import dspy
-    from sentinelprime.agent import PrimeAgent
 
     model = _pick_model()
     lm = dspy.LM(model, **_lm_kwargs())
@@ -394,15 +377,16 @@ def run_live(epochs: int, *, use_verifier: bool = True, use_monitor: bool = True
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp = pathlib.Path(tmp)
-        backend = JsonMemoryBackend(str(tmp / "ledger.json"))
-        audit_log = AuditLog(str(tmp / "audit.json"))
-        verifier = build_verifier(live=True) if use_verifier else None
-        credit = build_credit(audit_log) if use_credit else None
-        harness = ContinualHarness(backend, audit_log=audit_log, verifier=verifier,
-                                   credit_assigner=credit)
-        monitor = ProgressMonitor() if use_monitor else None
-        agent = PrimeAgent(harness, root_lm=lm, sub_lm=lm, monitor=monitor,
-                           subquery_embedder=embedder, enable_children=use_children)
+        # One assembly point (sentinelprime/assembly.py) rather than a hand-wired stack:
+        # the ablation flags stay flags, and this path cannot drift from paired_ab's.
+        system = assemble(lm=lm, root=tmp, sub_lm=lm,
+                          gate="ladder" if use_verifier else None,
+                          credit=use_credit, credit_min_success_rate=0.6,
+                          monitor=use_monitor, enable_children=use_children,
+                          subquery_embedder=embedder)
+        harness, agent, audit_log = system.harness, system.agent, system.audit_log
+        verifier, monitor = system.verifier, system.agent.monitor
+        credit = harness.credit_assigner
 
         print_config(f"live ({model})", verifier, monitor, use_context, embedder,
                      credit, use_children)

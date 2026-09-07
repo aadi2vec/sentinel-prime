@@ -74,3 +74,69 @@ def test_factory_accepts_callable_workdir_source():
     assert factory().workdir == "/tmp/one"
     current["dir"] = "/tmp/two"
     assert factory().workdir == "/tmp/two"
+
+
+# ---- workdir is the resolution base, not decoration -----------------------------------
+
+def test_relative_reads_resolve_against_the_workdir(tmp_path):
+    """`workdir` was stored and never used, so the agent read the process CWD instead."""
+    from sentinelprime.interpreter import LocalInterpreter
+
+    (tmp_path / "doc.txt").write_text("change of control clause")
+    interp = LocalInterpreter(workdir=str(tmp_path))
+    interp.start()
+    out = interp.execute("print(open('doc.txt').read())")
+    assert "change of control clause" in out
+
+
+def test_relative_writes_land_in_the_workdir(tmp_path):
+    """The deliverable contract is a file in ./output — it must not go to the repo root."""
+    from sentinelprime.interpreter import LocalInterpreter
+
+    (tmp_path / "output").mkdir()
+    interp = LocalInterpreter(workdir=str(tmp_path))
+    interp.start()
+    interp.execute("open('output/report.md', 'w').write('# Report')")
+    assert (tmp_path / "output" / "report.md").read_text() == "# Report"
+
+
+def test_absolute_paths_are_left_alone(tmp_path):
+    from sentinelprime.interpreter import LocalInterpreter
+
+    other = tmp_path / "elsewhere.txt"
+    other.write_text("absolute")
+    interp = LocalInterpreter(workdir=str(tmp_path / "wd"))
+    (tmp_path / "wd").mkdir()
+    interp.start()
+    assert "absolute" in interp.execute(f"print(open({str(other)!r}).read())")
+
+
+def test_workdir_is_exposed_to_the_model_as_a_variable(tmp_path):
+    """Anything that is not open() — glob, pathlib, subprocess — needs the absolute base."""
+    from sentinelprime.interpreter import LocalInterpreter
+
+    interp = LocalInterpreter(workdir=str(tmp_path))
+    interp.start()
+    assert str(tmp_path) in interp.execute("print(WORKDIR)")
+
+
+def test_workdir_resolution_does_not_chdir_the_process(tmp_path):
+    """Children run on threads; a process-global chdir would clobber the parent."""
+    import os
+    from sentinelprime.interpreter import LocalInterpreter
+
+    before = os.getcwd()
+    interp = LocalInterpreter(workdir=str(tmp_path))
+    interp.start()
+    interp.execute("open('x.txt', 'w').write('y')")
+    assert os.getcwd() == before
+
+
+def test_no_workdir_keeps_plain_cwd_behaviour(tmp_path, monkeypatch):
+    from sentinelprime.interpreter import LocalInterpreter
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "here.txt").write_text("cwd")
+    interp = LocalInterpreter()
+    interp.start()
+    assert "cwd" in interp.execute("print(open('here.txt').read())")
