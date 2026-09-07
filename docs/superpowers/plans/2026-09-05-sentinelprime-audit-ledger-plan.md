@@ -147,10 +147,10 @@ Distinct layer from the ledger. Inside a single RLM run, `llm_query`/`llm_query_
 
 Each item has an acceptance criterion so a later plan can pick it up directly. Ordered by leverage.
 
-1. **`ReuseController.should_reuse(record, current_context)` — auditable semantic cache.** Reuse a prior conclusion **iff** `scope-valid ∧ (later) causally-current ∧ verifier-admitted`. This is the defensible cache: a semantic near-match alone is reckless in compliance; the extra gates are the invalidation naive caches lack. *Acceptance:* given an `intrinsic` record and a matching context, returns reuse=True; given an `external` record whose source moved, returns reuse=False. (Causal-currency check is a stub returning True until multiple sources exist — see Parked: vector clocks.)
+1. **`ReuseController.should_reuse(record, current_context)` — auditable semantic cache.** ✅ *Built.* `sentinelprime/reuse.py` runs the three gates in order (scope-valid ∧ causally-current[stub] ∧ verifier-admitted) and returns a reasoned `ReuseDecision`; wired into `harness.read(context=…)` via `_admissible`. Tests in `test_reuse.py` + `test_harness.py` read-gating suite.
 2. **Verifier admission-control on `refine()`.** ✅ *Built.* `sentinelprime/verifier.py` — `PredictVerifier` (GEPA-optimizable `dspy.Predict` over `VerifyLedgerEdit`) returns a `VerifierVerdict(admitted, score, justification)`. `ContinualHarness(verifier=…)` gates each proposed edit; rejected edits never touch the ledger and never produce an audit record. The verdict justification is threaded into `AuditRecord.verification` and rendered by `explain()` as the `[verification]` line. Tests: `test_verifier.py` (4) + refine-gating tests in `test_audit.py`.
-3. **Cost-ladder planner over verifier levels.** The audit log is the statistics catalog (which criteria fail, how often, at what cost). Order cheap deterministic checks (span exists? citation resolves?) before the generative verifier; short-circuit on failure; reserve the expensive semantic check for the residue. This is asymmetric verification, ordered. *Acceptance:* on a fixed check set, the planner produces a strictly cheaper expected-cost ordering than the static order, driven by ledger statistics.
-4. **Prefix-cache discipline (off-the-shelf lever, one guardrail).** Structure the `refine`-injected prompt so immutable-base + ledger form a contiguous, **stably-ordered** prefix to trigger provider prompt caching. *Guardrail / prerequisite:* make `harness.read()` emit items in a deterministic order (it currently re-buckets each call — pin the sort) or the prefix silently invalidates. *Acceptance:* two consecutive reads of an unchanged ledger produce byte-identical prefixes.
+3. **Cost-ladder planner over verifier levels.** ✅ *Built.* `sentinelprime/planner.py` — `CostLadderPlanner` orders checks by `cost / P(fail)` ascending (best detection-per-dollar first), short-circuits on the first failure. `from_audit_log` derives each check's empirical failure rate from `criterion_failure_counts` over the ledger. `expected_cost` computes the short-circuited-conjunction cost; the planner's order is strictly cheaper than an arbitrary static order. Tests: `test_planner.py` (5).
+4. **Prefix-cache discipline (off-the-shelf lever, one guardrail).** ✅ *Built (guardrail).* `harness.read()` now emits items in a pinned `(kind, id)` order, so the block is a byte-stable prompt prefix independent of backend insertion order. Tests: `test_read_is_deterministic_regardless_of_insertion_order`, `test_read_of_unchanged_ledger_is_byte_identical`. (Structuring the full immutable-base+ledger prefix for a specific provider's cache remains a wiring task.)
 5. **Rust durable runtime (Phase 2) as the audit-guarantee-under-failure layer.** WAL + supervision + deterministic replay — sold as "the record survives a crash and replays exactly," the compliance moat, not engineering hygiene.
 
 ## Design notes: stop-and-rethink & strategy frontier (roadmap)
@@ -197,12 +197,11 @@ switched strategy X→Y; here is the frontier snapshot and why X was dominated."
 due-diligence question a client sues over ("why didn't you pursue Z?" → "we did; it was dominated;
 here's the record"), and folds straight into `explain()`.
 
-**First slice (measurement before machinery):** a progress monitor that detects thrash from signals
-already emitted (`SubQueryCache` hit-rate spike + consecutive-`reasoning` similarity), records a
-`replan` audit event on trigger, and forces extract/replan. *Acceptance:* on a scripted looping
-trajectory the monitor fires and emits a `replan` audit record; on a healthy trajectory it never
-fires. Run it on real trajectories to quantify *how often* it fires before investing in trajectory
-checkpoints or frontier search.
+**First slice (measurement before machinery):** ✅ *Built.* `sentinelprime/monitor.py` — `ProgressMonitor`
+detects thrash from signals already emitted (`SubQueryCache` hit-rate spike + consecutive-`reasoning`
+Jaccard similarity over a window) and `check_and_record` appends a `replan` `AuditRecord` on trigger.
+It detects/records only; abandoning a subtree needs trajectory checkpoints (still parked). Tests:
+`test_monitor.py` (5) — fires on a looping trajectory, stays quiet on a healthy one.
 
 ## The pitch, one line
 

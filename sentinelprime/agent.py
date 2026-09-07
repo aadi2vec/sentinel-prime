@@ -24,13 +24,21 @@ class CachingRLM(dspy.RLM):
     Sequential use only, matching the rest of PrimeAgent.
     """
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args, subquery_embedder=None,
+                 subquery_similarity_threshold: float = 0.9, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.last_cache_stats: dict | None = None
         self._active_cache: SubQueryCache | None = None
+        # Optional intra-run semantic dedup: when an embedder is supplied, near-duplicate
+        # sub-queries reuse a prior answer. None -> exact content-hash dedup only.
+        self._subquery_embedder = subquery_embedder
+        self._subquery_similarity_threshold = subquery_similarity_threshold
 
     def _prepare_execution_tools(self) -> dict:
-        cache = SubQueryCache()
+        cache = SubQueryCache(
+            embedder=self._subquery_embedder,
+            similarity_threshold=self._subquery_similarity_threshold,
+        )
         self._active_cache = cache
         return cache.wrap(super()._prepare_execution_tools())
 
@@ -54,7 +62,7 @@ class PrimeTask(dspy.Signature):
 
 class PrimeAgent(dspy.Module):
     def __init__(self, harness: ContinualHarness, root_lm, sub_lm=None,
-                 spawn_manager=None, rlm=None) -> None:
+                 spawn_manager=None, rlm=None, subquery_embedder=None) -> None:
         super().__init__()
         self.harness = harness
         self.root_lm = root_lm
@@ -68,6 +76,7 @@ class PrimeAgent(dspy.Module):
                 tools=tools,
                 sub_lm=sub_lm,
                 interpreter_factory=InterpreterFactory(lambda: self._current_workdir),
+                subquery_embedder=subquery_embedder,
             )
         self.rlm = rlm
 

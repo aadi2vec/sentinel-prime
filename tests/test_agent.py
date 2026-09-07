@@ -98,7 +98,7 @@ def test_default_rlm_dedups_subqueries_and_reports_stats(tmp_path):
 
     assert pred.deliverable == "done"
     assert sub_calls == ["same"]  # underlying sub-LM hit once, not twice
-    assert agent.last_cache_stats == {"hits": 1, "misses": 1, "calls": 2}
+    assert agent.last_cache_stats == {"hits": 1, "misses": 1, "calls": 2, "semantic_hits": 0}
 
 
 @pytest.mark.integration

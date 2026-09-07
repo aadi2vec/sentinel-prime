@@ -133,3 +133,27 @@ def test_refine_exposes_predictor_to_gepa(tmp_path):
     h = ContinualHarness(_backend(tmp_path))
     names = dict(h.named_predictors())
     assert any("propose" in n for n in names)
+
+
+def test_read_is_deterministic_regardless_of_insertion_order(tmp_path):
+    # Prefix-cache guardrail: the read() block must be a stable prefix. Two ledgers
+    # with the same items inserted in different orders must serialize byte-identically.
+    be1 = JsonMemoryBackend(str(tmp_path / "a.json"))
+    be2 = JsonMemoryBackend(str(tmp_path / "b.json"))
+    for id in ["n3", "n1", "n2"]:
+        _seed(be1, id=id, text=f"body-{id}")
+    for id in ["n2", "n3", "n1"]:
+        _seed(be2, id=id, text=f"body-{id}")
+    block1 = ContinualHarness(be1).read()
+    block2 = ContinualHarness(be2).read()
+    assert block1 == block2
+    # items appear sorted by id within their kind
+    assert block1.index("body-n1") < block1.index("body-n2") < block1.index("body-n3")
+
+
+def test_read_of_unchanged_ledger_is_byte_identical(tmp_path):
+    be = _backend(tmp_path)
+    _seed(be, id="n1", text="one")
+    _seed(be, id="n2", text="two")
+    h = ContinualHarness(be)
+    assert h.read() == h.read()

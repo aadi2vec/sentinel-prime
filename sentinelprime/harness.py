@@ -89,6 +89,10 @@ class ContinualHarness(dspy.Module):
             items = [it for it in items if self._admissible(it, context)]
         if not items:
             return ""
+        # Prefix-cache guardrail: emit in a deterministic (kind, id) order so the block is
+        # a byte-stable prompt prefix across reads. The backend does not promise an order,
+        # so pin it here — otherwise provider prompt caching silently invalidates.
+        items = sorted(items, key=lambda i: i.id)
         notes = [i for i in items if i.kind == "note"]
         memories = [i for i in items if i.kind == "memory"]
         specs = [i for i in items if i.kind == "sub_agent_spec"]
