@@ -109,3 +109,91 @@ def test_no_embedder_means_exact_only():
     q("the change-of-control terms")
     assert cache.stats()["semantic_hits"] == 0
     assert cache.stats()["misses"] == 2
+
+
+# ---- make_embedder: adapt a batch embedder (dspy.Embedder) to the cache's contract ----
+
+def test_make_embedder_calls_the_batch_embedder_with_a_single_prompt():
+    from sentinelprime.subcache import make_embedder
+
+    calls = []
+
+    def batch_embed(texts):
+        calls.append(list(texts))
+        return [[1.0, 2.0] for _ in texts]
+
+    assert make_embedder(batch_embed)("hello") == [1.0, 2.0]
+    assert calls == [["hello"]]
+
+
+def test_make_embedder_coerces_the_row_to_a_plain_float_list():
+    """dspy.Embedder returns numpy rows; SubQueryCache's cosine needs plain floats."""
+    from sentinelprime.subcache import make_embedder
+
+    vec = make_embedder(lambda texts: [(1, 2, 3)])("hello")
+    assert vec == [1.0, 2.0, 3.0]
+    assert all(isinstance(x, float) for x in vec)
+
+
+def test_semantic_cache_end_to_end_through_make_embedder():
+    from sentinelprime.subcache import SubQueryCache, make_embedder
+
+    def batch_embed(texts):
+        return [[1.0, 0.0] if "governing law" in t.lower() else [0.0, 1.0] for t in texts]
+
+    cache = SubQueryCache(embedder=make_embedder(batch_embed), similarity_threshold=0.9)
+    calls = []
+    wrapped = cache.wrap({"llm_query": lambda p: calls.append(p) or "Delaware"})
+
+    wrapped["llm_query"]("What is the governing law?")
+    wrapped["llm_query"]("Governing law of this agreement?")
+
+    assert calls == ["What is the governing law?"]
+    assert cache.stats()["semantic_hits"] == 1
+
+
+# ---- Degradation: a broken embedder must not take down a run that exact dedup serves --
+
+def test_cache_falls_back_to_exact_dedup_when_the_embedder_fails():
+    import pytest
+    from sentinelprime.subcache import SubQueryCache
+
+    def boom(_text):
+        raise RuntimeError("embeddings endpoint unavailable")
+
+    calls = []
+    cache = SubQueryCache(embedder=boom)
+    wrapped = cache.wrap({"llm_query": lambda p: calls.append(p) or "ANS"})
+
+    with pytest.warns(RuntimeWarning, match="semantic sub-query cache disabled"):
+        wrapped["llm_query"]("what is the governing law?")
+    wrapped["llm_query"]("what is the governing law?")
+
+    assert calls == ["what is the governing law?"]   # exact tier still dedups
+    assert cache.stats()["hits"] == 1
+    assert cache.stats()["semantic_hits"] == 0
+    assert cache.semantic_enabled is False
+
+
+def test_cache_warns_once_not_on_every_query():
+    import pytest, warnings
+    from sentinelprime.subcache import SubQueryCache
+
+    def boom(_text):
+        raise RuntimeError("nope")
+
+    cache = SubQueryCache(embedder=boom)
+    wrapped = cache.wrap({"llm_query": lambda p: "ANS"})
+    with pytest.warns(RuntimeWarning):
+        wrapped["llm_query"]("a")
+    with warnings.catch_warnings(record=True) as later:
+        warnings.simplefilter("always")
+        wrapped["llm_query"]("b")
+    assert later == []
+
+
+def test_cache_stats_shape_is_unchanged_by_the_fallback():
+    """run_lab and the agent tests compare stats dicts exactly; keep the keys stable."""
+    from sentinelprime.subcache import SubQueryCache
+
+    assert set(SubQueryCache().stats()) == {"hits", "misses", "calls", "semantic_hits"}

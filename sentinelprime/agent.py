@@ -5,6 +5,19 @@ spawn children), but the inner nodes — generate_action, extract, and the
 harness's propose — are ordinary DSPy predictors, so the whole agent stays
 GEPA-optimizable. The ledger enters only as a frozen `guidance` input read once
 at task start; the base task instructions are never mutated.
+
+`run_task` is where the online loop's optional machinery attaches, so the live
+path exercises the same seams the scripted harness does:
+
+  - `context` is forwarded to `harness.read(context=…)`, so ReuseController's
+    scope/currency gates see real task state and a lesson whose source has moved
+    is withheld from the prompt.
+  - `monitor` receives the real RLM trajectory (`pred.trajectory`) and the run's
+    SubQueryCache stats, so live thrash emits a `replan` audit event.
+  - `last_trajectory` exposes that trajectory so the caller can hand it to
+    `learn()` rather than refining on an empty list.
+
+All three are opt-in: with no context and no monitor the behavior is unchanged.
 """
 from __future__ import annotations
 
@@ -53,21 +66,65 @@ class PrimeTask(dspy.Signature):
     """Complete the legal task using the documents in the working directory.
     Produce the requested deliverable."""
 
-    task: str = dspy.InputField()
+    # FIELD ORDER IS LOAD-BEARING. Adapters render input fields in declaration order, and
+    # dspy.RLM appends the growing repl_history last, so this order puts the prompt's
+    # stable content first: [instructions][ledger guidance][per-task input][repl history].
+    # That is what makes the ledger block part of a provider-cacheable prefix shared across
+    # tasks; with `task` first, the prompt diverges before the ledger is ever reached.
     guidance: str = dspy.InputField(
         desc="Supplemental learned guidance — apply it, but do not override the task."
     )
+    task: str = dspy.InputField()
     deliverable: str = dspy.OutputField()
+
+
+def cacheable_prefix(guidance: str, tasks: list[str],
+                     signature: type[dspy.Signature] = PrimeTask) -> str:
+    """The byte-identical prompt prefix shared by `tasks` under one ledger state.
+
+    Provider prompt caching bills the shared leading segment of a request, so the only
+    thing that matters is where the prompt first *diverges* between two tasks. Rendering
+    the real adapter messages and taking their longest common prefix measures that
+    boundary directly — no provider, no tokens, no billing data needed. `read()`'s
+    byte-stable item ordering is what keeps this prefix from moving on its own.
+
+    Returns "" for fewer than two tasks (nothing to share).
+    """
+    adapter = dspy.settings.adapter or dspy.ChatAdapter()
+    rendered = [
+        "\n".join(m["content"] for m in
+                  adapter.format(signature, [], {"guidance": guidance, "task": t}))
+        for t in tasks
+    ]
+    if len(rendered) < 2:
+        return ""
+    prefix = rendered[0]
+    for other in rendered[1:]:
+        limit = min(len(prefix), len(other))
+        i = 0
+        while i < limit and prefix[i] == other[i]:
+            i += 1
+        prefix = prefix[:i]
+    return prefix
 
 
 class PrimeAgent(dspy.Module):
     def __init__(self, harness: ContinualHarness, root_lm, sub_lm=None,
-                 spawn_manager=None, rlm=None, subquery_embedder=None) -> None:
+                 spawn_manager=None, rlm=None, subquery_embedder=None,
+                 monitor=None) -> None:
         super().__init__()
         self.harness = harness
         self.root_lm = root_lm
         self.sub_lm = sub_lm
         self.spawn_manager = spawn_manager
+        # Optional thrash detector. When set, every run_task feeds the real RLM
+        # trajectory + sub-query cache stats to it, so a live loop (not just the
+        # scripted run_lab harness) emits `replan` audit events. None -> no monitoring.
+        self.monitor = monitor
+        # Last run's RLM trajectory and monitor verdict, so the caller can hand the
+        # *real* trajectory to learn() instead of an empty list.
+        self.last_trajectory: list[dict] = []
+        self.last_monitor_decision = None
         self._current_workdir = "."
         if rlm is None:
             tools = [spawn_manager.spawn_child] if spawn_manager is not None else []
@@ -85,12 +142,28 @@ class PrimeAgent(dspy.Module):
         # Per-run sub-query cache stats, when the RLM tracks them (CachingRLM).
         return getattr(self.rlm, "last_cache_stats", None)
 
-    def run_task(self, task: str, workdir: str) -> dspy.Prediction:
+    def run_task(self, task: str, workdir: str, context: dict | None = None,
+                 task_id: str = "") -> dspy.Prediction:
         # Reproducibility invariant: freeze the ledger snapshot at task start.
         self._current_workdir = workdir
-        guidance = self.harness.read() or "(no learned guidance yet)"
+        # `context` carries the live task state (document/playbook versions, matter ids)
+        # that ReuseController gates on, so a lesson whose source has moved is withheld
+        # from the prompt. None -> ungated read, the base behavior.
+        guidance = self.harness.read(context=context) or "(no learned guidance yet)"
         with dspy.context(lm=self.root_lm):
-            return self.rlm(task=task, guidance=guidance)
+            pred = self.rlm(task=task, guidance=guidance)
+        # dspy.RLM returns the REPL history as `trajectory` ([{reasoning, code, output}]),
+        # which is exactly the shape ProgressMonitor and refine() consume.
+        self.last_trajectory = list(getattr(pred, "trajectory", None) or [])
+        if self.monitor is not None:
+            self.last_monitor_decision = self.monitor.check_and_record(
+                self.last_trajectory,
+                self.last_cache_stats,
+                self.harness.audit_log,
+                self.harness.backend.current_version().number,
+                task_id,
+            )
+        return pred
 
     def learn(self, trajectory: list[dict], feedback):
         # Applied only BETWEEN tasks — never mid-task.

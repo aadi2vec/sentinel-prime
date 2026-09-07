@@ -185,3 +185,29 @@ def test_refine_writes_verification_into_record(tmp_path):
     out = harness.explain(result.to_version)
     assert "verification" in out
     assert "admit" in out
+
+
+def test_refine_reports_rejected_edit_ids_for_ablation(tmp_path):
+    """A gate whose rejections are invisible cannot be measured or ablated."""
+    backend = JsonMemoryBackend(str(tmp_path / "state.json"))
+    log = AuditLog(str(tmp_path / "audit.json"))
+    harness = ContinualHarness(backend, audit_log=log, verifier=_StubVerifier("keep"))
+    harness.propose = _StubPropose(
+        '[{"op":"create","id":"good","kind":"note","text":"keep this","scope":"global"},'
+        ' {"op":"create","id":"bad","kind":"note","text":"drop this","scope":"global"}]'
+    )
+    fb = parse_lab_result({"task_id": "t", "criteria": []})
+    result = harness.refine(trajectory=[], feedback=fb)
+
+    assert result.rejected == ["bad"]
+    assert result.created == ["good"]
+
+
+def test_refine_reports_no_rejections_when_ungated(tmp_path):
+    backend = JsonMemoryBackend(str(tmp_path / "state.json"))
+    harness = ContinualHarness(backend)
+    harness.propose = _StubPropose(
+        '[{"op":"create","id":"n1","kind":"note","text":"anything","scope":"global"}]'
+    )
+    fb = parse_lab_result({"task_id": "t", "criteria": []})
+    assert harness.refine(trajectory=[], feedback=fb).rejected == []

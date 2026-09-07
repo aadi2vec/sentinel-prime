@@ -157,3 +157,28 @@ def test_read_of_unchanged_ledger_is_byte_identical(tmp_path):
     _seed(be, id="n2", text="two")
     h = ContinualHarness(be)
     assert h.read() == h.read()
+
+
+def test_admissible_items_reports_what_context_gating_withheld(tmp_path):
+    """read() renders a string; a benchmark needs to count what the gate dropped."""
+    be = _backend(tmp_path)
+    _seed(be, id="intrinsic1", text="global lesson", scope="global")
+    be.write([MemoryItem(id="ext1", scope="session", kind="note", text="revision-specific",
+                         created_at="t", meta={})])
+    log = AuditLog(str(tmp_path / "audit.json"))
+    log.append(AuditRecord(
+        edit_id="ext1", op="create", scope="external", from_version=0, to_version=1,
+        cause_task_id="t", cause_failures="f", trajectory_digest="d", score=1.0,
+        created_at="t", content_hash="h", depends_on={"doc_sha": "aaa"},
+    ))
+    h = ContinualHarness(be, audit_log=log)
+
+    assert {i.id for i in h.admissible_items(context={"doc_sha": "aaa"})} == {"intrinsic1", "ext1"}
+    assert {i.id for i in h.admissible_items(context={"doc_sha": "bbb"})} == {"intrinsic1"}
+
+
+def test_admissible_items_is_ungated_without_context(tmp_path):
+    be = _backend(tmp_path)
+    _seed(be, id="n1")
+    h = ContinualHarness(be)
+    assert [i.id for i in h.admissible_items()] == ["n1"]

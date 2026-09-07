@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+import warnings
 from typing import Callable
 
 
@@ -45,6 +46,10 @@ class SubQueryCache:
         # when an embedder is configured.
         self._embeds: list[tuple[list[float], str]] = []
         self.embedder = embedder
+        # Flips to False the first time the embedder raises. A dead embeddings endpoint
+        # should cost a run its *semantic* tier, never the run itself — exact dedup needs
+        # no network and keeps working.
+        self.semantic_enabled = embedder is not None
         self.similarity_threshold = similarity_threshold
         self._hits = 0
         self._misses = 0
@@ -59,14 +64,32 @@ class SubQueryCache:
             "semantic_hits": self._semantic_hits,
         }
 
+    def _embed(self, prompt: str) -> list[float] | None:
+        """Embed, or disable the semantic tier for the rest of the run and return None."""
+        if not self.semantic_enabled:
+            return None
+        try:
+            return self.embedder(prompt)
+        except Exception as exc:  # any embedder/transport failure
+            self.semantic_enabled = False
+            warnings.warn(
+                f"semantic sub-query cache disabled after embedder failure: {exc!r}; "
+                "falling back to exact content-hash dedup",
+                RuntimeWarning,
+                stacklevel=2,
+            )
+            return None
+
     def _get_cached(self, prompt: str) -> tuple[str | None, str | None]:
         # Returns (kind, value): kind is "exact", "semantic", or None. Exact is tried
         # first (cheapest and unambiguous); semantic only when an embedder is configured.
         key = _key(prompt)
         if key in self._store:
             return "exact", self._store[key]
-        if self.embedder is not None and self._embeds:
-            vec = self.embedder(prompt)
+        if self.semantic_enabled and self._embeds:
+            vec = self._embed(prompt)
+            if vec is None:
+                return None, None
             best_val, best_sim = None, 0.0
             for stored_vec, value in self._embeds:
                 sim = _cosine(vec, stored_vec)
@@ -78,8 +101,10 @@ class SubQueryCache:
 
     def _put(self, prompt: str, value: str) -> None:
         self._store[_key(prompt)] = value
-        if self.embedder is not None:
-            self._embeds.append((self.embedder(prompt), value))
+        if self.semantic_enabled:
+            vec = self._embed(prompt)
+            if vec is not None:
+                self._embeds.append((vec, value))
 
     def wrap(self, tools: dict[str, Callable]) -> dict[str, Callable]:
         """Return a tools dict with llm_query/llm_query_batched cache-wrapped.
@@ -145,3 +170,18 @@ class SubQueryCache:
             return [results[i] for i in range(len(prompts))]
 
         return llm_query_batched
+
+
+def make_embedder(batch_embedder: Callable[[list[str]], list]) -> Callable[[str], list[float]]:
+    """Adapt a batch embedder (e.g. ``dspy.Embedder``) to this cache's contract.
+
+    ``SubQueryCache`` embeds one prompt at a time, while embedding APIs — including
+    ``dspy.Embedder`` — take a list of texts and return a 2D array (often numpy). This
+    wraps one into the other and coerces the row to a plain ``list[float]`` so the
+    dependency-free ``_cosine`` above keeps working.
+    """
+
+    def embed(text: str) -> list[float]:
+        return [float(x) for x in batch_embedder([text])[0]]
+
+    return embed

@@ -19,7 +19,7 @@ this from a minimal core into the real mechanism.
 from __future__ import annotations
 import json
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
 import dspy
@@ -39,6 +39,10 @@ class RefineResult:
     deleted: list[str]
     from_version: int
     to_version: int
+    # Edit ids the verifier refused. They never touched the ledger and produced no audit
+    # record, so this is the only place the gate's work is countable — which is what makes
+    # admission control ablatable in a benchmark. Empty when no verifier is configured.
+    rejected: list[str] = field(default_factory=list)
 
 
 # This Signature is a real dspy.Predict predictor, so the harness's own edit-proposing prompt
@@ -76,17 +80,29 @@ class ContinualHarness(dspy.Module):
         self.verifier = verifier
         self.propose = dspy.Predict(ProposeLedgerEdits)
 
+    def admissible_items(self, scope: str | None = None,
+                         context: dict | None = None) -> list[MemoryItem]:
+        """The ledger items `read()` would surface in this context.
+
+        Split out from `read()` so callers can *count* what reuse gating withheld —
+        the rendered prompt block alone makes that unmeasurable, and an ablation of the
+        gate needs the number, not the prose.
+        """
+        items = self.backend.read(scope=scope)
+        if context is None:
+            # No context -> ungated (base behavior preserved).
+            return items
+        # Reuse gating: drop items whose provenance says they are inadmissible in the
+        # current context (e.g. an external note whose source has moved). Items with no
+        # audit record are not blocked.
+        return [it for it in items if self._admissible(it, context)]
+
     def read(self, scope: str | None = None, context: dict | None = None) -> str:
         # Serialize the ledger into a supplemental prompt block. Empty ledger -> "" so that
         # nothing is prepended and the base prompt is used verbatim (the immutability invariant).
         # NOTE: this emits *every* admissible item; there is no relevance ranking yet, so it does
         # not scale to large ledgers. Relevance-ranked recall is the planned TraceMind-backend job.
-        items = self.backend.read(scope=scope)
-        if context is not None:
-            # Reuse gating: drop items whose provenance says they are inadmissible in the
-            # current context (e.g. an external note whose source has moved). Items with no
-            # audit record are not blocked. No context -> ungated (base behavior preserved).
-            items = [it for it in items if self._admissible(it, context)]
+        items = self.admissible_items(scope=scope, context=context)
         if not items:
             return ""
         # Prefix-cache guardrail: emit in a deterministic (kind, id) order so the block is
@@ -176,6 +192,7 @@ class ContinualHarness(dspy.Module):
         # proposer's suggestion simply did not clear the bar. edit_id -> justification for
         # admitted edits threads the verifier's reasoning into the audit trail.
         verifications: dict[str, str] = {}
+        rejected: list[str] = []
         if self.verifier is not None:
             admitted: list[dict] = []
             for op in edits:
@@ -183,13 +200,16 @@ class ContinualHarness(dspy.Module):
                 if verdict.admitted:
                     verifications[op["id"]] = verdict.justification
                     admitted.append(op)
+                else:
+                    rejected.append(op["id"])
             edits = admitted
         created, updated, deleted = self._apply_edits(edits)
         after = self.backend.snapshot()
         if self.audit_log is not None:
             self._emit_audit(edits, feedback, trajectory, before.number, after.number,
                              verifications)
-        return RefineResult(created, updated, deleted, before.number, after.number)
+        return RefineResult(created, updated, deleted, before.number, after.number,
+                            rejected)
 
     @staticmethod
     def _provenance_scope(op: dict) -> str:

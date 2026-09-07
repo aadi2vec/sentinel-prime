@@ -54,12 +54,12 @@ And two *distinct* cache layers that people conflate at their peril:
 | `memory.py` | `MemoryBackend` protocol + `JsonMemoryBackend` — versioned WAL + copy-on-write ledger (`snapshot`/`rollback`). | ledger substrate |
 | `audit.py` | `AuditRecord` (the product atom) + append-only, content-addressed `AuditLog`; `explain()` renders the compliance chain. | audit |
 | `harness.py` | `ContinualHarness` — `read()` (supplemental prompt block), `refine()` (propose→verify→apply→audit), `rollback()`, `explain()`. | online |
-| `verifier.py` | `PredictVerifier` — GEPA-optimizable admission gate; edits must be *justified* before entering the ledger. | online |
+| `verifier.py` | `PredictVerifier` — GEPA-optimizable admission gate; `GroundingProbe` — deterministic LM-free rung; `LadderVerifier` — the two composed as a short-circuited cost ladder. | online |
 | `reuse.py` | `ReuseController` — three-gate admission (scope-valid ∧ causally-current ∧ verifier-admitted) for cross-task reuse. | cross-task |
-| `planner.py` | `CostLadderPlanner` — orders verification checks cheapest-detection-first, short-circuits; ordering driven by ledger statistics. | verification |
+| `planner.py` | `CostLadderPlanner` — orders verification checks cheapest-detection-first, short-circuits; statistics from the ledger or the ladder's own rejections. | verification |
 | `monitor.py` | `ProgressMonitor` — detects thrash (reasoning stall + cache hit-rate spike), records a `replan` audit event. | online |
 | `subcache.py` | `SubQueryCache` — intra-run sub-query dedup, exact + optional semantic. | intra-run |
-| `agent.py` | `PrimeAgent` + `CachingRLM` — wires the RLM per-turn reasoning to the ledger; `run_task`/`learn`. | online |
+| `agent.py` | `PrimeAgent` + `CachingRLM` — wires the RLM per-turn reasoning to the ledger; `run_task` (gated read + progress monitoring) / `learn`. | online |
 | `interpreter.py` | `InterpreterFactory` / `LocalInterpreter` — workdir-confined code execution for the RLM REPL. | runtime |
 | `children.py` | `ChildSessionManager` — non-blocking `spawn_child` sub-agent admission. | runtime |
 | `session.py` | `SessionStore` — per-session persistence. | runtime |
@@ -79,9 +79,21 @@ reversible, audited lesson. The protocol, in order:
    `rubric_failures` (the failure *text* only), and the current ledger, and returns a JSON
    list of create/update/delete ops. No gold answers enter here.
 3. **Verify / admit (optional gate).** When a `verifier` is configured, each proposed edit
-   must clear `PredictVerifier` (admit == yes ∧ score ≥ min_score). Rejected edits never
-   touch the ledger and never produce an audit record. The verdict's justification is
-   threaded into the audit trail.
+   must clear it (admit == yes ∧ score ≥ min_score). Rejected edits never touch the ledger
+   and never produce an audit record — they are reported on `RefineResult.rejected`, the
+   only place the gate's work is countable. The verdict's justification is threaded into
+   the audit trail.
+
+   The configured verifier is normally a **`LadderVerifier`**: it presents the same
+   single-`verify` interface `refine()` calls, and fans out internally over priced
+   `VerifierLevel` rungs ordered by `CostLadderPlanner` (cost / P(fail) ascending,
+   short-circuiting on the first rejection). The live ladder is `GroundingProbe`
+   (deterministic lexical grounding, cost 1) then `PredictVerifier` (generative, cost 100),
+   so the LM rung only sees edits the free probe could not already reject. The executed
+   order, the rejecting rung, and the cost spent are written into the justification and
+   therefore into `explain()`. Nested `dspy.Predict` rungs stay visible to
+   `named_predictors()` (`verifier.verifiers[1].verify_predict`), so the ladder is still
+   GEPA-optimizable.
 4. **Apply (deterministic, no LM).** `_apply_edits` upserts/deletes against the backend and
    classifies each op as created/updated/deleted against the pre-batch id set.
 5. **Snapshot AFTER + audit.** `backend.snapshot()` closes the reversibility window
@@ -99,6 +111,9 @@ task prompt; the base task prompt is immutable. Two guarantees matter:
 
 - **Reuse gating** — with a `context`, each item is passed through `ReuseController`; provably
   stale external conclusions are dropped, intrinsic (document-invariant) ones are kept.
+  `PrimeAgent.run_task(..., context=…)` supplies that context on the live path, and
+  `harness.admissible_items(context=…)` returns the gated set directly so a benchmark can
+  count what was withheld rather than parsing the rendered block.
 - **Prefix-cache determinism** — items are emitted in a pinned `(kind, id)` order so the
   block is a byte-stable prompt prefix across reads. The backend does not promise an order,
   so `read()` pins it — otherwise provider prompt caching silently invalidates.
@@ -195,17 +210,56 @@ sequence of tasks *because* the online ledger accumulates and gates lessons?
   built-in fixture set so the loop is runnable today; point `--tasks <dir>` at the real slice
   when available.
 
-The loop each task iteration performs:
+The loop each task iteration performs — `run_task` now owns the gated read and the progress
+monitor, so the live path and the scripted path exercise the same seams:
 
 ```
 for task in tasks:
-    guidance = harness.read(context=task.context)   # gated + deterministic prefix
-    pred     = agent.run_task(task.prompt, workdir=task.workdir)
-    result   = grade(pred, task.rubric)             # -> LAB rubric result dict
-    fb       = parse_lab_result(result)
-    monitor.check_and_record(trajectory, agent.last_cache_stats, audit_log, version, task.id)
-    agent.learn(trajectory, fb)                     # refine(): propose→verify→apply→audit
+    pred   = agent.run_task(task.prompt, workdir=task.workdir,
+                            context=task.context,     # -> gated harness.read()
+                            task_id=task.id)          # -> monitor.check_and_record()
+    result = grade(pred, task.rubric)                 # -> LAB rubric result dict
+    fb     = parse_lab_result(result)
+    agent.learn(agent.last_trajectory, fb)            # refine(): propose→verify→apply→audit
 ```
+
+### Ablation
+
+Every component is opt-in and independently switchable, so the benchmark can attribute the
+curve to a mechanism rather than to the stack as a whole:
+
+```bash
+.venv/bin/python scripts/run_lab.py                        # everything wired
+.venv/bin/python scripts/run_lab.py --no-verifier          # edits enter the ledger unjudged
+.venv/bin/python scripts/run_lab.py --no-monitor           # no replan audit events
+.venv/bin/python scripts/run_lab.py --no-context           # reuse gating blind to task state
+.venv/bin/python scripts/run_lab.py --live --no-semantic-cache   # exact sub-query dedup only
+```
+
+The fixture set is built so each switch actually moves a number: the stub proposer emits one
+ungrounded lesson per round (the verifier's job), the simulated agent thrashes while unguided
+(the monitor's job), and `ma-001`'s document is amended at epoch 2 so a revision-scoped lesson
+goes stale (reuse gating's job). Each run prints the curve plus `audit records`,
+`replan events`, `edits rejected by the verifier`, `stale lessons withheld by reuse gating`,
+and the cacheable prefix boundary. On the 3-epoch scripted fixtures:
+
+| Run | curve | audit records | replans | rejected | withheld |
+|---|---|---|---|---|---|
+| all wired | 50% → 100% → 100% | 4 | 1 | 1 | 5 |
+| `--no-verifier` | 25% → 50% → 50% | 8 | 1 | 0 | 3 |
+| `--no-monitor` | 50% → 100% → 100% | 3 | 0 | 1 | 5 |
+| `--no-context` | 50% → 75% → 75% | 4 | 1 | 3 | 0 |
+
+Read these carefully — two of the three deltas are *stipulated*, one is structural:
+
+- **`--no-verifier` and `--no-context` cost pass-rate** because `_SimulatedAgent` is defined
+  to follow bad guidance: it reformats as board minutes when the ungrounded lesson reaches
+  it, and reads the wrong section when a stale revision lesson survives the amendment. That
+  demonstrates *what each gate protects against*; it is not evidence about how a real LM
+  responds to a polluted ledger. Only the live path against the LAB slice can say that.
+- **`--no-monitor` leaves the curve untouched.** That is correct and by design: the monitor
+  detects and records, it does not yet change control flow (§5). Its ablation is visible in
+  `replan events`, which is exactly the honest claim for it.
 
 Run it on the built-in fixtures:
 
@@ -217,6 +271,28 @@ Run it on the built-in fixtures:
 The script prints, per task, the pass-rate and the ledger deltas (created/updated/deleted),
 then the final self-improvement curve and the audit-log path so any edit can be inspected
 with `harness.explain(version)`.
+
+---
+
+## 7b. Prefix caching
+
+Provider prompt caching bills the shared leading segment of a request, so the only thing that
+matters is where two task prompts first *diverge*. Two pieces make that boundary useful:
+
+- **Field order in `PrimeTask` is load-bearing.** Adapters render input fields in declaration
+  order and `dspy.RLM` appends the growing `repl_history` last, so `guidance` is declared
+  *before* `task`. The prompt is then `[instructions][ledger guidance][per-task input][repl
+  history]` — stable content first. With `task` first (the original order) the prompt diverged
+  before the ledger was ever reached, so the ledger could never be cached.
+- **`agent.cacheable_prefix(guidance, tasks)`** renders the real adapter messages for several
+  tasks and returns their longest common prefix, which makes the boundary a number instead of
+  a claim — no provider, no tokens, no billing data. `run_lab.py` prints it every run
+  (798 chars shared across the two fixtures, ledger block inside it).
+
+`read()`'s byte-stable `(kind, id)` ordering is what keeps that prefix from moving on its own.
+What remains endpoint-side: an actual cached-token/cost reduction measured against a live
+provider, and any provider-specific cache markers (Anthropic `cache_control` breakpoints),
+which are litellm/DSPy's layer rather than this one.
 
 ---
 
