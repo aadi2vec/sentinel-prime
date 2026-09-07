@@ -177,7 +177,7 @@ def run_live(epochs: int) -> None:
 
     model = _pick_model()
     print(f"[run_lab] live mode using model: {model}\n")
-    lm = dspy.LM(model, max_tokens=4000)
+    lm = dspy.LM(model, **_lm_kwargs())
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp = pathlib.Path(tmp)
@@ -214,13 +214,23 @@ def _pick_model() -> str:
     _load_dotenv()
     if os.environ.get("LAB_MODEL"):
         return os.environ["LAB_MODEL"]
+    # OpenAI first: this repo is configured for the gpt-5.6 "luna" endpoint.
+    if os.environ.get("OPENAI_API_KEY"):
+        return os.environ.get("OPENAI_MODEL", "openai/gpt-5.6-luna")
     if os.environ.get("ANTHROPIC_API_KEY"):
         return "anthropic/claude-sonnet-4-5-20250929"
     if os.environ.get("GOOGLE_API_KEY"):
         return "gemini/gemini-2.5-flash"
-    if os.environ.get("OPENAI_API_KEY"):
-        return "openai/gpt-4o-mini"
     raise SystemExit("No provider API key found in environment (.env).")
+
+
+def _lm_kwargs() -> dict:
+    # Custom endpoint (e.g. the luna proxy) via OPENAI_BASE_URL; blank -> api.openai.com.
+    kwargs = {"max_tokens": 4000}
+    base = os.environ.get("OPENAI_BASE_URL")
+    if base:
+        kwargs["api_base"] = base
+    return kwargs
 
 
 def _load_dotenv(path: str = ".env") -> None:

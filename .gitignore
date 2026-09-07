@@ -1,6 +1,9 @@
 # Secrets
 .env
 
+# Local runtime config (points at a provider endpoint; use config.example.yaml as template)
+config.yaml
+
 # Python
 __pycache__/
 *.py[cod]
