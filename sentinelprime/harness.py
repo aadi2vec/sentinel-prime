@@ -177,14 +177,18 @@ class ContinualHarness(dspy.Module):
             (updated if item_id in existing else created).append(item_id)
         return created, updated, deleted
 
-    def credit(self, exposed_ids: list[str], feedback: Feedback) -> None:
+    def credit(self, exposed_ids: list[str], feedback: Feedback,
+               grounded: dict[str, bool | None] | None = None) -> None:
         """Record this task's outcome against the guidance that was actually surfaced.
 
         Separate from refine() because exposure and outcome are known at *task* time,
         while retirement is a ledger edit that belongs in refine()'s snapshot window.
+
+        `grounded` is passed straight to the assigner's lucky-guess filter; None leaves
+        credit exactly as it was before that filter existed.
         """
         if self.credit_assigner is not None:
-            self.credit_assigner.observe(exposed_ids, feedback)
+            self.credit_assigner.observe(exposed_ids, feedback, grounded=grounded)
 
     def _retire(self, feedback: Feedback, from_version: int, to_version: int) -> list[str]:
         # Only retire what is actually in the ledger; the assigner may still hold

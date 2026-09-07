@@ -18,6 +18,12 @@ After each task, every exposed lesson is scored against *its own* targeted crite
 exposure + pass = credit, exposure + fail = blame. A lesson whose criteria keep failing
 while it sits in the prompt is not earning its place and becomes retirable.
 
+One outcome is worse than noise: a run that reached the right answer *without reading the
+source* credits whichever lesson was in the prompt, so a useless lesson keeps a passing
+rate and never retires. `observe(..., grounded=...)` takes a per-criterion verdict from
+`grounding.grounding_map` and drops those passes. It is opt-in and it only ever *removes*
+credit, so with the argument omitted the behavior is exactly what it was.
+
 **This is correlational, not causal, and the distinction matters.** When two lessons target
 the same criterion they share its outcome, and nothing here runs the counterfactual where
 the lesson was withheld. `min_exposures` is the only guard against retiring on noise. The
@@ -27,6 +33,7 @@ there is a real benchmark to spend that budget on.
 """
 from __future__ import annotations
 
+import re
 from collections import deque
 from dataclasses import dataclass, field
 
@@ -85,13 +92,31 @@ class CreditAssigner:
             return set(record.targets)
         return criterion_ids(record.cause_failures)
 
-    def observe(self, exposed_ids: list[str], feedback) -> None:
-        """Score every exposed lesson against its own targeted criteria for this task."""
+    def observe(self, exposed_ids: list[str], feedback,
+                grounded: dict[str, bool | None] | None = None) -> None:
+        """Score every exposed lesson against its own targeted criteria for this task.
+
+        `grounded` is the optional lucky-guess filter: `{criterion_id: did the run
+        actually read the evidence}`, as produced by `grounding.grounding_map`. A criterion
+        that *passed* while the run never saw the facts it names is dropped from the
+        record rather than counted as a success — a right answer the run could not have
+        derived says nothing about the guidance that was in the prompt, and letting it
+        count is how a useless lesson keeps a passing rate.
+
+        Dropped, not blamed: grounding is a lexical proxy, so "cannot prove the run saw
+        it" has to mean *no evidence*, not evidence against. Only passes are filtered;
+        a failure is a failure however the run reached it. A criterion absent from the
+        map, or mapped to None (nothing checkable in its text), is scored normally —
+        unknown must never be read as ungrounded.
+        """
         outcome = {c.id: c.passed for c in feedback.criteria}
         for item_id in exposed_ids:
             for target in self.targets(item_id):
                 if target not in outcome:
                     continue  # this task's rubric never exercised that criterion
+                if outcome[target] and grounded is not None \
+                        and grounded.get(target) is False:
+                    continue  # passed without reading the evidence: not attributable
                 rec = self._records.get(item_id)
                 if rec is None:
                     rec = CreditRecord(outcomes=deque(maxlen=self.window))
@@ -129,3 +154,45 @@ class CreditAssigner:
             return "no attributable observations"
         return (f"targeted criteria passed on {rec.successes}/{rec.exposures} exposures "
                 f"(rate {rec.success_rate:.2f} < {self.min_success_rate:.2f})")
+
+
+_NUMBER_RE = re.compile(r"\d[\d,]*(?:\.\d+)?")
+
+
+def _facts(text: str) -> set[str]:
+    """Checkable literals in a rubric criterion: amounts, section numbers, dates.
+
+    Digits only. Prose ("the memo is well organized") has nothing a trajectory can be
+    checked against, which is why such criteria are reported as unjudgeable rather than
+    ungrounded.
+    """
+    out = set()
+    for match in _NUMBER_RE.findall(text or ""):
+        norm = match.replace(",", "").rstrip(".")
+        if len(norm.replace(".", "")) >= 2:   # skip bare single digits — too collidable
+            out.add(norm)
+    return out
+
+
+def grounding_from_trajectory(trajectory: list[dict],
+                              criterion_texts: dict[str, str]) -> dict[str, bool | None]:
+    """Per-criterion: did the *environment* show this fact, or did the model just say it?
+
+    Only the `output` of each REPL turn counts — that is what the interpreter actually
+    returned. `reasoning` and `code` are the model's own words, and a number the model
+    wrote is precisely what we are trying not to accept as evidence.
+
+    One matching fact is enough. Withholding credit is the strong action, so the bar for
+    *not* withholding is deliberately low; the target is the run that cited a figure it
+    never looked up, not the run that was merely terse.
+    """
+    observed = " ".join(str(step.get("output", "")) for step in (trajectory or []))
+    observed_norm = observed.replace(",", "")
+    verdicts: dict[str, bool | None] = {}
+    for cid, text in (criterion_texts or {}).items():
+        facts = _facts(text)
+        if not facts:
+            verdicts[cid] = None          # nothing checkable — not a grounding failure
+        else:
+            verdicts[cid] = any(f in observed_norm for f in facts)
+    return verdicts

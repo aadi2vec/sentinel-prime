@@ -32,6 +32,7 @@ import json
 import re
 import shutil
 import zipfile
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -211,8 +212,13 @@ class RubricJudge:
     prompt and same contract, different runner. Report it that way.
     """
 
-    def __init__(self, lm, prompt_path: str | Path | None = None) -> None:
+    def __init__(self, lm, prompt_path: str | Path | None = None,
+                 parallel: int = 8, run_log=None) -> None:
         self.lm = lm
+        # Criteria are graded independently — LAB's own scorer parallelises this too.
+        # Sequentially, one sweep is 1346 calls at ~2.2s = ~50 minutes of pure waiting.
+        self.parallel = max(1, parallel)
+        self.run_log = run_log
         path = Path(prompt_path or DEFAULT_RUBRIC_PROMPT)
         if not path.is_file():
             raise FileNotFoundError(
@@ -249,32 +255,42 @@ class RubricJudge:
         output directory. Passing `None` disables the check (grade everything).
         """
         available = None if available_files is None else set(available_files)
-        results: list[dict] = []
-        for criterion in (criteria if criteria is not None else task.criteria):
+        todo = list(criteria if criteria is not None else task.criteria)
+
+        def grade(criterion: dict) -> dict:
+            base = {"id": criterion.get("id", ""), "title": criterion.get("title", "")}
             required = criterion.get("deliverables") or task.deliverables
             if available is not None and required and not (available & set(required)):
-                results.append({
-                    "id": criterion.get("id", ""),
-                    "title": criterion.get("title", ""),
-                    "verdict": "fail",
-                    "reasoning": (f"deliverable not produced: none of {sorted(required)} "
-                                  f"found in output (present: {sorted(available) or 'nothing'})"),
-                })
-                continue
+                return {**base, "verdict": "fail",
+                        "reasoning": (f"deliverable not produced: none of {sorted(required)} "
+                                      f"found in output "
+                                      f"(present: {sorted(available) or 'nothing'})")}
             prompt = self.template.format(
                 task_description=f"{task.title}\n\n{task.instructions}",
                 agent_output=agent_output,
                 criterion_title=criterion.get("title", ""),
                 match_criteria=criterion.get("match_criteria", ""),
             )
-            reply = self.lm(messages=[{"role": "user", "content": prompt}])
+            try:
+                reply = self.lm(messages=[{"role": "user", "content": prompt}])
+            except Exception as exc:
+                # One flaky call costs one criterion, never the task. Failing closed keeps
+                # the transport error from being scored as a pass.
+                return {**base, "verdict": "fail", "reasoning": f"judge error: {exc}"}
             verdict, reasoning = self._verdict(reply[0] if reply else "")
-            results.append({
-                "id": criterion.get("id", ""),
-                "title": criterion.get("title", ""),
-                "verdict": verdict,
-                "reasoning": reasoning,
-            })
+            return {**base, "verdict": verdict, "reasoning": reasoning}
+
+        if self.parallel == 1 or len(todo) <= 1:
+            results = [grade(c) for c in todo]
+        else:
+            with ThreadPoolExecutor(max_workers=self.parallel) as pool:
+                # map preserves input order regardless of completion order, which is what
+                # keeps results aligned with the rubric.
+                results = list(pool.map(grade, todo))
+        if self.run_log is not None:
+            for r in results:
+                self.run_log.event("judge", task_id=task.task_id, id=r["id"],
+                                   verdict=r["verdict"], why=r["reasoning"][:120])
         return results
 
 

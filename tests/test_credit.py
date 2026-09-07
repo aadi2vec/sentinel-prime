@@ -317,3 +317,149 @@ def test_refine_forgets_the_observations_of_what_it_retired(tmp_path):
     h.refine(trajectory=[], feedback=_fb(c1=False))
 
     assert ca.success_rate("lesson.c1") is None
+
+
+# --- the lucky-guess filter --------------------------------------------------------
+# A run that produced the right answer without reading the source credits whichever
+# lesson happened to be in the prompt. `grounded` lets the caller withhold that credit.
+
+def test_ungrounded_pass_is_not_credited(tmp_path):
+    """Right answer, no evidence the run read it: no information about the lesson."""
+    log = _log(tmp_path)
+    _record(log, "lesson.c1", "- [c1] missed the escrow cap")
+    ca = _assigner(log)
+    ca.observe(["lesson.c1"], _fb(c1=True), grounded={"c1": False})
+    assert ca.success_rate("lesson.c1") is None
+
+
+def test_grounded_pass_is_credited(tmp_path):
+    log = _log(tmp_path)
+    _record(log, "lesson.c1", "- [c1] missed the escrow cap")
+    ca = _assigner(log)
+    ca.observe(["lesson.c1"], _fb(c1=True), grounded={"c1": True})
+    assert ca.success_rate("lesson.c1") == 1.0
+
+
+def test_unjudgeable_grounding_still_credits_a_pass(tmp_path):
+    """None means 'no checkable facts', not 'ungrounded' — it must not cost credit."""
+    log = _log(tmp_path)
+    _record(log, "lesson.c1", "- [c1] the memo is disorganized")
+    ca = _assigner(log)
+    ca.observe(["lesson.c1"], _fb(c1=True), grounded={"c1": None})
+    assert ca.success_rate("lesson.c1") == 1.0
+
+
+def test_failure_is_blamed_whether_or_not_it_was_grounded(tmp_path):
+    """Only passes are suspect. A failure is a failure however the run got there."""
+    log = _log(tmp_path)
+    _record(log, "lesson.c1", "- [c1] missed the escrow cap")
+    ca = _assigner(log)
+    ca.observe(["lesson.c1"], _fb(c1=False), grounded={"c1": False})
+    assert ca.success_rate("lesson.c1") == 0.0
+
+
+def test_a_lucky_pass_cannot_rescue_a_lesson_from_retirement(tmp_path):
+    """The defect this closes: guessed passes padding a failing lesson's success rate."""
+    log = _log(tmp_path)
+    _record(log, "lesson.c1", "- [c1] missed the escrow cap")
+    ca = _assigner(log, min_exposures=3, min_success_rate=0.5)
+    for grounded_pass in (False, False, False):
+        ca.observe(["lesson.c1"], _fb(c1=True), grounded={"c1": grounded_pass})
+    for _ in range(3):
+        ca.observe(["lesson.c1"], _fb(c1=False))
+    assert ca.retirable() == ["lesson.c1"]
+
+
+def test_omitting_grounded_leaves_behavior_exactly_as_before(tmp_path):
+    """Invariant #7: the optional collaborator degrades to the base behavior."""
+    log = _log(tmp_path)
+    _record(log, "lesson.c1", "- [c1] missed the escrow cap")
+    ca = _assigner(log)
+    ca.observe(["lesson.c1"], _fb(c1=True))
+    ca.observe(["lesson.c1"], _fb(c1=False))
+    assert ca.success_rate("lesson.c1") == 0.5
+
+
+def test_criteria_missing_from_the_grounding_map_are_credited_normally(tmp_path):
+    """A partial map must not silently void credit for criteria it says nothing about."""
+    log = _log(tmp_path)
+    _record(log, "lesson.c2", "- [c2] missed the cure period")
+    ca = _assigner(log)
+    ca.observe(["lesson.c2"], _fb(c2=True), grounded={"c1": False})
+    assert ca.success_rate("lesson.c2") == 1.0
+
+
+# --- wiring: harness.credit / agent.learn pass the verdict through -----------------
+
+def test_harness_credit_forwards_the_grounding_verdict(tmp_path):
+    from sentinelprime.harness import ContinualHarness
+    from sentinelprime.memory import JsonMemoryBackend
+    log = _log(tmp_path)
+    _record(log, "lesson.c1", "- [c1] missed the escrow cap")
+    harness = ContinualHarness(JsonMemoryBackend(str(tmp_path / "s.json")),
+                               audit_log=log, credit_assigner=_assigner(log))
+    harness.credit(["lesson.c1"], _fb(c1=True), grounded={"c1": False})
+    assert harness.credit_assigner.success_rate("lesson.c1") is None
+
+
+def test_agent_learn_derives_grounding_from_the_real_trajectory(tmp_path):
+    """The end-to-end defect: a guessed pass must not credit the lesson in the prompt."""
+    import dspy
+    from sentinelprime.agent import PrimeAgent
+    from sentinelprime.harness import ContinualHarness
+    from sentinelprime.memory import JsonMemoryBackend
+    log = _log(tmp_path)
+    _record(log, "lesson.c1", "- [c1] missed the escrow cap")
+    harness = ContinualHarness(JsonMemoryBackend(str(tmp_path / "s.json")),
+                               audit_log=log, credit_assigner=_assigner(log))
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=object())
+    # Stub the LM seam: learn() also calls refine(), whose proposer is a dspy.Predict.
+    harness.propose = lambda **kw: dspy.Prediction(edits="[]")
+    agent.last_exposed_ids = ["lesson.c1"]
+    # The amount appears only in what the model wrote, never in what the REPL returned.
+    trajectory = [{"reasoning": "the escrow cap is $12,500,000", "code": "", "output": "ok"}]
+    agent.learn(trajectory, _fb(c1=True),
+                criterion_texts={"c1": "identifies the $12,500,000 escrow cap"})
+    assert harness.credit_assigner.success_rate("lesson.c1") is None
+
+
+# --- grounding derivation (my tests for the helper the agent-level spec implies) -----
+
+def test_grounding_true_when_the_fact_came_back_from_the_repl():
+    from sentinelprime.credit import grounding_from_trajectory
+
+    traj = [{"reasoning": "look for the cap", "code": "grep escrow",
+             "output": "Section 9.4 escrow cap of $12,500,000"}]
+    assert grounding_from_trajectory(traj, {"c1": "identifies the $12,500,000 cap"}) == {"c1": True}
+
+
+def test_grounding_false_when_the_fact_only_appears_in_model_prose():
+    """The whole point: the model asserting a number is not evidence it read one."""
+    from sentinelprime.credit import grounding_from_trajectory
+
+    traj = [{"reasoning": "the escrow cap is $12,500,000", "code": "", "output": "ok"}]
+    assert grounding_from_trajectory(traj, {"c1": "identifies the $12,500,000 cap"}) == {"c1": False}
+
+
+def test_grounding_is_none_when_the_criterion_has_no_checkable_fact():
+    from sentinelprime.credit import grounding_from_trajectory
+
+    traj = [{"output": "anything"}]
+    assert grounding_from_trajectory(traj, {"c1": "the memo is well organized"}) == {"c1": None}
+
+
+def test_grounding_ignores_thousands_separators():
+    from sentinelprime.credit import grounding_from_trajectory
+
+    traj = [{"output": "cap of 12500000 dollars"}]
+    assert grounding_from_trajectory(traj, {"c1": "the $12,500,000 cap"}) == {"c1": True}
+
+
+def test_grounding_needs_only_one_of_several_facts():
+    """Withholding credit is the strong action; require little to avoid over-withholding."""
+    from sentinelprime.credit import grounding_from_trajectory
+
+    traj = [{"output": "Section 14.2 anti-assignment"}]
+    g = grounding_from_trajectory(traj, {"c1": "Section 14.2 and the $9,000,000 cap"})
+    assert g == {"c1": True}

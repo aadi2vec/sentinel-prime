@@ -18,6 +18,8 @@ class StubRLM:
 
 
 def _harness(tmp_path):
+    import os
+    os.makedirs(tmp_path, exist_ok=True)
     return ContinualHarness(JsonMemoryBackend(str(tmp_path / "state.json")))
 
 
@@ -370,3 +372,114 @@ def test_run_task_drains_children_so_no_worker_outlives_the_task(tmp_path):
                        child_runner=run_child)
     agent.run_task("t", workdir=str(tmp_path))
     assert finished == ["orphan"]
+
+
+# ---- async: concurrency across tasks, not within one -----------------------------------
+
+def test_async_run_task_returns_the_same_shape_as_sync(tmp_path):
+    """A single RLM loop is inherently sequential; async exists to overlap whole tasks."""
+    import asyncio
+
+    class _AsyncRLM:
+        def __init__(self):
+            self.calls = []
+
+        async def acall(self, **kw):
+            self.calls.append(kw)
+            return dspy.Prediction(deliverable="ASYNC", trajectory=[{"reasoning": "r"}])
+
+    rlm = _AsyncRLM()
+    agent = PrimeAgent(harness=_harness(tmp_path), root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=rlm)
+    pred = asyncio.run(agent.arun_task("t", workdir=str(tmp_path)))
+    assert pred.deliverable == "ASYNC"
+    assert agent.last_trajectory == [{"reasoning": "r"}]
+    assert rlm.calls[0]["guidance"] == "(no learned guidance yet)"
+
+
+def test_async_run_task_still_gates_guidance_and_monitors(tmp_path):
+    import asyncio
+    from sentinelprime.audit import AuditLog
+    from sentinelprime.monitor import ProgressMonitor
+
+    class _AsyncRLM:
+        async def acall(self, **kw):
+            stalled = [{"reasoning": "re-read the msa for change of control"}] * 3
+            return dspy.Prediction(deliverable="X", trajectory=stalled)
+
+    audit_log = AuditLog(str(tmp_path / "audit.json"))
+    harness = ContinualHarness(JsonMemoryBackend(str(tmp_path / "s.json")),
+                               audit_log=audit_log)
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=_AsyncRLM(), monitor=ProgressMonitor())
+    asyncio.run(agent.arun_task("t", workdir=str(tmp_path), task_id="ma-001"))
+    assert [r.op for r in audit_log.records()] == ["replan"]
+
+
+def test_two_tasks_overlap_when_run_concurrently(tmp_path):
+    """The point of async: task B's LM latency overlaps task A's."""
+    import asyncio
+
+    peak = {"active": 0, "max": 0}
+
+    class _SlowAsyncRLM:
+        async def acall(self, **kw):
+            peak["active"] += 1
+            peak["max"] = max(peak["max"], peak["active"])
+            await asyncio.sleep(0.05)
+            peak["active"] -= 1
+            return dspy.Prediction(deliverable="ok", trajectory=[])
+
+    async def both():
+        a = PrimeAgent(harness=_harness(tmp_path / "a"), root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=_SlowAsyncRLM())
+        b = PrimeAgent(harness=_harness(tmp_path / "b"), root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=_SlowAsyncRLM())
+        (tmp_path / "a").mkdir(exist_ok=True); (tmp_path / "b").mkdir(exist_ok=True)
+        return await asyncio.gather(a.arun_task("t1", workdir=str(tmp_path / "a")),
+                                    b.arun_task("t2", workdir=str(tmp_path / "b")))
+
+    results = asyncio.run(both())
+    assert len(results) == 2
+    assert peak["max"] == 2       # they really did overlap
+
+
+class TrajectoryRLM(StubRLM):
+    """StubRLM that returns a fixed REPL trajectory."""
+
+    def __init__(self, trajectory):
+        super().__init__()
+        self._trajectory = trajectory
+
+    def __call__(self, **kwargs):
+        self.calls.append(kwargs)
+        return dspy.Prediction(deliverable="STUB", trajectory=self._trajectory)
+
+
+def _workdir_with_documents(tmp_path, *names):
+    docs = tmp_path / "documents"
+    docs.mkdir(parents=True, exist_ok=True)
+    for name in names:
+        (docs / name).write_text("body")
+    return tmp_path
+
+
+def test_run_task_reports_which_documents_went_unread(tmp_path):
+    """Not opening a document is a failure with no reasoning in it — measure it free."""
+    workdir = _workdir_with_documents(tmp_path, "merger.txt", "escrow.txt")
+    rlm = TrajectoryRLM([{"code": "open('documents/merger.txt').read()", "output": "..."}])
+    agent = PrimeAgent(harness=_harness(tmp_path / "h"),
+                       root_lm=dspy.LM("openai/gpt-4o-mini"), rlm=rlm)
+    agent.run_task("review the documents", workdir=str(workdir))
+    assert agent.last_coverage.touched == ["merger.txt"]
+    assert agent.last_coverage.untouched == ["escrow.txt"]
+    assert agent.last_coverage.rate == 0.5
+
+
+def test_coverage_is_none_when_the_workdir_has_no_documents(tmp_path):
+    """Optional collaborator: a workspace with no documents/ dir reports nothing."""
+    rlm = TrajectoryRLM([{"code": "print(1)", "output": "1"}])
+    agent = PrimeAgent(harness=_harness(tmp_path / "h"),
+                       root_lm=dspy.LM("openai/gpt-4o-mini"), rlm=rlm)
+    agent.run_task("no documents here", workdir=str(tmp_path))
+    assert agent.last_coverage is None

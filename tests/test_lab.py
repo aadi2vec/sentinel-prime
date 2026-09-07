@@ -443,3 +443,83 @@ def test_paired_summary_needs_at_least_two_pairs():
 
     with pytest.raises(ValueError):
         paired_summary([("t1", 0.5, 0.6)])
+
+
+# ---- parallel judging ------------------------------------------------------------------
+
+class _SlowLM:
+    """Records concurrency; sleeps so parallelism is observable."""
+
+    def __init__(self, delay=0.05):
+        import threading
+        self.delay = delay
+        self.active = 0
+        self.peak = 0
+        self.calls = 0
+        self._lock = threading.Lock()
+
+    def __call__(self, messages=None, **kw):
+        import time
+        with self._lock:
+            self.active += 1
+            self.peak = max(self.peak, self.active)
+            self.calls += 1
+        time.sleep(self.delay)
+        with self._lock:
+            self.active -= 1
+        return ['{"reasoning": "r", "verdict": "pass"}']
+
+
+def _many_criteria(n):
+    return [{"id": f"C-{i:03d}", "title": f"t{i}", "match_criteria": "x"} for i in range(n)]
+
+
+def test_judging_runs_criteria_concurrently(tmp_path):
+    """1346 sequential judge calls is ~50 minutes; the calls are independent."""
+    from sentinelprime.lab import RubricJudge, load_task
+
+    task = load_task(_task_dir(tmp_path, criteria=_many_criteria(8)))
+    lm = _SlowLM()
+    RubricJudge(lm, prompt_path=_prompt_file(tmp_path), parallel=4).judge(task, "out")
+    assert lm.peak > 1
+    assert lm.calls == 8
+
+
+def test_parallel_judging_preserves_criterion_order(tmp_path):
+    """Results must line up with the rubric regardless of completion order."""
+    from sentinelprime.lab import RubricJudge, load_task
+
+    task = load_task(_task_dir(tmp_path, criteria=_many_criteria(10)))
+    results = RubricJudge(_SlowLM(), prompt_path=_prompt_file(tmp_path),
+                          parallel=5).judge(task, "out")
+    assert [r["id"] for r in results] == [f"C-{i:03d}" for i in range(10)]
+
+
+def test_concurrency_is_bounded_by_the_parallel_setting(tmp_path):
+    from sentinelprime.lab import RubricJudge, load_task
+
+    task = load_task(_task_dir(tmp_path, criteria=_many_criteria(12)))
+    lm = _SlowLM()
+    RubricJudge(lm, prompt_path=_prompt_file(tmp_path), parallel=3).judge(task, "out")
+    assert lm.peak <= 3
+
+
+def test_one_failing_criterion_does_not_lose_the_others(tmp_path):
+    """A transient judge error must cost one criterion, not the whole task."""
+    from sentinelprime.lab import RubricJudge, load_task
+
+    class _Flaky:
+        def __init__(self):
+            self.n = 0
+        def __call__(self, messages=None, **kw):
+            self.n += 1
+            if self.n == 2:
+                raise RuntimeError("rate limited")
+            return ['{"reasoning": "r", "verdict": "pass"}']
+
+    task = load_task(_task_dir(tmp_path, criteria=_many_criteria(4)))
+    results = RubricJudge(_Flaky(), prompt_path=_prompt_file(tmp_path),
+                          parallel=1).judge(task, "out")
+    assert len(results) == 4
+    assert sum(1 for r in results if r["verdict"] == "fail") == 1
+    assert any("rate limited" in r["reasoning"] for r in results)
