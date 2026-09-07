@@ -11,6 +11,7 @@ against untrusted input.
 """
 from __future__ import annotations
 
+import builtins
 import contextlib
 import io
 import os
@@ -54,6 +55,23 @@ class LocalInterpreter:
             raise _SubmitSignal(kwargs)
 
         self._ns["SUBMIT"] = SUBMIT
+        if self.workdir:
+            # Resolve the model's relative paths against the task workdir.
+            #
+            # Deliberately NOT os.chdir: that is process-global, and sub-agents run on a
+            # thread pool, so a child would silently relocate its parent mid-run. Rebinding
+            # `open` in the REPL namespace is thread-safe and covers what models actually
+            # write. Anything else — glob, pathlib, subprocess cwd — still resolves against
+            # the process CWD, which is why WORKDIR is exposed for explicit joins.
+            root = os.path.realpath(self.workdir)
+
+            def _open(file: Any, *args: Any, **kwargs: Any):
+                if isinstance(file, (str, os.PathLike)) and not os.path.isabs(str(file)):
+                    file = os.path.join(root, str(file))
+                return builtins.open(file, *args, **kwargs)
+
+            self._ns["open"] = _open
+            self._ns["WORKDIR"] = root
         self._ns.update(self._tools)
         self._tools_registered = True
 
@@ -103,7 +121,11 @@ class InterpreterFactory:
     execution_instructions = (
         "You are in a real Python process with full filesystem and subprocess "
         "access. The task's documents live in the working directory. This is a "
-        "control environment, NOT a security sandbox."
+        "control environment, NOT a security sandbox.\n"
+        "Relative paths passed to open() resolve against the task working "
+        "directory, whose absolute path is in the variable WORKDIR. For anything "
+        "other than open() — glob, pathlib, os.listdir, subprocess — join against "
+        "WORKDIR explicitly, e.g. os.path.join(WORKDIR, 'documents')."
     )
 
     def __init__(self, workdir_source: "str | Callable[[], str]") -> None:
