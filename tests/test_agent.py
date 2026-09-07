@@ -141,3 +141,152 @@ def test_end_to_end_with_scripted_lm(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     pred = agent.run_task("summarize note", workdir=str(tmp_path))
     assert "change-of-control" in pred.deliverable
+
+
+# ---- Integration seams: context threading, progress monitoring, semantic cache -------
+
+class TrajectoryRLM:
+    """StubRLM variant returning a caller-supplied trajectory."""
+
+    def __init__(self, trajectory):
+        self.calls = []
+        self._trajectory = trajectory
+
+    def __call__(self, **kwargs):
+        self.calls.append(kwargs)
+        return dspy.Prediction(deliverable="STUB", trajectory=self._trajectory)
+
+
+def _audited_harness(tmp_path, *, depends_on, score=1.0):
+    """Harness whose ledger holds one external-scope lesson with a declared dependency."""
+    from sentinelprime.audit import AuditLog, AuditRecord
+    from sentinelprime.memory import MemoryItem
+
+    backend = JsonMemoryBackend(str(tmp_path / "state.json"))
+    backend.write([MemoryItem(id="ext1", scope="session", kind="note",
+                              text="counterparty playbook says escrow 10%", created_at="t")])
+    audit_log = AuditLog(str(tmp_path / "audit.json"))
+    audit_log.append(AuditRecord(
+        edit_id="ext1", op="create", scope="external", from_version=0, to_version=1,
+        cause_task_id="ma-001", cause_failures="- [c1] missed escrow", trajectory_digest="d",
+        score=score, created_at="t", content_hash="h", depends_on=depends_on,
+    ))
+    return ContinualHarness(backend, audit_log=audit_log)
+
+
+def test_run_task_withholds_stale_lesson_when_context_source_moved(tmp_path):
+    harness = _audited_harness(tmp_path, depends_on={"playbook_version": "v1"})
+    rlm = TrajectoryRLM([])
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"), rlm=rlm)
+    agent.run_task("t1", workdir=str(tmp_path), context={"playbook_version": "v2"})
+    assert "escrow 10%" not in rlm.calls[0]["guidance"]
+
+
+def test_run_task_keeps_lesson_when_context_dependency_still_current(tmp_path):
+    harness = _audited_harness(tmp_path, depends_on={"playbook_version": "v1"})
+    rlm = TrajectoryRLM([])
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"), rlm=rlm)
+    agent.run_task("t1", workdir=str(tmp_path), context={"playbook_version": "v1"})
+    assert "escrow 10%" in rlm.calls[0]["guidance"]
+
+
+def test_run_task_exposes_rlm_trajectory_for_learning(tmp_path):
+    traj = [{"reasoning": "read the doc", "code": "open(...)", "output": "..."}]
+    harness = _harness(tmp_path)
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=TrajectoryRLM(traj))
+    agent.run_task("t1", workdir=str(tmp_path))
+    assert agent.last_trajectory == traj
+
+
+def test_run_task_records_replan_audit_event_on_stalled_trajectory(tmp_path):
+    from sentinelprime.audit import AuditLog
+    from sentinelprime.monitor import ProgressMonitor
+
+    stalled = [{"reasoning": "re-read the msa for change of control"} for _ in range(3)]
+    audit_log = AuditLog(str(tmp_path / "audit.json"))
+    harness = ContinualHarness(JsonMemoryBackend(str(tmp_path / "state.json")),
+                               audit_log=audit_log)
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=TrajectoryRLM(stalled), monitor=ProgressMonitor())
+    agent.run_task("t1", workdir=str(tmp_path), task_id="ma-001")
+    replans = [r for r in audit_log.records() if r.op == "replan"]
+    assert len(replans) == 1
+    assert replans[0].cause_task_id == "ma-001"
+
+
+def test_run_task_leaves_audit_log_clean_when_trajectory_is_healthy(tmp_path):
+    from sentinelprime.audit import AuditLog
+    from sentinelprime.monitor import ProgressMonitor
+
+    healthy = [{"reasoning": "read the msa"}, {"reasoning": "extract governing law"},
+               {"reasoning": "draft the summary"}]
+    audit_log = AuditLog(str(tmp_path / "audit.json"))
+    harness = ContinualHarness(JsonMemoryBackend(str(tmp_path / "state.json")),
+                               audit_log=audit_log)
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=TrajectoryRLM(healthy), monitor=ProgressMonitor())
+    agent.run_task("t1", workdir=str(tmp_path), task_id="ma-001")
+    assert [r for r in audit_log.records() if r.op == "replan"] == []
+
+
+def test_default_rlm_reuses_paraphrased_subqueries_with_embedder(tmp_path):
+    """Semantic tier in the live agent path: paraphrased sub-queries hit the sub-LM once."""
+    from dspy.utils.dummies import DummyLM
+
+    sub_calls = []
+
+    def sub_lm(prompt):
+        sub_calls.append(prompt)
+        return ["Delaware"]
+
+    def embed(text: str) -> list[float]:
+        # deterministic stand-in for a real embedder: same topic -> same vector
+        return [1.0, 0.0] if "governing law" in text.lower() else [0.0, 1.0]
+
+    lm = DummyLM([
+        {"reasoning": "ask twice, paraphrased",
+         "code": ("```python\na = llm_query('What is the governing law?')\n"
+                  "b = llm_query('Governing law of this agreement?')\nprint(a, b)\n```")},
+        {"reasoning": "submit", "code": "```python\nSUBMIT(deliverable='done')\n```"},
+    ])
+
+    harness = _harness(tmp_path)
+    agent = PrimeAgent(harness=harness, root_lm=lm, sub_lm=sub_lm, subquery_embedder=embed)
+    agent.run_task("paraphrase demo", workdir=str(tmp_path))
+
+    assert len(sub_calls) == 1  # second, paraphrased query served from cache
+    assert agent.last_cache_stats["semantic_hits"] == 1
+
+
+# ---- Prefix-cache structuring: the ledger must sit inside the shared prompt prefix ----
+
+def test_ledger_block_sits_inside_the_prefix_shared_across_tasks():
+    """Provider prefix caching only pays if the stable ledger precedes the variable task."""
+    from sentinelprime.agent import cacheable_prefix
+
+    prefix = cacheable_prefix("LEDGER-BLOCK-XYZ",
+                              ["summarize the SPA", "summarize the MSA"])
+    assert "LEDGER-BLOCK-XYZ" in prefix
+
+
+def test_cacheable_prefix_is_byte_stable_across_repeated_reads():
+    from sentinelprime.agent import cacheable_prefix
+
+    tasks = ["summarize the SPA", "summarize the MSA"]
+    assert cacheable_prefix("LEDGER", tasks) == cacheable_prefix("LEDGER", tasks)
+
+
+def test_changing_the_ledger_invalidates_the_shared_prefix():
+    """The ledger is *inside* the cached prefix, so editing it must move the boundary."""
+    from sentinelprime.agent import cacheable_prefix
+
+    tasks = ["summarize the SPA", "summarize the MSA"]
+    assert "OLD-LESSON" not in cacheable_prefix("NEW-LESSON", tasks)
+
+
+def test_cacheable_prefix_ends_before_the_per_task_content():
+    from sentinelprime.agent import cacheable_prefix
+
+    prefix = cacheable_prefix("LEDGER", ["summarize the SPA", "summarize the MSA"])
+    assert "summarize the SPA" not in prefix

@@ -153,6 +153,70 @@ Each item has an acceptance criterion so a later plan can pick it up directly. O
 4. **Prefix-cache discipline (off-the-shelf lever, one guardrail).** ✅ *Built (guardrail).* `harness.read()` now emits items in a pinned `(kind, id)` order, so the block is a byte-stable prompt prefix independent of backend insertion order. Tests: `test_read_is_deterministic_regardless_of_insertion_order`, `test_read_of_unchanged_ledger_is_byte_identical`. (Structuring the full immutable-base+ledger prefix for a specific provider's cache remains a wiring task.)
 5. **Rust durable runtime (Phase 2) as the audit-guarantee-under-failure layer.** WAL + supervision + deterministic replay — sold as "the record survives a crash and replays exactly," the compliance moat, not engineering hygiene.
 
+## Integration gaps (built in isolation, not yet wired into the live loop)
+
+These components are shipped and unit-tested, but the *live* `PrimeAgent` path does not yet
+exercise them end to end. Recorded here (post PR #2 merge, 2026-09-06) so a later plan can close
+each seam. None require new algorithms — they are wiring + threading.
+
+**Status (2026-09-06, Track A): all five closed.** `scripts/run_lab.py` carries
+`--no-verifier` / `--no-monitor` / `--no-context` / `--no-semantic-cache`, and the fixtures are
+built so each switch moves a measured number (curve, audit records, replans, rejected,
+withheld, prefix boundary). What is *not* closed is endpoint-side measurement: a real
+cached-token/cost reduction and a real `semantic_hits > 0` both need a live provider.
+
+- [x] **Thread `context` through `PrimeAgent.run_task` → `harness.read(context=…)`.** `read()` already
+  accepts a `context` and gates reuse through `ReuseController._admissible`, but `PrimeAgent` calls
+  `read()` with no context, so the currency/scope gates never see real task state. Acceptance: a
+  live run passes task/document identifiers into `read`, and an out-of-scope cached lesson is
+  demonstrably withheld.
+  *Closed:* `PrimeAgent.run_task(..., context=…)` forwards to `harness.read(context=…)`;
+  `ContinualHarness.admissible_items()` exposes the gated set so the withheld count is
+  measurable; `run_lab.py` amends a document mid-run so a revision-scoped lesson goes stale
+  (5 withheld with gating on, 0 with `--no-context`).
+- [x] **Wire the `CostLadderPlanner` into `refine()`'s verifier step.** The planner exists and derives
+  failure rates `from_audit_log`, but `refine()` calls the verifier directly per edit. Seam: order the
+  verifier's checks (or multiple verifier levels) via the ladder so the cheapest high-detection check
+  short-circuits first. Acceptance: a refine round with two verifier levels runs them in ladder order
+  and stops on first rejection, with the order recorded.
+  *Closed:* `LadderVerifier` presents `refine()`'s single-verifier interface and fans out over
+  priced `VerifierLevel` rungs ordered by `CostLadderPlanner`. The live ladder is
+  `GroundingProbe` (deterministic, cost 1) then `PredictVerifier` (cost 100); the executed
+  order, the rejecting rung and the cost spent land in the `AuditRecord.verification` and so in
+  `explain()`. `RefineResult.rejected` makes the gate's work countable. `from_audit_log`
+  fits ladders whose rungs map to rubric criteria; since these rungs do not, the live ladder
+  runs `adaptive=True` and re-derives P(fail) from its **own** observed rejections — rejected
+  edits leave no audit record, so the ladder is the only component that sees them.
+- [x] **Wire `ProgressMonitor` into the live loop (not just `run_lab.py`).** `PrimeAgent.run_task` should
+  feed the real RLM trajectory + `SubQueryCache` stats to `monitor.check_and_record` each run so a
+  `replan` audit event is emitted on live thrash. Currently only the scripted/live `run_lab` harness
+  calls it. Acceptance: a looping live trajectory produces a `replan` `AuditRecord`.
+  *Closed:* `PrimeAgent(monitor=…)`; `run_task` feeds `pred.trajectory` + `last_cache_stats`
+  to `monitor.check_and_record` and exposes `last_trajectory` / `last_monitor_decision`, so
+  the live loop learns from the real trajectory instead of `[]`.
+- [x] **Prefix-cache: full immutable-base + ledger prompt structuring for a provider cache.** The
+  `read()` byte-stability guardrail is in; the remaining work is structuring the actual prompt so a
+  provider (e.g. OpenAI/Anthropic prompt caching) can cache the stable prefix. Acceptance: repeated
+  runs over an unchanged ledger show a measured cached-prefix token/cost reduction.
+  *Closed structurally:* `PrimeTask` now declares `guidance` before `task`, so the prompt is
+  `[instructions][ledger][task][repl_history]` and the ledger falls inside the shared prefix —
+  with the original order the prompt diverged before the ledger was reached, so it could never
+  be cached. `agent.cacheable_prefix()` measures the divergence boundary from the real adapter
+  messages (798 chars shared across the two fixtures); `run_lab.py` prints it each run.
+  *Still open:* the token/cost half of the acceptance needs a live provider, as do
+  provider-specific cache markers (Anthropic `cache_control`), which sit in litellm/DSPy.
+- [x] **Semantic sub-cache embedder in the live path.** `SubQueryCache` accepts an injectable embedder
+  (default None = exact-only). Live `PrimeAgent` currently passes no embedder, so only exact dedup
+  runs. Acceptance: a live run with a real embedder shows `semantic_hits > 0` on paraphrased subqueries.
+  *Closed:* `subcache.make_embedder` adapts a batch embedder (`dspy.Embedder`) to the cache's
+  one-prompt contract; live runs build it from `EMBED_MODEL` by default (`--no-semantic-cache`
+  ablates). `SubQueryCache` disables its semantic tier with a warning if the embedder raises,
+  so a dead embeddings endpoint costs the run its dedup *rate*, never the run.
+  *Still open:* `semantic_hits > 0` against a real endpoint — proven hermetically only.
+
+The two larger design items below (trajectory checkpoints/backtracking, Pareto-under-uncertainty
+strategy frontier) remain **parked** — they need new machinery, not just wiring.
+
 ## Design notes: stop-and-rethink & strategy frontier (roadmap)
 
 The shipped `dspy.RLM` loop is greedy single-path: it appends to a monotone
