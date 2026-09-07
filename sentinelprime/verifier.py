@@ -16,6 +16,7 @@ Two properties matter:
 """
 from __future__ import annotations
 
+import random
 import re
 from dataclasses import dataclass
 from typing import Any
@@ -114,14 +115,28 @@ class LadderVerifier(dspy.Module):
         deliberately leave no audit record, so the ladder is the only component that sees
         them, which makes it the statistics catalog for its own ordering.
 
-    Known limitation of the adaptive path: a rung that reaches the front and rejects
-    short-circuits the rungs behind it, so their rates freeze at whatever was observed
-    while they still ran. That is the standard exploration cost of a greedy ladder; with
-    two or three rungs it is not worth a bandit.
+    `explore` addresses the greedy ladder's blind spot. A rung that reaches the front and
+    rejects short-circuits the rungs behind it, so their rates freeze at whatever was
+    observed while they still ran. With `explore=eps`, that fraction of rejected rounds
+    runs the remaining rungs anyway — recording their verdicts as **shadow** verdicts that
+    never touch the decision. Two things follow, and the second is the reason it exists:
+
+      1. The frozen statistics thaw: a rung behind a rejection is observed again.
+      2. Those proposals become part of the deeper rung's *actual input distribution*, at
+         rate eps rather than never. The offline trainset in `optimize.py` draws its gold
+         negatives from probe rejections, and without exploration the generative judge is
+         tuned on a region the live ladder guarantees it will never see. Exploration is
+         what shrinks that gap from "never" to "sometimes", and it is the honest price of
+         being allowed to train the judge on those rows at all.
+
+    A shadow verdict is training data, never admission reasoning: it is kept out of
+    `last_verdicts`, out of the rendered trail, and out of the decision. Its cost is real
+    and is reported separately (`last_exploration_cost`) rather than folded into the cost
+    the compliance trail attributes to the admission.
     """
 
     def __init__(self, levels: list[VerifierLevel], planner: CostLadderPlanner | None = None,
-                 adaptive: bool = False):
+                 adaptive: bool = False, explore: float = 0.0, seed: int = 0):
         super().__init__()
         self.levels = list(levels)
         # A plain list attribute so DSPy's module traversal reaches nested predictors —
@@ -131,6 +146,20 @@ class LadderVerifier(dspy.Module):
         self.adaptive = adaptive
         self._runs: dict[str, int] = {}
         self._rejections: dict[str, int] = {}
+        # Per-rung verdicts from the most recent verify(). The rendered trail flattens the
+        # ladder to one sentence, which is right for a compliance reader and lossy for a
+        # trainset: a proposal the cheap probe admits and the judge rejects is the most
+        # informative row there is, and the disagreement is only visible here. Kept as
+        # last-call state rather than a growing list — persistence is ProposalLog's job.
+        self.last_verdicts: dict[str, VerifierVerdict] = {}
+        # Fraction of *rejected* rounds that run the rungs behind the rejection anyway.
+        self.explore = explore
+        # Seeded so a sweep is reproducible: which rounds explored is part of what
+        # produced the trainset, and an unseeded draw makes a compile unrepeatable.
+        self._rng = random.Random(seed)
+        # Verdicts from rungs that ran for observation only. Never part of the decision.
+        self.last_shadow: dict[str, VerifierVerdict] = {}
+        self.last_exploration_cost: float = 0.0
 
     def observed_stats(self) -> dict[str, float]:
         """Per-rung rejection rate over the edits that rung has actually judged."""
@@ -159,11 +188,35 @@ class LadderVerifier(dspy.Module):
 
         return Check(name=level.name, cost=level.cost, run=run)
 
+    def _explore_remaining(self, result, verdicts: dict, op: dict, feedback,
+                           trajectory: list[dict]) -> None:
+        """Run the rungs the short-circuit skipped, for observation only.
+
+        Records into `last_shadow` and into the rejection statistics, never into
+        `verdicts` — the decision is already made and must not move.
+        """
+        self.last_shadow = {}
+        self.last_exploration_cost = 0.0
+        skipped = [lv for lv in self.levels
+                   if lv.name in result.order and lv.name not in verdicts]
+        if not skipped or self._rng.random() >= self.explore:
+            return
+        for level in skipped:
+            verdict = level.verifier.verify(op, feedback, trajectory)
+            self.last_shadow[level.name] = verdict
+            self._runs[level.name] = self._runs.get(level.name, 0) + 1
+            if not verdict.admitted:
+                self._rejections[level.name] = self._rejections.get(level.name, 0) + 1
+            self.last_exploration_cost += level.cost
+
     def verify(self, op: dict, feedback, trajectory: list[dict]) -> VerifierVerdict:
         verdicts: dict[str, VerifierVerdict] = {}
         checks = [self._check_for(lv, verdicts, op, feedback, trajectory)
                   for lv in self.levels]
         result = self._planner_for_round().run(checks, {"op": op})
+        # Short-circuiting means `verdicts` holds only the rungs that actually ran.
+        self.last_verdicts = verdicts
+        self._explore_remaining(result, verdicts, op, feedback, trajectory)
         # Only the levels that actually ran, in the order the ladder ran them.
         trail = " -> ".join(name for name in result.order if name in verdicts)
 
@@ -230,3 +283,44 @@ class GroundingProbe:
             True, overlap,
             f"grounding: {overlap:.2f} vocabulary overlap with the observed failures",
         )
+
+
+def build_ladder(min_score: float = 0.0, program_path: str | None = None,
+                 adaptive: bool = True, explore: float = 0.0, seed: int = 0,
+                 generative: bool = True) -> LadderVerifier:
+    """The live ladder, constructed in one place so every experiment arm shares it.
+
+    Two rungs, priced a hundred to one: `GroundingProbe` is deterministic and catches the
+    structural and topical rejections, `PredictVerifier` is the generative judge that
+    catches what lexical overlap cannot. `adaptive=True` because rejected edits leave no
+    audit record — the ladder is the only component that observes its own rejections, so it
+    is the only honest source of the P(fail) statistics that order it.
+
+    `program_path` loads a GEPA-compiled judge (see `scripts/gepa_runner.py`). The rung
+    structure and prices are unchanged; only the judging *prompt* differs, which is exactly
+    the contrast the tuned arm is meant to isolate — and `audit.machinery_fingerprint`
+    makes the difference visible on every edit the ladder goes on to admit.
+
+    `generative=False` keeps the deterministic rung alone, which is what a hermetic run
+    needs: no LM call, and nothing for GEPA to tune. Loading a compiled program into such a
+    ladder is refused rather than ignored — an arm that silently ran the untuned bar while
+    reporting itself as tuned is worse than a crash.
+
+    `explore` defaults to 0: it spends the expensive rung on edits already rejected, so
+    opting in is the caller's decision. Turn it on for a run whose purpose is to *produce a
+    trainset* — without it every probe rejection is a row the judge has never seen, and
+    tuning against those is extrapolation (`optimize.trainset_report().caveat` measures
+    exactly how much).
+    """
+    if program_path and not generative:
+        raise ValueError(
+            "program_path needs the generative rung: a probe-only ladder has no judge to "
+            "load a compiled prompt into, and ignoring it would report a tuned arm that "
+            "ran the untuned admission bar.")
+    levels = [VerifierLevel("grounding_probe", 1, GroundingProbe())]
+    if generative:
+        judge = PredictVerifier(min_score=min_score)
+        if program_path:
+            judge.load(program_path)
+        levels.append(VerifierLevel("llm_verifier", 100, judge))
+    return LadderVerifier(levels, adaptive=adaptive, explore=explore, seed=seed)

@@ -21,7 +21,7 @@ while it sits in the prompt is not earning its place and becomes retirable.
 One outcome is worse than noise: a run that reached the right answer *without reading the
 source* credits whichever lesson was in the prompt, so a useless lesson keeps a passing
 rate and never retires. `observe(..., grounded=...)` takes a per-criterion verdict from
-`grounding.grounding_map` and drops those passes. It is opt-in and it only ever *removes*
+`grounding_from_trajectory` (below) and drops those passes. It is opt-in and it only ever *removes*
 credit, so with the argument omitted the behavior is exactly what it was.
 
 **This is correlational, not causal, and the distinction matters.** When two lessons target
@@ -97,7 +97,7 @@ class CreditAssigner:
         """Score every exposed lesson against its own targeted criteria for this task.
 
         `grounded` is the optional lucky-guess filter: `{criterion_id: did the run
-        actually read the evidence}`, as produced by `grounding.grounding_map`. A criterion
+        actually read the evidence}`, as produced by `grounding_from_trajectory`. A criterion
         that *passed* while the run never saw the facts it names is dropped from the
         record rather than counted as a success — a right answer the run could not have
         derived says nothing about the guidance that was in the prompt, and letting it

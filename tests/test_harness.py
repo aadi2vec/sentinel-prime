@@ -182,3 +182,208 @@ def test_admissible_items_is_ungated_without_context(tmp_path):
     _seed(be, id="n1")
     h = ContinualHarness(be)
     assert [i.id for i in h.admissible_items()] == ["n1"]
+
+
+# --- proposal recording + machinery provenance ---------------------------------------
+
+def _stub_propose(h, edits):
+    # Stub the LM *call*, not the predictor object: replacing h.propose outright would
+    # delete the dspy.Predict that named_predictors() (and the machinery fingerprint)
+    # depend on, which is exactly the seam under test here.
+    h.propose.forward = lambda **kw: type("P", (), {"edits": json.dumps(edits)})()
+
+
+def _fb2(passed=False):
+    return parse_lab_result({"task_id": "ma-001", "criteria": [
+        {"id": "c1", "passed": passed, "reason": "missed the change of control clause"}]})
+
+
+class _GateOn:
+    """Admits only edits whose text contains 'good'."""
+    def verify(self, op, feedback, trajectory):
+        from sentinelprime.verifier import VerifierVerdict
+        ok = "good" in op.get("text", "")
+        return VerifierVerdict(ok, 1.0 if ok else 0.0, "ok" if ok else "nope")
+
+
+def test_refine_records_rejected_proposals_the_audit_log_never_sees(tmp_path):
+    from sentinelprime.proposals import ProposalLog
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    h = ContinualHarness(_backend(tmp_path), audit_log=AuditLog(str(tmp_path / "a.json")),
+                         verifier=_GateOn(), proposal_log=plog)
+    _stub_propose(h, [
+        {"op": "create", "id": "g", "kind": "note", "text": "good lesson", "scope": "global"},
+        {"op": "create", "id": "b", "kind": "note", "text": "bad lesson", "scope": "global"},
+    ])
+    result = h.refine([], _fb2())
+    assert result.rejected == ["b"]
+    # the audit log holds only the admitted edit; the proposal log holds both
+    assert [r.edit_id for r in h.audit_log.records()] == ["g"]
+    assert {r.op["id"]: r.admitted for r in plog.records()} == {"g": True, "b": False}
+
+
+def test_recorded_proposal_carries_the_text_needed_to_replay_the_verification(tmp_path):
+    from sentinelprime.proposals import ProposalLog
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    h = ContinualHarness(_backend(tmp_path), verifier=_GateOn(), proposal_log=plog)
+    _stub_propose(h, [{"op": "create", "id": "b", "kind": "note",
+                       "text": "bad lesson", "scope": "global"}])
+    h.refine([{"output": "obs"}], _fb2())
+    rec = plog.records()[0]
+    assert rec.op["text"] == "bad lesson"
+    assert "change of control" in rec.rubric_failures
+    assert rec.task_id == "ma-001"
+
+
+def test_proposals_are_recorded_even_with_no_verifier_configured(tmp_path):
+    # The probe supplies the label at training time, so an ungated round is still data.
+    from sentinelprime.proposals import ProposalLog
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    h = ContinualHarness(_backend(tmp_path), proposal_log=plog)
+    _stub_propose(h, [{"op": "create", "id": "x", "kind": "note", "text": "t",
+                       "scope": "global"}])
+    h.refine([], _fb2())
+    assert [r.admitted for r in plog.records()] == [True]
+
+
+def test_ladder_rung_verdicts_reach_the_proposal_record(tmp_path):
+    from sentinelprime.proposals import ProposalLog
+    from sentinelprime.verifier import GroundingProbe, LadderVerifier, VerifierLevel
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    ladder = LadderVerifier([VerifierLevel("grounding_probe", 1, GroundingProbe())])
+    h = ContinualHarness(_backend(tmp_path), verifier=ladder, proposal_log=plog)
+    _stub_propose(h, [{"op": "create", "id": "x", "kind": "note",
+                       "text": "missed the change of control clause", "scope": "global"}])
+    h.refine([], _fb2())
+    assert "grounding_probe" in plog.records()[0].rungs
+
+
+def test_audit_records_are_stamped_with_the_machinery_that_admitted_them(tmp_path):
+    from sentinelprime.audit import machinery_fingerprint
+    h = ContinualHarness(_backend(tmp_path), audit_log=AuditLog(str(tmp_path / "a.json")))
+    _stub_propose(h, [{"op": "create", "id": "x", "kind": "note", "text": "t",
+                       "scope": "global"}])
+    h.refine([], _fb2())
+    assert h.audit_log.records()[0].machinery == machinery_fingerprint(h)
+
+
+def test_a_tuned_proposer_produces_a_different_machinery_stamp(tmp_path):
+    # The point of the stamp: two records that look identical came from different bars.
+    stamps = []
+    for n, instructions in enumerate(("original", "tuned by GEPA")):
+        h = ContinualHarness(JsonMemoryBackend(str(tmp_path / f"led-{n}.json")),
+                             audit_log=AuditLog(str(tmp_path / f"a-{n}.json")))
+        h.propose.signature = h.propose.signature.with_instructions(instructions)
+        _stub_propose(h, [{"op": "create", "id": "x", "kind": "note", "text": "t",
+                           "scope": "global"}])
+        h.refine([], _fb2())
+        stamps.append(h.audit_log.records()[0].machinery)
+    assert stamps[0] != stamps[1]
+
+
+def test_no_proposal_log_configured_leaves_refine_unchanged(tmp_path):
+    # Invariant 7: optional collaborators degrade to base behavior.
+    h = ContinualHarness(_backend(tmp_path))
+    _stub_propose(h, [{"op": "create", "id": "x", "kind": "note", "text": "t",
+                       "scope": "global"}])
+    assert h.refine([], _fb2()).created == ["x"]
+
+
+def test_proposal_records_the_ledger_the_proposer_actually_saw(tmp_path):
+    # current_ledger is the proposer's third input. Without it the offline trainset trains
+    # on a different prompt than the online loop ran, which is not a replay.
+    from sentinelprime.proposals import ProposalLog
+    be = _backend(tmp_path)
+    _seed(be, id="n1", text="already learned this")
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    h = ContinualHarness(be, proposal_log=plog)
+    _stub_propose(h, [{"op": "create", "id": "x", "kind": "note", "text": "t",
+                       "scope": "global"}])
+    h.refine([], _fb2())
+    assert "already learned this" in plog.records()[0].current_ledger
+
+
+def test_credit_writes_the_downstream_outcome_back_to_the_proposal(tmp_path):
+    # Stratum 2 of the trainset. Without this the only labels are probe rejections, and
+    # the judge is never trained on the distribution it actually faces.
+    from sentinelprime.credit import CreditAssigner
+    from sentinelprime.proposals import ProposalLog, ProposalRecord, proposal_id
+    audit = AuditLog(str(tmp_path / "a.json"))
+    audit.append(AuditRecord(
+        edit_id="x", op="create", scope="intrinsic", from_version=1, to_version=2,
+        cause_task_id="ma-001", cause_failures="- [c1] missed it", trajectory_digest="d",
+        score=0.0, created_at="t", content_hash="h", targets=["c1"]))
+    op = {"op": "create", "id": "x", "kind": "note", "text": "t", "scope": "global"}
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    plog.append(ProposalRecord(
+        proposal_id=proposal_id(op, "ma-001"), task_id="ma-001", op=op,
+        rubric_failures="- [c1] missed it", trajectory_digest="d", trajectory_summary="[]",
+        admitted=True, justification="j"))
+    h = ContinualHarness(_backend(tmp_path), audit_log=audit,
+                         credit_assigner=CreditAssigner(audit), proposal_log=plog)
+    h.credit(["x"], parse_lab_result({"task_id": "ma-002", "criteria": [
+        {"id": "c1", "passed": True, "reason": "ok"}]}))
+    outcome = plog.outcomes()[proposal_id(op, "ma-001")]
+    assert (outcome.exposures, outcome.successes) == (1, 1)
+
+
+def test_credit_without_a_proposal_log_is_unchanged(tmp_path):
+    from sentinelprime.credit import CreditAssigner
+    audit = AuditLog(str(tmp_path / "a.json"))
+    h = ContinualHarness(_backend(tmp_path), audit_log=audit,
+                         credit_assigner=CreditAssigner(audit))
+    h.credit(["x"], _fb2(passed=True))   # must not raise
+
+
+def test_credit_ignores_exposed_items_that_were_never_proposed_here(tmp_path):
+    # Externally seeded ledger items have no proposal record; that is not an error.
+    from sentinelprime.credit import CreditAssigner
+    from sentinelprime.proposals import ProposalLog
+    audit = AuditLog(str(tmp_path / "a.json"))
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    h = ContinualHarness(_backend(tmp_path), audit_log=audit,
+                         credit_assigner=CreditAssigner(audit), proposal_log=plog)
+    h.credit(["seeded"], _fb2(passed=True))
+    assert plog.outcomes() == {}
+
+
+def test_shadow_verdicts_reach_the_proposal_record_marked_as_shadow(tmp_path):
+    # The judge's opinion on a probe-rejected edit is the row that makes stratum 1 less
+    # off-distribution — but it must never be mistaken for part of the decision.
+    from sentinelprime.proposals import ProposalLog
+    from sentinelprime.verifier import (GroundingProbe, LadderVerifier, VerifierLevel,
+                                        VerifierVerdict)
+
+    class _Judge:
+        def verify(self, op, feedback, trajectory):
+            return VerifierVerdict(True, 0.9, "the judge would have admitted it")
+
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    ladder = LadderVerifier([VerifierLevel("grounding_probe", 1, GroundingProbe()),
+                             VerifierLevel("llm_verifier", 100, _Judge())], explore=1.0)
+    h = ContinualHarness(_backend(tmp_path), verifier=ladder, proposal_log=plog)
+    _stub_propose(h, [{"op": "create", "id": "cake", "kind": "note",
+                       "text": "bake a sponge cake at 180 degrees", "scope": "global"}])
+    h.refine([], _fb2())
+    rungs = plog.records()[0].rungs
+    assert rungs["grounding_probe"]["shadow"] is False
+    assert rungs["llm_verifier"]["shadow"] is True
+    assert rungs["llm_verifier"]["admitted"] is True
+
+
+def test_without_exploration_no_shadow_rungs_are_recorded(tmp_path):
+    from sentinelprime.proposals import ProposalLog
+    from sentinelprime.verifier import GroundingProbe, LadderVerifier, VerifierLevel
+
+    class _Boom:
+        def verify(self, op, feedback, trajectory):
+            raise AssertionError("must not run without exploration")
+
+    plog = ProposalLog(str(tmp_path / "p.jsonl"))
+    ladder = LadderVerifier([VerifierLevel("grounding_probe", 1, GroundingProbe()),
+                             VerifierLevel("llm_verifier", 100, _Boom())], explore=0.0)
+    h = ContinualHarness(_backend(tmp_path), verifier=ladder, proposal_log=plog)
+    _stub_propose(h, [{"op": "create", "id": "cake", "kind": "note",
+                       "text": "bake a sponge cake at 180 degrees", "scope": "global"}])
+    h.refine([], _fb2())
+    assert list(plog.records()[0].rungs) == ["grounding_probe"]

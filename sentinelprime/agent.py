@@ -30,8 +30,7 @@ import dspy
 
 from sentinelprime.children import ChildSessionManager
 from sentinelprime.credit import grounding_from_trajectory
-from sentinelprime.grounding import (document_coverage, document_names,
-                                     grounding_map)
+from sentinelprime.grounding import document_coverage, document_names
 from sentinelprime.harness import ContinualHarness
 from sentinelprime.interpreter import InterpreterFactory
 from sentinelprime.subcache import SubQueryCache
@@ -275,7 +274,8 @@ class PrimeAgent(dspy.Module):
         # A pass it could not have derived is dropped rather than credited — otherwise a
         # lucky guess keeps a useless lesson's success rate up and it never retires.
         # Omitted -> no filter, and credit behaves exactly as it did before.
-        grounded = grounding_map(trajectory, criterion_texts) if criterion_texts else None
+        grounded = (grounding_from_trajectory(trajectory, criterion_texts)
+                    if criterion_texts else None)
         # Credit first: this task's outcome is evidence about the guidance that was in the
         # prompt for it, and refine() consumes that evidence when it retires.
         self.harness.credit(self.last_exposed_ids, feedback, grounded=grounded)

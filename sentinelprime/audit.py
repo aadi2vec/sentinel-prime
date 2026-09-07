@@ -45,6 +45,11 @@ class AuditRecord:
     # that happened to fail in the same round — without it, a lesson answering c1 is blamed
     # when c2 fails. Empty for edits from a proposer that did not declare them.
     targets: list[str] = field(default_factory=list)
+    # Fingerprint of the LM machinery that proposed and admitted this edit. GEPA rewrites
+    # the instructions of those very predictors, so without this the provenance chain stops
+    # one level short: the record says which guidance was used and why it was admitted, but
+    # not *which version of the admitting prompt* said so. Empty when unstamped.
+    machinery: str = ""
 
 
 def digest(text: str) -> str:
@@ -55,6 +60,36 @@ def digest(text: str) -> str:
 def content_hash(op: str, edit_id: str, text: str, cause_task_id: str) -> str:
     """Content-addressed id for an edit (Merkle-style). Identical edits collapse."""
     return digest("\x1f".join([op, edit_id, text, cause_task_id]))
+
+
+def machinery_fingerprint(module) -> str:
+    """Content-addressed id for the *prompts* of a dspy.Module's predictors.
+
+    The audit trail answers "why was this guidance here?" down to the verifier's
+    justification. But the verifier is a `dspy.Predict`, and GEPA's whole job is to rewrite
+    its instructions — so two runs can produce identical-looking records from materially
+    different admission bars. Stamping this on the record closes that gap: the optimizer
+    becomes as auditable as the thing it optimizes.
+
+    Digested over each predictor's instructions and demos, keyed by name and sorted, because
+    those are exactly the surfaces DSPy optimizers mutate. Weights are out of scope — a
+    swapped `dspy.LM` is not visible here, and the caller records the model id separately.
+    Objects with no predictors (a deterministic probe, or a fully stubbed harness in the
+    scripted demo) fingerprint to "" rather than raising. That renders as an *unstamped*
+    record, which is the truthful reading: no LM machinery was involved. Returning the
+    digest of nothing would print a plausible-looking hash for a run that had no prompts.
+    """
+    parts: list[str] = []
+    try:
+        predictors = sorted(module.named_predictors(), key=lambda kv: kv[0])
+    except AttributeError:
+        predictors = []
+    for name, predictor in predictors:
+        signature = getattr(predictor, "signature", None)
+        instructions = getattr(signature, "instructions", "") or ""
+        demos = getattr(predictor, "demos", []) or []
+        parts.append("\x1f".join([name, instructions, repr(demos)]))
+    return digest("\x1e".join(parts)) if parts else ""
 
 
 class AuditLog:
@@ -122,6 +157,9 @@ class AuditLog:
             ]
             if r.verification:
                 lines.append(f"[verification  ] {r.verification}")
+            if r.machinery:
+                lines.append(f"[machinery     ] proposer+verifier prompts "
+                             f"{r.machinery[:12]} (the admission bar in force at the time)")
             lines += [
                 f"[ledger_edit   ] {r.op} '{r.edit_id}' "
                 f"(v{r.from_version}->v{r.to_version}, scope={r.scope}, id={r.content_hash[:8]})",

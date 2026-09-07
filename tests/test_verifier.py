@@ -285,3 +285,226 @@ def test_adaptive_ladder_still_respects_cost_when_detection_is_equal():
     calls.clear()
     lad.verify(_op(), _fb(), trajectory=[])
     assert calls == ["cheap", "expensive"]
+
+
+# --- per-rung verdicts: the ladder is the only component that sees a rejection --------
+
+def test_ladder_exposes_the_per_rung_verdicts_of_the_last_verify():
+    # The rungs disagree: a proposal the cheap probe admits and the judge rejects is the
+    # most informative training row there is, and it is invisible in the rendered trail.
+    from sentinelprime.verifier import LadderVerifier, VerifierLevel, VerifierVerdict
+
+    class _Yes:
+        def verify(self, op, feedback, trajectory):
+            return VerifierVerdict(True, 0.9, "cheap says yes")
+
+    class _No:
+        def verify(self, op, feedback, trajectory):
+            return VerifierVerdict(False, 0.1, "judge says no")
+
+    ladder = LadderVerifier([VerifierLevel("cheap", 1, _Yes()),
+                             VerifierLevel("judge", 100, _No())])
+    ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert ladder.last_verdicts["cheap"].admitted is True
+    assert ladder.last_verdicts["judge"].admitted is False
+
+
+def test_last_verdicts_only_holds_rungs_that_actually_ran():
+    # Short-circuiting is the point; a rung behind a rejection has no opinion to record.
+    from sentinelprime.verifier import LadderVerifier, VerifierLevel, VerifierVerdict
+
+    class _No:
+        def verify(self, op, feedback, trajectory):
+            return VerifierVerdict(False, 0.0, "no")
+
+    class _Boom:
+        def verify(self, op, feedback, trajectory):
+            raise AssertionError("must not run behind a rejection")
+
+    ladder = LadderVerifier([VerifierLevel("cheap", 1, _No()),
+                             VerifierLevel("judge", 100, _Boom())])
+    ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert list(ladder.last_verdicts) == ["cheap"]
+
+
+def test_last_verdicts_is_reset_between_verifications():
+    from sentinelprime.verifier import LadderVerifier, VerifierLevel, VerifierVerdict
+
+    class _Yes:
+        def verify(self, op, feedback, trajectory):
+            return VerifierVerdict(True, 1.0, "ok")
+
+    ladder = LadderVerifier([VerifierLevel("cheap", 1, _Yes())])
+    ladder.verify({"op": "create", "text": "a"}, _fb(), [])
+    first = ladder.last_verdicts
+    ladder.verify({"op": "create", "text": "b"}, _fb(), [])
+    assert ladder.last_verdicts is not first
+
+
+# --- the live ladder, built one way so every arm shares it ---------------------------
+
+def test_build_ladder_orders_the_deterministic_probe_before_the_judge():
+    from sentinelprime.verifier import build_ladder
+    ladder = build_ladder()
+    assert [lv.name for lv in ladder.levels] == ["grounding_probe", "llm_verifier"]
+    assert [lv.cost for lv in ladder.levels] == [1, 100]
+
+
+def test_build_ladder_is_adaptive_so_it_learns_from_its_own_rejections():
+    from sentinelprime.verifier import build_ladder
+    assert build_ladder().adaptive is True
+
+
+def test_build_ladder_exposes_the_judge_to_gepa():
+    from sentinelprime.verifier import build_ladder
+    assert any("verify_predict" in n for n, _ in build_ladder().named_predictors())
+
+
+def test_build_ladder_loads_a_compiled_judge_and_changes_the_machinery(tmp_path):
+    # The whole point of the tuned arm: a different admission bar, visibly so.
+    from sentinelprime.audit import machinery_fingerprint
+    from sentinelprime.verifier import PredictVerifier, build_ladder
+    program = PredictVerifier()
+    program.verify_predict.signature = \
+        program.verify_predict.signature.with_instructions("tuned by GEPA")
+    path = str(tmp_path / "verifier.json")
+    program.save(path)
+    assert (machinery_fingerprint(build_ladder(program_path=path))
+            != machinery_fingerprint(build_ladder()))
+
+
+def test_build_ladder_without_a_program_is_the_untuned_baseline(tmp_path):
+    from sentinelprime.audit import machinery_fingerprint
+    from sentinelprime.verifier import build_ladder
+    assert machinery_fingerprint(build_ladder()) == machinery_fingerprint(build_ladder())
+
+
+# --- exploration: the rungs behind a rejection are never observed otherwise -----------
+
+def _yes(name="cheap"):
+    from sentinelprime.verifier import VerifierVerdict
+
+    class _Y:
+        def verify(self, op, feedback, trajectory):
+            return VerifierVerdict(True, 0.9, f"{name} says yes")
+    return _Y()
+
+
+def _no(name="cheap"):
+    from sentinelprime.verifier import VerifierVerdict
+
+    class _N:
+        def verify(self, op, feedback, trajectory):
+            return VerifierVerdict(False, 0.1, f"{name} says no")
+    return _N()
+
+
+def _rejecting_ladder(explore=0.0, seed=0):
+    from sentinelprime.verifier import LadderVerifier, VerifierLevel
+    return LadderVerifier([VerifierLevel("grounding_probe", 1, _no("probe")),
+                           VerifierLevel("llm_verifier", 100, _yes("judge"))],
+                          explore=explore, seed=seed)
+
+
+def test_without_exploration_the_rung_behind_a_rejection_never_runs():
+    ladder = _rejecting_ladder(explore=0.0)
+    ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert list(ladder.last_verdicts) == ["grounding_probe"]
+    assert ladder.last_shadow == {}
+
+
+def test_exploration_runs_the_rung_behind_a_rejection():
+    ladder = _rejecting_ladder(explore=1.0)
+    ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert "llm_verifier" in ladder.last_shadow
+
+
+def test_a_shadow_verdict_never_changes_the_decision():
+    # The judge would admit; the probe rejected. The edit must still be rejected.
+    ladder = _rejecting_ladder(explore=1.0)
+    verdict = ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert verdict.admitted is False
+
+
+def test_a_shadow_verdict_never_appears_in_the_compliance_trail():
+    # An audit reader must not see a rung that had no part in the decision presented as
+    # though it did. Shadow verdicts are training data, not admission reasoning.
+    ladder = _rejecting_ladder(explore=1.0)
+    verdict = ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert "llm_verifier" not in verdict.justification
+
+
+def test_shadow_verdicts_are_kept_out_of_last_verdicts():
+    ladder = _rejecting_ladder(explore=1.0)
+    ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert list(ladder.last_verdicts) == ["grounding_probe"]
+
+
+def test_exploration_unfreezes_the_statistics_of_the_rung_behind():
+    # The limitation named in the class docstring: without this, llm_verifier's rate is
+    # frozen at whatever was seen before the probe moved in front of it.
+    ladder = _rejecting_ladder(explore=1.0)
+    for _ in range(4):
+        ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert "llm_verifier" in ladder.observed_stats()
+
+
+def test_exploration_cost_is_reported_separately_from_the_decision_cost():
+    # The trail prices the decision; exploration is a real bill that belongs in a budget,
+    # not folded into what a compliance reader is told the admission cost.
+    ladder = _rejecting_ladder(explore=1.0)
+    verdict = ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert "cost 1)" in verdict.justification
+    assert ladder.last_exploration_cost == 100
+
+
+def test_exploration_is_deterministic_for_a_given_seed():
+    a, b = _rejecting_ladder(explore=0.5, seed=7), _rejecting_ladder(explore=0.5, seed=7)
+    for _ in range(12):
+        a.verify({"op": "create", "text": "t"}, _fb(), [])
+        b.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert (a.observed_stats() == b.observed_stats()
+            and a.last_exploration_cost == b.last_exploration_cost)
+
+
+def test_exploration_does_nothing_when_every_rung_already_ran():
+    from sentinelprime.verifier import LadderVerifier, VerifierLevel
+    ladder = LadderVerifier([VerifierLevel("grounding_probe", 1, _yes("probe")),
+                             VerifierLevel("llm_verifier", 100, _yes("judge"))],
+                            explore=1.0)
+    verdict = ladder.verify({"op": "create", "text": "t"}, _fb(), [])
+    assert verdict.admitted is True
+    assert ladder.last_shadow == {} and ladder.last_exploration_cost == 0
+
+
+def test_build_ladder_passes_exploration_through():
+    from sentinelprime.verifier import build_ladder
+    assert build_ladder(explore=0.2).explore == 0.2
+
+
+def test_build_ladder_does_not_explore_by_default():
+    # Exploration costs real money on the expensive rung; opting in is the caller's call.
+    from sentinelprime.verifier import build_ladder
+    assert build_ladder().explore == 0.0
+
+
+def test_build_ladder_can_omit_the_generative_rung_for_a_hermetic_run():
+    from sentinelprime.verifier import build_ladder
+    ladder = build_ladder(generative=False)
+    assert [lv.name for lv in ladder.levels] == ["grounding_probe"]
+
+
+def test_a_probe_only_ladder_makes_no_lm_call_and_exposes_no_predictor():
+    from sentinelprime.verifier import build_ladder
+    assert list(build_ladder(generative=False).named_predictors()) == []
+
+
+def test_loading_a_program_into_a_ladder_with_no_judge_is_refused(tmp_path):
+    # Silently ignoring the compiled program would produce an arm that reports itself as
+    # tuned while running the untuned bar.
+    import pytest
+    from sentinelprime.verifier import PredictVerifier, build_ladder
+    path = str(tmp_path / "v.json")
+    PredictVerifier().save(path)
+    with pytest.raises(ValueError, match="generative"):
+        build_ladder(generative=False, program_path=path)
