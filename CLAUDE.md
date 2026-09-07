@@ -54,10 +54,19 @@ validation batch, and the final test are **family-disjoint**, reserved before wo
 a restart cannot re-spend the test set. Incomplete evaluation cannot promote. `PolicyArchive`
 versions every promotion with its evidence and supports `rollback(version)`.
 
-Two honest limits, kept in the docstrings: the checkers are hand-written, not synthesized;
-and the budget counts solver attempts and check calls, not tokens — so a candidate may spend
-more of the common ceiling than the baseline, and a gain does not by itself establish
-compute efficiency.
+**Every report carries a matched-compute control**, and it is the headline number.
+`champion - initial` moves whenever the champion simply runs the solver more often;
+`matched_compute_control(policy)` spends the same solver attempts with the diagnosis removed,
+so `compute_adjusted_gain` is what checking actually bought. The control lives on
+`runner.control_runner()` — a sibling the candidate runner has never heard of, so `validate`
+refuses any policy naming `CONTROL_CHECK`. Do not move it into the candidate catalog: a
+candidate that can select an always-failing check wins by burning solver calls, which is the
+confound being measured. An incomplete control reports `None`, never a fallback to the
+unadjusted gain.
+
+Two honest limits remain, kept in the docstrings: the checkers are hand-written, not
+synthesized; and the budget counts solver attempts and check calls, not tokens, so nothing
+here establishes cost efficiency.
 
 ### Two loops, two caches — every module belongs to exactly one
 

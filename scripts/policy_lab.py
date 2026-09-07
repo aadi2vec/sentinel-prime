@@ -80,6 +80,13 @@ def main(argv=None) -> int:
         print(f"round {i}: promoted={row['promoted']} gain={row.get('gain')} error={row.get('error')}")
     for name, result in report["test"].items():
         print(f"test {name}: score={result['score']} solves={result['solves']} checks={result['checks']}")
+    # champion - initial moves when the champion merely runs the solver more often.
+    # matched_compute holds solver attempts fixed and removes the diagnosis, so this is
+    # the difference checking actually bought. Print it last: it is the headline.
+    adjusted = report["compute_adjusted_gain"]
+    print(f"compute-adjusted gain (champion - matched_compute): {adjusted}")
+    if adjusted == 0:
+        print("  -> the gain is explained by extra solver calls, not by better checking")
     print(f"Artifacts: {root / 'report.json'}")
     return 1 if any(r["score"] is None for r in report["test"].values()) else 0
 

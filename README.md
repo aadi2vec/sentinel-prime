@@ -14,8 +14,10 @@ not the product.** No legal application is being built here.
 ```
 round 1: promoted=False gain=0.0
 round 2: promoted=True  gain=1.0
-test initial:  score=0.0 solves=3 checks=0
-test champion: score=1.0 solves=6 checks=12
+test initial:         score=0.0 solves=3 checks=0
+test champion:        score=1.0 solves=6 checks=12
+test matched_compute: score=0.0 solves=6 checks=6
+compute-adjusted gain (champion - matched_compute): 1.0
 ```
 
 That is `scripts/policy_lab.py`, verbatim, hermetic and network-free. Read [Status](#status)
@@ -48,9 +50,27 @@ expressible only as assembler arguments and cannot reach around the assembler.
 
 **Not proven, and this is the important part:** that any model improves its own computation.
 `policy_lab.py` is a *mechanism* demo with a scripted solver and a scripted proposal sequence.
-The checkers are hand-written, not synthesized. The budget counts solver attempts and check
-calls, not tokens — so a candidate can spend more of the shared ceiling than the baseline, and
-a gain does not by itself establish compute efficiency. There are **no real-model results.**
+The checkers are hand-written, not synthesized. There are **no real-model results.**
+
+The budget still counts solver attempts and check calls rather than tokens, so nothing here
+establishes cost efficiency. What it does now establish is that the gain is not merely extra
+inference — see below.
+
+### The matched-compute control
+
+`champion - initial` moves whenever the champion runs the solver more often, and the champion
+above runs it twice as many times. So every report carries a third arm: a control that spends
+the **same solver attempts**, sees its own previous answer, and receives **no diagnosis** of
+what was wrong. What separates the champion from it is what checking bought.
+
+The control is unreachable from any candidate — it lives on a sibling runner that the
+candidate runner has never heard of, so `validate` refuses a policy that names it. A candidate
+able to select an always-failing check could burn the solver budget without earning anything,
+which is the confound the control exists to measure.
+
+On the scripted demo the gain survives: `1.0` at equal solves. When it does not, the report
+says so, and an incomplete control reports `None` rather than letting the flattering number
+back into the headline slot.
 
 **What was measured, and what it cost the previous direction:**
 

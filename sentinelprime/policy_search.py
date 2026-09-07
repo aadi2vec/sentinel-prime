@@ -85,6 +85,15 @@ class PolicyRunner:
     def __init__(self, solve: Callable, checks: dict[str, Callable], budget: Budget):
         self.solve, self.checks, self.budget = solve, dict(checks), budget
 
+    def control_runner(self) -> "PolicyRunner":
+        """A sibling runner that knows only the control check.
+
+        Deliberately a separate object rather than an extra entry in this runner's check
+        set: the control must be unreachable from any candidate, and the cheapest way to
+        guarantee that is for the runner candidates execute under never to have heard of it.
+        """
+        return PolicyRunner(self.solve, {CONTROL_CHECK: _control_check}, self.budget)
+
     def validate(self, policy: Policy) -> None:
         if not isinstance(policy, Policy):
             raise ValueError("proposer must return a Policy")
@@ -123,6 +132,35 @@ class PolicyRunner:
         except Exception as exc:
             result.error = f"{type(exc).__name__}: {exc}"
         return result
+
+
+# The control check's name. It lives outside every proposer catalog and outside the
+# candidate runner's check set, so `validate` refuses a candidate that names it — a
+# candidate able to select an always-failing check could spend the solver budget without
+# earning anything, which is the confound this control exists to measure.
+CONTROL_CHECK = "__retry_control__"
+
+
+def _control_check(task: str, answer: str) -> CheckResult:
+    """Never passes, and says nothing about why.
+
+    The empty feedback is the whole design. The runner still hands the retry its previous
+    answer, so the control is an *uninformed* retry rather than a blind one: same solver
+    calls, same sight of the prior attempt, no diagnosis. What separates a candidate from
+    this control is therefore the diagnosis alone, which is exactly what a check supplies.
+    """
+    return CheckResult(False, "")
+
+
+def matched_compute_control(policy: Policy) -> Policy:
+    """The policy that spends `policy`'s solver attempts and checks nothing.
+
+    A candidate that revises twice runs the solver three times. Comparing it against a
+    champion that runs it once measures two things at once — better checking, and more
+    inference — and credits whichever the reader had in mind. This is the arm that holds
+    compute fixed.
+    """
+    return Policy((CONTROL_CHECK,), policy.max_revisions)
 
 
 class PolicyArchive:
@@ -289,7 +327,25 @@ class PolicySearch:
                         "baseline": baseline, "candidate": trial}
             self.archive.record(candidate, promoted, evidence)
             rounds.append(evidence)
+        champion = self.archive.current
+        champion_test = self._score(champion, test)
+        # The arm that keeps the headline honest. `champion - initial` moves when the
+        # champion merely runs the solver more often; this holds solver attempts fixed and
+        # removes the diagnosis, so what is left is what checking bought. Scored on the
+        # same test cases, after selection, and never used for promotion.
+        control = self._score_control(champion, test)
+        adjusted = (champion_test["score"] - control["score"]
+                    if champion_test["score"] is not None and control["score"] is not None
+                    else None)
         return {"budget": asdict(self.runner.budget), "rounds": rounds,
-                "initial_policy": asdict(initial), "champion_policy": asdict(self.archive.current),
+                "initial_policy": asdict(initial), "champion_policy": asdict(champion),
+                "compute_adjusted_gain": adjusted,
                 "test": {"initial": self._score(initial, test),
-                         "champion": self._score(self.archive.current, test)}}
+                         "champion": champion_test,
+                         "matched_compute": control}}
+
+    def _score_control(self, champion: Policy, cases: list[Case]) -> dict:
+        """Score the matched-compute control, on its own runner so no candidate can reach it."""
+        control_search = object.__new__(PolicySearch)
+        control_search.__dict__ = dict(self.__dict__, runner=self.runner.control_runner())
+        return control_search._score(matched_compute_control(champion), cases)
