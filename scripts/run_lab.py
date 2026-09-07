@@ -178,6 +178,9 @@ def run_live(epochs: int) -> None:
     model = _pick_model()
     print(f"[run_lab] live mode using model: {model}\n")
     lm = dspy.LM(model, **_lm_kwargs())
+    # The harness's edit-proposer (a dspy.Predict) runs in learn()/refine() outside the
+    # RLM's own lm-context, so give DSPy a default LM for those unwrapped predictors.
+    dspy.configure(lm=lm)
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp = pathlib.Path(tmp)
@@ -242,7 +245,10 @@ def _load_dotenv(path: str = ".env") -> None:
         if not line or line.startswith("#") or "=" not in line:
             continue
         key, _, val = line.partition("=")
-        os.environ.setdefault(key.strip(), val.strip())
+        val = val.strip()
+        if len(val) >= 2 and val[0] == val[-1] and val[0] in ("'", '"'):
+            val = val[1:-1]
+        os.environ.setdefault(key.strip(), val)
 
 
 def main() -> None:

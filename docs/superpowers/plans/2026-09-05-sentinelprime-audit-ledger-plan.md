@@ -153,6 +153,37 @@ Each item has an acceptance criterion so a later plan can pick it up directly. O
 4. **Prefix-cache discipline (off-the-shelf lever, one guardrail).** ✅ *Built (guardrail).* `harness.read()` now emits items in a pinned `(kind, id)` order, so the block is a byte-stable prompt prefix independent of backend insertion order. Tests: `test_read_is_deterministic_regardless_of_insertion_order`, `test_read_of_unchanged_ledger_is_byte_identical`. (Structuring the full immutable-base+ledger prefix for a specific provider's cache remains a wiring task.)
 5. **Rust durable runtime (Phase 2) as the audit-guarantee-under-failure layer.** WAL + supervision + deterministic replay — sold as "the record survives a crash and replays exactly," the compliance moat, not engineering hygiene.
 
+## Integration gaps (built in isolation, not yet wired into the live loop)
+
+These components are shipped and unit-tested, but the *live* `PrimeAgent` path does not yet
+exercise them end to end. Recorded here (post PR #2 merge, 2026-09-06) so a later plan can close
+each seam. None require new algorithms — they are wiring + threading.
+
+- [ ] **Thread `context` through `PrimeAgent.run_task` → `harness.read(context=…)`.** `read()` already
+  accepts a `context` and gates reuse through `ReuseController._admissible`, but `PrimeAgent` calls
+  `read()` with no context, so the currency/scope gates never see real task state. Acceptance: a
+  live run passes task/document identifiers into `read`, and an out-of-scope cached lesson is
+  demonstrably withheld.
+- [ ] **Wire the `CostLadderPlanner` into `refine()`'s verifier step.** The planner exists and derives
+  failure rates `from_audit_log`, but `refine()` calls the verifier directly per edit. Seam: order the
+  verifier's checks (or multiple verifier levels) via the ladder so the cheapest high-detection check
+  short-circuits first. Acceptance: a refine round with two verifier levels runs them in ladder order
+  and stops on first rejection, with the order recorded.
+- [ ] **Wire `ProgressMonitor` into the live loop (not just `run_lab.py`).** `PrimeAgent.run_task` should
+  feed the real RLM trajectory + `SubQueryCache` stats to `monitor.check_and_record` each run so a
+  `replan` audit event is emitted on live thrash. Currently only the scripted/live `run_lab` harness
+  calls it. Acceptance: a looping live trajectory produces a `replan` `AuditRecord`.
+- [ ] **Prefix-cache: full immutable-base + ledger prompt structuring for a provider cache.** The
+  `read()` byte-stability guardrail is in; the remaining work is structuring the actual prompt so a
+  provider (e.g. OpenAI/Anthropic prompt caching) can cache the stable prefix. Acceptance: repeated
+  runs over an unchanged ledger show a measured cached-prefix token/cost reduction.
+- [ ] **Semantic sub-cache embedder in the live path.** `SubQueryCache` accepts an injectable embedder
+  (default None = exact-only). Live `PrimeAgent` currently passes no embedder, so only exact dedup
+  runs. Acceptance: a live run with a real embedder shows `semantic_hits > 0` on paraphrased subqueries.
+
+The two larger design items below (trajectory checkpoints/backtracking, Pareto-under-uncertainty
+strategy frontier) remain **parked** — they need new machinery, not just wiring.
+
 ## Design notes: stop-and-rethink & strategy frontier (roadmap)
 
 The shipped `dspy.RLM` loop is greedy single-path: it appends to a monotone
