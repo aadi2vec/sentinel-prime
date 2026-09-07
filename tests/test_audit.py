@@ -132,3 +132,56 @@ def test_refine_without_log_is_unchanged(tmp_path):
     # must not raise, returns a normal RefineResult
     result = harness.refine(trajectory=[], feedback=fb)
     assert result.created == ["n1"]
+
+
+class _StubVerifier:
+    """Admits an edit iff its text contains `needle`; carries a justification."""
+
+    def __init__(self, needle, score=1.0):
+        self._needle = needle
+        self._score = score
+
+    def verify(self, op, feedback, trajectory):
+        from sentinelprime.verifier import VerifierVerdict
+
+        admitted = self._needle in op.get("text", "")
+        return VerifierVerdict(
+            admitted=admitted,
+            score=self._score,
+            justification=f"{'admit' if admitted else 'reject'}: looked for {self._needle!r}",
+        )
+
+
+def test_refine_rejects_unverified_edit(tmp_path):
+    backend = JsonMemoryBackend(str(tmp_path / "state.json"))
+    log = AuditLog(str(tmp_path / "audit.json"))
+    harness = ContinualHarness(backend, audit_log=log, verifier=_StubVerifier("keep"))
+    harness.propose = _StubPropose(
+        '[{"op":"create","id":"good","kind":"note","text":"keep this","scope":"global"},'
+        ' {"op":"create","id":"bad","kind":"note","text":"drop this","scope":"global"}]'
+    )
+    fb = parse_lab_result({"task_id": "t", "criteria": []})
+    result = harness.refine(trajectory=[], feedback=fb)
+
+    # only the admitted edit is applied
+    assert result.created == ["good"]
+    assert {i.id for i in backend.read()} == {"good"}
+    # and only the admitted edit produced an audit record
+    assert [r.edit_id for r in log.records()] == ["good"]
+
+
+def test_refine_writes_verification_into_record(tmp_path):
+    backend = JsonMemoryBackend(str(tmp_path / "state.json"))
+    log = AuditLog(str(tmp_path / "audit.json"))
+    harness = ContinualHarness(backend, audit_log=log, verifier=_StubVerifier("keep"))
+    harness.propose = _StubPropose(
+        '[{"op":"create","id":"good","kind":"note","text":"keep this","scope":"global"}]'
+    )
+    fb = parse_lab_result({"task_id": "t", "criteria": []})
+    result = harness.refine(trajectory=[], feedback=fb)
+
+    rec = log.records()[0]
+    assert "admit" in rec.verification
+    out = harness.explain(result.to_version)
+    assert "verification" in out
+    assert "admit" in out

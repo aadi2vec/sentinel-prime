@@ -37,6 +37,9 @@ class AuditRecord:
     # to their value at derivation time. Lets the ReuseController detect a moved
     # source. Empty for intrinsic records (they depend only on document invariants).
     depends_on: dict = field(default_factory=dict)
+    # The verifier's one-line justification for admitting this edit. Empty when no
+    # verifier gated the refine() (admission was unconditional).
+    verification: str = ""
 
 
 def digest(text: str) -> str:
@@ -111,6 +114,10 @@ class AuditLog:
         for r in recs:
             lines = [
                 f"[failure       ] task {r.cause_task_id}: {r.cause_failures}",
+            ]
+            if r.verification:
+                lines.append(f"[verification  ] {r.verification}")
+            lines += [
                 f"[ledger_edit   ] {r.op} '{r.edit_id}' "
                 f"(v{r.from_version}->v{r.to_version}, scope={r.scope}, id={r.content_hash[:8]})",
                 f"[reversibility ] rollback(from_version={r.from_version}) "

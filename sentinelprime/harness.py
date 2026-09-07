@@ -64,11 +64,16 @@ def _now() -> str:
 
 class ContinualHarness(dspy.Module):
     def __init__(self, backend: MemoryBackend, audit_log: AuditLog | None = None,
-                 reuse_controller: ReuseController | None = None):
+                 reuse_controller: ReuseController | None = None,
+                 verifier=None):
         super().__init__()
         self.backend = backend
         self.audit_log = audit_log
         self.reuse_controller = reuse_controller
+        # Optional admission-control gate: when set, each proposed edit must clear the
+        # verifier before it is applied and audited. None -> unconditional admission
+        # (the base behavior; rollback() remains the safety net).
+        self.verifier = verifier
         self.propose = dspy.Predict(ProposeLedgerEdits)
 
     def read(self, scope: str | None = None, context: dict | None = None) -> str:
@@ -162,10 +167,24 @@ class ContinualHarness(dspy.Module):
         for op in edits:
             if op.get("op") != "delete" and not op.get("id"):
                 op["id"] = str(uuid.uuid4())
+        # Admission control: a configured verifier gates each edit before it is applied.
+        # Rejected edits never touch the ledger and never produce an audit record — the
+        # proposer's suggestion simply did not clear the bar. edit_id -> justification for
+        # admitted edits threads the verifier's reasoning into the audit trail.
+        verifications: dict[str, str] = {}
+        if self.verifier is not None:
+            admitted: list[dict] = []
+            for op in edits:
+                verdict = self.verifier.verify(op, feedback, trajectory)
+                if verdict.admitted:
+                    verifications[op["id"]] = verdict.justification
+                    admitted.append(op)
+            edits = admitted
         created, updated, deleted = self._apply_edits(edits)
         after = self.backend.snapshot()
         if self.audit_log is not None:
-            self._emit_audit(edits, feedback, trajectory, before.number, after.number)
+            self._emit_audit(edits, feedback, trajectory, before.number, after.number,
+                             verifications)
         return RefineResult(created, updated, deleted, before.number, after.number)
 
     @staticmethod
@@ -179,9 +198,11 @@ class ContinualHarness(dspy.Module):
         return "intrinsic" if op.get("scope") == "global" else "external"
 
     def _emit_audit(self, edits: list[dict], feedback: Feedback, trajectory: list[dict],
-                    from_version: int, to_version: int) -> None:
+                    from_version: int, to_version: int,
+                    verifications: dict[str, str] | None = None) -> None:
         traj_digest = digest(json.dumps(trajectory)[:4000])
         failures = feedback.as_text()
+        verifications = verifications or {}
         for op in edits:
             kind = op.get("op")
             edit_id = op["id"]
@@ -199,6 +220,7 @@ class ContinualHarness(dspy.Module):
                 created_at=_now(),
                 content_hash=content_hash(kind, edit_id, text, feedback.task_id),
                 depends_on=op.get("meta", {}).get("depends_on", {}),
+                verification=verifications.get(edit_id, ""),
             ))
 
     def rollback(self, version: int) -> None:
