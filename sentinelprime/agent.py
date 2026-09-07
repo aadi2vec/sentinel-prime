@@ -12,6 +12,41 @@ import dspy
 
 from sentinelprime.harness import ContinualHarness
 from sentinelprime.interpreter import InterpreterFactory
+from sentinelprime.subcache import SubQueryCache
+
+
+class CachingRLM(dspy.RLM):
+    """dspy.RLM whose sub-LLM tools are wrapped with a per-run SubQueryCache.
+
+    A fresh cache is created for each forward pass (intra-run dedup only —
+    cross-task reuse is the gated ReuseController's job), and its hit/miss
+    stats are exposed on ``last_cache_stats`` after the run for measurement.
+    Sequential use only, matching the rest of PrimeAgent.
+    """
+
+    def __init__(self, *args, subquery_embedder=None,
+                 subquery_similarity_threshold: float = 0.9, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.last_cache_stats: dict | None = None
+        self._active_cache: SubQueryCache | None = None
+        # Optional intra-run semantic dedup: when an embedder is supplied, near-duplicate
+        # sub-queries reuse a prior answer. None -> exact content-hash dedup only.
+        self._subquery_embedder = subquery_embedder
+        self._subquery_similarity_threshold = subquery_similarity_threshold
+
+    def _prepare_execution_tools(self) -> dict:
+        cache = SubQueryCache(
+            embedder=self._subquery_embedder,
+            similarity_threshold=self._subquery_similarity_threshold,
+        )
+        self._active_cache = cache
+        return cache.wrap(super()._prepare_execution_tools())
+
+    def forward(self, interpreter=None, /, **input_args):
+        result = super().forward(interpreter, **input_args)
+        if self._active_cache is not None:
+            self.last_cache_stats = self._active_cache.stats()
+        return result
 
 
 class PrimeTask(dspy.Signature):
@@ -27,7 +62,7 @@ class PrimeTask(dspy.Signature):
 
 class PrimeAgent(dspy.Module):
     def __init__(self, harness: ContinualHarness, root_lm, sub_lm=None,
-                 spawn_manager=None, rlm=None) -> None:
+                 spawn_manager=None, rlm=None, subquery_embedder=None) -> None:
         super().__init__()
         self.harness = harness
         self.root_lm = root_lm
@@ -36,13 +71,19 @@ class PrimeAgent(dspy.Module):
         self._current_workdir = "."
         if rlm is None:
             tools = [spawn_manager.spawn_child] if spawn_manager is not None else []
-            rlm = dspy.RLM(
+            rlm = CachingRLM(
                 PrimeTask,
                 tools=tools,
                 sub_lm=sub_lm,
                 interpreter_factory=InterpreterFactory(lambda: self._current_workdir),
+                subquery_embedder=subquery_embedder,
             )
         self.rlm = rlm
+
+    @property
+    def last_cache_stats(self) -> dict | None:
+        # Per-run sub-query cache stats, when the RLM tracks them (CachingRLM).
+        return getattr(self.rlm, "last_cache_stats", None)
 
     def run_task(self, task: str, workdir: str) -> dspy.Prediction:
         # Reproducibility invariant: freeze the ledger snapshot at task start.

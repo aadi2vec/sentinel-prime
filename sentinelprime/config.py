@@ -1,6 +1,7 @@
 # sentinelprime/config.py
 from __future__ import annotations
 from dataclasses import dataclass
+import os
 import yaml
 import dspy
 
@@ -14,7 +15,15 @@ class Models:
 
 
 def _make_lm(spec: dict) -> dspy.LM:
-    return dspy.LM(model=spec["model"], **spec.get("params", {}))
+    # Keep provider secrets/endpoints out of the committed config: for OpenAI-style
+    # models, honor a custom endpoint from OPENAI_BASE_URL unless the config pins one.
+    params = dict(spec.get("params", {}))
+    model = spec["model"]
+    if model.startswith("openai/") and "api_base" not in params:
+        base = os.environ.get("OPENAI_BASE_URL")
+        if base:
+            params["api_base"] = base
+    return dspy.LM(model=model, **params)
 
 
 def load_config(path: str | None = None) -> Models:
