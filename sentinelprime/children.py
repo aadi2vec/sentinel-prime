@@ -61,5 +61,22 @@ class ChildSessionManager:
         with self._lock:
             return [handle for handle, _ in self._registry.values()]
 
+    def drain(self) -> list[tuple[str, BaseException]]:
+        """Wait for every admitted child, returning (child_id, error) for any that raised.
+
+        Non-blocking admission is a *turn-loop* optimization, not a licence to leak
+        workers past the task that spawned them: the parent edits the ledger between
+        tasks, and a child still reading it then would race that write. Draining bounds
+        every child's lifetime to its parent's task while keeping the pool reusable.
+        """
+        errors: list[tuple[str, BaseException]] = []
+        with self._lock:
+            pending = list(self._registry.items())
+        for child_id, (_handle, future) in pending:
+            exc = future.exception()
+            if exc is not None:
+                errors.append((child_id, exc))
+        return errors
+
     def shutdown(self) -> None:
         self._pool.shutdown(wait=True)

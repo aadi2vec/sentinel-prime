@@ -15,8 +15,8 @@ python -m venv .venv && .venv/bin/pip install -e ".[dev]"   # setup (Python 3.10
 .venv/bin/python scripts/smoke_live.py                       # one-task live smoke test
 ```
 
-`run_lab.py` takes `--no-verifier` / `--no-monitor` / `--no-context` / `--no-semantic-cache`
-(the last is live-only; the rest apply to both modes). Each switch is an ablation: the
+`run_lab.py` takes `--no-verifier` / `--no-monitor` / `--no-context` / `--no-credit` /
+`--no-children` / `--no-semantic-cache` (the last two are live-only). Each switch is an ablation: the
 fixtures are built so the proposer emits an ungrounded lesson, the simulated agent thrashes
 while unguided and *follows* bad guidance, and a document is amended mid-run — so turning a
 component off changes the curve and the printed counts. Keep it that way; a fixture set where
@@ -71,13 +71,37 @@ P(fail) from its own observed rejections — rejected edits leave no audit recor
 ladder is the only thing that sees them. `CostLadderPlanner.from_audit_log` is the
 alternative statistics source, and fits only ladders whose rungs map to rubric criteria.
 
+### Credit assignment (`credit.py`)
+
+The second defence: admission control asks whether an edit is *grounded*, credit assignment
+asks whether it *helped*. A lesson is scored against the criterion ids the proposer declared in
+`meta.targets` (recorded on `AuditRecord.targets`) over the tasks where it was actually
+exposed, and retired inside `refine()`'s snapshot window when it stops clearing them.
+
+Three things here are load-bearing and easy to break:
+1. **Declared targets, not the round's failure text.** The fallback blames a lesson answering
+   `c1` whenever `c2` fails — enough to retire good guidance. Keep `meta.targets` flowing.
+2. **A bounded window, not a lifetime tally.** The environment is non-stationary; a lifetime
+   average convicts a lesson for a period already fixed and can never recover.
+3. **`forget()` on retire.** Without it a rewritten lesson inherits old blame and is retired on
+   sight — the ledger oscillates instead of converging.
+
 ### Where the live loop attaches (`agent.py`)
 
 `PrimeAgent.run_task(task, workdir, context=None, task_id="")` owns three seams:
 `context` → `harness.read(context=…)` (reuse gating sees real task state); `pred.trajectory`
 + `last_cache_stats` → `monitor.check_and_record` (live thrash emits a `replan` audit event);
 and `last_trajectory` → what the caller passes to `learn()`. Refine on the real trajectory,
-never on `[]`.
+never on `[]`. `last_exposed_ids` is the credit-assignment exposure set — the guidance actually
+surfaced, not the whole ledger.
+
+Sub-agents are opt-in (`enable_children=True`), lazily built on first spawn, and expose **both**
+`spawn_child` and `collect_child`: spawning without collecting is what made them dead weight
+before. dspy's tool bridge is `invoke(**kwargs)`, so tools must be called with **keyword
+arguments** in the REPL (`spawn_child(task=...)`); a positional call raises. Children share the
+parent's harness read-only and never call `learn()`, and `run_task` drains them so no worker
+outlives the task that spawned it — the parent writes the ledger between tasks and a child
+still reading it would race that write.
 
 ### Invariants that the whole design rests on — do not break
 

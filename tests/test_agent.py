@@ -290,3 +290,83 @@ def test_cacheable_prefix_ends_before_the_per_task_content():
 
     prefix = cacheable_prefix("LEDGER", ["summarize the SPA", "summarize the MSA"])
     assert "summarize the SPA" not in prefix
+
+
+# ---- Subagents reaching the live path -------------------------------------------------
+
+def test_children_are_off_unless_asked_for(tmp_path):
+    agent = PrimeAgent(harness=_harness(tmp_path), root_lm=dspy.LM("openai/gpt-4o-mini"))
+    assert agent.rlm.tools == {}
+
+
+def test_enabling_children_exposes_spawn_and_collect_tools(tmp_path):
+    """Spawning without a way to collect is why subagents were dead weight before."""
+    agent = PrimeAgent(harness=_harness(tmp_path), root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       enable_children=True)
+    assert set(agent.rlm.tools) == {"spawn_child", "collect_child"}
+
+
+def test_child_runs_the_task_and_its_result_is_collectable(tmp_path):
+    """Real RLM + interpreter: the model spawns a child and reads its deliverable back."""
+    from dspy.utils.dummies import DummyLM
+
+    lm = DummyLM([
+        {"reasoning": "delegate the contract read",
+         "code": ("```python\ncid = spawn_child(task='summarize spa.txt')\n"
+                  "answer = collect_child(child_id=cid)\nprint(answer)\n```")},
+        {"reasoning": "submit", "code": "```python\nSUBMIT(deliverable=answer)\n```"},
+    ])
+    child_tasks = []
+
+    def run_child(task, name, session_dir):
+        child_tasks.append(task)
+        return "CHILD-FOUND-CHANGE-OF-CONTROL"
+
+    agent = PrimeAgent(harness=_harness(tmp_path), root_lm=lm, enable_children=True,
+                       child_runner=run_child)
+    pred = agent.run_task("delegate", workdir=str(tmp_path))
+
+    assert child_tasks == ["summarize spa.txt"]
+    assert pred.deliverable == "CHILD-FOUND-CHANGE-OF-CONTROL"
+
+
+def test_default_child_runner_reads_the_ledger_but_never_writes_to_it(tmp_path):
+    """Children run on a thread pool; only the parent may edit the ledger, between tasks."""
+    from dspy.utils.dummies import DummyLM
+    from sentinelprime.memory import MemoryItem
+
+    harness = _harness(tmp_path)
+    harness.backend.write([MemoryItem(id="n1", scope="global", kind="note",
+                                      text="check change-of-control", created_at="t")])
+    seen = {}
+
+    lm = DummyLM([
+        {"reasoning": "delegate", "code": "```python\ncid = spawn_child(task='sub')\nr = collect_child(child_id=cid)\n```"},
+        {"reasoning": "child works", "code": "```python\nSUBMIT(deliverable='child done')\n```"},
+        {"reasoning": "submit", "code": "```python\nSUBMIT(deliverable=r)\n```"},
+    ])
+    agent = PrimeAgent(harness=harness, root_lm=lm, enable_children=True)
+    versions_before = harness.backend.current_version().number
+    agent.run_task("delegate", workdir=str(tmp_path))
+    seen["after"] = harness.backend.current_version().number
+    assert seen["after"] == versions_before  # no child wrote a ledger version
+
+
+def test_run_task_drains_children_so_no_worker_outlives_the_task(tmp_path):
+    from dspy.utils.dummies import DummyLM
+
+    finished = []
+
+    def run_child(task, name, session_dir):
+        finished.append(task)
+        return "ok"
+
+    lm = DummyLM([
+        # spawned but deliberately never collected by the model
+        {"reasoning": "fire and forget", "code": "```python\nspawn_child(task='orphan')\n```"},
+        {"reasoning": "submit", "code": "```python\nSUBMIT(deliverable='done')\n```"},
+    ])
+    agent = PrimeAgent(harness=_harness(tmp_path), root_lm=lm, enable_children=True,
+                       child_runner=run_child)
+    agent.run_task("t", workdir=str(tmp_path))
+    assert finished == ["orphan"]

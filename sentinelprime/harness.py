@@ -43,6 +43,10 @@ class RefineResult:
     # record, so this is the only place the gate's work is countable — which is what makes
     # admission control ablatable in a benchmark. Empty when no verifier is configured.
     rejected: list[str] = field(default_factory=list)
+    # Ledger items retired this round because the failures they targeted kept recurring
+    # while they were in the prompt. Retirement happens inside the same reversibility
+    # window, so rollback(from_version) restores them along with everything else.
+    retired: list[str] = field(default_factory=list)
 
 
 # This Signature is a real dspy.Predict predictor, so the harness's own edit-proposing prompt
@@ -52,7 +56,9 @@ class ProposeLedgerEdits(dspy.Signature):
     avoids the rubric failures just observed. Never rewrite the base task; only add,
     refine, or remove supplemental notes / memories / reusable sub-agent specs.
     Return a JSON list of edit ops. Each op is one of:
-      {"op":"create","id":<str>,"kind":"note|memory|sub_agent_spec","text":<str>,"scope":"session|global","meta":{...}}
+      {"op":"create","id":<str>,"kind":"note|memory|sub_agent_spec","text":<str>,"scope":"session|global","meta":{"targets":["<criterion id>",...]}}
+    Always set meta.targets to the rubric criterion ids the edit is meant to fix (e.g.
+    ["c1"]). That is what lets a later round tell whether this specific edit helped.
       {"op":"update","id":<existing id>,"kind":...,"text":<str>,"scope":...}
       {"op":"delete","id":<existing id>}
     """
@@ -69,11 +75,15 @@ def _now() -> str:
 class ContinualHarness(dspy.Module):
     def __init__(self, backend: MemoryBackend, audit_log: AuditLog | None = None,
                  reuse_controller: ReuseController | None = None,
-                 verifier=None):
+                 verifier=None, credit_assigner=None):
         super().__init__()
         self.backend = backend
         self.audit_log = audit_log
         self.reuse_controller = reuse_controller
+        # Optional credit assignment: scores exposed lessons against the criteria they
+        # were written to fix and retires the ones that stopped earning their place.
+        # None -> lessons are kept unconditionally (the base behavior).
+        self.credit_assigner = credit_assigner
         # Optional admission-control gate: when set, each proposed edit must clear the
         # verifier before it is applied and audited. None -> unconditional admission
         # (the base behavior; rollback() remains the safety net).
@@ -167,6 +177,43 @@ class ContinualHarness(dspy.Module):
             (updated if item_id in existing else created).append(item_id)
         return created, updated, deleted
 
+    def credit(self, exposed_ids: list[str], feedback: Feedback) -> None:
+        """Record this task's outcome against the guidance that was actually surfaced.
+
+        Separate from refine() because exposure and outcome are known at *task* time,
+        while retirement is a ledger edit that belongs in refine()'s snapshot window.
+        """
+        if self.credit_assigner is not None:
+            self.credit_assigner.observe(exposed_ids, feedback)
+
+    def _retire(self, feedback: Feedback, from_version: int, to_version: int) -> list[str]:
+        # Only retire what is actually in the ledger; the assigner may still hold
+        # observations for items removed by some earlier round.
+        present = {i.id for i in self.backend.read()}
+        retired = [i for i in self.credit_assigner.retirable() if i in present]
+        if not retired:
+            return []
+        self.backend.delete(retired)
+        if self.audit_log is not None:
+            for item_id in retired:
+                why = self.credit_assigner.explain(item_id)
+                self.audit_log.append(AuditRecord(
+                    edit_id=item_id,
+                    op="retire",
+                    scope="intrinsic",
+                    from_version=from_version,
+                    to_version=to_version,
+                    cause_task_id=feedback.task_id,
+                    cause_failures=why,
+                    trajectory_digest="",
+                    score=feedback.score,
+                    created_at=_now(),
+                    content_hash=content_hash("retire", item_id, why, feedback.task_id),
+                ))
+        # A rewrite of a retired lesson deserves a fresh trial, not inherited blame.
+        self.credit_assigner.forget(retired)
+        return retired
+
     def refine(self, trajectory: list[dict], feedback: Feedback) -> RefineResult:
         # The reversibility protocol: snapshot BEFORE and AFTER the edits, so `before.number`
         # names the exact restore point that undoes this whole round.
@@ -204,12 +251,16 @@ class ContinualHarness(dspy.Module):
                     rejected.append(op["id"])
             edits = admitted
         created, updated, deleted = self._apply_edits(edits)
+        # Retire inside the same window as the additions, so one rollback undoes the whole
+        # round — a lesson removed on weak evidence is as recoverable as one added on it.
+        retired = (self._retire(feedback, before.number, before.number + 1)
+                   if self.credit_assigner is not None else [])
         after = self.backend.snapshot()
         if self.audit_log is not None:
             self._emit_audit(edits, feedback, trajectory, before.number, after.number,
                              verifications)
         return RefineResult(created, updated, deleted, before.number, after.number,
-                            rejected)
+                            rejected, retired)
 
     @staticmethod
     def _provenance_scope(op: dict) -> str:
@@ -245,6 +296,7 @@ class ContinualHarness(dspy.Module):
                 content_hash=content_hash(kind, edit_id, text, feedback.task_id),
                 depends_on=op.get("meta", {}).get("depends_on", {}),
                 verification=verifications.get(edit_id, ""),
+                targets=list(op.get("meta", {}).get("targets", []) or []),
             ))
 
     def rollback(self, version: int) -> None:
