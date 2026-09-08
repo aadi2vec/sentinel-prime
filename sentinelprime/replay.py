@@ -164,6 +164,7 @@ def load_corpus(runs_root: str | Path, tasks_root: str | Path,
             # `error` means the judge never rendered an opinion. Scoring a check against it
             # would measure agreement with a rate limiter.
             and str(row.get("verdict", "")).strip().lower() in ("pass", "fail")
+            and not _is_legacy_judge_error(row)
         )
         if criteria:
             corpus.append(GradedRun(
@@ -173,6 +174,18 @@ def load_corpus(runs_root: str | Path, tasks_root: str | Path,
                 task_id=task_id, task=prompts[task_id],
                 deliverable=deliverable, criteria=criteria))
     return corpus
+
+
+def _is_legacy_judge_error(row: dict) -> bool:
+    """A transport failure recorded before `error` was a verdict.
+
+    Those runs stored the exception as verdict "fail" with the exception text as the
+    reasoning, so a verdict filter admits them and 44 rate limits become 44 missed
+    criteria. The judge no longer produces them, but the stored corpus cannot be re-graded
+    — it would cost another full run and the deliverables would differ — so they are
+    recognised here by the marker `RubricJudge` wrote.
+    """
+    return str(row.get("reasoning", "")).lstrip().startswith("judge error:")
 
 
 def _deliverable(workspace: Path) -> str:

@@ -194,3 +194,22 @@ def test_run_ids_are_unique_across_subdirectories(tmp_path):
     corpus = load_corpus(tmp_path / "runs", tmp_path / "tasks")
 
     assert len({r.run_id for r in corpus}) == 2, [r.run_id for r in corpus]
+
+
+def test_a_legacy_judge_error_recorded_as_a_failure_is_excluded(tmp_path):
+    """Runs recorded before `error` existed stored transport failures as verdict "fail",
+    with the exception text as the reasoning. They pass a verdict filter and then look
+    like 44 missed criteria — the same defect the judge fix closed, preserved in data
+    that cannot be re-graded. The loader has to recognise them by their marker."""
+    corpus = _corpus(tmp_path, {"r1": ("alpha", {"C-1": "pass", "C-2": "fail"})})
+    path = tmp_path / "runs" / "r1.json"
+    data = json.loads(path.read_text())
+    for row in data["criteria"]:
+        if row["id"] == "C-2":
+            row["reasoning"] = ("judge error: [gpt-5.6-luna] litellm.RateLimitError: "
+                                "Rate limit reached")
+    path.write_text(json.dumps(data))
+
+    corpus = load_corpus(tmp_path / "runs", tmp_path / "tasks")
+
+    assert [c.id for c in corpus[0].criteria] == ["C-1"]

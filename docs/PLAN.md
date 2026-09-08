@@ -40,16 +40,22 @@ rollback, and a matched-compute control. What does not exist is the experiment.
 | synthesize a checking strategy | the proposer **picks from two hand-written checks** |
 | on tasks it has not seen | one generated template, shared across all splits |
 
-Three tasks close it, in order:
+Four tasks close it, in order:
 
 1. **A LAB-backed family.** `Case.task` is a real LAB task, `Case.gold` its rubric criteria,
    `evaluate` the `RubricJudge`. Real failures in.
-2. **Check synthesis.** A `dspy.Signature` from criterion text to a **parameterised** check —
+2. **A failure-mode taxonomy.** Which ways a deliverable actually fails, counted on the
+   corpus, and for each mode whether a deterministic check could detect it at all. Without
+   it, synthesis invents checks against imagined faults: the observed distribution is 29
+   omissions, 17 partials and ~0 fabrications, so a check that verifies claims *made*
+   addresses almost nothing. This is the prerequisite for item 3, not a parallel track.
+
+3. **Check synthesis.** A `dspy.Signature` from criterion text to a **parameterised** check —
    span existence, amount match, structural presence. Not arbitrary code: `interpreter.py` is
    explicitly not a sandbox, so the synthesizer selects and fills a template rather than
    emitting Python. A synthesized check joins the catalog only after agreeing with the judge
    on held-out already-graded criteria.
-3. **Replay scoring.** A candidate is scored against **stored** runs, not fresh agent runs —
+4. **Replay scoring.** *(built)* A candidate is scored against **stored** runs, not fresh agent runs —
    in the existing substrate, a `PolicyRunner` whose `solve` is a lookup. Available today:
    368 graded criterion rows, 10 deliverables, 2 trajectories.
 
