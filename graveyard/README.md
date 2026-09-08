@@ -8,10 +8,10 @@ Kept rather than deleted because several of these files contain measurements and
 that are still true and still cited by the surviving documents. Deleting them would strand
 the citations.
 
-The two live documents are:
-
-- `docs/plans/2026-09-07-rlm-policy-evolution-plan.md` — the plan of attack
-- `docs/superpowers/specs/2026-09-07-execution-policy-search-design.md` — the design
+`docs/PLAN.md` is the only plan. The retired planning documents were deleted rather than
+archived here: they were long menus of extensions, and having them to hand is what kept
+pulling work away from the one experiment. Their load-bearing measurements were copied into
+`docs/PLAN.md` before deletion, so nothing cites a file that no longer exists.
 
 ## What is here and why it was retired
 
@@ -27,12 +27,6 @@ The two live documents are:
 | `scripts/lab_eval.py`, `smoke_live.py`, `watch_run.py`, `fetch_lab_tasks.py` | Runners and utilities for the retired experiments |
 | `tests/test_optimize.py`, `test_config.py`, `test_session.py` | Tests of the above |
 | `lab_eval/*.py` | Vendored Harvey LAB scoring code — 2,400 lines, imported by nothing, and needing `anthropic`, `mistralai`, `seaborn` and a `utils.stdio` that does not exist in this repo. Only `lab_tasks/_lab_eval/prompts/rubric_criterion.txt` was ever live, and it stays: `sentinelprime/lab.py` grades with LAB's own prompt rather than one of ours |
-| `docs/ARCHITECTURE.md` | Describes the content-learning system as the thesis |
-| `docs/2026-09-06-harvey-lab-eval-plan.md` | The B−A-on-pooled-rate experiment. Retired because the measured 29pp spread makes that comparison unreadable at affordable n |
-| `docs/2026-09-07-evidence-runtime-product-strategy.md` | Legal-review product strategy — packaging, design partners, tenant controls. Retired by the scope decision: legal is the stress test, not the product. Its §4 execution-architecture material is still worth reading |
-| `docs/2026-09-07-related-work-and-extensions.md` | Literature sweep (ACE, TAME, SEAL, DGM, solver-verifier gap). Retired as a *plan*; still the reference for why verification fidelity sets the ceiling |
-| `docs/2026-08-*.md`, `docs/2026-09-0[15]-*.md` | Superseded specs and plans from the content-learning era |
-| `root/AGENTS.md` | Codex-flavored duplicate of `CLAUDE.md` that documented the now-deleted scripts |
 | `root/config.example.yaml` | Template for the retired `config.py` |
 | `root/rlm/` | Stale `__pycache__` from a vendored prototype. No source, ever |
 
