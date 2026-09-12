@@ -29,8 +29,9 @@ predictive direction while every module in `sentinelprime/` implements the other
 Keeps its identity, remote, all 25 commits, all 24 modules, 346 tests, `lab_tasks/` (4.7M),
 `lab_runs/` (5.6M), `graveyard/`, `scripts/`.
 
-Rationale: the commit history *is* this project's evidence. A new repo can copy the code but
-cannot manufacture the record of the runs that produced the noise floor and the null result.
+Rationale: this repository holds the evidence — the judged corpus in `lab_tasks/`
+and `lab_runs/` (tracked as of 2026-09-12) plus the commits that produced it. A new
+repository can copy the code but cannot manufacture the record of the runs.
 
 ### `aadi2vec/recursio` — predictive recursion
 
@@ -196,6 +197,6 @@ split, in `recursio`, against its own plan.
 
 - Whether `recursio` should carry a `.env.example` and `config.yaml` analogue, or defer
   configuration until T02 gives it something to configure. Deferring is the default.
-- The stale memory recording "work directly on main, no feature branches" contradicts five
-  merged PRs and the current `feat/replay-scoring` branch. The branch-and-PR pattern the
-  repository actually exhibits is followed here, and the memory is corrected separately.
+- Step 0 requires a PR, which is the one case that justifies a branch in this repo; the
+  standing default is to commit on `main` in the main tree root. `recursio`'s first commits
+  follow the same default — no branch unless a PR is asked for.
