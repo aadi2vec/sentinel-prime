@@ -1,0 +1,29 @@
+{
+  "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-co0ykjui",
+  "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+  "max_iters": 6,
+  "max_llm_calls": 4,
+  "revision": false,
+  "model": "dummy",
+  "memory_learning": "not invoked during evaluation",
+  "usage": {
+    "dummy": {
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "trajectory": [
+    {
+      "reasoning": "scripted mechanism fixture; not learned reasoning",
+      "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+      "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}'}"
+    }
+  ],
+  "cache": {
+    "hits": 0,
+    "misses": 0,
+    "calls": 0,
+    "semantic_hits": 0
+  }
+}

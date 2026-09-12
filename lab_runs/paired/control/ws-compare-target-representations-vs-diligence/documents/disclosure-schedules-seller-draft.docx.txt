@@ -1,0 +1,495 @@
+DISCLOSURE SCHEDULES TO STOCK PURCHASE AGREEMENT
+CONFIDENTIAL — DRAFT — SUBJECT TO REVISION
+Dated as of March 14, 2025
+by and among
+PRECISIONFLOW SYSTEMS, INC. (the "Company")
+THE SELLERS IDENTIFIED ON EXHIBIT A TO THE AGREEMENT
+and
+CASCADIA INDUSTRIAL HOLDINGS, INC. (the "Buyer")
+&nbsp;
+Prepared by:
+STONEBRIDGE WHITAKER LLP 250 East Broad Street, Suite 1800 Columbus, OH 43215 Counsel to the Company and the Sellers
+INTRODUCTORY NOTE
+These Disclosure Schedules (the "Schedules") are delivered by PrecisionFlow Systems, Inc., a Delaware corporation (the "Company"), and the Sellers identified on Exhibit A to the Agreement (collectively, the "Sellers"), pursuant to, and form a part of, that certain Stock Purchase Agreement (the "Agreement") dated as of March 14, 2025, by and among the Company, the Sellers, and Cascadia Industrial Holdings, Inc., a Delaware corporation (the "Buyer"). Capitalized terms not defined herein have the meanings set forth in the Agreement.
+The section numbers below correspond to the section numbers of the representations and warranties in the Agreement to which the disclosures relate. Disclosure of any item on any Schedule shall be deemed disclosed with respect to any other Schedule to the extent the relevance of such disclosure to such other Schedule is reasonably apparent on the face of such disclosure. The inclusion of any item on any Schedule shall not be deemed an admission that such item is material or that such item would be required to be disclosed under the Agreement. Nothing in these Schedules constitutes an admission of liability or obligation to any third party.
+The headings and brief descriptions of the representations and warranties contained in the Agreement that are set forth in these Schedules are for convenience of reference only and are not intended to be a part of, or to affect the meaning or interpretation of, any of the disclosures contained herein. The information contained in these Schedules is disclosed solely for the purposes of the Agreement and shall not be deemed to expand in any way the scope or effect of any of the representations, warranties, covenants, or agreements contained in the Agreement.
+SCHEDULE 3.1 — ORGANIZATION, QUALIFICATION, AND GOOD STANDING
+The Company, PrecisionFlow Systems, Inc., is a corporation duly organized, validly existing, and in good standing under the laws of the State of Delaware. The Company's principal offices are located at 4500 Industrial Parkway, Dayton, OH 45414.
+Jurisdictions of Qualification. The Company is qualified to do business as a foreign corporation and is in good standing in each of the following jurisdictions:
+1.  Delaware (state of incorporation)
+2.  Ohio (principal place of business)
+3.  Michigan
+4.  Indiana
+5.  Illinois
+6.  Texas
+Subsidiaries. The Company has one wholly-owned subsidiary:
+•  PrecisionFlow de México, S.A. de C.V., organized and existing under the laws of the United Mexican States, with its principal office at Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000. The Company owns 100% of the equity interests of PrecisionFlow de México, S.A. de C.V.
+SCHEDULE 3.2 — CAPITALIZATION
+Authorized Capital Stock. The Company is authorized to issue 10,000,000 shares of common stock, $0.001 par value per share ("Common Stock"). No other class or series of capital stock is authorized.
+Outstanding Shares. As of the date hereof, 5,000,000 shares of Common Stock are issued and outstanding, allocated as follows:
+Holder
+Shares
+Percentage
+Harold "Hal" Beecham
+3,100,000
+62.0%
+Terraverde Growth Fund II, LP
+1,400,000
+28.0%
+Management Stock Pool (8 executives)
+500,000
+10.0%
+Total
+5,000,000
+100.0%
+Management Stock Pool — Restricted Stock Agreements. The 500,000 shares allocated to the Management Stock Pool are held by the following individuals pursuant to individual Restricted Stock Agreements ("RSAs"):
+Executive
+Title
+Shares
+David Caldwell
+Chief Financial Officer
+125,000
+Renata Vasquez
+VP, Engineering
+90,000
+Thomas Briggs
+VP, Manufacturing
+80,000
+Jennifer Okafor
+VP, Sales & Marketing
+60,000
+Michael Stokes
+VP, Supply Chain
+45,000
+Karen Lindquist
+General Counsel
+40,000
+James Hargrove
+Director of Quality Assurance
+35,000
+Sandra Petersen
+Director of Human Resources
+25,000
+Total
+500,000
+Each RSA provides for vesting acceleration upon a change of control of the Company, as defined in the individual RSA terms.
+Additional Capitalization Matters. No options, warrants, convertible securities, or other rights to acquire shares of capital stock of the Company are outstanding. No preemptive rights, anti-dilution rights, rights of first refusal, or similar rights exist with respect to the Common Stock. No voting agreements, voting trusts, or irrevocable proxies are in effect with respect to any shares of Common Stock.
+All shares held by Mr. Beecham are held in his individual name and are free and clear of all liens and encumbrances.
+SCHEDULE 3.4 — NO CONFLICTS; REQUIRED CONSENTS
+The following consents, approvals, or notices are required in connection with the execution, delivery, and performance of the Agreement and the consummation of the transactions contemplated thereby. This Schedule is delivered for purposes of both Section 3.4 and Section 5.3 of the Agreement.
+1.  Hart-Scott-Rodino Act Filing. Pre-merger notification filing with the Federal Trade Commission and the Antitrust Division of the U.S. Department of Justice pursuant to the Hart-Scott-Rodino Antitrust Improvements Act of 1976, as amended (if applicable based on current filing thresholds and transaction size).
+2.  Consent of Meridian National Bank. Written consent of Meridian National Bank, in its capacity as administrative agent under that certain ABL Credit Agreement dated May 15, 2020 (as amended from time to time), in connection with the direct or indirect change of control of the Company. The ABL Credit Agreement defines "change of control" and provides that a change of control constitutes an event of default absent prior written consent of the administrative agent and the required lenders.
+3.  Consent of Great River Equipment Finance, LLC. Written consent of Great River Equipment Finance, LLC, as lender under that certain Equipment Term Loan Agreement dated September 1, 2021, in connection with the direct or indirect change of control of the Company.
+4.  Notice to Terraverde Growth Fund II, LP. Notice to Terraverde Growth Fund II, LP pursuant to Section 4.2 of that certain Investors' Rights Agreement dated June 30, 2016, among the Company, Harold Beecham, and Terraverde Growth Fund II, LP, regarding the tag-along and drag-along provisions contained therein.
+No other consents, approvals, authorizations, or notices are required.
+SCHEDULE 3.5 — FINANCIAL STATEMENTS
+The following financial statements have been delivered to Buyer in connection with the Agreement:
+A. Audited Financial Statements.
+1.  Audited consolidated financial statements (balance sheet, income statement, statement of cash flows, and notes thereto) for the fiscal year ended December 31, 2022, audited by Clarkfield & Associates, P.C. (Robert Faulkner, CPA, Engagement Partner), accompanied by an unqualified audit opinion.
+2.  Audited consolidated financial statements (balance sheet, income statement, statement of cash flows, and notes thereto) for the fiscal year ended December 31, 2023, audited by Clarkfield & Associates, P.C. (Robert Faulkner, CPA, Engagement Partner), accompanied by an unqualified audit opinion.
+3.  Audited consolidated financial statements (balance sheet, income statement, statement of cash flows, and notes thereto) for the fiscal year ended December 31, 2024, audited by Clarkfield & Associates, P.C. (Robert Faulkner, CPA, Engagement Partner), accompanied by an unqualified audit opinion. The FY2024 audit opinion includes an emphasis-of-matter paragraph regarding the intercompany pricing methodology between PrecisionFlow Systems, Inc. and PrecisionFlow de México, S.A. de C.V. for component transfers (cost-plus 8%).
+B. Unaudited Interim Financial Statements.
+4.  Unaudited interim financial statements (balance sheet and income statement) for the one-month period ended January 31, 2025.
+C. Selected Financial Data.
+Metric
+FY2024
+FY2023
+FY2022
+Revenue
+$143.0 million
+$131.6 million
+$118.2 million
+Gross Profit
+$48.9 million
+—
+—
+Gross Margin
+34.2%
+—
+—
+EBITDA
+$26.41 million
+—
+—
+Capital Expenditures
+$7.3 million
+—
+—
+SCHEDULE 3.6 — ABSENCE OF CERTAIN CHANGES
+Except as set forth below, since December 31, 2024, the Company has not experienced any Material Adverse Effect and has conducted its business in all material respects in the ordinary course of business consistent with past practice. The following are disclosed as exceptions to the representations contained in Section 3.6 of the Agreement:
+1.  Monterrey Hiring. The Company hired approximately 10 new employees at the Monterrey facility in Q4 2024 to support expanded component assembly operations in anticipation of increased order volume in FY2025.
+2.  OSHA Citation. The Company received a citation from the Occupational Safety and Health Administration dated October 2024 for alleged lockout/tagout procedure violations at the Dayton facility (4500 Industrial Parkway, Dayton, OH 45414). The proposed penalty is $28,700. The Company disputes the citation and is currently contesting the citation through administrative proceedings before the Occupational Safety and Health Review Commission. No abatement measures have been imposed.
+No other material changes or events have occurred since December 31, 2024 that would be required to be disclosed under Section 3.6 of the Agreement.
+SCHEDULE 3.7 — INDEBTEDNESS
+The following is a complete list of all outstanding indebtedness of the Company as of December 31, 2024:
+1. ABL Credit Facility.
+•  Lender/Agent: Meridian National Bank, as administrative agent
+•  Agreement: ABL Credit Agreement dated May 15, 2020, as amended
+•  Type: Revolving credit facility
+•  Maximum Availability: $30,000,000
+•  Outstanding Balance (as of 12/31/2024): $22,700,000
+•  Maturity Date: May 15, 2025 (subject to extension)
+•  Security: First-priority lien on substantially all assets of the Company, including a first-priority mortgage on the Dayton facility real property
+•  Personal Guaranty: Harold Beecham has provided a personal guaranty in the amount of $1,800,000
+2. Equipment Term Loan.
+•  Lender: Great River Equipment Finance, LLC
+•  Agreement: Equipment Term Loan Agreement dated September 1, 2021
+•  Original Principal Amount: $12,000,000
+•  Outstanding Balance (as of 12/31/2024): $8,500,000 (current portion: $3,200,000)
+•  Maturity Date: September 1, 2027
+•  Security: First-priority lien on specified equipment at the Dayton facility
+3. Subordinated Seller Note.
+•  Holder: Terraverde Growth Fund II, LP
+•  Agreement: Promissory Note dated June 30, 2016
+•  Outstanding Balance: $3,000,000
+•  Maturity Date: June 30, 2026
+•  Subordination: Subordinated to the ABL Credit Facility and Equipment Term Loan pursuant to a subordination agreement
+Total Estimated Closing Indebtedness: $34,200,000 ($22,700,000 + $8,500,000 + $3,000,000).
+SCHEDULE 3.8 — LITIGATION AND PROCEEDINGS
+The following is a list of all pending or, to the Company's Knowledge, threatened legal proceedings involving the Company:
+1. *Martinez v. PrecisionFlow Systems, Inc.*
+•  Court: United States District Court, Southern District of Ohio
+•  Case No.: 2:23-cv-04178
+•  Filed: November 2023
+•  Nature of Claims: Product liability action arising from an alleged failure of a PF-3100 hydraulic directional control valve. Plaintiff alleges that the valve failed during operation of a hydraulic press, causing a malfunction that resulted in severe personal injuries to Plaintiff.
+•  Damages Sought: $12,000,000
+•  Trial Date: Scheduled for September 2025
+•  Insurance: Defense of this matter has been accepted by Midland Casualty Insurance Co. under the Company's Commercial General Liability policy (Policy No. GL-2023-48721) pursuant to a reservation of rights letter dated January 15, 2024.
+•  Company's Position: The Company believes the claims are without merit and intends to vigorously defend this action.
+2. *Thompson v. PrecisionFlow Systems, Inc.*
+•  Forum: Equal Employment Opportunity Commission
+•  Charge No.: 473-2024-01892
+•  Filed: June 2024
+•  Nature of Claims: Former plant supervisor at the Dayton facility alleging race discrimination and retaliation in connection with his termination of employment.
+•  Status: Currently in mediation. The Company denies all allegations.
+•  Estimated Settlement Range (if any): $150,000–$350,000.
+3. AquaDyne Technologies, LLC — Patent Infringement Allegation.
+•  Nature: AquaDyne Technologies, LLC sent a cease-and-desist letter to the Company dated September 8, 2024, alleging that the Company's Model PF-4200 proportional valve infringes U.S. Patent No. 11,234,567 (issued January 2023).
+•  Company's Response: The Company engaged Hargrove & Lind LLP (Washington, D.C.) to evaluate the allegations. Hargrove & Lind provided a non-infringement opinion dated November 15, 2024.
+•  Current Status: No litigation has been filed by AquaDyne Technologies, LLC. No further correspondence has been received since the initial cease-and-desist letter. The Company does not believe the AquaDyne allegations have merit.
+SCHEDULE 3.9 — INTELLECTUAL PROPERTY
+Part A — Patents (Issued)
+The Company is the sole and exclusive owner of the following issued United States patents:
+No.
+U.S. Patent No.
+Title
+Issue Date
+Expiration Date
+1
+8,123,456
+Hydraulic Directional Control Valve Assembly
+March 15, 2012
+March 15, 2032
+2
+8,234,567
+Flow Control Algorithm for Variable Displacement Pump
+July 22, 2012
+July 22, 2032
+3
+8,567,890
+Proportional Solenoid Valve with Integrated Position Sensor
+January 8, 2013
+January 8, 2033
+4
+8,901,234
+Hydraulic Manifold Block with Optimized Flow Path
+September 3, 2013
+September 3, 2033
+5
+9,012,345
+Electro-Hydraulic Servo Valve Design
+February 18, 2014
+February 18, 2034
+6
+9,345,678
+Pressure Compensated Flow Control Valve
+August 11, 2015
+August 11, 2035
+7
+9,567,890
+Modular Hydraulic Power Unit
+March 29, 2016
+March 29, 2036
+8
+9,789,012
+Valve Seat Insert with Enhanced Wear Resistance
+October 14, 2016
+October 14, 2036
+9
+10,123,456
+Intelligent Hydraulic Flow Distribution System
+April 5, 2018
+April 5, 2038
+10
+10,456,789
+Compact Proportional Valve Actuator
+November 20, 2019
+November 20, 2039
+11
+10,678,901
+High-Pressure Hydraulic Seal Assembly
+June 15, 2020
+June 15, 2040
+12
+11,012,345
+Adaptive Flow Control System for Mobile Hydraulics
+February 7, 2022
+February 7, 2042
+All issued patents listed above are in good standing. All maintenance fees have been timely paid.
+Part B — Patents (Pending Applications)
+The Company has the following pending U.S. patent applications:
+No.
+Application No.
+Title
+Filing Date
+1
+17/456,789
+Next-Generation Proportional Valve Control Algorithm
+May 12, 2023
+2
+17/567,890
+Corrosion-Resistant Valve Body Coating Process
+August 30, 2023
+3
+17/678,901
+Integrated Sensor Array for Hydraulic System Monitoring
+January 15, 2024
+Part C — Trademarks
+Mark
+U.S. Reg. No.
+Registration Date
+Class
+Status
+Next Renewal
+PRECISIONFLOW® (word mark)
+3,847,221
+April 12, 2011
+International Class 7 (hydraulic control systems and components)
+Active
+April 12, 2031
+PRECISIONFLOW (stylized logo)
+4,012,567
+September 8, 2012
+International Class 7
+Active
+September 8, 2032
+Part D — Trade Secrets
+The Company maintains as trade secrets certain proprietary alloy formulations used in valve seat manufacturing. These formulations have not been patented and are maintained through the following protective measures:
+•  Access to formulations is restricted to authorized engineering and manufacturing personnel on a need-to-know basis.
+•  All employees and contractors with access to trade secret information are subject to confidentiality and non-disclosure agreements.
+•  Physical security measures are maintained at the Dayton facility, including restricted access to the metallurgy laboratory and formulation storage areas.
+•  Electronic copies of formulations are stored on encrypted, access-controlled servers.
+Part E — Inbound Licenses
+1.  Verteon Software, Inc. — Enterprise License Agreement for CAD/CAM software suite (VerteonDesign Pro and VerteonManufacture), 5-year term expiring August 2026. Annual license fee: $420,000. The license is site-based and covers the Dayton and Monterrey facilities. The license is non-transferable without the prior written consent of Verteon Software, Inc.
+2.  Standard Commercial Software. The Company maintains standard commercial software licenses with major enterprise software vendors and other third-party providers under standard enterprise licensing terms. Copies of all material license agreements are available in the data room.
+SCHEDULE 3.10 — TAX MATTERS
+The following are disclosed as exceptions or supplements to the representations contained in Section 3.10 of the Agreement:
+1. IRS Examination of R&D Tax Credits.
+The Internal Revenue Service opened an examination in August 2024 of the Company's research and development tax credits claimed under Section 41 of the Internal Revenue Code of 1986, as amended, for fiscal years 2021 and 2022. The total credits under examination are approximately $1,300,000, consisting of approximately $600,000 for FY2021 and approximately $700,000 for FY2022. Total R&D credits claimed by the Company for the period FY2020 through FY2024 are approximately $2,700,000. The examination is ongoing; no proposed adjustments or notices of deficiency have been issued to date. The Company is cooperating fully with the IRS and believes that its R&D credit claims are well-supported by contemporaneous documentation.
+2. Transfer Pricing — Intercompany Transactions.
+Intercompany pricing arrangements between PrecisionFlow Systems, Inc. and PrecisionFlow de México, S.A. de C.V. provide for the transfer of component parts from the Monterrey facility to the Dayton facility at cost-plus 8%. This pricing methodology is described in the notes to the audited consolidated financial statements and was referenced in the emphasis-of-matter paragraph in the Clarkfield & Associates, P.C. audit opinion for the fiscal year ended December 31, 2024. Mexico's Servicio de Administración Tributaria (SAT) has not initiated any audit or examination of the transfer pricing methodology as of the date hereof.
+3. Net Operating Loss Carryforwards.
+The Company has federal net operating loss carryforwards of approximately $4,100,000, arising from the fiscal year ended December 31, 2020. These NOL carryforwards are subject to the limitations of Section 382 of the Internal Revenue Code upon an "ownership change" (as defined therein). The consummation of the transactions contemplated by the Agreement may constitute an ownership change for purposes of Section 382.
+4. State Tax Filing Jurisdictions.
+The Company currently files state income or franchise tax returns in the following jurisdictions:
+•  Ohio
+•  Michigan
+•  Indiana
+•  Illinois
+•  Texas
+SCHEDULE 3.12 — ENVIRONMENTAL MATTERS
+The following are disclosed as exceptions or supplements to the representations contained in Section 3.12 of the Agreement:
+1. 2023 Hydraulic Fluid Spill — Dayton Facility.
+In July 2023, the Company experienced an accidental release of approximately 200 gallons of hydraulic fluid at its Dayton facility (4500 Industrial Parkway, Dayton, OH 45414). The release occurred during a routine equipment maintenance operation and was promptly contained within the facility's secondary containment system. The Company retained a licensed environmental remediation contractor to complete cleanup and remediation activities. The Company self-reported the incident to the Ohio Environmental Protection Agency in accordance with applicable regulations. A closure letter was received from the Ohio EPA in September 2023, confirming satisfactory remediation and requiring no further action.
+2. Monterrey Facility.
+The Monterrey facility (Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000) is leased space within a multi-tenant industrial park. No environmental site assessments have been conducted for the Monterrey facility by or on behalf of the Company or PrecisionFlow de México, S.A. de C.V. To the Company's Knowledge, no environmental conditions exist at the Monterrey facility that would require investigation or remediation.
+SCHEDULE 3.13 — INSURANCE
+The Company maintains the following insurance policies:
+1. Commercial General Liability.
+•  Carrier: Midland Casualty Insurance Co.
+•  Policy No.: GL-2023-48721
+•  Limits: $10,000,000 per occurrence / $20,000,000 annual aggregate
+•  Deductible: $50,000 per occurrence
+•  Coverage Period: January 1, 2024 – December 31, 2025
+2. Property Insurance.
+•  Carrier: Midland Casualty Insurance Co.
+•  Coverage: Dayton facility (building and contents), including business interruption coverage
+•  Basis: Replacement cost
+•  Coverage Period: January 1, 2024 – December 31, 2025
+3. Workers' Compensation.
+•  U.S. Coverage: Standard statutory workers' compensation coverage for the State of Ohio
+•  Mexico Coverage: Statutory coverage provided through the Instituto Mexicano del Seguro Social (IMSS) for Monterrey employees
+4. Directors & Officers Liability.
+•  Carrier: Midland Casualty Insurance Co.
+•  Limits: $5,000,000
+•  Coverage Period: January 1, 2024 – December 31, 2025
+5. Umbrella/Excess Liability.
+•  None.
+6. Product Liability.
+•  Covered under the Commercial General Liability policy described in item 1 above (same limits).
+Claims History. The Martinez v. PrecisionFlow Systems, Inc. litigation (see Schedule 3.8) has been tendered to Midland Casualty Insurance Co. under the Commercial General Liability policy (Policy No. GL-2023-48721). Defense has been accepted under a reservation of rights letter dated January 15, 2024. No other material claims are pending or have been made under any of the foregoing policies during the current policy period.
+SCHEDULE 3.14 — COMPLIANCE WITH LAWS
+The following are disclosed as exceptions or supplements to the representations contained in Section 3.14 of the Agreement:
+1. OSHA Citations.
+The Company has received the following citations from the Occupational Safety and Health Administration during the past five years:
+(a) 2020 Citation. Serious violation — machine guarding deficiency at the Dayton facility. Proposed penalty: $14,500. Status: Abated; penalty paid in full. This matter is fully resolved.
+(b) 2022 Citation. Other-than-serious violation — recordkeeping deficiency at the Dayton facility. Proposed penalty: $3,200. Status: Abated; penalty paid in full. This matter is fully resolved.
+(c) October 2024 Citation. Serious violation — alleged lockout/tagout procedure deficiency at the Dayton facility. Proposed penalty: $28,700. Status: Currently being contested through administrative proceedings before the Occupational Safety and Health Review Commission. The Company disputes the findings and has retained outside counsel to contest the citation. No abatement order has been issued pending resolution of the contest proceedings.
+2. Permits and Licenses.
+All material permits, licenses, and governmental authorizations required for the operation of the Dayton and Monterrey facilities are current and in good standing. No applications for renewal of any material permit or license are pending as of the date hereof, and no such renewal is due within 90 days of the date hereof.
+SCHEDULE 3.15 — MATERIAL CONTRACTS
+The following is a list of all Material Contracts (as defined in Section 3.15 of the Agreement):
+A. Customer Contracts
+1. Kessler Heavy Industries — Master Supply Agreement.
+•  Date: January 15, 2021
+•  Initial Term: 5 years, expiring January 14, 2026
+•  Renewal: Automatic renewal for successive 2-year periods unless either party provides 180 days' written notice of non-renewal prior to the expiration of the then-current term
+•  FY2024 Revenue: Approximately $29,400,000 (20.6% of total revenue)
+•  Scope: Supply of hydraulic directional control valves and proportional valve assemblies for use in Kessler's heavy industrial equipment
+2. NorthPoint Fabrication Corp. — Master Supply Agreement.
+•  Date: March 1, 2022
+•  Term: 3 years, expiring February 28, 2025
+•  FY2024 Revenue: Approximately $18,600,000 (13.0% of total revenue)
+•  Scope: Supply of custom hydraulic manifold blocks and valve assemblies for NorthPoint's fabrication equipment
+3. Dunlap Agricultural Equipment Co. — Master Supply Agreement.
+•  Date: June 1, 2022
+•  Term: 3 years, expiring May 31, 2025, with automatic 1-year renewal periods
+•  FY2024 Revenue: Approximately $14,300,000 (10.0% of total revenue)
+•  Scope: Supply of hydraulic control systems for agricultural equipment
+4. Great Plains Hydro, LLC — Supply Agreement.
+•  Date: April 15, 2023
+•  Term: 2 years, expiring April 14, 2025, with automatic 1-year renewal periods
+•  FY2024 Revenue: Approximately $11,400,000 (8.0% of total revenue)
+•  Scope: Supply of proportional control valves and flow control components
+5. Overland Machinery, Inc. — Supply Agreement.
+•  Date: September 1, 2021
+•  Term: 3 years, expiring August 31, 2024; renewed through August 31, 2027
+•  FY2024 Revenue: Approximately $9,200,000 (6.4% of total revenue)
+•  Scope: Supply of hydraulic servo valves and custom valve assemblies
+B. Credit Agreements and Financing
+Cross-reference to Schedule 3.7 (Indebtedness). All credit agreements and financing arrangements are described in Schedule 3.7.
+C. Leases.  1. Dayton Facility (Owned).
+•  4500 Industrial Parkway, Dayton, OH 45414. 12-acre site with approximately 185,000 sq. ft. manufacturing facility. Owned in fee simple by the Company. Included for completeness; this is not a lease.
+2. Monterrey Facility (Leased).
+•  Lessor: Inmobiliaria del Norte, S.A. de C.V.
+•  Lessee: PrecisionFlow de México, S.A. de C.V.
+•  Date: April 1, 2019
+•  Term: 10 years, expiring March 31, 2029
+•  Monthly Rent: MXN $385,000 (approximately $22,500 USD)
+•  Premises: Approximately 15,000 sq. ft. manufacturing/assembly space at Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000
+D. Technology/Software Licenses
+1. Verteon Software, Inc. — Enterprise License Agreement.
+•  Software: VerteonDesign Pro and VerteonManufacture (CAD/CAM suite)
+•  Term: 5-year term expiring August 2026
+•  Annual License Fee: $420,000
+•  Sites: Dayton and Monterrey facilities
+E. Labor Agreements
+1. Collective Bargaining Agreement.
+•  Union: International Association of Machinists and Aerospace Workers, Local Lodge 1247
+•  Coverage: 312 hourly manufacturing workers at the Dayton facility
+•  Current Term: Expiring February 28, 2026
+•  Key Provisions: Standard wages, benefits, grievance procedures, and work rules
+F. Other Material Contracts
+1. Investors' Rights Agreement.
+•  Date: June 30, 2016
+•  Parties: The Company, Harold Beecham, and Terraverde Growth Fund II, LP
+•  Key Provisions: Tag-along rights, drag-along rights, information rights, and board observation rights in favor of Terraverde Growth Fund II, LP
+2. Change-in-Control Severance Plan.
+•  Participants: 8 designated executives (see Schedule 3.2 — Management Stock Pool participants)
+•  Trigger: Qualifying termination (involuntary termination without cause or resignation for good reason) within 24 months of a change in control of the Company
+•  Benefits: 1.5x base salary, plus 12 months of COBRA continuation coverage (average base salary: approximately $245,000; average COBRA cost: approximately $8,400 per participant)
+•  Aggregate Maximum Exposure: Approximately $3,010,000
+SCHEDULE 3.16 — EMPLOYEE BENEFIT PLANS
+The Company maintains the following employee benefit plans:
+1. PrecisionFlow Systems, Inc. 401(k) Savings Plan.
+•  Type: Defined contribution plan under Section 401(k) of the Internal Revenue Code
+•  Employer Match: 100% match on employee contributions up to 4% of eligible compensation
+•  Eligibility: All U.S.-based employees after 90 days of service
+•  Administrator: Harborstone Benefits Group
+2. PrecisionFlow Systems, Inc. Defined Benefit Pension Plan.
+•  Type: Defined benefit pension plan
+•  Status: Frozen as of December 31, 2018. No further benefit accruals are being made.
+•  Unfunded Liability: Estimated unfunded liability as of the most recent actuarial valuation (January 2024): approximately $4,300,000
+•  Actuary: Cornerstone Actuarial Services, LLC
+•  Trustee: Meridian National Bank, as directed trustee
+•  PBGC Premiums: All Pension Benefit Guaranty Corporation premiums are current
+3. PrecisionFlow Systems, Inc. Health and Welfare Plan.
+•  Type: Group medical, dental, and vision insurance
+•  Medical Coverage: Self-insured medical plan with stop-loss coverage (individual attachment point: $250,000; aggregate attachment point: 125% of expected claims)
+•  Dental and Vision: Fully insured through Pinnacle Benefits Insurance Co.
+•  Eligibility: All U.S.-based employees and eligible dependents after 60 days of service
+4. Change-in-Control Severance Plan.
+•  Cross-reference to Schedule 3.15(F)(2)
+•  Participants: 8 executives
+•  Benefits: 1.5x base salary (average base salary: approximately $245,000) plus 12 months COBRA continuation coverage (approximately $8,400 per participant)
+•  Aggregate Maximum Exposure: Approximately $3,010,000
+5. PrecisionFlow de México Employee Benefits.
+•  Statutory benefits provided to Monterrey facility employees under Mexican federal labor law, including enrollment in the Instituto Mexicano del Seguro Social (IMSS), employer contributions to the Instituto del Fondo Nacional de la Vivienda para los Trabajadores (INFONAVIT), and Sistema de Ahorro para el Retiro (SAR) retirement savings contributions. No supplemental or voluntary benefit plans are maintained for Monterrey employees.
+All employee benefit plans are operated in material compliance with the Employee Retirement Income Security Act of 1974, as amended, the Internal Revenue Code of 1986, as amended, and all other applicable laws and regulations.
+SCHEDULE 3.17 — EMPLOYEES AND LABOR MATTERS
+Employee Headcount. As of December 31, 2024, the Company and its subsidiary employed a total of 730 employees, as follows:
+Location / Category
+Headcount
+Dayton facility — hourly manufacturing
+312
+Dayton facility — salaried manufacturing, engineering, and operations
+98
+Dayton facility — corporate and administrative
+75
+Dayton facility subtotal
+485
+Monterrey facility — manufacturing and assembly
+170
+Grand Total
+730
+Union Representation. 312 hourly manufacturing workers at the Dayton facility are represented by the International Association of Machinists and Aerospace Workers, Local Lodge 1247, under a Collective Bargaining Agreement with a current term expiring February 28, 2026. No other employees of the Company or PrecisionFlow de México are represented by a labor union or covered by a collective bargaining agreement. There have been no work stoppages, strikes, lockouts, or material labor disputes at any Company facility during the past five years.
+Non-Competition Agreements. The 8 executives participating in the Management Stock Pool (see Schedule 3.2) are each subject to 2-year post-termination non-competition and non-solicitation covenants pursuant to their respective Restricted Stock Agreements. No other employees of the Company are subject to non-competition agreements.
+Pending Proceedings. The Company is not a party to any pending or, to the Company's Knowledge, threatened labor arbitration, unfair labor practice proceeding, or other labor-related dispute, other than as disclosed on Schedule 3.8 regarding the Thompson EEOC charge (Charge No. 473-2024-01892).
+SCHEDULE 3.18 — REAL PROPERTY
+1. Owned Real Property.
+•  Address: 4500 Industrial Parkway, Dayton, OH 45414
+•  Description: 12-acre site with approximately 185,000 sq. ft. manufacturing, warehousing, and office facility
+•  Ownership: Owned in fee simple by PrecisionFlow Systems, Inc.
+•  Property Taxes: All real property taxes are current; no delinquencies
+•  Liens: First-priority mortgage in favor of Meridian National Bank, as administrative agent, as security for the ABL Credit Facility (see Schedule 3.7). No other outstanding liens, encumbrances, or easements of a material nature.
+2. Leased Real Property.
+•  Address: Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000
+•  Description: Approximately 15,000 sq. ft. manufacturing and assembly space within a multi-tenant industrial park
+•  Lessor: Inmobiliaria del Norte, S.A. de C.V.
+•  Lessee: PrecisionFlow de México, S.A. de C.V.
+•  Lease Term: April 1, 2019 through March 31, 2029
+•  Monthly Rent: MXN $385,000 (approximately $22,500 USD)
+No condemnation proceedings, eminent domain actions, or similar proceedings are pending or, to the Company's Knowledge, threatened with respect to any owned or leased real property of the Company or its subsidiary.
+SCHEDULE 5.3 — REQUIRED CONSENTS (CONDITIONS TO CLOSING)
+The following consents are required as conditions to closing under Section 5.3 of the Agreement. This Schedule should be read together with and cross-references Schedule 3.4.
+1.  Hart-Scott-Rodino Act Clearance. Expiration or early termination of the waiting period under the Hart-Scott-Rodino Antitrust Improvements Act of 1976, as amended (if applicable based on current filing thresholds and transaction size).
+2.  Consent of Meridian National Bank. Written consent of Meridian National Bank, in its capacity as administrative agent under the ABL Credit Agreement dated May 15, 2020 (as amended), to the change of control of the Company resulting from the consummation of the transactions contemplated by the Agreement.
+3.  Consent of Great River Equipment Finance, LLC. Written consent of Great River Equipment Finance, LLC, as lender under the Equipment Term Loan Agreement dated September 1, 2021, to the change of control of the Company resulting from the consummation of the transactions contemplated by the Agreement.
+4.  Notification under Investors' Rights Agreement. Delivery of all required notices to Terraverde Growth Fund II, LP pursuant to the Investors' Rights Agreement dated June 30, 2016, including notice regarding the tag-along and drag-along provisions set forth in Section 4.2 thereof.
+EXECUTION AND DELIVERY
+These Disclosure Schedules are executed and delivered as of March 14, 2025, by the Company and the Sellers in connection with and pursuant to the Stock Purchase Agreement of even date herewith.
+&nbsp;
+PRECISIONFLOW SYSTEMS, INC.
+By: ________
+Name: Harold Beecham
+Title: Chief Executive Officer
+Date: ________
+&nbsp;
+HAROLD BEECHAM, individually as a Seller
+________________________________________
+Harold Beecham
+Date: ________
+&nbsp;
+TERRAVERDE GROWTH FUND II, LP
+By: Terraverde Capital Management, LLC, its General Partner
+By: ________
+Name: Marcus J. Reinhardt
+Title: Managing Director
+Date: ________
+&nbsp;
+Acknowledged by:
+STONEBRIDGE WHITAKER LLP Counsel to the Company and the Sellers
+By: ________
+Name: Jeffrey Denton
+Title: Partner
+Date: ________

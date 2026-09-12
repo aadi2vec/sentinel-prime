@@ -1,0 +1,281 @@
+JOINT VENTURE AGREEMENT
+OF
+APEX-KENJI PRECISION JV, LLC
+A Delaware Limited Liability Company
+Dated as of April 3, 2017
+This Joint Venture Agreement governs the formation, operation, and management of Apex-Kenji Precision JV, LLC, a limited liability company organized under the laws of the State of Delaware.
+TOC \o "1-2" \h \z \u Right-click to update Table of Contents
+PREAMBLE
+This Joint Venture Agreement (this "Agreement") is entered into as of April 3, 2017 (the "Effective Date"), by and between:
+Apex Industrial Technologies, Inc., a Delaware corporation ("Apex"), with its principal offices at 4200 Crescent Ridge Parkway, Suite 600, Cincinnati, OH 45202; and
+Kenji Valve Co., Ltd., a Japanese kabushiki kaisha ("Kenji"), with its principal offices at 3-14-7 Nihonbashi, Chuo-ku, Tokyo 103-0027, Japan.
+Apex and Kenji are each referred to herein as a "Member" and collectively as the "Members."
+RECITALS
+WHEREAS, Apex is a Delaware corporation engaged in the design and manufacture of precision fluid control valves, actuators, and related automation systems for the oil and gas, petrochemical, and water treatment industries, with trailing twelve-month revenue of approximately One Hundred Eighty-Seven Million Four Hundred Thousand Dollars ($187,400,000);
+WHEREAS, Kenji is a leading Japanese manufacturer of high-precision valve components and sub-assemblies with expertise in miniaturized flow control technologies for the Asian and global markets;
+WHEREAS, the Members desire to form a joint venture limited liability company under the laws of the State of Delaware to combine their respective expertise in precision valve manufacturing, engineering, and distribution to jointly develop, manufacture, and sell next-generation precision fluid control products for the global market (the "JV Purpose");
+WHEREAS, the Members have agreed that Apex shall hold a fifty-five percent (55%) Membership Interest and Kenji shall hold a forty-five percent (45%) Membership Interest in the Company;
+WHEREAS, the Members acknowledge that the fluid control products industry is characterized by participants of varying scale, including, by way of publicly available information, entities such as Voltan Manufacturing Group, Inc. ("Voltan"), a diversified industrial conglomerate headquartered in Milwaukee, Wisconsin, whose flow control division generates consolidated annual revenue of approximately Four Hundred Ten Million Dollars ($410,000,000), and that the competitive landscape informs the strategic rationale for this joint venture;
+WHEREAS, the JV has generated revenue of approximately Fourteen Million Eight Hundred Thousand Dollars ($14,800,000) attributable to Apex for the fiscal year ending December 31, 2024 ("FY2024"), and the JV's earnings before interest, taxes, depreciation, and amortization ("EBITDA") for FY2024 were approximately Five Million One Hundred Thousand Dollars ($5,100,000);
+WHEREAS, the Members wish to set forth their respective rights and obligations with respect to the Company, including governance, capital contributions, profit and loss allocations, transfer restrictions, and change of control provisions;
+NOW, THEREFORE, in consideration of the mutual covenants and agreements set forth herein, and for other good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, the Members agree as follows:
+ARTICLE I — DEFINITIONS
+As used in this Agreement, the following terms shall have the meanings set forth below:
+"Affiliate" means, with respect to any Person, any other entity directly or indirectly controlling, controlled by, or under common control with such Person, where "control" means the ownership of fifty percent (50%) or more of the outstanding voting securities of such entity, or the equivalent power to direct or cause the direction of the management and policies of such entity, whether through ownership of voting securities, by contract, or otherwise.
+"Agreement" means this Joint Venture Agreement, including all Exhibits and Schedules hereto, as the same may be amended, restated, supplemented, or otherwise modified from time to time in accordance with the terms hereof.
+"Board" means the Board of Managers of the Company as described in Article VI.
+"Capital Contribution" means the cash and/or property contributed by each Member to the Company pursuant to Article III or any additional contributions made pursuant to Section 3.3.
+"Change of Control" means, with respect to any Member, the acquisition, directly or indirectly, by any Person or group of Persons acting in concert (other than such Member's existing Affiliates as of the Effective Date), of fifty percent (50%) or more of the issued and outstanding voting equity interests of such Member, whether by purchase, merger, consolidation, recapitalization, reorganization, or otherwise, or any transaction or series of related transactions that results in a change in the power to direct or cause the direction of the management and policies of such Member.
+"Company" means Apex-Kenji Precision JV, LLC, a Delaware limited liability company formed pursuant to this Agreement.
+"EBITDA" means, for any fiscal year, the Company's net income for such period, plus (i) interest expense, (ii) income tax expense, (iii) depreciation, and (iv) amortization, in each case determined in accordance with GAAP applied on a consistent basis.
+"Fair Market Value" means, with respect to any asset or interest, the price at which such asset or interest would change hands between a willing buyer and a willing seller, neither being under any compulsion to buy or sell and both having reasonable knowledge of relevant facts, as determined by an independent third-party appraiser selected by mutual agreement of the Members or, failing such agreement, by the American Arbitration Association.
+"Fiscal Year" means the calendar year, or such other annual accounting period as may be established by the Board.
+"GAAP" means generally accepted accounting principles in the United States, as in effect from time to time, applied on a consistent basis.
+"Governing Documents" means the Certificate of Formation filed with the Delaware Secretary of State and this Agreement, each as amended from time to time.
+"JV Purpose" has the meaning set forth in the Recitals.
+"Membership Interest" means a Member's entire interest in the Company, including such Member's economic interest (including the right to receive allocations and distributions) and governance rights (including the right to vote, consent, and participate in management).
+"Person" means any individual, corporation, partnership, limited liability company, joint venture, trust, estate, unincorporated organization, governmental entity, or other entity of any kind.
+"Successor Entity" has the meaning set forth in Section 12.3(b).
+"Transfer" means any direct or indirect sale, assignment, pledge, encumbrance, hypothecation, gift, or other disposition of all or any portion of a Membership Interest, whether voluntary or involuntary, by operation of law or otherwise.
+ARTICLE II — FORMATION OF THE COMPANY
+Section 2.1 — Formation
+The Members hereby form Apex-Kenji Precision JV, LLC as a Delaware limited liability company pursuant to the Delaware Limited Liability Company Act, 6 Del. C. § 18-101 et seq. (the "Act"). The Certificate of Formation of the Company was filed with the Secretary of State of the State of Delaware on April 3, 2017. The rights and obligations of the Members shall be as provided in the Act, except as otherwise expressly provided in this Agreement.
+Section 2.2 — Name
+The name of the Company is "Apex-Kenji Precision JV, LLC." The business of the Company may be conducted under such name or any other name approved by the Board.
+Section 2.3 — Principal Office
+The principal office of the Company shall be at such location as the Board may designate from time to time. The initial principal office of the Company shall be at 4200 Crescent Ridge Parkway, Suite 600, Cincinnati, OH 45202.
+Section 2.4 — Term
+The Company shall have a perpetual existence and shall continue in full force and effect until dissolved and wound up in accordance with the provisions of Article XIII of this Agreement and the Act.
+Section 2.5 — Purpose
+The purpose of the Company is to carry out the JV Purpose as described in the Recitals, including the development, manufacture, marketing, and sale of precision fluid control products globally, and to engage in any lawful activities reasonably incidental or ancillary thereto as may be approved by the Board.
+ARTICLE III — CAPITAL CONTRIBUTIONS AND MEMBERSHIP INTERESTS
+Section 3.1 — Initial Capital Contributions
+Each Member shall make initial capital contributions to the Company as set forth in Exhibit A attached hereto and incorporated herein by reference. Apex shall contribute cash and certain intellectual property licenses as described in Exhibit A. Kenji shall contribute cash, manufacturing know-how, and access to certain distribution networks as described in Exhibit A. The initial capital contributions shall be made on or before the date that is thirty (30) days following the Effective Date.
+Section 3.2 — Membership Interests
+The Membership Interests in the Company shall be allocated as follows:
+Member
+Membership Interest
+Apex Industrial Technologies, Inc.
+55%
+Kenji Valve Co., Ltd.
+45%
+Membership Interests shall not be certificated. Each Member's Membership Interest shall be reflected on the books and records of the Company.
+Section 3.3 — Additional Capital Contributions
+No Member shall be required to make additional capital contributions to the Company beyond the initial capital contributions set forth in Section 3.1 without the unanimous written consent of all Members. Any additional capital contributions shall be made pro rata in accordance with each Member's respective Membership Interest, unless otherwise unanimously agreed by the Members in writing.
+Section 3.4 — No Interest; No Return of Contributions
+No interest shall accrue on any capital contributions made to the Company. No Member shall have the right to withdraw or receive a return of its capital contributions, except as provided in Article XIII upon dissolution and winding up of the Company.
+ARTICLE IV — ALLOCATIONS AND DISTRIBUTIONS
+Section 4.1 — Allocation of Profits and Losses
+Net profits and net losses of the Company for each Fiscal Year shall be allocated among the Members in proportion to their respective Membership Interests (i.e., fifty-five percent (55%) to Apex and forty-five percent (45%) to Kenji), unless otherwise unanimously agreed by the Members. Each Member's capital account shall be adjusted accordingly.
+Section 4.2 — Tax Allocations
+Allocations of income, gain, loss, deduction, and credit for federal, state, and local income tax purposes shall follow the allocations of net profits and net losses under Section 4.1, subject to any required adjustments under Sections 704(b) and 704(c) of the Internal Revenue Code of 1986, as amended, and the Treasury Regulations promulgated thereunder.
+Section 4.3 — Distributions
+Distributions of available cash shall be made at such times and in such amounts as the Board shall determine in its reasonable discretion, pro rata in accordance with the Members' respective Membership Interests. The Board shall use commercially reasonable efforts to distribute available cash on a quarterly basis, subject to maintaining adequate working capital reserves as reasonably determined by the Board and to the payment or provision for all current and anticipated obligations of the Company.
+ARTICLE V — TAX MATTERS
+Section 5.1 — Tax Status. The Members intend that the Company shall be treated as a partnership for federal and applicable state income tax purposes. Neither the Company nor any Member shall make an election to treat the Company as a corporation for federal income tax purposes without the unanimous written consent of the Members.
+Section 5.2 — Partnership Representative. Apex is hereby designated as the "Partnership Representative" of the Company within the meaning of Section 6223 of the Internal Revenue Code, as amended by the Bipartisan Budget Act of 2015. The Partnership Representative shall have the authority to act on behalf of the Company in connection with all tax audits, examinations, and proceedings. The Partnership Representative shall keep the other Member reasonably informed of all material developments and shall not settle or compromise any tax matter without the prior written consent of the other Member, such consent not to be unreasonably withheld.
+Section 5.3 — Tax Reporting. The Company shall prepare and timely file all tax returns required to be filed by the Company and shall furnish to each Member such information as is reasonably necessary for the preparation of such Member's own tax returns.
+ARTICLE VI — MANAGEMENT AND GOVERNANCE
+Section 6.1 — Board of Managers
+The Company shall be managed by a Board of Managers (the "Board") consisting of five (5) Managers. The Managers shall be designated as follows:
+(a) Apex shall be entitled to designate three (3) Managers (each, an "Apex Manager");
+(b) Kenji shall be entitled to designate two (2) Managers (each, a "Kenji Manager").
+The initial designees of each Member are set forth in Schedule 1 attached hereto. Patricia Langford is hereby designated as the initial Chairperson of the Board. Takeshi Yamamoto is hereby designated as the initial Vice-Chairperson of the Board. Each Member may remove and replace its designated Managers at any time upon written notice to the other Member and the Company.
+Section 6.2 — Board Meetings and Quorum
+The Board shall meet at least quarterly, either in person or by telephone or video conference. Special meetings may be called by any two (2) Managers upon not less than ten (10) business days' prior written notice. A quorum for the transaction of business at any meeting of the Board shall require at least four (4) Managers present, including at least one (1) Manager designated by each Member. Except as provided in Section 6.3, all actions of the Board shall require the affirmative vote of a majority of the Managers present at a duly convened meeting at which a quorum is present.
+Section 6.3 — Reserved Matters
+Notwithstanding anything to the contrary in this Agreement, the following actions shall require the unanimous approval of all five (5) Managers (collectively, the "Reserved Matters"):
+(a) any amendment, modification, or restatement of this Agreement or any of the Governing Documents;
+(b) the admission of any new Member to the Company;
+(c) the incurrence by the Company of any indebtedness in excess of One Million Dollars ($1,000,000) in the aggregate during any Fiscal Year;
+(d) the entry by the Company into any contract or series of related contracts with an aggregate value in excess of Two Million Dollars ($2,000,000);
+(e) the sale, lease, exchange, or other disposition of all or substantially all of the assets of the Company;
+(f) the dissolution, liquidation, or winding up of the Company;
+(g) any merger, consolidation, or other business combination of the Company with or into any other entity; and
+(h) annual capital expenditures by the Company in excess of Five Million Dollars ($5,000,000).
+Section 6.4 — Officers
+The Board may appoint such officers as it deems necessary or appropriate for the conduct of the Company's business, including a General Manager and a Chief Financial Officer. Officers shall serve at the pleasure of the Board and may be removed by the Board at any time with or without cause. Officers shall have such powers and duties as the Board may from time to time delegate.
+ARTICLE VII — DUTIES AND OBLIGATIONS OF THE MEMBERS
+Section 7.1 — Technology Contributions
+Each Member shall contribute certain technology and intellectual property to the Company pursuant to the terms set forth in Exhibit B attached hereto and incorporated herein by reference. Apex shall license to the Company certain proprietary valve design technologies, as more particularly described in Exhibit B. Kenji shall license to the Company certain miniaturized flow control manufacturing processes, as more particularly described in Exhibit B.
+Section 7.2 — Exclusivity
+During the term of this Agreement, neither Member shall, directly or through any Affiliate, develop, manufacture, or sell products that are substantially similar to the products manufactured by the Company within the agreed territory (the Asia-Pacific region), except through the Company, without the prior written consent of the other Member. This exclusivity covenant does not restrict either Member's operations outside the scope of the JV Purpose or outside the agreed territory.
+Section 7.3 — Good Faith and Fair Dealing
+Each Member shall act in good faith and deal fairly with the other Member in all matters relating to this Agreement and the business and affairs of the Company. The Members shall cooperate with each other and with the Company in all respects reasonably necessary to carry out the JV Purpose.
+ARTICLE VIII — BUDGETS AND BUSINESS PLANS
+Section 8.1 — Annual Business Plan
+The General Manager shall prepare and submit to the Board an annual business plan and operating budget for each Fiscal Year no later than November 15 of the preceding Fiscal Year. The annual business plan shall include projected revenues, expenses, capital expenditures, and cash flow projections.
+Section 8.2 — Budget Approval
+The annual operating budget shall be subject to approval by the Board. Any annual operating budget proposing aggregate expenditures in excess of Three Million Dollars ($3,000,000) shall require the affirmative vote of at least one (1) Manager designated by each Member (i.e., at least one Apex Manager and at least one Kenji Manager must vote in favor of the budget). If the Board does not approve an annual operating budget prior to the beginning of the applicable Fiscal Year, the Company shall operate under the prior year's approved budget until a new budget is approved.
+ARTICLE IX — BOOKS, RECORDS, AND REPORTING
+Section 9.1 — Books and Records
+The Company shall maintain complete and accurate books and records of account at its principal office, reflecting all financial transactions of the Company. The books and records shall be prepared in accordance with GAAP applied on a consistent basis. Each Member shall have the right to inspect and copy such books and records during normal business hours upon reasonable prior notice to the Company.
+Section 9.2 — Financial Statements
+The Company shall prepare and deliver to each Member the following financial statements:
+(a) unaudited quarterly financial statements within forty-five (45) days after the end of each fiscal quarter;
+(b) audited annual financial statements, audited by an independent certified public accountant selected by the Board, within ninety (90) days after the end of each Fiscal Year.
+All financial statements shall include a balance sheet, an income statement, a statement of cash flows, and a statement of changes in members' equity, together with such notes and supplementary schedules as are necessary for a complete presentation.
+Section 9.3 — Tax Reporting
+The Company shall furnish to each Member a Schedule K-1 (IRS Form 1065) within seventy-five (75) days after the end of each Fiscal Year, or as otherwise required by applicable law.
+ARTICLE X — REPRESENTATIONS AND WARRANTIES
+Section 10.1 — Mutual Representations
+Each Member hereby represents and warrants to the other Member as of the Effective Date that:
+(a) it is duly organized, validly existing, and in good standing under the laws of the jurisdiction of its organization;
+(b) it has full power and authority to execute, deliver, and perform this Agreement and to consummate the transactions contemplated hereby;
+(c) the execution, delivery, and performance of this Agreement does not and will not violate any applicable law, regulation, order, or judgment, or conflict with or constitute a default under any material agreement to which it is a party; and
+(d) this Agreement constitutes a valid and binding obligation of such Member, enforceable against it in accordance with its terms, subject to applicable bankruptcy, insolvency, and equitable principles.
+Section 10.2 — Additional Representations of Apex
+Apex further represents and warrants to Kenji as of the Effective Date that Apex has good and marketable title to all intellectual property that it contributes or licenses to the Company pursuant to this Agreement and Exhibit B, free and clear of all liens, claims, and encumbrances (other than permitted liens identified in Exhibit B).
+Section 10.3 — Additional Representations of Kenji
+Kenji further represents and warrants to Apex as of the Effective Date that Kenji has full and unrestricted rights to contribute and license the manufacturing processes described in Exhibit B to the Company, and that such contributions and licenses do not infringe upon any third-party intellectual property rights.
+ARTICLE XI — TRANSFER RESTRICTIONS
+Section 11.1 — General Restriction on Transfers
+No Member shall Transfer all or any portion of its Membership Interest without the prior written consent of the other Member, which consent may be withheld in such Member's sole and absolute discretion, except as expressly provided in Sections 11.2 and 11.3 of this Agreement.
+Section 11.2 — Permitted Transfers
+Notwithstanding Section 11.1, a Member may Transfer all or any portion of its Membership Interest to a wholly-owned Affiliate of such Member without the consent of the other Member, provided that: (a) the transferring Member unconditionally guarantees all obligations of the transferee under this Agreement for so long as the transferee holds any Membership Interest; and (b) the transferee executes and delivers to the Company and the other Member a written instrument agreeing to be bound by all terms and conditions of this Agreement as if it were an original signatory hereto.
+Section 11.3 — Right of First Refusal
+If a Member desires to Transfer all or any portion of its Membership Interest (other than to a Permitted Transferee under Section 11.2), the transferring Member shall first deliver written notice to the non-transferring Member specifying the material terms and conditions of the proposed Transfer, including the identity of the proposed transferee and the proposed purchase price. The non-transferring Member shall have sixty (60) days following receipt of such notice to elect to purchase the Membership Interest being offered on the same terms and conditions as proposed. If the non-transferring Member does not exercise its right of first refusal within such sixty (60)-day period, the transferring Member may consummate the proposed Transfer on terms no more favorable to the proposed transferee than those set forth in the notice.
+Section 11.4 — Tag-Along Rights
+If Apex proposes to Transfer a majority of its Membership Interest to a third party (other than to an Affiliate pursuant to Section 11.2), Kenji shall have the right (the "Tag-Along Right") to require such third-party purchaser to also purchase Kenji's Membership Interest on the same terms and conditions as applicable to Apex's Transfer, pro rata in proportion to the respective Membership Interests being transferred. Apex shall provide Kenji with at least thirty (30) days' prior written notice of any such proposed Transfer, together with the material terms thereof, to enable Kenji to exercise its Tag-Along Right.
+ARTICLE XII — CHANGE OF CONTROL; BUY-OUT OPTION
+Section 12.1 — Notice of Change of Control
+Each Member shall provide the other Member with written notice of any Change of Control of such Member promptly, and in any event within ten (10) business days, after the execution of any definitive agreement with respect to such Change of Control, and again within five (5) business days following the consummation of such Change of Control. Such notice shall include a reasonably detailed description of the Change of Control transaction, the identity of the acquiring Person or Persons, and the expected or actual date of consummation, as applicable.
+Section 12.2 — Consent Not Required
+Notwithstanding Article XI, a Change of Control of a Member shall not be deemed a Transfer of such Member's Membership Interest for purposes of Article XI. Accordingly, a Change of Control shall not require the consent of the non-affected Member under Section 11.1. However, a Change of Control shall be subject to the buy-out option set forth in Section 12.3 of this Agreement.
+Section 12.3 — Buy-Out Option Upon Change of Control
+(a) Grant of Buy-Out Option.  If either Member undergoes a Change of Control (the "Affected Member"), the other Member (the "Non-Affected Member") shall have the right, but not the obligation (the "Buy-Out Option"), to purchase all (but not less than all) of the Affected Member's Membership Interest in the Company. The Non-Affected Member may exercise the Buy-Out Option by delivering written notice to the Affected Member within ninety (90) days following receipt of the notice of consummation of the Change of Control delivered pursuant to Section 12.1.
+(b) Successor Entity Carve-Out.  Notwithstanding Section 12.3(a), the Buy-Out Option shall not be exercisable by the Non-Affected Member if the following conditions are both satisfied with respect to the successor entity or acquiring Person (the "Successor Entity") in the Change of Control transaction:
+(i) the Successor Entity commits, in writing delivered to the Non-Affected Member within thirty (30) days following consummation of the Change of Control, to maintain the Affected Member's existing senior management team (including, at a minimum, the Affected Member's chief executive officer and chief technology officer) in their respective positions for a period of not less than eighteen (18) months following the consummation of the Change of Control; AND
+(ii) the Successor Entity's consolidated annual revenue derived from fluid control products (including, without limitation, valves, actuators, flow meters, and related automation systems), as reported in the Successor Entity's most recent audited annual financial statements as of the date of consummation of the Change of Control, exceeds Five Hundred Million Dollars ($500,000,000).
+Both conditions (i) and (ii) above must be satisfied for this Section 12.3(b) carve-out to apply. If either condition is not met, the Buy-Out Option shall remain fully exercisable by the Non-Affected Member in accordance with Section 12.3(a).
+(c) Buy-Out Price.  If the Non-Affected Member exercises the Buy-Out Option pursuant to Section 12.3(a), the purchase price for the Affected Member's entire Membership Interest (the "Buy-Out Price") shall be equal to four and one-half times (4.5x) the Company's trailing twelve-month EBITDA as of the last day of the Company's most recently completed Fiscal Year preceding the date of the Non-Affected Member's exercise notice (the "Valuation Date"). For the avoidance of doubt, the Buy-Out Price shall represent the purchase price for the Affected Member's entire Membership Interest, regardless of such Member's percentage Membership Interest. The Buy-Out Price shall be payable in cash at closing in accordance with Section 12.3(d).
+(d) Closing of Buy-Out.  The closing of the purchase and sale pursuant to the Buy-Out Option shall occur within sixty (60) days following the date of the Non-Affected Member's exercise notice, at such place and time as the Members may mutually agree, or failing such agreement, at the principal office of the Company. At closing:
+(i) the Affected Member shall deliver to the Non-Affected Member (A) a duly executed assignment of its entire Membership Interest, in form and substance reasonably satisfactory to the Non-Affected Member, (B) all necessary transfer documentation, and (C) such other documents, instruments, and certificates as may be reasonably required to effectuate the transfer;
+(ii) the Non-Affected Member shall deliver the Buy-Out Price in immediately available funds by wire transfer to an account designated by the Affected Member; and
+(iii) the Affected Member shall provide customary representations and warranties regarding good and marketable title to the Membership Interest being transferred, free and clear of all liens, claims, and encumbrances (other than those arising under this Agreement).
+(e) Dispute Resolution for Buy-Out Price.  In the event of any dispute regarding the calculation of the Buy-Out Price, including any dispute regarding the determination of the Company's EBITDA for the applicable period, the Members shall engage an independent nationally recognized accounting firm (other than either Member's regular auditor) mutually agreed upon by the Members (or, failing such agreement within fifteen (15) days, selected by the American Arbitration Association) to determine the Company's EBITDA for the applicable period. The determination of such independent accounting firm shall be final and binding upon the Members. The costs and expenses of such determination shall be borne equally by the Members.
+Section 12.4 — Continuing Obligations Following Change of Control
+Notwithstanding the exercise or non-exercise of the Buy-Out Option, following a Change of Control of any Member:
+(a) all obligations of such Member under this Agreement shall remain in full force and effect and shall be binding upon the Successor Entity;
+(b) the Successor Entity shall, within thirty (30) days following consummation of the Change of Control, execute a joinder agreement in form and substance reasonably satisfactory to the Non-Affected Member, agreeing to be bound by all terms and conditions of this Agreement; and
+(c) the Affected Member shall use commercially reasonable efforts to ensure that the Successor Entity cooperates with the Company and the Non-Affected Member in good faith with respect to the business and affairs of the Company.
+ARTICLE XIII — DISSOLUTION AND WINDING UP
+Section 13.1 — Events Causing Dissolution
+The Company shall be dissolved upon the earliest to occur of:
+(a) the unanimous written consent of the Members to dissolve and wind up the Company;
+(b) entry of a judicial decree of dissolution under Section 18-802 of the Act or any successor provision;
+(c) the occurrence of any event that makes it unlawful for the business of the Company to be continued; or
+(d) the failure to resolve a Deadlock (as defined in Section 14.3) within the time period specified therein, if the Members unanimously elect dissolution as the remedy for such Deadlock.
+Section 13.2 — Winding Up
+Upon dissolution of the Company, the Board (or such Person or Persons as the Board may designate) shall wind up the affairs of the Company. The assets of the Company shall be liquidated in an orderly manner and the proceeds of such liquidation, together with any assets distributed in kind, shall be applied and distributed in the following order of priority:
+(a) first, to the payment of debts and liabilities of the Company to creditors (including Members who are creditors), in the order of priority provided by law;
+(b) second, to the establishment of any reserves that the Board deems reasonably necessary for contingent or unforeseen liabilities or obligations of the Company; and
+(c) third, to the Members in proportion to their respective positive capital account balances, after giving effect to all allocations of profits and losses for the Fiscal Year in which dissolution occurs.
+ARTICLE XIV — DEADLOCK AND DISPUTE RESOLUTION
+Section 14.1 — Escalation
+If the Board is unable to reach a decision on any matter requiring Board approval (including any Reserved Matter) within thirty (30) days after such matter is first presented for a vote, the matter shall be escalated to the chief executive officers (or equivalent) of each Member for resolution within an additional thirty (30) days.
+Section 14.2 — Mediation
+If the chief executive officers of the Members cannot resolve the dispute within the period specified in Section 14.1, the Members shall submit the dispute to confidential mediation administered under the Commercial Mediation Procedures of the American Arbitration Association ("AAA"), to be held in Cincinnati, Ohio. Each Member shall bear its own costs and share equally in the costs of the mediator.
+Section 14.3 — Arbitration
+If mediation fails to resolve the dispute within sixty (60) days following the commencement of mediation (a "Deadlock"), any unresolved dispute, controversy, or claim arising out of or relating to this Agreement shall be resolved by binding arbitration administered by the AAA under its Commercial Arbitration Rules, conducted in Cincinnati, Ohio. The arbitral tribunal shall consist of three (3) arbitrators, with each Member selecting one (1) arbitrator and the two (2) party-appointed arbitrators selecting the third. The decision of the arbitral tribunal shall be final and binding upon the Members and may be entered as a judgment in any court of competent jurisdiction.
+ARTICLE XV — CONFIDENTIALITY
+Section 15.1 — Confidential Information
+Each Member shall maintain the strict confidentiality of all non-public, proprietary, or confidential information disclosed by the other Member or the Company in connection with this Agreement or the business and affairs of the Company ("Confidential Information"). Confidential Information shall not include information that: (a) is or becomes publicly available through no fault of the receiving Member; (b) was known to the receiving Member prior to disclosure; (c) is independently developed by the receiving Member without use of or reference to Confidential Information; or (d) is required to be disclosed by applicable law, regulation, or governmental order, provided that the disclosing Member receives prompt prior written notice and cooperates with the other Member to limit the scope of such disclosure.
+Section 15.2 — Duration
+The obligations of confidentiality set forth in this Article XV shall survive the termination or expiration of this Agreement for a period of five (5) years following such termination or expiration.
+ARTICLE XVI — INDEMNIFICATION
+Section 16.1 — Indemnification of Managers and Officers
+The Company shall indemnify each Manager and officer of the Company to the fullest extent permitted by the Act and other applicable Delaware law against any and all losses, claims, damages, liabilities, and expenses (including reasonable attorneys' fees) arising out of or in connection with any action taken or omitted to be taken by such Manager or officer in good faith in his or her capacity as a Manager or officer of the Company, provided that no indemnification shall be provided with respect to acts or omissions constituting fraud, willful misconduct, or bad faith.
+Section 16.2 — Member Indemnification
+Each Member shall indemnify, defend, and hold harmless the other Member and the Company from and against any and all losses, claims, damages, liabilities, and expenses (including reasonable attorneys' fees) arising out of or resulting from (a) any breach of such Member's representations and warranties contained in this Agreement, or (b) any breach of such Member's covenants or obligations under this Agreement.
+ARTICLE XVII — MISCELLANEOUS
+Section 17.1 — Notices
+All notices, requests, demands, and other communications required or permitted under this Agreement shall be in writing and shall be deemed to have been duly given when: (a) delivered by hand; (b) delivered by nationally recognized overnight courier service; or (c) sent by certified mail, return receipt requested, postage prepaid. Notices shall be addressed as follows:
+If to Apex:
+Apex Industrial Technologies, Inc. 4200 Crescent Ridge Parkway, Suite 600 Cincinnati, OH 45202
+Attention: General Counsel
+If to Kenji:
+Kenji Valve Co., Ltd. 3-14-7 Nihonbashi, Chuo-ku Tokyo 103-0027, Japan
+Attention: Legal Department
+Either Member may change its address for notices by providing written notice to the other Member in accordance with this Section 17.1.
+Section 17.2 — Governing Law
+This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to the conflict of laws principles thereof.
+Section 17.3 — Entire Agreement
+This Agreement (together with the Exhibits and Schedules attached hereto) constitutes the entire agreement between the Members with respect to the subject matter hereof and supersedes all prior agreements, negotiations, discussions, understandings, and representations, whether written or oral, between the Members relating to such subject matter.
+Section 17.4 — Amendment
+This Agreement may be amended, modified, or supplemented only by a written instrument duly executed by both Members.
+Section 17.5 — Waiver
+No waiver of any provision of this Agreement shall be effective unless in writing and signed by the Member granting such waiver. No waiver of any breach or default hereunder shall constitute a waiver of any subsequent or other breach or default.
+Section 17.6 — Severability
+If any provision of this Agreement is held by a court of competent jurisdiction or arbitral tribunal to be invalid, illegal, or unenforceable, the remaining provisions of this Agreement shall continue in full force and effect, and the invalid provision shall be reformed to the minimum extent necessary to make it valid and enforceable.
+Section 17.7 — Counterparts
+This Agreement may be executed in one or more counterparts, each of which shall be deemed an original and all of which together shall constitute one and the same instrument. Delivery of an executed counterpart by facsimile or electronic transmission shall be effective as delivery of an original executed counterpart.
+Section 17.8 — No Third-Party Beneficiaries
+Nothing in this Agreement, express or implied, is intended to or shall confer upon any Person other than the Members and their respective permitted successors and assigns any rights, benefits, or remedies of any nature whatsoever under or by reason of this Agreement.
+Section 17.9 — Further Assurances
+Each Member shall execute and deliver such additional documents, instruments, and agreements, and take such further actions, as may be reasonably necessary or appropriate to carry out the purposes and intent of this Agreement and to consummate the transactions contemplated hereby.
+[Signature Page Follows]
+IN WITNESS WHEREOF, the Members have executed this Joint Venture Agreement as of the date first written above.
+APEX INDUSTRIAL TECHNOLOGIES, INC.
+By: ________
+Name: Patricia Langford
+Title: Chief Executive Officer
+Date: ________
+KENJI VALVE CO., LTD.
+By: ________
+Name: Takeshi Yamamoto
+Title: President
+Date: ________
+EXHIBIT A — INITIAL CAPITAL CONTRIBUTIONS
+The initial capital contributions of each Member to the Company shall be as follows:
+Member
+Cash Contribution
+Non-Cash Contribution
+Total Value
+Membership Interest
+Apex Industrial Technologies, Inc.
+$6,050,000
+License of proprietary valve design intellectual property (as described in Exhibit B)
+$11,000,000
+55%
+Kenji Valve Co., Ltd.
+$4,950,000
+License of miniaturized flow control manufacturing processes and grant of access to Asian distribution networks (as described in Exhibit B)
+$9,000,000
+45%
+Total
+$11,000,000
+$20,000,000
+100%
+The non-cash contributions have been valued by mutual agreement of the Members as of the Effective Date. Each Member's cash contribution shall be made by wire transfer of immediately available funds to the Company's designated bank account within thirty (30) days following the Effective Date. The non-cash contributions shall be deemed contributed as of the Effective Date upon execution of the applicable license agreements set forth in Exhibit B.
+EXHIBIT B — TECHNOLOGY CONTRIBUTIONS
+1. Apex Technology Contributions.
+Apex shall grant to the Company a non-exclusive, royalty-free, worldwide license to use the following proprietary technologies in connection with the JV Purpose:
+(a) Apex Series 700 precision valve design platform, including all related engineering drawings, specifications, and manufacturing tolerances;
+(b) Apex proprietary computational fluid dynamics (CFD) modeling software and associated design databases;
+(c) Apex SmartActuator control systems architecture and embedded firmware, as further described in the Technology License Agreement between Apex and the Company executed concurrently herewith.
+2. Kenji Technology Contributions.
+Kenji shall grant to the Company a non-exclusive, royalty-free license (limited to the Asia-Pacific territory) to use the following proprietary technologies in connection with the JV Purpose:
+(a) Kenji MicroFlow miniaturized valve manufacturing processes, including precision micro-machining techniques and associated quality control protocols;
+(b) Kenji proprietary ceramic-composite sealing technologies for high-temperature and corrosive-environment applications;
+(c) Access to Kenji's established distribution network across Japan, South Korea, Taiwan, and Southeast Asia, pursuant to the Distribution Access Agreement between Kenji and the Company executed concurrently herewith.
+All intellectual property contributed or licensed by each Member shall remain the sole property of such Member. The Company's license rights shall terminate upon dissolution of the Company or upon termination of this Agreement, whichever occurs first.
+SCHEDULE 1 — INITIAL BOARD OF MANAGERS
+The initial Board of Managers of Apex-Kenji Precision JV, LLC shall consist of the following five (5) individuals:
+Apex Designees:
+Name
+Title / Role
+Patricia Langford
+Chairperson of the Board
+Robert Fenn
+Manager
+Margaret S. Clarkson
+Manager
+Kenji Designees:
+Name
+Title / Role
+Takeshi Yamamoto
+Vice-Chairperson of the Board
+Hiroshi Nakamura
+Manager
+Each Manager shall serve until removed or replaced by the designating Member in accordance with Section 6.1 of the Agreement.

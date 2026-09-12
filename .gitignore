@@ -19,5 +19,3 @@ venv/
 
 # Git worktrees (git-ignored per skill)
 .worktrees/
-lab_tasks/
-lab_runs/

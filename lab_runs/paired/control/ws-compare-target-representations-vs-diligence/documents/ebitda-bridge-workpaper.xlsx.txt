@@ -1,0 +1,385 @@
+Line Item
+FY2022 ($M)
+FY2023 ($M)
+FY2024 ($M)
+Notes / Source
+Ridgeline Commentary
+Revenue
+118.20
+131.60
+143.00
+Per audited financials (Clarkfield & Associates, P.C.)
+COGS
+(77.78)
+(86.30)
+(94.09)
+FY2024 gross margin 34.2%; COGS = $143.0M - $48.906M = $94.094M
+Gross Profit
+40.42
+45.30
+48.91
+FY2024: $143.0M × 34.2% = $48.906M
+Operating Expenses (excl. D&A)
+(15.32)
+(17.50)
+(17.60)
+Includes SG&A, R&D, other operating costs
+Depreciation & Amortization
+(4.25)
+(4.70)
+(4.90)
+Per audited financials
+EBITDA (Reported)
+20.85
+23.10
+26.41
+Per Target management / Clarkfield audited financials
+EBITDA Margin (Reported)
+17.64%
+17.55%
+18.47%
+$26.41M / $143.0M = 18.47%
+SELLER'S PROPOSED ADJUSTMENTS:
+Adj 1: Hal Beecham Above-Market Compensation
+—
+—
+1.70
+Represents excess compensation above market-rate CEO salary for company of this size. Per Seller, Beecham's total comp $2.45M vs. market estimate $0.75M; add-back = $1.70M
+Reasonable. Confirmed by Ridgeline comp benchmarking. Market CEO comp for $143M revenue industrial co. is $700K–$800K range.
+Adj 2: One-Time ERP Implementation Costs
+—
+—
+0.85
+Enterprise resource planning system migration completed Q2 2024. Seller characterizes as non-recurring.
+Confirmed one-time. ERP vendor contract reviewed; implementation project closed July 2024. No further phases planned.
+Adj 3: COVID-Related Supply Chain Disruption Charges
+0.55
+0.45
+0.60
+Seller characterizes FY2024 amount ($0.60M) as residual non-recurring COVID supply chain disruptions carried into early 2024.
+CONCERN: Similar charges appeared in FY2022 ($0.55M) and FY2023 ($0.45M). Three consecutive years of 'non-recurring' charges suggests these are RECURRING operational costs, not one-time items. If recurring, this add-back is inappropriate. At 9.5x multiple, the $0.60M add-back = $5.7M of purchase price. Recommend challenging or eliminating this adjustment.
+Adj 4: Non-Recurring Legal Settlement Costs
+—
+—
+0.65
+Settlement of commercial dispute with former distributor (Apex Distribution Partners) in Q3 2024.
+Confirmed one-time. Settlement agreement reviewed; no ongoing obligations. No similar charges in FY2022 or FY2023.
+Total Seller Proposed Adjustments
+—
+—
+3.80
+Sum: $1.70M + $0.85M + $0.60M + $0.65M = $3.80M
+Adjusted EBITDA (Seller Basis)
+—
+—
+30.21
+$26.41M + $3.80M = $30.21M
+Adjusted EBITDA Margin (Seller Basis)
+21.13%
+$30.21M / $143.0M = 21.13%
+VALUATION:
+Agreed Multiple
+9.5x
+Per LOI / draft SPA
+Implied Enterprise Value / Purchase Price
+287.00
+$30.21M × 9.5 = $286.995M, rounded to $287.0M
+Verification: $287.0M ✓
+RIDGELINE RECOMMENDED ADJUSTED EBITDA:
+Less: COVID Supply Chain Adj (remove)
+(0.60)
+Ridgeline recommends eliminating this add-back as recurring
+If removed, Adjusted EBITDA = $29.61M; at 9.5x = $281.3M, a $5.7M reduction to purchase price.
+Ridgeline Adjusted EBITDA
+29.61
+$30.21M - $0.60M = $29.61M
+Discuss with deal team.
+Ridgeline Implied Enterprise Value
+281.30
+$29.61M × 9.5 = $281.295M ≈ $281.3M
+Purchase price reduction vs. Seller basis: $287.0M - $281.3M = $5.7M
+PENSION LIABILITY NOTE:
+Frozen DB Pension — Unfunded Liability (Jan 2024 Actuarial Valuation, Clarkfield & Associates)
+4.30
+Per Target's most recent actuarial valuation dated January 2024. Pension frozen as of December 31, 2018.
+Frozen DB Pension — Updated Estimate (Ridgeline Retained Actuary)
+6.80
+Ridgeline retained independent actuary who estimates current unfunded liability at ~$6.8M due to material decline in discount rates in late 2024.
+FLAG: $2.5M INCREASE over Seller's reported figure ($6.8M - $4.3M = $2.5M). The January 2024 valuation is now ~12 months stale. Interest rate declines in H2 2024 have materially increased the present value of plan obligations. SPA benefits representation (Section 3.17(d)) relies on the $4.3M figure. Recommend: (1) require updated actuarial valuation as closing condition or purchase price adjustment item; (2) consider $2.5M indemnity escrow or dollar-for-dollar price reduction. Escalate to Catherine Reeves and David Kowalski.
+Pension Liability Delta
+2.50
+$6.8M - $4.3M = $2.5M additional unfunded liability
+Category / Customer
+FY2022 Revenue ($M)
+FY2023 Revenue ($M)
+FY2024 Revenue ($M)
+FY2024 % of Total
+CAGR FY2022–FY2024
+Notes
+REVENUE BY FACILITY:
+Dayton, OH (4500 Industrial Parkway, Dayton, OH 45414)
+87.50
+96.20
+104.80
+73.3%
+~9.4%
+Primary manufacturing facility; 485 employees
+Monterrey, Mexico (PrecisionFlow de México, S.A. de C.V.)
+30.70
+35.40
+38.20
+26.7%
+~11.5%
+Wholly-owned subsidiary; 180 employees; leased facility (Inmobiliaria del Norte, S.A. de C.V.)
+Total Revenue
+118.20
+131.60
+143.00
+100.0%
+~9.96%
+CAGR = ((143.0/118.2)^(1/2) - 1) ≈ 9.96%
+TOP CUSTOVRS (FY2024):
+1. Kessler Heavy Industries
+22.10
+25.80
+29.40
+20.6%
+~15.4%
+MSA dated Jan 15, 2021; expires Jan 14, 2026; auto-renewal 2-yr unless 180-day notice. NOTE: Contains COC termination clause (60-day notice).
+2. NorthPoint Fabrication Corp.
+14.20
+16.50
+18.60
+13.0%
+~14.5%
+MSA dated Mar 1, 2022; EXPIRED Feb 28, 2025. Parties continue performing informally — no renewal executed.
+3. Dunlap Agricultural Equipment Co.
+11.80
+12.90
+14.30
+10.0%
+~10.1%
+MSA dated Sep 1, 2020; expires Aug 31, 2025; auto-renewal 1-yr unless 90-day notice.
+4. Great Plains Hydro, LLC
+9.60
+10.50
+11.40
+8.0%
+~9.0%
+MSA dated Jun 15, 2019; expires Jun 14, 2026; 3-yr renewal terms.
+5. Overland Machinery, Inc.
+7.40
+8.20
+9.20
+6.4%
+~11.5%
+MSA dated Nov 1, 2021; expires Oct 31, 2026; auto-renewal 1-yr unless 120-day notice.
+Top 5 Customer Subtotal
+65.10
+73.90
+82.90
+58.0%
+$82.9M / $143.0M = 57.97% ≈ 58%
+6. Cascade Power Systems, Inc.
+5.80
+6.30
+6.90
+4.8%
+~9.1%
+7. Heartland Tool & Die, LLC
+4.90
+5.40
+5.80
+4.1%
+~8.8%
+8. Summit Industrial Supply Co.
+4.30
+4.80
+5.20
+3.6%
+~9.9%
+9. Redwood Precision Components
+3.60
+3.90
+4.10
+2.9%
+~6.7%
+10. Ironclad Manufacturing Group
+2.80
+3.10
+3.10
+2.2%
+~5.2%
+Top 10 Customer Subtotal
+86.50
+97.40
+108.00
+75.5%
+$108.0M / $143.0M = 75.52% ≈ 75.5%
+All Other Customers
+31.70
+34.20
+35.00
+24.5%
+Approximately 45–50 smaller accounts
+Total Revenue (Check)
+118.20
+131.60
+143.00
+100.0%
+Ties to EBITDA Bridge tab ✓
+CONCENTRATION METRICS:
+Top 1 Customer (Kessler)
+29.40
+20.6%
+Single customer >20% — elevated concentration risk
+Top 5 Customers
+82.90
+58.0%
+Majority of revenue concentrated in 5 accounts
+Top 10 Customers
+108.00
+75.5%
+Three-quarters of revenue in top 10 accounts
+Line Item
+Dec 31, 2024 ($M)
+NWC Target Basis (TTM Avg) ($M)
+Notes / Source
+CURRENT ASSETS:
+Cash and Cash Equivalents
+5.80
+Excluded
+Excluded from NWC per SPA definition; treated as separate closing adjustment
+Accounts Receivable
+24.10
+Included
+Per Clarkfield & Associates audited balance sheet. DSO ~61.5 days.
+Inventory
+19.70
+Included
+Raw materials, WIP, finished goods. Per audited balance sheet.
+Prepaid Expenses and Other Current Assets
+2.60
+Included
+Insurance prepayments, deposits, other
+Total Current Assets
+52.20
+Sum: $5.8M + $24.1M + $19.7M + $2.6M = $52.2M
+Total Current Assets (ex-Cash) — NWC Basis
+46.40
+$52.2M - $5.8M = $46.4M
+CURRENT LIABILITIES:
+Accounts Payable
+11.90
+Included
+Per audited balance sheet. DPO ~46.2 days.
+Accrued Expenses
+4.70
+Included
+Accrued comp, benefits, other
+Current Portion of Long-Term Debt
+3.20
+Excluded
+Excluded from NWC per SPA definition; treated as closing indebtedness
+Total Current Liabilities
+19.80
+Sum: $11.9M + $4.7M + $3.2M = $19.8M
+Total Current Liabilities (ex-Current LTD) — NWC Basis
+16.60
+$19.8M - $3.2M = $16.6M
+NET WORKING CAPITAL (as of Dec 31, 2024):
+NWC (ex-Cash, ex-Current LTD)
+29.80
+$46.4M - $16.6M = $29.8M
+NWC Target (Trailing 12-Month Average, per Seller)
+18.40
+Per Seller's calculation provided to Ridgeline Capital Partners. NOTE: Ridgeline has not independently verified the TTM average computation; Seller's workpapers requested.
+Estimated NWC Surplus at Closing (vs. Target)
+11.40
+$29.8M - $18.4M = $11.4M — NOTE: Dec 31 snapshot; closing NWC will be measured at June 30, 2025. Seasonal variation expected.
+NWC TREND (QUARTERLY):
+Q1 2024 NWC
+16.90
+Historically low; seasonal trough
+Q2 2024 NWC
+20.30
+Inventory build for H2 demand
+Q3 2024 NWC
+25.10
+Peak production period
+Q4 2024 NWC (Dec 31)
+29.80
+Year-end; AR elevated due to Q4 shipments
+TTM Average (Seller-reported)
+18.40
+Average of monthly NWC per Seller; note significant seasonal swing from $16.9M to $29.8M
+CLOSING ADJUSTMENTS:
+Estimated Closing Indebtedness:
+ABL Credit Facility (Midwestern Commercial Bank)
+22.70
+Hal Beecham personal guaranty of $1.8M to be released at closing
+Equipment Term Loan (Midwestern Commercial Bank)
+8.50
+Secured by Dayton facility equipment; matures March 2027
+Subordinated Seller Note (Terraverde Growth Fund II, LP)
+3.00
+To be repaid at closing per SPA Section 2.03
+Total Closing Indebtedness
+34.20
+$22.7M + $8.5M + $3.0M = $34.2M
+Estimated Cash at Closing
+5.80
+Subject to closing date measurement
+Seller Transaction Expenses (Estimated)
+4.10
+Legal, advisory, accounting, banker fees payable by Seller at closing
+Escrow Amount
+22.96
+$287.0M × 8% = $22.96M; held 18 months post-closing per SPA Section 2.06
+PURCHASE PRICE WATERFALL (ESTIMATED):
+Implied Enterprise Value
+287.00
+Per EBITDA Bridge tab: $30.21M × 9.5x = $287.0M
+Plus: Estimated NWC Surplus (vs. Target)
+11.40
+Dollar-for-dollar adjustment per SPA Section 2.04
+Plus: Cash at Closing
+5.80
+Less: Closing Indebtedness
+(34.20)
+Less: Seller Transaction Expenses
+(4.10)
+Estimated Closing Payment (Before Escrow)
+265.90
+$287.0M + $11.4M + $5.8M - $34.2M - $4.1M = $265.9M
+Less: Escrow Holdback
+(22.96)
+8% of EV; released 18 months post-closing subject to indemnity claims
+Estimated Cash to Seller at Closing
+242.94
+$265.9M - $22.96M = $242.94M
+CONTINGENT / OFF-BALANCE-SHEET LIABILITIES — FOR REFERENCE:
+Frozen DB Pension Plan — Unfunded Liability (Seller Reported)
+4.30
+Per January 2024 actuarial valuation. Pension frozen Dec 31, 2018.
+Frozen DB Pension Plan — Updated Estimate (Ridgeline Actuary)
+6.80
+See EBITDA Bridge tab — Ridgeline independent actuary estimate. Delta = $2.5M. FLAG: Requires updated valuation or price adjustment. Escalate to Catherine Reeves and David Kowalski.
+Pension Liability Delta
+2.50
+$6.8M - $4.3M = $2.5M additional unfunded liability not reflected in SPA Section 3.17(d) representation
+Change-in-Control Severance Exposure (8 executives)
+3.01
+8 × $245K avg base × 1.5 = $2.94M + $67.2K COBRA = $3.01M max
+Martinez v. PrecisionFlow — Insurance Gap
+2.00
+Claim: $12M; Policy limit: $10M/occurrence; Potential uninsured exposure: $2.0M
+Thompson EEOC Charge — Estimated Settlement
+0.15–0.35
+Per Target counsel estimate: $150K–$350K range
+Capital Expenditures FY2024 (for reference)
+7.30
+Not a liability; shown for cash flow context. Capex/Revenue = 5.1%.
+TOTAL IDENTIFIED CONTINGENT EXPOSURE (est. range):
+12.0–12.2
+Pension delta ($2.5M) + CIC severance ($3.01M) + Martinez gap ($2.0M) + Thompson ($0.15–0.35M) + Seller pension stale figure gap ($4.3M already on balance sheet) = $7.66M–$7.86M incremental; total unfunded pension + contingent = $12.0M–$12.2M

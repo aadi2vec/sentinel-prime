@@ -1,0 +1,344 @@
+{
+  "task_id": "extract-change-of-control-provisions",
+  "arm": "control",
+  "pooled": 0.4,
+  "all_pass": false,
+  "n_criteria": 55,
+  "wrote": [
+    "change-of-control-extraction-report.docx"
+  ],
+  "elapsed_s": 218.4802770614624,
+  "tokens": 270399,
+  "criteria": [
+    {
+      "id": "C-001",
+      "title": "ISSUE_001: Identifies Northland anti-assignment clause in Section 14.2",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Northland Section 14.2 and states that it prohibits assignment, transfer, or delegation \"whether by operation of law or otherwise\" without the other party\u2019s prior written consent."
+    },
+    {
+      "id": "C-002",
+      "title": "ISSUE_001: Flags absence of explicit change of control definition in Northland MSA",
+      "verdict": "pass",
+      "reasoning": "The report expressly states that the Northland MSA has no express \u201cChange of Control\u201d clause and identifies Section 14.2\u2019s anti-assignment provision as the relevant analogous provision."
+    },
+    {
+      "id": "C-003",
+      "title": "ISSUE_001: Analyzes whether reverse triangular merger constitutes 'assignment by operation of law'",
+      "verdict": "fail",
+      "reasoning": "The report notes that Northland Section 14.2 covers transfers by operation of law and that a merger may implicate the clause, but it does not specifically analyze whether a reverse triangular merger in which Apex survives constitutes an assignment by operation of law. It also does not discuss the jurisdiction-dependent or legally uncertain nature of that issue."
+    },
+    {
+      "id": "C-004",
+      "title": "ISSUE_001: Flags Northland revenue concentration risk (~19.3% / ~$36.2M)",
+      "verdict": "fail",
+      "reasoning": "The report discusses Northland's assignment and change-of-control risks but does not quantify Northland's revenue concentration as approximately 19.3% or $36.2 million, nor does it use such concentration to support a high or critical risk rating. It rates Northland as high for assignments and low to medium for ordinary ownership changes only."
+    },
+    {
+      "id": "C-005",
+      "title": "ISSUE_002: Identifies Section 1.01 'Change of Control' definition with >50% voting stock threshold",
+      "verdict": "fail",
+      "reasoning": "The report expressly states that no substantive analysis was supplied for the Summit credit agreement and does not identify a Section 1.01 Change of Control definition or a greater-than-50% voting stock threshold."
+    },
+    {
+      "id": "C-006",
+      "title": "ISSUE_002: Identifies Section 8.01(j) 'Change in Control' definition with >35% threshold OR board replacement",
+      "verdict": "fail",
+      "reasoning": "The report states that the Summit credit agreement had no substantive analysis supplied and expressly says that no operative change-of-control provision could be confirmed. It does not identify Section 8.01(j), the second Change in Control definition, the greater-than-35% voting stock threshold, or the board-replacement trigger."
+    },
+    {
+      "id": "C-007",
+      "title": "ISSUE_002: Flags inconsistency between the two credit agreement CoC definitions",
+      "verdict": "fail",
+      "reasoning": "The report states that no substantive credit-agreement analysis was supplied and leaves the issue undetermined. It does not identify or flag the inconsistency between the two definitions, including the 50% versus 35% thresholds and the differing terms 'Change of Control' and 'Change in Control.'"
+    },
+    {
+      "id": "C-008",
+      "title": "ISSUE_002: Notes that merger triggers both credit agreement definitions",
+      "verdict": "fail",
+      "reasoning": "The report does not analyze the Voltan merger or the credit agreement's two change-of-control definitions. It expressly states that no substantive credit-agreement analysis was supplied and that the consequences cannot be determined, so it fails to conclude that the merger triggers both the 50% and 35% thresholds."
+    },
+    {
+      "id": "C-009",
+      "title": "ISSUE_002: Identifies mandatory prepayment consequence under Section 2.09",
+      "verdict": "fail",
+      "reasoning": "The report does not identify mandatory prepayment under Section 2.09 as a consequence of the credit agreement's change-of-control provisions. It expressly states that the credit agreement was not substantively analyzed and that mandatory prepayment consequences cannot be determined."
+    },
+    {
+      "id": "C-010",
+      "title": "ISSUE_002: Identifies event of default consequence under Section 8.01",
+      "verdict": "fail",
+      "reasoning": "The report does not identify an Event of Default under Section 8.01 as a consequence of the credit agreement\u2019s change-of-control provisions. Instead, it states that the credit agreement was not substantively analyzed and that default or acceleration consequences cannot be determined."
+    },
+    {
+      "id": "C-011",
+      "title": "ISSUE_002: Quantifies credit facility exposure at $42.5M drawn amount",
+      "verdict": "fail",
+      "reasoning": "The report does not mention the $42.5 million drawn amount or the $75 million total commitment, and it does not quantify mandatory prepayment exposure for the credit facility."
+    },
+    {
+      "id": "C-012",
+      "title": "ISSUE_003: Identifies Kenji buy-out option triggered by change of control in Section 12.3",
+      "verdict": "fail",
+      "reasoning": "The report states that no substantive analysis was supplied for the Apex-Kenji JV Agreement and expressly says the trigger and consequences cannot be determined. It does not identify Section 12.3, Kenji's buy-out option, or the trigger of a third-party acquisition of 50% or more of Apex's voting equity."
+    },
+    {
+      "id": "C-013",
+      "title": "ISSUE_003: Identifies carve-out condition (i) \u2014 maintaining Apex management team for 18 months",
+      "verdict": "fail",
+      "reasoning": "The report does not identify the Section 12.3(b) carve-out condition requiring Apex to maintain its existing management team for 18 months post-closing."
+    },
+    {
+      "id": "C-014",
+      "title": "ISSUE_003: Identifies carve-out condition (ii) \u2014 successor entity >$500M fluid control products revenue",
+      "verdict": "fail",
+      "reasoning": "The report does not identify the Section 12.3(b) carve-out requiring the successor entity's consolidated annual revenue from fluid control products to exceed $500 million."
+    },
+    {
+      "id": "C-015",
+      "title": "ISSUE_003: Concludes carve-out does not apply \u2014 Voltan's ~$410M falls short of $500M",
+      "verdict": "fail",
+      "reasoning": "The report does not analyze Voltan's flow control division revenue, the $500 million threshold, or whether the carve-out applies. It therefore fails to conclude that the carve-out likely does not apply because approximately $410 million falls below the threshold."
+    },
+    {
+      "id": "C-016",
+      "title": "ISSUE_004: Identifies Hendricks termination right in Section 9.1 upon change of control",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Hendricks Section 9.1 as granting the Licensor the right to terminate 'immediately upon written notice' and in its 'sole and absolute discretion' upon a Change of Control. It also identifies Section 1.3's broad definition, including any merger, consolidation, or reorganization involving Licensee."
+    },
+    {
+      "id": "C-017",
+      "title": "ISSUE_004: Flags absence of cure period in Hendricks license",
+      "verdict": "pass",
+      "reasoning": "The report expressly states that Hendricks's termination right is exercisable in its 'sole and absolute discretion' and that there is 'no prior notice period, cure period, or opportunity' to obtain consent."
+    },
+    {
+      "id": "C-018",
+      "title": "ISSUE_004: Identifies FlowLogic technology as embedded in AX-7000 product line",
+      "verdict": "fail",
+      "reasoning": "The report mentions that the Hendricks agreement concerns 'Licensed Technology' and the AX-7000 Product Line, but it does not identify the technology as FlowLogic or state that FlowLogic is embedded in the AX-7000 product line."
+    },
+    {
+      "id": "C-019",
+      "title": "ISSUE_004: Quantifies AX-7000/FlowLogic revenue exposure at ~$52.3M",
+      "verdict": "fail",
+      "reasoning": "The report identifies the Hendricks license and AX-7000 Product Line as high risk but does not quantify the associated TTM revenue exposure at approximately $52.3 million."
+    },
+    {
+      "id": "C-020",
+      "title": "ISSUE_005: Identifies 'indirect' change of control language in PacWest Section 1.1(c)",
+      "verdict": "pass",
+      "reasoning": "The report identifies PacWest Section 1.1(c) and expressly quotes/ describes coverage of 'any direct or indirect change in ultimate ownership or control.' It also flags the breadth of the provision by noting that indirect ultimate-control changes have no stated percentage threshold and create termination uncertainty."
+    },
+    {
+      "id": "C-021",
+      "title": "ISSUE_005: Flags downstream risk \u2014 future change of Voltan ownership could re-trigger",
+      "verdict": "fail",
+      "reasoning": "The report describes PacWest's broad direct or indirect change-of-control language but does not identify Voltan or explain that a future change in Voltan's ownership or control could independently re-trigger the PacWest provision and create downstream implications."
+    },
+    {
+      "id": "C-022",
+      "title": "ISSUE_005: Identifies PacWest consent/termination timing (60 days post-closing / 90 days' notice)",
+      "verdict": "pass",
+      "reasoning": "The report expressly states that PacWest may terminate on 90 days' written notice and, under Section 10.5(c), may terminate if consent is not obtained within 60 days after closing. It also reiterates both timing requirements in the risk analysis and recommendations."
+    },
+    {
+      "id": "C-023",
+      "title": "ISSUE_005: Quantifies PacWest revenue exposure (~11.7% / ~$21.9M)",
+      "verdict": "fail",
+      "reasoning": "The report discusses PacWest termination risk and recommends mapping purchase orders and assessing replacement supply capacity, but it does not quantify PacWest revenue as approximately 11.7% of Apex's TTM revenue or approximately $21.9 million."
+    },
+    {
+      "id": "C-024",
+      "title": "ISSUE_006: Identifies single-trigger equity acceleration in Hesse Section 5.4",
+      "verdict": "fail",
+      "reasoning": "The report states that no substantive analysis was supplied for the Hesse employment agreement and expressly says it cannot determine whether the agreement contains accelerated vesting or other change-of-control provisions. It therefore does not identify Section 5.4 or the single-trigger acceleration of all unvested equity awards upon consummation of a Change of Control without requiring termination."
+    },
+    {
+      "id": "C-025",
+      "title": "ISSUE_006: Flags conflict between single-trigger acceleration and merger agreement RSU rollover",
+      "verdict": "fail",
+      "reasoning": "The report does not identify the conflict between Dr. Hesse's single-trigger acceleration provision and the contemplated rollover of Apex RSUs into Voltan RSUs on the same vesting schedule. It merely lists the Hesse agreement as undetermined and recommends further review."
+    },
+    {
+      "id": "C-026",
+      "title": "ISSUE_006: Quantifies RSU acceleration cost at ~$967,230",
+      "verdict": "fail",
+      "reasoning": "The report does not quantify Dr. Hesse's RSU acceleration cost at approximately $967,230. It states that the Hesse employment agreement was not substantively analyzed and recommends reviewing equity and incentive documents, but provides no RSU count, share value, or financial calculation."
+    },
+    {
+      "id": "C-027",
+      "title": "ISSUE_007: Identifies deemed-assignment clause in HQ lease Section 22.2",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies HQ lease Section 22.2 as treating a direct or indirect change in control, mergers, consolidations, and controlling equity transfers as a \"Deemed Assignment,\" and explains that prior written landlord consent is required."
+    },
+    {
+      "id": "C-028",
+      "title": "ISSUE_007: Identifies prior written landlord consent requirement in Section 22.1",
+      "verdict": "pass",
+      "reasoning": "The report expressly states under the Crescent Ridge lease findings that Section 22.1 prohibits assignments and other transfers without the Landlord\u2019s prior written consent."
+    },
+    {
+      "id": "C-029",
+      "title": "ISSUE_007: Identifies 'not unreasonably withheld' consent standard in Section 22.3",
+      "verdict": "pass",
+      "reasoning": "The report expressly states under the Crescent Ridge lease findings that Section 22.3 provides consent may not be unreasonably withheld, conditioned, or delayed."
+    },
+    {
+      "id": "C-030",
+      "title": "ISSUE_007: Identifies landlord termination right on 120 days' notice under Section 22.4",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies under the Crescent Ridge lease, Section 22.4, that the Landlord may terminate on at least 120 days' notice, including in the context of consent not being obtained."
+    },
+    {
+      "id": "C-031",
+      "title": "ISSUE_007: Identifies early termination fee in Section 22.4",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies under Section 22.4 that the landlord may terminate the lease and charge an early termination fee equal to 18 months of initial monthly Base Rent, calculated as $3,240,000."
+    },
+    {
+      "id": "C-032",
+      "title": "ISSUE_007: Quantifies lease early termination fee at $3.24M",
+      "verdict": "pass",
+      "reasoning": "The report explicitly quantifies the Crescent Ridge lease early termination fee as $3,240,000, calculated as $180,000 monthly base rent multiplied by 18 months, which equals $3.24 million."
+    },
+    {
+      "id": "C-033",
+      "title": "ISSUE_008: Identifies insurance policy auto-conversion to run-off upon CoC",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section IV.F of the product-liability policy as providing automatic conversion to Run-Off upon a change of control. It also states that Run-Off coverage applies only to claims arising from products manufactured, sold, handled, distributed, or disposed of before the Run-Off Conversion Date, satisfying the criterion."
+    },
+    {
+      "id": "C-034",
+      "title": "ISSUE_008: Flags coverage gap risk for post-closing new products",
+      "verdict": "pass",
+      "reasoning": "The report expressly states that the existing policy provides no coverage for post-closing products and recommends arranging replacement product-liability coverage effective no later than closing."
+    },
+    {
+      "id": "C-035",
+      "title": "ISSUE_008: Notes $25M aggregate coverage limit",
+      "verdict": "fail",
+      "reasoning": "The report discusses aggregate limits and aggregate-limit erosion but does not mention the product liability policy's specific $25 million aggregate coverage limit."
+    },
+    {
+      "id": "C-036",
+      "title": "ISSUE_009: Identifies cross-contract timing mismatches for consents/actions",
+      "verdict": "pass",
+      "reasoning": "The report addresses at least two specified timing issues: PacWest's post-closing 60-day consent period and the Crescent Ridge HQ lease's prior written consent requirement, including the advance request and response timing. It also recommends sequencing consents and closing actions in the cross-document diligence recommendations and closing checklist, thereby identifying relevant cross-contract timing and sequencing concerns."
+    },
+    {
+      "id": "C-037",
+      "title": "ISSUE_009: Notes that pre-closing consent solicitation is necessary for lease and PacWest",
+      "verdict": "pass",
+      "reasoning": "The report expressly recommends obtaining Landlord consent for the Crescent Ridge lease before signing or closing and submitting the consent request at least 30 days before closing. It also recommends seeking PacWest's written consent before signing or closing, or obtaining a binding waiver and transition arrangement. This satisfies the requirement to note that pre-closing consent solicitation is necessary for the lease and/or PacWest agreement."
+    },
+    {
+      "id": "C-038",
+      "title": "ISSUE_009: Notes credit agreement 30-day post-closing prepayment window under Section 2.09(d)",
+      "verdict": "fail",
+      "reasoning": "The report does not identify the credit agreement's 30-day post-closing mandatory prepayment window under Section 2.09(d). It instead states that the credit agreement was not substantively analyzed and that mandatory prepayment consequences cannot be determined. Because the required timing element is omitted, the criterion is not satisfied."
+    },
+    {
+      "id": "C-039",
+      "title": "ISSUE_010: Identifies JV buy-out pricing mechanism at 4.5x EBITDA",
+      "verdict": "fail",
+      "reasoning": "The report does not identify the JV agreement's Section 12.3(c) buy-out pricing mechanism of 4.5x the JV's trailing twelve-month EBITDA for Apex's 55% stake. It expressly states that the JV agreement was not substantively analyzed and that pricing consequences cannot be determined."
+    },
+    {
+      "id": "C-040",
+      "title": "ISSUE_010: Calculates JV buy-out price at ~$22.95M",
+      "verdict": "fail",
+      "reasoning": "The report does not calculate the JV buy-out price of approximately $22.95 million based on $5.1 million EBITDA \u00d7 4.5x for the 55% interest. It only identifies the Apex-Kenji JV agreement as undetermined."
+    },
+    {
+      "id": "C-041",
+      "title": "ISSUE_010: Flags below-market pricing / value leakage risk from 4.5x EBITDA buy-out",
+      "verdict": "fail",
+      "reasoning": "The report does not mention a 4.5x EBITDA buy-out multiple, prevailing market-comparable transaction multiples, or any resulting value leakage or discount risk to Apex/Voltan."
+    },
+    {
+      "id": "C-042",
+      "title": "ISSUE_011: Flags Crestline ERP license as potential unreviewed CoC risk",
+      "verdict": "fail",
+      "reasoning": "The report does not mention the Crestline ERP Platform or Crestline Software Solutions, nor does it flag the ERP license as an unreviewed potential change-of-control or anti-assignment risk."
+    },
+    {
+      "id": "C-043",
+      "title": "ISSUE_011: Notes operational risk from ERP license termination",
+      "verdict": "fail",
+      "reasoning": "The report discusses the Hendricks license and related operational consequences, but it does not identify or discuss a Crestline ERP license or the risk of losing access to mission-critical manufacturing or operational systems if consent is not obtained."
+    },
+    {
+      "id": "C-044",
+      "title": "ISSUE_012: Notes UCC \u00a7 2-210 interaction with Northland anti-assignment clause",
+      "verdict": "fail",
+      "reasoning": "The report does not reference UCC \u00a7 2-210 or discuss the Uniform Commercial Code's limitations on anti-assignment provisions, including the distinction between assignment of rights and delegation of duties. Therefore, it does not address the required statutory interplay for the Northland agreement."
+    },
+    {
+      "id": "C-045",
+      "title": "Correct identification of merger structure as reverse triangular merger",
+      "verdict": "fail",
+      "reasoning": "The report notes that certain contract provisions cover reverse triangular mergers, but it does not identify the transaction itself as a reverse triangular merger in which Merger Sub merges with and into Apex, with Apex surviving as a wholly owned subsidiary of Voltan. It therefore does not apply the required transaction structure to its analysis."
+    },
+    {
+      "id": "C-046",
+      "title": "Correctly notes Apex survives as entity in the reverse triangular merger",
+      "verdict": "fail",
+      "reasoning": "The report identifies reverse triangular mergers as covered transactions in several agreements, but it does not explain that Apex would survive as the legal entity in a reverse triangular merger or analyze how that survival affects whether anti-assignment and change-of-control provisions are triggered."
+    },
+    {
+      "id": "C-047",
+      "title": "All 8 contracts are addressed in the report",
+      "verdict": "pass",
+      "reasoning": "The report addresses all eight contracts, including separate portfolio and detailed sections for Northland, PacWest, Summit credit agreement, Apex-Kenji JV, Hendricks, Dr. Hesse employment agreement, Crescent Ridge HQ lease, and the product-liability policy. For three contracts, it expressly notes that substantive analysis was unavailable, but none is omitted."
+    },
+    {
+      "id": "C-048",
+      "title": "Report includes risk ratings for each contract",
+      "verdict": "pass",
+      "reasoning": "The report assigns named risk ratings to all eight contracts in the Portfolio Risk Snapshot: Undetermined, High, High, Low to Medium, or High. This exceeds the requirement to rate at least six of the eight contracts using a tiered scale."
+    },
+    {
+      "id": "C-049",
+      "title": "Hendricks license rated Critical or High risk",
+      "verdict": "pass",
+      "reasoning": "The Hendricks license is expressly rated High risk in the Portfolio Risk Snapshot. The report identifies the no-cure-period, sole-discretion immediate termination right and significant operational consequences, satisfying the required risk tier."
+    },
+    {
+      "id": "C-050",
+      "title": "Northland Refining rated Critical or High risk",
+      "verdict": "pass",
+      "reasoning": "The report rates the Northland Refining MSA as High risk for assignments, specifically citing the ambiguous anti-assignment clause, consent at the counterparty's sole discretion, and potential nullity of unauthorized transfers. Although it separately characterizes ordinary ownership changes as Low to Medium risk, the contract is expressly assigned a High risk tier, satisfying the criterion."
+    },
+    {
+      "id": "C-051",
+      "title": "Credit agreement rated Critical or High risk",
+      "verdict": "fail",
+      "reasoning": "The Summit National Bank credit agreement is rated \"Undetermined,\" not Critical or High. The report also fails to identify the dual inconsistent definitions and $42.5 million mandatory prepayment exposure required by the criterion."
+    },
+    {
+      "id": "C-052",
+      "title": "Report includes section references for each identified provision",
+      "verdict": "fail",
+      "reasoning": "The report provides specific section references for five contracts: Hendricks (Sections 1.3, 9.1, 10.1, etc.), Crescent Ridge lease (Sections 22.1\u201322.4), Northland (Sections 14.2\u201314.3), PacWest (Sections 1.1(c), 10.5, 12.2), and the product-liability policy (Sections II, IV.E, IV.F). The Apex-Kenji JV agreement, Summit credit agreement, and Hesse employment agreement are marked undetermined and contain no section references. Because references are provided for only 5 of 8 contracts, the criterion requiring at least 6 is not satisfied."
+    },
+    {
+      "id": "C-053",
+      "title": "ISSUE_006: Identifies the 45,000 unvested RSUs",
+      "verdict": "fail",
+      "reasoning": "The report does not state that Dr. Hesse holds 45,000 unvested restricted stock units subject to single-trigger acceleration. It identifies the Hesse employment agreement as unresolved and does not specify the RSU number."
+    },
+    {
+      "id": "C-054",
+      "title": "ISSUE_003: Identifies Apex's 55% JV ownership stake",
+      "verdict": "pass",
+      "reasoning": "The report expressly states that Schedule C lists Apex-Kenji Precision JV, LLC as 55% owned by the Named Insured, Apex Industrial Technologies, Inc."
+    },
+    {
+      "id": "C-055",
+      "title": "Report includes pre-closing action items or recommendations",
+      "verdict": "pass",
+      "reasoning": "The report includes numerous specific pre-closing recommendations, including obtaining signed consents for the Hendricks license, Crescent Ridge lease, and PacWest agreement; arranging replacement product-liability coverage effective at closing; negotiating waivers and successor-rights amendments; and making third-party consents a condition to closing."
+    }
+  ]
+}

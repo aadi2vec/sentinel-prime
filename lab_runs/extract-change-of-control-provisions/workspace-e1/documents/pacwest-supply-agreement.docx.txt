@@ -1,0 +1,224 @@
+SUPPLY AGREEMENT
+Contract No. PWA-SUP-2021-117
+This Supply Agreement (this "Agreement") is entered into as of June 1, 2021 (the "Effective Date"), by and between:
+PacWest Water Authority, a municipal authority organized under the laws of the State of California ("Authority" or "PacWest"), with its principal office located at 2500 Clearwater Boulevard, Suite 200, Sacramento, California 95814;
+and
+Apex Industrial Technologies, Inc., a corporation organized under the laws of the State of Delaware ("Supplier" or "Apex"), with its principal office located at 4200 Crescent Ridge Parkway, Suite 600, Cincinnati, Ohio 45202.
+PacWest and Apex are each referred to herein as a "Party" and collectively as the "Parties."
+RECITALS
+WHEREAS, PacWest is a municipal water authority duly organized under the laws of the State of California, responsible for providing water treatment and distribution services to municipal, commercial, and regional customers within its service territory;
+WHEREAS, Apex designs, engineers, and manufactures precision fluid control valves, actuators, and related automation systems for various industries, including municipal and industrial water treatment;
+WHEREAS, PacWest desires to procure from Apex, and Apex desires to supply to PacWest, certain fluid control products, actuators, automation controllers, and related components for use in PacWest's water treatment facilities and distribution infrastructure;
+WHEREAS, the Parties wish to establish a framework for the ongoing supply of Products (as defined herein) on the terms and conditions set forth in this Agreement, including pricing, delivery, quality, and warranty provisions that reflect the critical nature of PacWest's public water service mission; and
+WHEREAS, Apex has been qualified as an approved vendor through PacWest's vendor qualification and procurement process and has demonstrated the technical capability, manufacturing capacity, and quality management standards necessary to serve as a supplier to PacWest.
+NOW, THEREFORE, in consideration of the mutual covenants and agreements set forth herein, and for other good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, the Parties agree as follows:
+ARTICLE 1 — DEFINITIONS AND INTERPRETATION
+Section 1.1 — Definitions
+As used in this Agreement, the following terms shall have the meanings set forth below:
+(a) "Affiliate" shall mean, with respect to any Party, any entity that directly or indirectly controls, is controlled by, or is under common control with such Party. For purposes of this definition, "control" means the ownership, directly or indirectly, of more than fifty percent (50%) of the voting securities or equivalent ownership interest of an entity.
+(b) "Authority Representative" shall mean Sandra Liu, Director of Purchasing, PacWest Water Authority, or such other person as PacWest may designate in writing from time to time by notice to Apex in accordance with Section 16.1.
+(c) "Change of Control" shall mean (i) any merger, consolidation, or reorganization of Supplier with or into another entity, (ii) the sale or transfer of all or substantially all of the assets of Supplier, (iii) any transaction or series of related transactions resulting in any person or group of persons (as such terms are used in Section 13(d) of the Securities Exchange Act of 1934, as amended) acquiring beneficial ownership of more than fifty percent (50%) of the outstanding voting securities of Supplier, or (iv) any direct or indirect change in the ultimate ownership or control of Supplier.
+(d) "Confidential Information" shall mean any and all non-public information, whether disclosed orally, in writing, electronically, or by any other means, that is designated as confidential or that reasonably should be understood to be confidential given the nature of the information and the circumstances of disclosure, including technical data, trade secrets, business plans, financial information, pricing, customer lists, and proprietary manufacturing processes.
+(e) "Delivery Date" shall mean the date specified in a Purchase Order on which Products are to be delivered to the designated delivery location.
+(f) "Force Majeure Event" shall mean any event or circumstance beyond the reasonable control of the affected Party, including acts of God, natural disasters, fire, flood, earthquake, hurricane, epidemic, pandemic, war, terrorism, civil unrest, governmental orders, embargoes, sanctions, labor strikes (excluding strikes involving the affected Party's own employees), and disruption of transportation or utility infrastructure.
+(g) "Products" shall mean precision fluid control valves, actuators, automation controllers, and related components as further described in Exhibit A (Product Catalog and Specifications) attached hereto.
+(h) "Purchase Order" shall mean a written order submitted by PacWest to Supplier in the form attached hereto as Exhibit B, or in such other form as may be mutually agreed upon by the Parties.
+(i) "Specifications" shall mean the technical specifications for Products as set forth in Exhibit A, as may be amended from time to time in accordance with Section 5.2.
+(j) "Supplier Representative" shall mean the individual designated by Apex to serve as the primary point of contact for all matters arising under this Agreement, initially the Vice President of Sales of Apex or his or her designee.
+(k) "Term" shall have the meaning set forth in Section 10.1.
+Section 1.2 — Interpretation
+The headings in this Agreement are for convenience of reference only and shall not affect the interpretation of this Agreement. Unless the context otherwise requires, the word "including" shall mean "including without limitation." Words in the singular include the plural and vice versa. References to Sections, Articles, and Exhibits refer to Sections, Articles, and Exhibits of this Agreement unless otherwise specified. All references to governing law shall be construed consistently with Article 15 of this Agreement.
+ARTICLE 2 — SUPPLY OF PRODUCTS
+Section 2.1 — Appointment as Supplier
+PacWest hereby appoints Apex as a non-exclusive supplier of Products for PacWest's water treatment and distribution operations during the Term. Apex accepts such appointment and agrees to supply Products to PacWest in accordance with the terms and conditions of this Agreement.
+Section 2.2 — Purchase Orders
+PacWest shall submit Purchase Orders to Apex specifying the Products ordered (by catalog number), quantities, unit prices (per Exhibit C), Delivery Dates, delivery locations, and any special instructions. Apex shall confirm acceptance of each Purchase Order in writing within five (5) business days of receipt. Apex may reject a Purchase Order only if it cannot reasonably meet the requested Delivery Date, in which case Apex shall propose an alternative Delivery Date within two (2) business days following the date of rejection. Each accepted Purchase Order shall be governed by and subject to the terms of this Agreement.
+Section 2.3 — Minimum Purchase Commitment
+PacWest agrees to purchase a minimum of Four Million Dollars ($4,000,000) in Products per contract year during the Term. For purposes of clarity, each contract year shall be measured on the basis of the twelve-month period commencing June 1 and ending May 31 of the following calendar year. If PacWest fails to meet the minimum purchase commitment in any contract year, Apex's sole and exclusive remedy shall be to reduce the volume discount tier applicable to PacWest (as set forth in Exhibit C) in the immediately following contract year.
+Section 2.4 — Forecasting
+PacWest shall provide Apex with rolling twelve (12) month non-binding demand forecasts on a quarterly basis, delivered no later than the fifteenth (15th) day of the first month of each calendar quarter. Forecasts are provided for planning purposes only and shall not constitute binding Purchase Orders or commitments by PacWest to purchase any specific quantity of Products.
+Section 2.5 — Capacity Reservation
+Apex shall maintain sufficient manufacturing capacity to fulfill Purchase Orders consistent with PacWest's most recent forecast, subject to a maximum variance of twenty percent (20%) above forecast quantities without extension of standard lead times. Orders exceeding such twenty percent (20%) threshold may be subject to extended lead times as mutually agreed by the Parties.
+ARTICLE 3 — PRICING AND PAYMENT
+Section 3.1 — Pricing
+Prices for Products shall be as set forth in Exhibit C (Pricing Schedule) attached hereto. Prices are firm for each contract year and subject to annual adjustment effective as of the first day of each contract year, provided that no annual increase shall exceed the greater of (a) three percent (3%) or (b) the percentage change in the U.S. Bureau of Labor Statistics Producer Price Index for Industrial Commodities (Series WPU03) for the twelve-month period ending March 31 of the applicable year.
+Section 3.2 — Invoicing
+Apex shall invoice PacWest upon shipment of Products. Each invoice shall reference the applicable Purchase Order number, itemize the Products shipped, and include quantities and unit prices consistent with Exhibit C.
+Section 3.3 — Payment Terms
+All undisputed invoices shall be due and payable net forty-five (45) days from the date of invoice. Late payments shall accrue interest at a rate of one percent (1.0%) per month, or the maximum rate permitted by applicable law, whichever is less, from the date such payment was due until the date of actual payment.
+Section 3.4 — Taxes
+PacWest is a municipal authority exempt from certain federal, state, and local taxes. PacWest shall provide Apex with applicable tax exemption certificates upon request. All prices set forth in Exhibit C are exclusive of applicable taxes; provided, however, that PacWest shall not be responsible for the payment of any taxes from which it is exempt under applicable law.
+Section 3.5 — Audit Rights
+PacWest shall have the right, upon not less than thirty (30) days' prior written notice to Apex, to audit or cause an independent third-party auditor to audit Apex's books and records solely to the extent relating to pricing, invoicing, and discount calculations under this Agreement. Such audit rights may be exercised no more than once per contract year and shall be conducted during Apex's normal business hours at Apex's principal place of business.
+ARTICLE 4 — DELIVERY AND ACCEPTANCE
+Section 4.1 — Delivery
+Apex shall deliver Products to the delivery locations specified in each Purchase Order on or before the applicable Delivery Date. All deliveries shall be made DDP (Delivered Duty Paid) in accordance with Incoterms 2020. Risk of loss or damage to Products shall pass from Apex to PacWest upon delivery to the designated delivery location.
+Section 4.2 — Inspection and Acceptance
+PacWest shall have thirty (30) calendar days from the date of delivery to inspect Products and either accept or reject them. Any rejection must be communicated to Apex in writing, specifying in reasonable detail the nature of the nonconformity or defect. Products not rejected in writing within the thirty (30) calendar day inspection period shall be deemed accepted by PacWest.
+Section 4.3 — Rejected Products
+Apex shall, at its option, repair or replace any rejected Products within fifteen (15) business days of receipt of PacWest's written rejection notice. All costs associated with the repair or replacement of rejected Products, including return and re-delivery shipping costs, shall be borne by Apex. If Apex fails to repair or replace rejected Products within such fifteen (15) business day period, PacWest may cancel the applicable Purchase Order with respect to such rejected Products and shall receive a full refund of any amounts paid for such Products.
+Section 4.4 — Title
+Title to Products shall pass from Apex to PacWest upon delivery and acceptance of such Products in accordance with Section 4.2. Prior to acceptance, Apex shall retain title to and risk of loss in Products delivered to PacWest.
+ARTICLE 5 — SPECIFICATIONS AND QUALITY
+Section 5.1 — Compliance with Specifications
+All Products delivered under this Agreement shall conform in all material respects to the Specifications set forth in Exhibit A and shall be manufactured in accordance with Apex's standard quality management system, which shall at all times during the Term be certified to ISO 9001:2015 (or successor standard) by an accredited certification body.
+Section 5.2 — Changes to Specifications
+Apex shall not make any material changes to the Specifications of any Products without PacWest's prior written consent. Apex shall provide PacWest with at least ninety (90) days' advance written notice of any proposed material changes to Specifications, accompanied by a detailed description of the proposed changes and an assessment of any impact on form, fit, function, or regulatory compliance.
+Section 5.3 — Regulatory Compliance
+All Products shall comply with all applicable federal, state, and local laws, regulations, and standards, including without limitation NSF/ANSI 61 (Drinking Water System Components — Health Effects), NSF/ANSI 372 (Drinking Water System Components — Lead Content), and applicable standards issued by the American Water Works Association (AWWA), to the extent applicable to the Products and their intended use in PacWest's water treatment and distribution systems.
+Section 5.4 — Quality Audits
+PacWest shall have the right to conduct quality audits of Apex's manufacturing facilities upon not less than thirty (30) days' prior written notice. Such audits may be conducted no more than twice per contract year and shall take place during normal business hours. Apex shall cooperate fully with any such audit and shall provide reasonable access to its facilities, personnel, and quality records.
+ARTICLE 6 — WARRANTIES
+Section 6.1 — Product Warranty
+Apex warrants that all Products delivered under this Agreement shall (a) conform to the Specifications set forth in Exhibit A, (b) be free from defects in materials and workmanship, and (c) be fit for the intended purposes described in Exhibit A, including use in municipal water treatment and distribution applications, for a period of thirty-six (36) months from the date of delivery (the "Warranty Period").
+Section 6.2 — Warranty Remedies
+During the Warranty Period, if any Product fails to conform to the warranty set forth in Section 6.1, Apex shall, at PacWest's election, (a) repair the defective Product, (b) replace the defective Product with a conforming Product, or (c) refund the purchase price paid for the defective Product, in each case at Apex's sole cost and expense, including all shipping and handling costs.
+Section 6.3 — Exclusions
+The warranties set forth in Section 6.1 shall not apply to any Product defect or failure resulting from (a) misuse, abuse, or negligence by PacWest or its agents, (b) unauthorized modification or alteration of Products by PacWest or any third party, (c) failure to follow Apex's written installation, operation, or maintenance instructions, or (d) normal wear and tear.
+Section 6.4 — Warranty Disclaimer
+EXCEPT AS EXPRESSLY SET FORTH IN THIS ARTICLE 6, APEX MAKES NO OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. ALL SUCH OTHER WARRANTIES ARE HEREBY EXPRESSLY DISCLAIMED.
+ARTICLE 7 — INTELLECTUAL PROPERTY
+Section 7.1 — Ownership
+Each Party retains all right, title, and interest in and to its pre-existing intellectual property. Apex retains all rights in and to Product designs, engineering drawings, manufacturing processes, proprietary software, firmware, and all related intellectual property embodied in or associated with the Products.
+Section 7.2 — License
+Apex hereby grants to PacWest a non-exclusive, non-transferable, royalty-free license to use the Products and any software, firmware, or other intellectual property embedded therein solely for PacWest's internal water treatment and distribution operations during the useful life of the Products. PacWest shall not reverse engineer, decompile, or disassemble any Product or embedded software.
+Section 7.3 — Infringement Indemnity
+Apex shall indemnify, defend, and hold harmless PacWest from and against any and all claims, damages, losses, costs, and expenses (including reasonable attorneys' fees) arising from any third-party claim alleging that the Products, as delivered by Apex and used by PacWest in accordance with this Agreement, infringe any United States patent, copyright, or trade secret. The foregoing indemnity shall not apply to the extent any infringement claim arises from (a) modifications to Products made by PacWest or any third party without Apex's prior written consent, (b) use of Products in combination with products or systems not supplied or specified by Apex, or (c) PacWest's use of Products in a manner not contemplated by the Specifications.
+ARTICLE 8 — CONFIDENTIALITY
+Section 8.1 — Obligations
+Each Party shall maintain the confidentiality of the other Party's Confidential Information and shall not disclose such information to any third party without the prior written consent of the disclosing Party, except (a) to its employees, agents, or contractors who have a need to know and who are bound by confidentiality obligations no less restrictive than those set forth herein, or (b) as required by applicable law, regulation, or judicial order. The foregoing obligations shall not apply to information that (i) is or becomes publicly available through no fault of the receiving Party, (ii) was independently developed by the receiving Party without reference to the disclosing Party's Confidential Information, or (iii) was received from a third party without restriction on disclosure.
+Section 8.2 — Public Records
+The Parties acknowledge that PacWest is a municipal authority subject to the California Public Records Act (Cal. Gov. Code § 6250 et seq.) and that certain information provided by Apex to PacWest may be subject to disclosure pursuant thereto. Apex may designate specific Confidential Information as "trade secrets" to the extent permitted by California Government Code Section 6254.7 and other applicable law, and PacWest shall use commercially reasonable efforts to protect such designated information from disclosure to the extent permitted under the California Public Records Act.
+ARTICLE 9 — INDEMNIFICATION AND LIABILITY
+Section 9.1 — Supplier Indemnification
+Apex shall indemnify, defend, and hold harmless PacWest and its officers, directors, elected officials, employees, and agents from and against any and all claims, losses, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from or relating to (a) any defect in Products delivered by Apex, (b) Apex's negligence or willful misconduct in the performance of its obligations under this Agreement, or (c) Apex's material breach of any representation, warranty, or obligation under this Agreement.
+Section 9.2 — Authority Indemnification
+PacWest shall indemnify, defend, and hold harmless Apex and its officers, directors, employees, and agents from and against any and all claims, losses, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from or relating to PacWest's negligence, willful misconduct, or misuse of Products in a manner inconsistent with the Specifications and Apex's written instructions.
+Section 9.3 — Limitation of Liability
+NEITHER PARTY SHALL BE LIABLE TO THE OTHER PARTY FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATING TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY. APEX'S TOTAL AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL NOT EXCEED THE AGGREGATE AMOUNTS PAID BY PACWEST TO APEX UNDER THIS AGREEMENT DURING THE TWENTY-FOUR (24) MONTH PERIOD IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO THE CLAIM.
+Section 9.4 — Insurance
+Apex shall maintain, at its own expense, throughout the Term, the following insurance coverage with carriers rated A- VII or better by A.M. Best: (a) commercial general liability insurance with limits of not less than Five Million Dollars ($5,000,000) per occurrence, (b) product liability insurance with limits of not less than Ten Million Dollars ($10,000,000) in the aggregate, and (c) workers' compensation insurance as required by the laws of the state(s) in which Apex operates. Apex shall provide PacWest with certificates of insurance evidencing such coverage upon request.
+ARTICLE 10 — TERM AND TERMINATION
+Section 10.1 — Initial Term
+This Agreement shall commence on the Effective Date and shall continue for an initial term of five (5) years, expiring on May 31, 2026 (the "Initial Term"), unless earlier terminated in accordance with this Article 10.
+Section 10.2 — Renewal
+Following the Initial Term, this Agreement shall automatically renew for successive one (1) year periods (each, a "Renewal Term"), unless either Party provides written notice of non-renewal to the other Party at least one hundred eighty (180) days prior to the expiration of the then-current Term. The Initial Term and any Renewal Terms are collectively referred to herein as the "Term."
+Section 10.3 — Termination for Cause
+Either Party may terminate this Agreement upon thirty (30) days' written notice to the other Party if such other Party materially breaches any provision of this Agreement and fails to cure such breach within such thirty (30) day notice period. The notice of termination shall specify in reasonable detail the nature of the material breach.
+Section 10.4 — Termination for Convenience
+PacWest may terminate this Agreement for convenience, without cause, upon one hundred twenty (120) days' prior written notice to Apex. In the event of termination for convenience, PacWest shall pay Apex for (a) all Products delivered and accepted prior to the effective date of termination, plus (b) the documented, reasonable costs of any work-in-progress committed by Apex as of the date of the termination notice, up to a maximum amount not to exceed the value of the most recent quarterly forecast provided by PacWest under Section 2.4.
+Section 10.5 — Termination upon Change of Control
+(a) Apex shall provide written notice to PacWest of any Change of Control within ten (10) business days of the consummation thereof. Such notice shall include a description of the transaction, the identity of the acquiring entity or new controlling person(s), and any anticipated impact on Apex's ability to perform its obligations under this Agreement.
+(b) Upon receipt of such notice (or upon PacWest becoming aware of a Change of Control through other means), PacWest shall have the right, in its sole discretion, to either (i) consent to the continuation of this Agreement with the successor entity or the reconstituted Supplier, as applicable, or (ii) terminate this Agreement upon ninety (90) days' written notice to Apex (or its successor).
+(c) If PacWest's consent to the Change of Control is not obtained within sixty (60) days following the closing of the Change of Control transaction, PacWest may exercise its termination right under Section 10.5(b)(ii) at any time thereafter. For the avoidance of doubt, PacWest's failure to respond within such sixty (60) day period shall not constitute consent to the Change of Control or a waiver of PacWest's termination rights.
+(d) During any notice period under this Section 10.5, Apex (or its successor) shall continue to fulfill all outstanding Purchase Orders and shall not diminish the quality, availability, or timeliness of Products supplied to PacWest. The obligations of Apex under this Agreement shall remain in full force and effect during such period.
+Section 10.6 — Effect of Termination
+Upon any expiration or termination of this Agreement, all Purchase Orders that have been accepted by Apex prior to the date of the termination notice shall be fulfilled in accordance with the terms of this Agreement. The following provisions shall survive expiration or termination of this Agreement: Article 6 (Warranties), Article 7 (Intellectual Property), Article 8 (Confidentiality), Article 9 (Indemnification and Liability), Article 15 (Governing Law and Jurisdiction), and any other provisions which by their nature are intended to survive.
+ARTICLE 11 — FORCE MAJEURE
+Section 11.1 — Force Majeure Events
+Neither Party shall be liable for any failure or delay in the performance of its obligations under this Agreement (other than payment obligations) to the extent such failure or delay is caused by a Force Majeure Event, provided that the affected Party complies with its obligations under Section 11.2.
+Section 11.2 — Notice and Mitigation
+The affected Party shall provide prompt written notice to the other Party of the occurrence of a Force Majeure Event, including a description of the event and its expected duration and impact on performance. The affected Party shall use commercially reasonable efforts to mitigate the effects of the Force Majeure Event and to resume performance as soon as practicable.
+Section 11.3 — Extended Force Majeure
+If a Force Majeure Event prevents the affected Party from performing its material obligations under this Agreement for more than one hundred twenty (120) consecutive days, either Party may terminate this Agreement upon written notice to the other Party, without liability for such termination.
+ARTICLE 12 — ASSIGNMENT
+Section 12.1 — Assignment by PacWest
+PacWest may assign this Agreement, in whole or in part, to any successor municipal authority, governmental entity, or agency without the prior consent of Apex, provided that PacWest provides written notice of such assignment to Apex within thirty (30) days thereof.
+Section 12.2 — Assignment by Supplier
+Apex shall not assign this Agreement or any of its rights or obligations hereunder, whether by operation of law or otherwise, without the prior written consent of PacWest, which consent may be withheld in PacWest's sole discretion. Any attempted assignment in violation of this Section 12.2 shall be null and void and of no force or effect. For the avoidance of doubt, any Change of Control (as defined in Section 1.1(c)) shall be subject to the provisions of Section 10.5 and shall not be deemed an assignment for purposes of this Section 12.2, provided that such Change of Control is subject to the notice and consent requirements set forth in Section 10.5.
+Section 12.3 — Binding Effect
+This Agreement shall be binding upon and inure to the benefit of the Parties and their respective permitted successors and assigns.
+ARTICLE 13 — REPRESENTATIONS AND WARRANTIES
+Section 13.1 — Mutual Representations
+Each Party represents and warrants to the other Party that (a) it is duly organized, validly existing, and in good standing under the laws of its jurisdiction of organization, (b) it has full power and authority to enter into this Agreement and to perform its obligations hereunder, and (c) the execution, delivery, and performance of this Agreement does not and will not conflict with, or result in a breach of, any other agreement or obligation to which it is a party or by which it is bound.
+Section 13.2 — Supplier Representations
+Apex further represents and warrants that (a) it holds all necessary licenses, permits, and regulatory approvals required to manufacture and sell the Products in the United States, (b) the Products, as delivered, do not infringe any third-party intellectual property rights, (c) it maintains a quality management system certified to ISO 9001:2015 by an accredited certification body, and (d) it is not currently subject to any pending or, to its knowledge, threatened litigation or governmental investigation that would materially affect its ability to perform its obligations under this Agreement.
+Section 13.3 — Authority Representations
+PacWest represents and warrants that it is a duly organized municipal authority under the laws of the State of California, with full authority to enter into procurement contracts, to expend public funds for the Products contemplated herein, and that the execution of this Agreement has been duly authorized by all necessary action of PacWest's governing body.
+ARTICLE 14 — DISPUTE RESOLUTION
+Section 14.1 — Negotiation
+Any dispute, controversy, or claim arising out of or relating to this Agreement shall first be submitted to the senior executives of each Party (at the level of Director or above) for resolution through good faith negotiation for a period of thirty (30) days following written notice of the dispute from one Party to the other.
+Section 14.2 — Mediation
+If the dispute is not resolved through negotiation within the thirty (30) day period described in Section 14.1, the Parties shall submit the dispute to non-binding mediation in Travis County, Texas, administered by a mutually agreed mediator, for a period not to exceed sixty (60) days from the commencement of mediation.
+Section 14.3 — Litigation
+If the dispute is not resolved through mediation within the period described in Section 14.2, either Party may commence litigation in the state or federal courts located in Travis County, Texas, and each Party hereby consents to the personal jurisdiction of such courts.
+Section 14.4 — Continued Performance
+Pending the resolution of any dispute under this Article 14, both Parties shall continue to perform their respective obligations under this Agreement in good faith.
+ARTICLE 15 — GOVERNING LAW AND JURISDICTION
+This Agreement shall be governed by and construed in accordance with the laws of the State of Texas, without regard to its conflicts of law principles. The Parties irrevocably submit to the exclusive jurisdiction of the state and federal courts located in Travis County, Texas, for the resolution of any dispute, claim, or controversy arising out of or relating to this Agreement. Each Party waives any objection to venue in such courts and any claim that such forum is inconvenient.
+ARTICLE 16 — GENERAL PROVISIONS
+Section 16.1 — Notices
+All notices, requests, consents, and other communications under this Agreement shall be in writing and shall be delivered by hand delivery, nationally recognized overnight courier, or United States certified mail, return receipt requested, postage prepaid, to the following addresses:
+If to PacWest:
+PacWest Water Authority
+Attention: Sandra Liu, Director of Purchasing
+2500 Clearwater Boulevard, Suite 200 Sacramento, California 95814
+With a copy to:
+PacWest Water Authority Office of General Counsel 2500 Clearwater Boulevard, Suite 300 Sacramento, California 95814
+If to Apex:
+Apex Industrial Technologies, Inc.
+Attention: General Counsel
+4200 Crescent Ridge Parkway, Suite 600 Cincinnati, Ohio 45202
+Notices shall be deemed effective upon receipt. Either Party may change its address for notices by providing written notice to the other Party in accordance with this Section 16.1.
+Section 16.2 — Entire Agreement
+This Agreement, including all Exhibits attached hereto (Exhibits A, B, and C), constitutes the entire agreement between the Parties with respect to the subject matter hereof and supersedes all prior and contemporaneous agreements, negotiations, representations, warranties, and understandings, whether written or oral, relating thereto.
+Section 16.3 — Amendments
+This Agreement may not be amended, modified, or supplemented except by a written instrument duly executed by authorized representatives of both Parties.
+Section 16.4 — Waiver
+The failure of either Party to enforce any provision of this Agreement shall not constitute a waiver of such provision or of the right to enforce such provision at a later time. No waiver of any provision of this Agreement shall be effective unless made in writing and signed by the Party granting the waiver. No single or partial exercise of any right or remedy shall preclude any other or further exercise thereof.
+Section 16.5 — Severability
+If any provision of this Agreement is held to be invalid, illegal, or unenforceable by a court of competent jurisdiction, the remaining provisions of this Agreement shall continue in full force and effect, and the Parties shall negotiate in good faith to replace the invalid provision with a valid provision that most closely reflects the original intent of the Parties.
+Section 16.6 — Counterparts
+This Agreement may be executed in two or more counterparts, each of which shall be deemed an original, and all of which together shall constitute one and the same instrument. Signatures transmitted by facsimile or electronic transmission shall be deemed original signatures.
+Section 16.7 — Independent Contractor
+Apex is an independent contractor. Nothing in this Agreement shall be construed to create an employment, agency, joint venture, or partnership relationship between the Parties. Neither Party shall have the authority to bind the other or to incur any obligation on behalf of the other.
+Section 16.8 — No Third-Party Beneficiaries
+This Agreement is entered into solely for the benefit of the Parties and their permitted successors and assigns. No third party shall have any rights, benefits, or remedies under or by reason of this Agreement.
+Section 16.9 — Construction
+This Agreement has been negotiated by the Parties and their respective legal counsel, and shall not be construed more strictly against either Party regardless of which Party may have drafted any particular provision hereof.
+IN WITNESS WHEREOF, the Parties have caused this Agreement to be executed by their duly authorized representatives as of the Effective Date.
+PACWEST WATER AUTHORITY
+By: ________
+Name: Sandra Liu
+Title: Director of Purchasing
+Date: June 1, 2021
+APEX INDUSTRIAL TECHNOLOGIES, INC.
+By: ________
+Name: Patricia Langford
+Title: Chief Executive Officer
+Date: June 1, 2021
+EXHIBIT A — PRODUCT CATALOG AND SPECIFICATIONS
+This Exhibit A sets forth the Products to be supplied by Apex under this Agreement, including detailed technical specifications for each Product series. The Products include the following:
+•  Precision Fluid Control Valves — Series PW-200 (2-inch through 8-inch gate valves, butterfly valves, and globe valves for water treatment applications)
+•  Precision Fluid Control Valves — Series PW-400 (10-inch through 24-inch gate valves and butterfly valves for main distribution infrastructure)
+•  Precision Fluid Control Valves — Series PW-600 (specialty valves including pressure-reducing valves, check valves, and control valves for treatment plant operations)
+•  Actuators — Series ACT-100 (electric and pneumatic actuators for remote and automated valve control)
+•  Automation Controllers — Series AXC-50 (programmable logic controllers and SCADA-compatible interface modules for valve automation systems)
+Detailed specifications for each Product series, including material composition (e.g., ductile iron, stainless steel, NSF-approved elastomers), pressure ratings, flow coefficients (Cv), dimensional tolerances, and performance requirements, are set forth in the attached specification sheets. All Products designated for contact with potable water shall comply with NSF/ANSI 61 and NSF/ANSI 372 for drinking water applications.
+EXHIBIT B — FORM OF PURCHASE ORDER
+The Purchase Order form to be used by PacWest for ordering Products under this Agreement shall include the following fields:
+•  PO Number: Sequentially assigned by PacWest's procurement system
+•  Date: Date of Purchase Order issuance
+•  Products Ordered: Identified by catalog number per Exhibit A
+•  Quantities: Number of units for each Product
+•  Unit Price: Per the applicable pricing tier in Exhibit C
+•  Requested Delivery Date: Date by which Products are to be delivered
+•  Delivery Location: Full address of the designated delivery site
+•  Special Instructions: Any additional requirements (e.g., packaging, labeling, staging)
+All Purchase Orders shall be submitted to Apex via electronic mail or such other method as the Parties may agree upon from time to time.
+EXHIBIT C — PRICING SCHEDULE
+Product pricing under this Agreement shall be determined based on the following annual volume discount tiers, measured by aggregate Purchase Order value per contract year (June 1 through May 31):
+Tier
+Annual Purchase Volume
+Discount from Base Price
+Tier 1
+$4,000,000 – $5,999,999
+Base Pricing (no discount)
+Tier 2
+$6,000,000 – $8,999,999
+3% discount from Base Price
+Tier 3
+$9,000,000 and above
+5% discount from Base Price
+Specific unit prices for each Product series (PW-200, PW-400, PW-600, ACT-100, AXC-50) at Base Pricing are set forth in the attached pricing tables. Tier determination for each contract year shall be based on the prior contract year's aggregate purchase volume. The first contract year (June 1, 2021 through May 31, 2022) shall default to Tier 1 pricing unless PacWest's actual purchases qualify for a higher tier, in which case a retroactive credit shall be applied.
+Annual price adjustments shall be made in accordance with Section 3.1 of the Agreement, effective as of June 1 of each contract year following the first contract year.

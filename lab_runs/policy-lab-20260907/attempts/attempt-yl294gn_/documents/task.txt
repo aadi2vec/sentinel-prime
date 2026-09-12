@@ -1,0 +1,1 @@
+{"instruction": "Return JSON with values (final item amounts) and total. Apply amendments in order to the base values; latest amendment wins.", "base": {"alpha": 1002, "beta": 2003}, "amendments": [{"alpha": 1009}]}

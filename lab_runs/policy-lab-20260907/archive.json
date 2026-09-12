@@ -1,0 +1,511 @@
+{
+  "current": 1,
+  "policies": [
+    {
+      "checks": [],
+      "max_revisions": 0
+    },
+    {
+      "checks": [
+        "arithmetic",
+        "source_revision"
+      ],
+      "max_revisions": 1
+    }
+  ],
+  "events": [
+    {
+      "kind": "trial",
+      "from": 0,
+      "to": 0,
+      "candidate_policy": {
+        "checks": [
+          "arithmetic"
+        ],
+        "max_revisions": 1
+      },
+      "fingerprint": "8be1a8653c4108274b74806631f20ddf9396c27caf2a54c53ffbbbdcefe87ce0",
+      "promoted": false,
+      "gain": 0.0,
+      "development": {
+        "score": 0.0,
+        "solves": 3,
+        "checks": 0,
+        "rows": [
+          {
+            "id": "development-1",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}"
+              }
+            ]
+          },
+          {
+            "id": "development-2",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}"
+              }
+            ]
+          },
+          {
+            "id": "development-3",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}"
+              }
+            ]
+          }
+        ]
+      },
+      "baseline": {
+        "score": 0.0,
+        "solves": 3,
+        "checks": 0,
+        "rows": [
+          {
+            "id": "validation-0-100",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 306}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 306}"
+              }
+            ]
+          },
+          {
+            "id": "validation-0-101",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 309}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 309}"
+              }
+            ]
+          },
+          {
+            "id": "validation-0-102",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}"
+              }
+            ]
+          }
+        ]
+      },
+      "candidate": {
+        "score": 0.0,
+        "solves": 6,
+        "checks": 6,
+        "rows": [
+          {
+            "id": "validation-0-100",
+            "score": 0.0,
+            "error": null,
+            "solves": 2,
+            "checks": 2,
+            "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 305}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 306}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 305}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              }
+            ]
+          },
+          {
+            "id": "validation-0-101",
+            "score": 0.0,
+            "error": null,
+            "solves": 2,
+            "checks": 2,
+            "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 308}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 309}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 308}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              }
+            ]
+          },
+          {
+            "id": "validation-0-102",
+            "score": 0.0,
+            "error": null,
+            "solves": 2,
+            "checks": 2,
+            "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 311}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 311}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "kind": "trial",
+      "from": 0,
+      "to": 1,
+      "candidate_policy": {
+        "checks": [
+          "arithmetic",
+          "source_revision"
+        ],
+        "max_revisions": 1
+      },
+      "fingerprint": "146019989ba9812fe52543b1c26fe64c3df3eb7be0a1134c7b82dcdf36ce0b92",
+      "promoted": true,
+      "gain": 1.0,
+      "development": {
+        "score": 0.0,
+        "solves": 3,
+        "checks": 0,
+        "rows": [
+          {
+            "id": "development-1",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}"
+              }
+            ]
+          },
+          {
+            "id": "development-2",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}"
+              }
+            ]
+          },
+          {
+            "id": "development-3",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}"
+              }
+            ]
+          }
+        ]
+      },
+      "baseline": {
+        "score": 0.0,
+        "solves": 3,
+        "checks": 0,
+        "rows": [
+          {
+            "id": "validation-1-130",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 132, \"beta\": 263}, \"total\": 396}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 132, \"beta\": 263}, \"total\": 396}"
+              }
+            ]
+          },
+          {
+            "id": "validation-1-131",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 133, \"beta\": 265}, \"total\": 399}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 133, \"beta\": 265}, \"total\": 399}"
+              }
+            ]
+          },
+          {
+            "id": "validation-1-132",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 134, \"beta\": 267}, \"total\": 402}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 134, \"beta\": 267}, \"total\": 402}"
+              }
+            ]
+          }
+        ]
+      },
+      "candidate": {
+        "score": 1.0,
+        "solves": 6,
+        "checks": 12,
+        "rows": [
+          {
+            "id": "validation-1-130",
+            "score": 1.0,
+            "error": null,
+            "solves": 2,
+            "checks": 4,
+            "answer": "{\"values\": {\"alpha\": 139, \"beta\": 263}, \"total\": 402}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 132, \"beta\": 263}, \"total\": 396}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": false,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 139, \"beta\": 263}, \"total\": 402}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": true,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              }
+            ]
+          },
+          {
+            "id": "validation-1-131",
+            "score": 1.0,
+            "error": null,
+            "solves": 2,
+            "checks": 4,
+            "answer": "{\"values\": {\"alpha\": 140, \"beta\": 265}, \"total\": 405}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 133, \"beta\": 265}, \"total\": 399}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": false,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 140, \"beta\": 265}, \"total\": 405}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": true,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              }
+            ]
+          },
+          {
+            "id": "validation-1-132",
+            "score": 1.0,
+            "error": null,
+            "solves": 2,
+            "checks": 4,
+            "answer": "{\"values\": {\"alpha\": 141, \"beta\": 267}, \"total\": 408}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 134, \"beta\": 267}, \"total\": 402}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": false,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 141, \"beta\": 267}, \"total\": 408}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": true,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "used_families": [
+    "source-bundle-1",
+    "source-bundle-100",
+    "source-bundle-1000",
+    "source-bundle-1001",
+    "source-bundle-1002",
+    "source-bundle-101",
+    "source-bundle-102",
+    "source-bundle-130",
+    "source-bundle-131",
+    "source-bundle-132",
+    "source-bundle-2",
+    "source-bundle-3"
+  ]
+}

@@ -1,0 +1,343 @@
+Ref #
+Counterparty
+Contract Type
+Date Executed
+Initial Term (Years)
+Expiration Date
+Renewal Terms
+FY2024 Revenue ($M)
+% of Total FY2024 Revenue
+Change-of-Control Provision?
+COC Provision Detail
+Consent Required for Assignment?
+Assignment Restriction Detail
+Termination for Convenience?
+Termination Notice Period
+Most Favored Nation Clause?
+Minimum Purchase Commitment?
+Status
+Diligence Notes / Flags
+CC-001
+Kessler Heavy Industries
+Master Supply Agreement (MSA)
+January 15, 2021
+5
+January 14, 2026
+Automatic 2-year renewal unless 180-day prior written notice of non-renewal
+$29.4
+20.6%
+YES
+Section 12.3: Kessler may terminate on 60 days' written notice following a 'Change of Control' of PrecisionFlow, defined as acquisition of >50% of voting securities or substantially all assets by a third party. No consent mechanism — pure termination right.
+Yes — assignment requires Kessler prior written consent (Section 14.1)
+No assignment without prior written consent of Kessler; consent not to be unreasonably withheld
+No
+N/A
+No
+No minimum; requirements-type contract based on Kessler purchase orders
+Active — In full force and effect
+CRITICAL FLAG: COC termination right triggered by Cascadia acquisition. Kessler is Target's largest customer (20.6% of revenue / $29.4M). NOTE: Disclosure Schedule 3.15 lists this MSA but does NOT disclose the COC termination provision in Section 12.3. SPA Section 3.15(b) requires disclosure of all contracts containing COC provisions. Omission must be raised with Seller's counsel.
+CC-002
+NorthPoint Fabrication Corp.
+Master Supply Agreement (MSA)
+March 1, 2022
+3
+February 28, 2025
+No automatic renewal provision; renewal requires mutual written agreement
+$18.6
+13.0%
+No
+N/A
+Yes — requires NorthPoint consent (Section 11.2)
+No assignment without NorthPoint prior written consent
+Yes — either party on 90 days' notice (Section 9.1)
+90 days
+No
+No
+EXPIRED — Parties performing informally
+CRITICAL FLAG: Contract expired February 28, 2025 — two weeks before SPA signing date (March 14, 2025). NO formal renewal executed. Parties continue to transact on same commercial terms without a binding agreement. NorthPoint is Target's 2nd largest customer (13.0% of revenue / $18.6M). SPA Section 3.15(a) represents all listed contracts are 'in full force and effect' — this representation is inaccurate as to this contract. Must require Seller to either (a) execute renewal pre-closing or (b) modify rep. Revenue concentration risk if NorthPoint does not renew.
+CC-003
+Dunlap Agricultural Equipment Co.
+Master Supply Agreement (MSA)
+June 1, 2023
+3
+May 31, 2026
+Automatic 1-year renewal unless 120-day prior written notice
+$14.3
+10.0%
+No
+N/A
+Yes — requires Dunlap consent
+No assignment without Dunlap prior written consent; consent not to be unreasonably withheld
+No
+N/A
+No
+Yes — $10M annual minimum (Section 4.2)
+Active — In full force and effect
+No material flags. Contract properly disclosed on Schedule 3.15. No COC provision.
+CC-004
+Great Plains Hydro, LLC
+Supply Agreement
+September 15, 2022
+3
+September 14, 2025
+Automatic 1-year renewal unless 90-day prior written notice
+$11.4
+8.0%
+No
+N/A
+No — silent on assignment
+No specific restriction; governed by general contract law
+Yes — either party on 60 days' notice (Section 7.3)
+60 days
+No
+No
+Active — In full force and effect
+No material flags. Contract properly disclosed on Schedule 3.15.
+CC-005
+Overland Machinery, Inc.
+Master Supply Agreement (MSA)
+April 1, 2021
+5
+March 31, 2026
+Automatic 1-year renewal unless 180-day prior written notice
+$9.2
+6.4%
+No
+N/A
+Yes — requires Overland consent; not to be unreasonably withheld
+No assignment without Overland prior written consent
+No
+N/A
+Yes — MFN on pricing vs. comparable customers (Section 5.4)
+No
+Active — In full force and effect
+No material flags. Contract properly disclosed on Schedule 3.15.
+CC-006
+Summit Valve & Controls, Inc.
+Supply Agreement
+November 1, 2023
+2
+October 31, 2025
+Automatic 1-year renewal unless 60-day prior written notice
+$5.8
+4.1%
+No
+N/A
+No — silent on assignment
+No specific restriction; governed by general contract law
+Yes — either party on 30 days' notice (Section 8.1)
+30 days
+No
+No
+Active — In full force and effect
+No material flags. Contract properly disclosed on Schedule 3.15. Short termination for convenience notice period (30 days) noted but not unusual for contract of this size.
+CC-007
+Bridger Creek Mining Co.
+Master Supply Agreement (MSA)
+February 15, 2022
+4
+February 14, 2026
+Automatic 1-year renewal unless 90-day prior written notice
+$4.7
+3.3%
+No
+N/A
+Yes — requires Bridger Creek consent (Section 13.1)
+No assignment without Bridger Creek prior written consent; consent not to be unreasonably withheld
+No
+N/A
+No
+Yes — $3M annual minimum (Section 3.5)
+Active — In full force and effect
+No material flags. Contract properly disclosed on Schedule 3.15. Annual minimum of $3M well below FY2024 actual revenue of $4.7M.
+TOTAL — Listed Customer Contracts
+$93.4
+65.3%
+Top 5 customers represent $82.9M / 58.0% of FY2024 revenue. All 7 listed contracts represent $93.4M / 65.3% of FY2024 total revenue of $143.0M. Remaining $49.6M (34.7%) consists of smaller customers with no individual contract exceeding $3.0M in annual revenue.
+Ref #
+Counterparty
+Contract Type
+PrecisionFlow Entity
+Date Executed
+Initial Term (Years)
+Expiration Date
+Renewal Terms
+Annual Cost / Value
+Change-of-Control Provision?
+COC Provision Detail
+Consent Required for Assignment / COC?
+Consent Detail
+Termination Provisions
+Status
+SPA Schedule Reference
+Diligence Notes / Flags
+OC-001
+Inmobiliaria del Norte, S.A. de C.V.
+Facility Lease — Monterrey Manufacturing
+PrecisionFlow de México, S.A. de C.V.
+April 1, 2019
+10
+March 31, 2029
+Option to renew for two additional 5-year terms upon 12 months' prior notice
+MXN $385,000/month (approx. $22,500 USD/month; approx. $270,000 USD/year)
+YES
+Section 8.4: Any direct or indirect change of control of the lessee (PrecisionFlow de México, S.A. de C.V.) requires prior written consent of Landlord. 'Change of control' defined broadly to include any change in the entity that directly or indirectly controls lessee.
+YES — Landlord consent required for any direct or indirect change of control of lessee
+Section 8.4: Lessee must provide 60 days' prior written notice and obtain Landlord written consent before any COC. Failure to obtain consent constitutes an event of default under Section 10.1, entitling Landlord to terminate lease on 30 days' notice.
+Landlord may terminate on 30 days' notice upon event of default (including unauthorized COC). Lessee may terminate with 12 months' notice and payment of 6 months' rent as early termination fee.
+Consent required for indirect COC
+Listed on Schedule 3.15; NOT listed on Schedule 5.3 (Required Consents)
+CRITICAL FLAG: Acquisition of 100% of PrecisionFlow stock by Cascadia constitutes indirect change of control of PrecisionFlow de México (wholly-owned subsidiary / lessee). Landlord consent under Section 8.4 is REQUIRED prior to or at closing. Failure = event of default and potential lease termination. Monterrey facility accounts for $38.2M revenue (26.7% of FY2024 total). NOTE: This consent requirement is NOT listed on SPA Schedule 5.3 (Required Consents). Must be added to Schedule 5.3 and consent obtained as closing condition or pre-closing covenant.
+OC-002
+Verteon Software, Inc.
+Enterprise Software License — CAD/CAM
+PrecisionFlow Systems, Inc.
+August 1, 2021
+5
+August 31, 2026
+Automatic 1-year renewal unless 90-day prior notice; renewal at then-current list price (capped at 5% annual increase per Section 6.2)
+$420,000/year
+No
+N/A
+No — license is non-transferable but includes carve-out for change of control (Section 12.1: license continues upon COC without consent)
+Section 12.1 expressly provides license survives COC without consent requirement
+Either party on 90 days' notice for convenience; immediate termination for material breach uncured after 30 days
+Active — In full force and effect
+Listed on Schedule 3.15; properly disclosed
+No material flags. License survives COC per express terms. Expiration August 2026 is within normal course; renewal terms acceptable. Properly disclosed on Schedule 3.15.
+OC-003
+Dayton Industrial Bank (ABL Facility)
+Asset-Based Lending Credit Facility
+PrecisionFlow Systems, Inc.
+March 15, 2020 (amended and restated July 1, 2023)
+5 (from A&R date)
+June 30, 2028
+N/A — term facility
+Outstanding balance: $22.7M; Commitment: $30.0M; Interest: SOFR + 2.50%
+YES
+Section 7.12: Any change of control requires prior lender consent; failure constitutes event of default. Acquisition of >50% of voting equity is a COC event.
+YES — Lender consent required
+Section 7.12: Borrower must obtain prior written consent of lender; lender may accelerate and declare all amounts immediately due upon unauthorized COC.
+Standard events of default including COC; lender may accelerate. Borrower may prepay without penalty with 5 business days' notice.
+Active — To be repaid at closing from purchase price proceeds
+Listed on Schedule 3.15 and Schedule 5.3 (Required Consents)
+No material flags for contract summary purposes. Consent requirement properly identified on Schedule 5.3. Facility to be repaid in full at closing per SPA Section 2.4 (estimated closing indebtedness of $22.7M on this facility). Personal guaranty of Hal Beecham ($1.8M) to be released at closing.
+OC-004
+Dayton Industrial Bank (Equipment Term Loan)
+Equipment Term Loan
+PrecisionFlow Systems, Inc.
+October 1, 2022
+5
+September 30, 2027
+N/A — term facility
+Outstanding balance: $8.5M; Original principal: $12.0M; Interest: Fixed 5.25%
+YES — Cross-defaulted to ABL Facility COC provisions
+Cross-default to ABL Facility; COC under ABL = event of default under term loan
+YES — per cross-default to ABL
+See ABL Facility
+Standard events of default; cross-default to ABL. Prepayment: 1% premium if prepaid in first 3 years (period has lapsed); no premium thereafter.
+Active — To be repaid at closing from purchase price proceeds
+Listed on Schedule 3.15 and Schedule 5.3
+No material flags. To be repaid at closing (estimated $8.5M). Cross-default to ABL properly identified.
+OC-005
+Terraverde Growth Fund II, LP
+Subordinated Seller Note
+PrecisionFlow Systems, Inc.
+January 15, 2018
+10
+January 14, 2028
+N/A
+Outstanding balance: $3.0M; Interest: 8.0% PIK
+YES
+Section 5.1: COC triggers mandatory prepayment at par plus accrued PIK interest
+No consent required — mandatory prepayment upon COC
+N/A — auto-accelerates
+Mandatory prepayment upon COC; voluntary prepayment at par plus accrued at any time. Subordinated to ABL and equipment term loan per intercreditor agreement.
+Active — To be repaid at closing from purchase price proceeds
+Listed on Schedule 3.15
+No material flags. Mandatory prepayment at closing (estimated $3.0M plus accrued PIK). Terraverde is also 28% shareholder — dual role as creditor and equity holder.
+OC-006
+International Association of Machinists Local 1247
+Collective Bargaining Agreement (CBA)
+PrecisionFlow Systems, Inc.
+March 1, 2023
+3
+February 28, 2026
+Subject to renegotiation; no automatic renewal
+Covers 312 hourly manufacturing workers at Dayton facility
+No specific COC provision
+N/A — CBA generally survives COC under labor law (successorship doctrine)
+No
+N/A — Buyer will be bound as successor employer under NLRA
+Expires February 28, 2026; subject to collective bargaining for successor agreement. No strike/no lockout clause during term.
+Active — In full force and effect
+Listed on Schedule 3.15 and Schedule 3.17
+No material flags. CBA properly disclosed. Expiration February 28, 2026 is post-closing; successor bargaining will be required. Properly disclosed on both Schedule 3.15 and Schedule 3.17.
+OC-007
+Eight (8) Named Executives
+Change-in-Control Severance Plan
+PrecisionFlow Systems, Inc.
+July 1, 2020
+Evergreen — no expiration
+N/A — Evergreen
+N/A
+Maximum aggregate exposure: approx. $3.01M (8 executives × avg. $245K base × 1.5x = $2.94M severance + $67.2K COBRA)
+YES — Plan is triggered by COC
+Qualifying termination (termination without cause or resignation for good reason) within 24 months of a 'Change in Control' triggers 1.5x base salary + 12 months COBRA continuation
+N/A — Plan is triggered by, not requiring consent for, COC
+N/A
+Plan benefits triggered only upon qualifying termination post-COC, not upon COC alone (double-trigger).
+Active — In full force and effect
+Listed on Schedule 3.15 and Schedule 3.17
+No material flags for contract summary. Double-trigger structure limits exposure — benefits only payable if executives are terminated or resign for good reason post-COC. Maximum aggregate exposure of $3.01M should be factored into transaction cost modeling. Properly disclosed.
+OC-008
+Midland Casualty Insurance Co.
+Commercial General Liability / Products Liability Insurance Policy
+PrecisionFlow Systems, Inc.
+January 1, 2024 (annual renewal)
+1
+December 31, 2024 (renewal pending for 2025)
+Annual renewal; insurer may non-renew with 60 days' notice
+Annual premium: $387,000; Per-occurrence limit: $10M; Aggregate limit: $20M
+Policy requires notice of COC; insurer may elect to non-renew at next renewal
+Section IV.B: Insured must notify insurer within 30 days of COC; insurer reserves right to non-renew or modify terms at next policy renewal
+Notice required; no consent
+30-day post-COC notice requirement
+Insurer may cancel for non-payment (10 days' notice) or non-renew (60 days' notice). COC is not a cancellation trigger but may affect renewal.
+Active — 2025 renewal in process
+Listed on Schedule 3.18 (Insurance)
+Note: Policy per-occurrence limit of $10M. Martinez v. PrecisionFlow seeks $12M in damages — potential $2M gap above per-occurrence limit. See litigation diligence for further analysis.
+OC-009
+Hawkins Metal Supply Co.
+Raw Materials Supply Agreement
+PrecisionFlow Systems, Inc.
+May 1, 2023
+3
+April 30, 2026
+Automatic 1-year renewal unless 90-day prior written notice
+Estimated annual spend: $6.8M (primary steel and alloy supplier)
+No
+N/A
+No — contract is silent on assignment
+No specific restriction; governed by general contract law
+Either party on 60 days' notice for convenience; immediate termination for material breach uncured after 30 days
+Active — In full force and effect
+Listed on Schedule 3.15; properly disclosed
+No material flags. Hawkins is PrecisionFlow's largest raw materials supplier. Contract properly disclosed on Schedule 3.15. No COC provision. Pricing subject to quarterly adjustment per index (Section 4.3).
+OC-010
+Clearwater Industrial Properties, LLC
+Facility Lease — Dayton HQ & Manufacturing
+PrecisionFlow Systems, Inc.
+January 1, 2018
+10
+December 31, 2027
+Option to renew for one additional 5-year term upon 12 months' prior notice
+$1,440,000/year ($120,000/month)
+No
+N/A — Lease expressly permits assignment to any successor entity that acquires all or substantially all of lessee's business (Section 15.2)
+No — express carve-out for COC/acquisition scenarios (Section 15.2)
+Section 15.2: Lease may be assigned without consent to any entity that acquires all or substantially all assets or equity of lessee, provided assignee assumes all obligations
+Landlord may terminate on 30 days' notice upon event of default. Lessee may terminate with 9 months' notice and payment of 6 months' rent as early termination fee.
+Active — In full force and effect
+Listed on Schedule 3.15; properly disclosed
+No material flags. Dayton HQ lease expressly permits assignment in acquisition scenarios without landlord consent. Lease properly disclosed on Schedule 3.15. Renewal option available through 2032.

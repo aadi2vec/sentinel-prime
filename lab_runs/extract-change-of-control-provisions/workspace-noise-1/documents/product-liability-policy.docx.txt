@@ -1,0 +1,197 @@
+GREAT LAKES INDEMNITY COMPANY
+PRODUCTS LIABILITY AND COMPLETED OPERATIONS LIABILITY INSURANCE POLICY
+Policy Number: GLI-PL-2024-07823
+DECLARATIONS PAGE
+Item
+Description
+Policy Number
+GLI-PL-2024-07823
+Named Insured
+Apex Industrial Technologies, Inc., a corporation organized under the laws of the State of Delaware
+Principal Address of Named Insured
+4200 Crescent Ridge Parkway, Suite 600, Cincinnati, OH 45202
+Additional Insured Locations
+780 Innovation Drive, Fairfield, OH 45014 (R&D and secondary manufacturing facility)
+Insurer
+Great Lakes Indemnity Company, organized under the laws of the State of Illinois
+Insurer's Principal Office
+300 North LaSalle Street, Suite 1500, Chicago, IL 60654
+Insurance Broker/Producer
+Trask & Fielding Insurance Services
+Policy Period
+October 1, 2024 at 12:01 a.m. (Central Time) to September 30, 2025 at 12:01 a.m. (Central Time)
+Policy Type
+Products Liability and Completed Operations Liability Insurance Policy
+Each Occurrence Limit
+$5,000,000
+Products-Completed Operations Aggregate Limit
+$25,000,000
+General Aggregate Limit
+$25,000,000
+Deductible / Self-Insured Retention
+$100,000 per occurrence
+Annual Premium
+$487,500
+Premium Payment
+Payable in quarterly installments of $121,875 each
+Retroactive Date
+January 1, 2010
+Forms and Endorsements Attached at Issuance:
+Section I — Insuring Agreement Section II — Definitions Section III — Premium, Audit, and Adjustment Section IV — Conditions Section V — Exclusions Section VI — Claims Procedures Section VII — General Provisions Schedule A — Covered Locations and Operations Schedule B — Covered Products and Assets Schedule C — Named Insured's Subsidiaries and Affiliates Endorsement No. 1 — Extended Reporting Period (Tail Coverage) Option Endorsement No. 2 — Waiver of Subrogation
+This Declarations Page, together with the Insuring Agreement, Definitions, Conditions, Exclusions, Schedules, and Endorsements identified above, constitutes the complete Policy issued by the Insurer to the Named Insured.
+SECTION I — INSURING AGREEMENT
+I.A — Coverage Grant
+Great Lakes Indemnity Company (the "Insurer") agrees to pay on behalf of the Named Insured all sums that the Named Insured becomes legally obligated to pay as damages because of "Bodily Injury" or "Property Damage" to which this insurance applies, caused by an "Occurrence" arising out of the Named Insured's "Products" or "Completed Operations." This insurance applies only to "Bodily Injury" or "Property Damage" that occurs during the Policy Period and within the coverage territory described herein, provided that the "Occurrence" giving rise to such "Bodily Injury" or "Property Damage" takes place on or after the Retroactive Date stated in the Declarations.
+Coverage applies to Products manufactured, sold, handled, distributed, or disposed of by the Named Insured, including any materials, parts, components, or equipment furnished in connection therewith. The coverage territory under this Policy shall be the United States of America, its territories and possessions, and Canada. Claims arising from Products sold within the coverage territory that give rise to suits brought within the coverage territory shall be covered under this Policy.
+The Insurer shall have the right and duty to defend the Named Insured against any "suit" seeking damages to which this insurance applies. The Insurer's duty to defend ends when the applicable limit of liability has been exhausted by payment of judgments, settlements, or defense costs. The Insurer may, at its discretion, investigate any Occurrence and settle any Claim as it deems expedient, subject to the settlement consent provisions set forth in Section VI.C.
+I.B — Supplementary Payments
+In addition to the Limits of Liability stated in the Declarations, the Insurer shall pay on behalf of the Named Insured the following supplementary payments:
+(a) All expenses incurred by the Insurer in the investigation, adjustment, and defense of any Claim or suit, including attorneys' fees and litigation costs;
+(b) Premiums on appeal bonds and bonds to release attachments, provided the Insurer has no obligation to furnish such bonds;
+(c) Reasonable expenses incurred by the Named Insured at the Insurer's request in assisting the Insurer in the investigation or defense of any Claim or suit, including actual loss of earnings up to $500 per day;
+(d) All post-judgment interest on the full amount of any judgment that accrues after entry of judgment and before the Insurer has paid, offered to pay, or deposited in court the portion of the judgment within the applicable limit of liability; and
+(e) All costs taxed against the Named Insured in any suit defended by the Insurer and all interest on the full amount of any judgment that accrues after entry of the judgment.
+SECTION II — DEFINITIONS
+As used in this Policy, the following terms shall have the meanings set forth below:
+"Bodily Injury" means bodily injury, sickness, disease, or death sustained by any person, including any mental anguish, emotional distress, or psychological injury resulting therefrom.
+"Change of Control" means any of the following events: (a) the acquisition by any person, entity, or group (as such term is used in Section 13(d)(3) of the Securities Exchange Act of 1934, as amended) of beneficial ownership of fifty percent (50%) or more of the outstanding voting securities of the Named Insured; (b) any merger, consolidation, amalgamation, or statutory share exchange involving the Named Insured in which the Named Insured is not the surviving entity or in which the Named Insured survives but the holders of the Named Insured's voting securities immediately prior to such transaction hold less than fifty percent (50%) of the voting securities of the surviving entity immediately after such transaction; (c) the sale, lease, exchange, or other transfer of all or substantially all of the assets of the Named Insured; or (d) any transaction or series of related transactions that results in a change in the ultimate controlling person or entity of the Named Insured.
+"Claim" means a written demand or civil proceeding seeking damages to which this insurance applies.
+"Completed Operations" means operations performed by or on behalf of the Named Insured that have been completed or abandoned, including any operations for which all work called for in the applicable contract has been completed. Operations that may require further work due to defective or incomplete work shall be deemed completed for purposes of this definition.
+"Insured" means the Named Insured and its subsidiaries listed in Schedule C hereto.
+"Named Insured" means Apex Industrial Technologies, Inc.
+"Occurrence" means an accident, including continuous or repeated exposure to substantially the same general harmful conditions.
+"Policy Period" means October 1, 2024 through September 30, 2025, as specified in the Declarations.
+"Products" means any goods or products manufactured, sold, handled, distributed, or disposed of by the Named Insured, including any containers, materials, parts, components, or equipment furnished in connection therewith. For the avoidance of doubt, "Products" shall include all fluid control valves, actuators, automation systems, and related components manufactured or assembled at the Named Insured's facilities, including those incorporating third-party licensed technology or software.
+"Property Damage" means (a) physical injury to tangible property, including all resulting loss of use of that property; or (b) loss of use of tangible property that is not physically injured.
+"Run-Off Basis" means coverage provided solely for Claims arising out of Products that were manufactured, sold, handled, distributed, or disposed of by the Named Insured prior to the effective date of the Change of Control, as further described in Section IV.F.
+SECTION III — PREMIUM, AUDIT, AND ADJUSTMENT
+III.A — Premium Calculation
+The annual premium for this Policy is $487,500, payable in quarterly installments of $121,875 each, due on the first day of each calendar quarter during the Policy Period. The premium is provisionally calculated based on the Named Insured's estimated annual revenue of $187.4 million for the Policy Period. The final premium shall be subject to adjustment following the premium audit described in Section III.C.
+III.B — Premium Adjustment
+The Insurer reserves the right to adjust the premium at annual renewal based on the Named Insured's claims history, loss experience, changes in revenue, and changes in the Named Insured's risk profile. Any premium adjustment at renewal shall be communicated to the Named Insured or its broker of record no later than sixty (60) days prior to the expiration of the then-current Policy Period. The Named Insured's claims history, including the frequency and severity of claims submitted during the preceding thirty-six (36) month period, shall be a factor in determining any premium adjustment. Premium adjustments at renewal may also reflect changes in industry loss trends, actuarial data, and reinsurance costs applicable to the Named Insured's product categories and industries served. The Insurer shall provide the Named Insured with a written summary of the basis for any proposed premium adjustment upon request.
+III.C — Premium Audit
+The Insurer shall have the right, at any reasonable time during the Policy Period and within three (3) years after the expiration or termination of this Policy, to examine and audit the Named Insured's books, records, and financial statements to verify revenue figures and other information used in computing the premium. If the audit discloses that the actual revenue of the Named Insured differs from the estimated revenue, the premium shall be adjusted accordingly. Any additional premium owed or return premium due shall be payable within sixty (60) days following the Insurer's delivery of the audit results.
+SECTION IV — CONDITIONS
+IV.A — Duties in the Event of Occurrence, Claim, or Suit
+The Named Insured shall, as a condition precedent to coverage under this Policy, comply with the following duties:
+(a) In the event of an Occurrence that may reasonably give rise to a Claim under this Policy, the Named Insured shall notify the Insurer in writing as soon as practicable, but in no event later than thirty (30) days after the Named Insured becomes aware of such Occurrence. Such notice shall include the date and description of the Occurrence, the names and addresses of any injured parties and witnesses, and the nature and extent of any Bodily Injury or Property Damage;
+(b) If a Claim is made or a suit is brought against the Named Insured, the Named Insured shall immediately record the specifics thereof and forward to the Insurer copies of all demands, notices, summonses, complaints, and other legal papers received in connection with such Claim or suit within ten (10) business days of receipt;
+(c) The Named Insured shall cooperate with the Insurer and, upon the Insurer's request, assist in making settlements, in the conduct of suits, and in enforcing any right of contribution or indemnity against any person or entity who may be liable to the Named Insured; and
+(d) The Named Insured shall not, except at its own cost, voluntarily make any payment, assume any obligation, or incur any expense without the prior written consent of the Insurer.
+IV.B — Legal Action Against Insurer
+No person or organization shall have the right to join the Insurer as a party to any action against the Named Insured to determine the Named Insured's liability, nor shall the Insurer be impleaded by the Named Insured or its legal representative. No action shall lie against the Insurer unless, as a condition precedent thereto, the Named Insured shall have fully complied with all the terms and conditions of this Policy, and the amount of the Named Insured's obligation to pay shall have been finally determined either by judgment against the Named Insured after actual trial, or by written agreement of the Named Insured, the claimant, and the Insurer.
+IV.C — Other Insurance
+This insurance is excess over any other valid and collectible insurance available to the Named Insured for losses also covered by such other insurance, whether such other insurance is stated to be primary, contributory, excess, contingent, or otherwise, unless such other insurance is written specifically as excess over this Policy. When this insurance is excess, the Named Insured shall not be entitled to recover under this Policy until the limits of the other insurance have been exhausted.
+IV.D — Subrogation
+In the event of any payment under this Policy, the Insurer shall be subrogated to all rights of recovery of the Named Insured against any person or entity with respect to such payment. The Named Insured shall execute and deliver such instruments and papers and do whatever else is necessary to secure such rights. The Named Insured shall do nothing to prejudice such rights.
+IV.E — Assignment
+This Policy and any rights hereunder shall not be assigned or transferred by the Named Insured without the prior written consent of the Insurer, which consent may be withheld in the Insurer's sole and absolute discretion. Any purported assignment or transfer without such consent shall be void and of no effect. Nothing in this Section IV.E shall limit or modify the automatic conversion provisions set forth in Section IV.F.
+IV.F — Change of Control
+IV.F.1 — Automatic Conversion to Run-Off. Upon the occurrence of a Change of Control (as defined in Section II), this Policy shall automatically, and without the requirement of any notice from or action by the Insurer, convert to a Run-Off Basis effective as of the date of such Change of Control (the "Run-Off Conversion Date"). From and after the Run-Off Conversion Date, coverage under this Policy shall be limited exclusively to Claims arising out of Products that were manufactured, sold, handled, distributed, or disposed of by the Named Insured prior to the Run-Off Conversion Date. No coverage shall be provided under this Policy for Claims arising out of Products manufactured, sold, handled, distributed, or disposed of on or after the Run-Off Conversion Date.
+IV.F.2 — Notice Requirement. The Named Insured shall provide written notice to the Insurer of any Change of Control within fifteen (15) days following the effective date of such Change of Control. Failure to provide timely notice shall not affect the automatic conversion described in Section IV.F.1 but may result in the Insurer's right to void coverage for any Claim for which the Insurer's investigation or defense has been prejudiced by such failure.
+IV.F.3 — Run-Off Period. Following the Run-Off Conversion Date, coverage on a Run-Off Basis shall remain in effect for the remainder of the Policy Period. The Named Insured may request, in writing, an extension of the Run-Off Period for up to thirty-six (36) months beyond the original Policy Period expiration date, subject to additional premium as determined by the Insurer in its sole discretion. The Insurer shall have no obligation to grant such extension. Any request for an extension must be submitted to the Insurer in writing no later than sixty (60) days prior to the expiration of the then-current Run-Off Period.
+IV.F.4 — No Return Premium. In the event of a conversion to Run-Off Basis pursuant to this Section IV.F, no return premium shall be payable to the Named Insured for the unexpired portion of the Policy Period. All premium previously paid or due under this Policy shall remain fully earned by the Insurer.
+IV.F.5 — Successor Entity Coverage. This Policy shall not provide coverage to any successor entity, parent entity, or affiliate of the Named Insured that acquires control of the Named Insured as a result of a Change of Control, unless and until such successor entity applies for and is issued a new policy of insurance by the Insurer. For the avoidance of doubt, the successor entity shall have no rights under this Policy with respect to Products manufactured, sold, handled, distributed, or disposed of on or after the Run-Off Conversion Date.
+IV.G — Cancellation
+(a) The Named Insured may cancel this Policy at any time by delivering written notice of cancellation to the Insurer, stating the future date on which cancellation is to be effective.
+(b) The Insurer may cancel this Policy by delivering to the Named Insured written notice of cancellation at least sixty (60) days prior to the effective date of cancellation, for any reason other than nonpayment of premium. In the event of nonpayment of premium, the Insurer may cancel this Policy upon ten (10) days' prior written notice to the Named Insured.
+(c) Upon cancellation by the Insurer, the Insurer shall return to the Named Insured the pro-rata unearned portion of the premium. Upon cancellation by the Named Insured, the Insurer shall retain the short-rate portion of the premium and return any amount in excess thereof.
+(d) Cancellation shall not affect any Claim arising out of an Occurrence that took place prior to the effective date of cancellation.
+IV.H — Representations and Warranties
+The Named Insured represents and warrants that all statements made in the application for this Policy, and in any materials submitted to the Insurer in connection therewith, are true, accurate, and complete in all material respects. This Policy is issued in reliance upon such representations and warranties. Any material misrepresentation or omission may, at the Insurer's option, render this Policy void ab initio.
+IV.I — Entire Agreement / Modification
+This Policy, including the Declarations, all Schedules, and all Endorsements attached hereto, constitutes the entire agreement between the Insurer and the Named Insured with respect to the subject matter hereof. No change, modification, or waiver of any provision of this Policy shall be valid or binding unless made by written endorsement issued by the Insurer and attached to this Policy.
+SECTION V — EXCLUSIONS
+V.A — Standard Exclusions
+This insurance does not apply to:
+(a) Expected or Intended Injury. "Bodily Injury" or "Property Damage" expected or intended from the standpoint of the Named Insured. This exclusion does not apply to "Bodily Injury" or "Property Damage" resulting from the use of reasonable force to protect persons or property;
+(b) Contractual Liability. "Bodily Injury" or "Property Damage" for which the Named Insured is obligated to pay damages by reason of the assumption of liability in a contract or agreement, except for liability that the Named Insured would have in the absence of the contract or agreement, or liability assumed under an "insured contract";
+(c) Workers' Compensation. Any obligation of the Named Insured under a workers' compensation, disability benefits, unemployment compensation, or similar law;
+(d) Pollution. "Bodily Injury" or "Property Damage" arising out of the actual, alleged, or threatened discharge, dispersal, seepage, migration, release, or escape of pollutants. This exclusion does not apply to "Bodily Injury" or "Property Damage" arising out of heat, smoke, or fumes from a hostile fire;
+(e) Aircraft, Auto, or Watercraft. "Bodily Injury" or "Property Damage" arising out of the ownership, maintenance, use, or entrustment to others of any aircraft, auto, or watercraft owned or operated by or rented or loaned to any Insured;
+(f) Damage to Named Insured's Products. "Property Damage" to the Named Insured's own Products arising out of such Products or any part of such Products, including costs of recall, withdrawal, inspection, repair, replacement, or loss of use of such Products;
+(g) Damage to Named Insured's Work. "Property Damage" to the Named Insured's work arising out of the Named Insured's work, except work performed on the Named Insured's behalf by a subcontractor;
+(h) Professional Services. "Bodily Injury" or "Property Damage" arising out of the rendering of or failure to render any professional services, including engineering, design consulting, or technical advisory services provided for a fee separate from the sale of Products;
+(i) War, Terrorism, and Nuclear Hazard. "Bodily Injury" or "Property Damage" arising out of war, invasion, act of foreign enemy, hostilities, civil war, rebellion, revolution, insurrection, military or usurped power, terrorism, or nuclear reaction, radiation, or radioactive contamination;
+(j) Asbestos. "Bodily Injury" or "Property Damage" arising out of or related to asbestos or asbestos-containing materials in any form;
+(k) Cyber Liability. "Bodily Injury" or "Property Damage" arising out of any access to, or disclosure of, any person's or organization's confidential or personal information, including but not limited to patents, trade secrets, processing methods, customer lists, financial information, credit card information, or any other type of nonpublic information, whether in electronic or non-electronic form; and
+(l) Punitive or Exemplary Damages. Punitive damages, exemplary damages, or the multiplied portion of any multiplied damages award, where the imposition of such damages is prohibited by applicable law.
+V.B — Product-Specific Exclusions
+In addition to the Standard Exclusions set forth in Section V.A, this insurance does not apply to:
+(a) Claims arising from the use of the Named Insured's Products in nuclear power generation facilities or any facility licensed by the Nuclear Regulatory Commission;
+(b) Claims arising from the use of the Named Insured's Products in aviation applications, including but not limited to aircraft fuel systems, hydraulic systems, and flight control systems; and
+(c) Claims arising from the Named Insured's Products that have been modified, altered, or retrofitted by third parties after sale without the Named Insured's prior written authorization, where such modification, alteration, or retrofit is a contributing cause of the Bodily Injury or Property Damage.
+SECTION VI — CLAIMS PROCEDURES
+VI.A — Reporting Requirements
+The Named Insured shall report all Occurrences and Claims promptly to the Insurer in writing at: Great Lakes Indemnity Company, Claims Department, 300 North LaSalle Street, Suite 1500, Chicago, IL 60654, Attention: Product Liability Claims Unit. All notices shall include the date and description of the Occurrence, the identity of the Products involved, the names and addresses of all injured parties and known witnesses, and the nature and extent of any Bodily Injury or Property Damage known at the time of reporting.
+VI.B — Cooperation
+The Named Insured shall cooperate fully with the Insurer in the investigation, adjustment, settlement, and defense of any Claim or suit. The Named Insured shall not, except at its own cost, voluntarily make any payment, assume any obligation, or incur any expense without the prior written consent of the Insurer. The Named Insured shall, upon the Insurer's request, submit to examination under oath and produce all relevant documents and records.
+VI.C — Settlement Authority
+The Insurer shall have the right and authority to settle any Claim or suit as it deems expedient; provided, however, that the Insurer shall not settle any Claim or suit for an amount exceeding $500,000 per Occurrence without the Named Insured's prior written consent. If the Named Insured refuses to consent to a settlement recommended by the Insurer and elects to proceed to trial or further litigation, and the resulting judgment or final resolution exceeds the amount for which the Claim could have been settled, the Named Insured shall bear the amount of such excess over the proposed settlement amount.
+SECTION VII — GENERAL PROVISIONS
+VII.A — Governing Law
+This Policy shall be governed by and construed in accordance with the laws of the State of Ohio, without regard to its conflict of laws principles.
+VII.B — Inspection
+The Insurer shall have the right, but not the obligation, to inspect the Named Insured's premises, operations, and manufacturing processes at any reasonable time during the Policy Period. Neither the right to inspect nor the making of any inspection shall constitute an undertaking to determine or warrant that the Named Insured's operations are safe.
+VII.C — Severability
+If any provision of this Policy is held to be invalid, illegal, or unenforceable, the validity, legality, and enforceability of the remaining provisions shall not in any way be affected or impaired thereby.
+VII.D — Bankruptcy
+The bankruptcy or insolvency of the Named Insured or the Named Insured's estate shall not relieve the Insurer of its obligations under this Policy.
+VII.E — Conformity to Statute
+Any terms of this Policy that conflict with the statutes or regulations of the state in which this Policy is issued are hereby amended to conform to the minimum requirements of such statutes and regulations.
+VII.F — Liberalization
+If the Insurer adopts any filing or revision to its policy forms that would broaden the coverage afforded under this Policy without additional premium charge, such broadened coverage shall inure to the benefit of the Named Insured as of the date the revision is effective in the applicable jurisdiction.
+SCHEDULE A — COVERED LOCATIONS AND OPERATIONS
+Location 1: 4200 Crescent Ridge Parkway, Suite 600, Cincinnati, OH 45202 Corporate headquarters and primary manufacturing facility. Operations include design, engineering, assembly, and quality testing of precision fluid control valves, actuators, and automation systems for industrial applications.
+Location 2: 780 Innovation Drive, Fairfield, OH 45014 Research and development facility and secondary manufacturing. Operations include product development, prototyping, accelerated life testing, and limited-run specialty manufacturing of custom-engineered valve assemblies and actuator systems.
+General Description of Business Operations: The Named Insured designs and manufactures precision fluid control valves, actuators, and related automation systems for oil and gas, petrochemical, and water treatment industries. The Named Insured's Products are used in critical process control applications requiring high reliability and compliance with applicable industry standards, including API, ASME, and ISA specifications.
+SCHEDULE B — COVERED PRODUCTS AND ASSETS
+The following product lines manufactured by the Named Insured are covered under this Policy:
+Product Line 1: AX-Series Precision Control Valves (including models AX-3000, AX-5000, AX-7000, and AX-9000)
+Product Line 2: MV-Series Modulating Actuators
+Product Line 3: FlowCommand Integrated Automation Systems
+Product Line 4: Custom-Engineered Valve Assemblies (manufactured to customer specifications at Location 1 and Location 2)
+Manufacturing Systems and Quality Control Assets: The Named Insured's manufacturing operations are supported by integrated enterprise systems, including the Crestline ERP Platform v.8.2 (provided by Crestline Software Solutions, LLC), which manages production scheduling, inventory control, quality assurance tracking, and lot traceability for all Products. Product traceability and quality control records maintained through the Crestline ERP Platform are material to the Insurer's ability to investigate and adjust Claims, and the Named Insured shall maintain such records throughout the Policy Period and any Run-Off Period. The Named Insured represents that its quality management system, including all electronic records maintained within the Crestline ERP Platform, complies with ISO 9001:2015 certification requirements.
+SCHEDULE C — NAMED INSURED'S SUBSIDIARIES AND AFFILIATES
+The following entities are included as "Insured" under this Policy:
+1.  Apex Industrial Technologies, Inc. (Named Insured)
+2.  Apex-Kenji Precision JV, LLC (55% owned by the Named Insured) — Coverage for Apex-Kenji Precision JV, LLC is limited to Claims arising from Products incorporating the Named Insured's proprietary designs, specifications, or components. Claims arising solely from Products designed, manufactured, or sold by Apex-Kenji Precision JV, LLC that do not incorporate the Named Insured's proprietary designs, specifications, or components are excluded from coverage under this Policy.
+ENDORSEMENT NO. 1
+EXTENDED REPORTING PERIOD (TAIL COVERAGE) OPTION
+Endorsement to Policy No. GLI-PL-2024-07823
+This endorsement modifies the Policy to which it is attached.
+Upon cancellation, non-renewal, or conversion to Run-Off Basis pursuant to Section IV.F of this Policy, the Named Insured shall have the right to purchase an Extended Reporting Period ("Tail") by providing written notice to the Insurer within thirty (30) days of the event triggering the Tail option. The Extended Reporting Period shall be available at the following additional premiums:
+Extended Reporting Period
+Additional Premium
+12-month Tail
+75% of expiring annual premium ($365,625)
+24-month Tail
+125% of expiring annual premium ($609,375)
+36-month Tail
+175% of expiring annual premium ($853,125)
+The Extended Reporting Period provides coverage only for Claims first made and reported to the Insurer during the Extended Reporting Period arising from Products manufactured, sold, handled, distributed, or disposed of during the original Policy Period or any prior consecutive policy period with the Insurer. The Extended Reporting Period does not create new limits of liability; Claims reported during the Extended Reporting Period shall be subject to, and shall erode, the aggregate limits of liability stated in the Declarations.
+The Extended Reporting Period does not provide coverage for Claims arising out of Products manufactured, sold, handled, distributed, or disposed of on or after the Run-Off Conversion Date or any date of cancellation or non-renewal. The Named Insured or its successor must procure separate product liability insurance for any Products manufactured, sold, handled, distributed, or disposed of after such date.
+ENDORSEMENT NO. 2
+WAIVER OF SUBROGATION
+Endorsement to Policy No. GLI-PL-2024-07823
+This endorsement modifies the Policy to which it is attached.
+The Insurer hereby waives its rights of subrogation under Section IV.D of this Policy against the following entities, but only with respect to Claims arising out of the Named Insured's performance under the agreements specified below:
+1.  Northland Refining Corporation — Per Master Supply Agreement No. MSA-2019-0042 between the Named Insured and Northland Refining Corporation.
+2.  PacWest Water Authority — Per Supply Agreement No. PWA-SUP-2021-117 between the Named Insured and PacWest Water Authority.
+This waiver of subrogation applies only to the extent required by the agreements referenced above and does not extend to any claims arising from the gross negligence or willful misconduct of the entities named herein. All other terms and conditions of this Policy remain unchanged.
+EXECUTION
+IN WITNESS WHEREOF, Great Lakes Indemnity Company has caused this Policy to be executed by its authorized officers and delivered to the Named Insured as of the Effective Date stated herein.
+Policy Number: GLI-PL-2024-07823 Effective Date: October 1, 2024
+GREAT LAKES INDEMNITY COMPANY
+By: ________
+Name: Margaret A. Caldwell
+Title: President
+By: ________
+Name: David R. Hoffman
+Title: Secretary
+Countersigned:
+TRASK & FIELDING INSURANCE SERVICES
+By: ________
+Name: Jonathan P. Trask
+Title: Authorized Representative
+Date: ________

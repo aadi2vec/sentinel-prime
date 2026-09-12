@@ -1,0 +1,16 @@
+[lab] task      : extract-change-of-control-provisions
+[lab] title     : Change of Control Provision Extraction and Risk Analysis for Reverse Triangular Merger
+[lab] work_type : review
+[lab] documents : 8
+[lab] criteria  : 55  (all-pass needs every one)
+[lab] deliverab.: change-of-control-extraction-report.docx
+
+[lab] model     : openai/gpt-5.6-luna
+[lab] arm       : learning
+[lab] judging   : 55/55 criteria (LAB's rubric prompt, our runner — indicative, not an official LAB score)
+
+  epoch 1: pooled criterion pass rate = 47.3% (26/55) | all-pass = False | 194s | output 49 chars
+    ledger: created=['change_control_report_completeness_checklist', 'change_control_transaction_analysis', 'change_control_quantification_and_ratings', 'change_control_artifact_delivery_qa'] rejected=[] retired=[] (size=4)
+
+[lab] curve     : 47.3%
+[lab] artifacts : lab_runs/extract-change-of-control-provisions
