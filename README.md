@@ -1,5 +1,11 @@
 # sentinel-prime
 
+> **The predictive-recursion direction moved to [recursio](https://github.com/aadi2vec/recursio)
+> on 2026-09-12.** Its PRD and execution plan live there, along with a copy of seven
+> domain-neutral modules from this repo. This repository keeps the RLM research frontier:
+> failure-driven self-improvement, the admission ladder, credit assignment, replay scoring,
+> and the judged corpus in `lab_tasks/` and `lab_runs/`.
+
 **Can an RLM improve the machinery it uses to solve problems?**
 
 Not "can it remember more advice" — can it change *how it computes*: how work is decomposed,
