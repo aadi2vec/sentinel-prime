@@ -100,8 +100,13 @@ refused configurations. That prose survives a copy; the imports do not need to.
 | `lab_tasks/`, `lab_runs/`, `graveyard/`, `scripts/` | stays | — |
 | `docs/PRD.md` (uncommitted) | **deleted** | **moves** |
 | `docs/PLAN.md` (predictive, uncommitted) | **reverted** | **moves** |
-| `docs/PLAN.md` (execution-policy, committed at `fb86667`) | restored | — |
+| `docs/PLAN.md` (execution-policy, committed) | restored from `HEAD` | — |
 | tests for the seven spine modules | stays | **copied** |
+
+A correction made during execution: an earlier draft of this table named `fb86667` as the
+commit holding the execution-policy `docs/PLAN.md`. That file does not exist at `fb86667` —
+it was created by `2e34fea` and last touched by `ce17379`. Restoring from `fb86667` would
+have **deleted** the committed plan rather than restoring it. The restore target is `HEAD`.
 
 Code is **copied, not moved**. The spine stays live in sentinel-prime because `agent`,
 `assembly`, and `harness` depend on it. The two copies will diverge, and that is correct:
