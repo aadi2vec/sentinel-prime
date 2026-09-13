@@ -118,13 +118,9 @@ credentials in the process environment. No default provider is assumed.
 Artifacts: `archive.json`, `report.json`, and per-attempt `execution.json` carrying assembly
 descriptions, model identities, RLM trajectories, cache statistics, and reported usage.
 
-## Documents
+## The plan
 
-Two, and only two, are live:
-
-- [Plan of attack](docs/plans/2026-09-07-rlm-policy-evolution-plan.md) — phases, invariants, go/no-go
-- [Design](docs/superpowers/specs/2026-09-07-execution-policy-search-design.md) — policy
-  representation, the evaluation boundary, replay evaluation, and four ways this fails
-
-Everything else was retired on 2026-09-07 into [`graveyard/`](graveyard/README.md), kept rather
-than deleted because the surviving documents cite its measurements.
+[`docs/PLAN.md`](docs/PLAN.md) — the goal, the one experiment, what is missing, and four ways
+it fails. It is the only plan; earlier planning documents were deleted rather than archived,
+because having a menu of extensions to hand is what kept pulling work away from the
+experiment. Retired *code* is in [`graveyard/`](graveyard/README.md).

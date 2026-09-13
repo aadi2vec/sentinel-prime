@@ -1,0 +1,196 @@
+HOLLOWAY & FITCH LLP Intellectual Property Group
+MEMORANDUM
+FROM: Holloway & Fitch LLP — Intellectual Property Group
+TO: Catherine Reeves, Lead Partner; Thomas Avery, Senior Associate
+DATE: March 10, 2025
+RE: Intellectual Property Due Diligence Summary — PrecisionFlow Systems, Inc. (Project Cascade)
+PRIVILEGED AND CONFIDENTIAL — ATTORNEY WORK PRODUCT
+This memorandum summarizes the findings of our intellectual property due diligence review of PrecisionFlow Systems, Inc. ("Target" or "PrecisionFlow"), a Delaware corporation headquartered at 4500 Industrial Parkway, Dayton, OH 45414, in connection with the proposed acquisition by Cascadia Industrial Holdings, Inc. ("Buyer" or "Cascadia") for an aggregate purchase price of $287 million. Diligence materials reviewed include Target's patent portfolio documentation, USPTO records, trademark registration files, software license agreements, trade secret protocols, correspondence related to the AquaDyne Technologies, LLC dispute, and the non-infringement opinion letter from Hargrove & Lind LLP dated November 15, 2024. Our review was conducted in coordination with Ridgeline Capital Partners (Aaron Bliss, Managing Director) and with reference to the draft Stock Purchase Agreement dated March 14, 2025 (the "SPA"), prepared by Stonebridge Whitaker LLP (Jeffrey Denton, Lead Partner) on behalf of Seller. This memorandum addresses each material category of intellectual property and identifies issues requiring attention prior to signing or as conditions to closing.
+I. Executive Summary
+PrecisionFlow holds a portfolio of 14 issued U.S. patents, 3 pending patent applications, a registered trademark (PRECISIONFLOW®), proprietary trade secrets related to alloy formulations, and a material third-party software license. In the aggregate, the intellectual property portfolio supports Target's core product lines in hydraulic directional control valves, proportional valves, and electronic flow control systems. While the portfolio is generally sound and well-maintained, our diligence review identified two findings that require immediate attention from the deal team.
+First, Patent Portfolio Discrepancy. Our review identified 14 issued U.S. patents assigned to PrecisionFlow, but the Seller's draft Disclosure Schedule 3.9 to the SPA lists only 12. The two omitted patents — U.S. Patent Nos. 10,891,234 and 10,891,235 — relate specifically to the PF-4200 proportional valve, which is the product at the center of the pending AquaDyne Technologies, LLC infringement dispute. This omission must be corrected and warrants further inquiry into whether the omission was inadvertent or reflects an undisclosed issue with ownership, validity, or enforceability of these patents.
+Second, AquaDyne Non-Infringement Opinion — Material Caveat. Target's outside IP counsel, Hargrove & Lind LLP, issued a non-infringement opinion dated November 15, 2024 regarding the AquaDyne cease-and-desist. However, the opinion contains a significant limitation: counsel was unable to analyze claim 14 of AquaDyne's U.S. Patent No. 11,234,567 — the lead method claim — because Target declined to produce certain internal testing data for the PF-4200. The opinion expressly disclaims coverage of claims 14 through 22. This caveat materially undermines the opinion's reliability and renders the SPA's IP representation regarding the availability of a non-infringement opinion misleadingly incomplete.
+Overall Assessment: The patent and trademark portfolios are generally sound, maintenance fees are current, and trade secret protection measures are reasonable. However, the two high-risk findings identified above present meaningful risk to Buyer and should be addressed before signing or as conditions to closing. We recommend that both issues be elevated to the broader deal team, including Rajan Mehta (General Counsel, Cascadia), for immediate discussion.
+II. Patent Portfolio
+A. Overview of Issued Patents
+PrecisionFlow owns 14 issued U.S. patents covering hydraulic valve designs, flow control algorithms, and related technologies. All patents are assigned to PrecisionFlow Systems, Inc. as confirmed by USPTO assignment records reviewed as of March 7, 2025. The patents span the core product lines — hydraulic directional control valves, proportional valves, and electronic flow control systems — and are set forth in the table below.
+No.
+Patent No.
+Title (Brief)
+Issue Date
+Expiration Date
+Product Line / Application
+1
+8,214,703
+Hydraulic valve body with integrated seal geometry
+June 12, 2012
+June 12, 2030
+Directional control valves
+2
+8,519,088
+Spool configuration for multi-port directional valve
+November 27, 2013
+November 27, 2031
+Directional control valves
+3
+8,742,361
+High-pressure seal assembly for hydraulic valve
+June 3, 2014
+June 3, 2032
+Seal designs (cross-platform)
+4
+9,103,447
+Electronic control interface for hydraulic flow systems
+August 18, 2015
+August 18, 2033
+Electronic flow control
+5
+9,388,912
+Variable orifice spool valve with wear-resistant coating
+February 9, 2016
+February 9, 2034
+Directional control valves
+6
+9,612,054
+Adaptive flow control algorithm for proportional valves
+October 11, 2017
+October 11, 2035
+Proportional valves / electronic control
+7
+9,855,220
+Modular valve manifold assembly
+March 20, 2018
+March 20, 2036
+Directional control valves
+8
+10,104,688
+Closed-loop feedback control system for hydraulic actuators
+January 8, 2019
+January 8, 2037
+Electronic flow control
+9
+10,337,491
+Pressure-compensated flow control cartridge
+May 28, 2019
+May 28, 2037
+Proportional valves
+10
+10,582,776
+Electrohydraulic servo valve with digital signal processing
+February 4, 2020
+February 4, 2038
+Electronic flow control
+11
+10,724,310
+Corrosion-resistant valve seat insert
+June 16, 2020
+June 16, 2038
+Seal designs / valve seats
+12
+10,891,234
+Proportional valve body geometry for PF-4200 series
+March 9, 2021
+March 9, 2039
+PF-4200 proportional valve
+13
+10,891,235
+Flow modulation algorithm for PF-4200 electronic control unit
+March 23, 2021
+March 23, 2039
+PF-4200 proportional valve
+14
+11,045,892
+Integrated sensor array for real-time flow diagnostics
+June 14, 2022
+June 14, 2040
+Electronic flow control
+All maintenance fees appear current based on USPTO records reviewed as of the diligence date. No liens, security interests, or encumbrances were identified against the patent portfolio, other than a general blanket lien under Target's asset-based lending credit facility with Keystone National Bank, N.A. — a standard arrangement for secured lending that is disclosed on Schedule 3.6 of the SPA.
+As detailed in Section II.B below, the Seller's draft Disclosure Schedule 3.9 lists only 12 of these 14 patents, omitting U.S. Patent Nos. 10,891,234 and 10,891,235 (entries 12 and 13 in the table above).
+B. Disclosure Schedule Discrepancy — Omitted Patents
+Seller's draft Disclosure Schedule 3.9 to the SPA lists only 12 issued U.S. patents. Our diligence review identified 14 issued U.S. patents assigned to PrecisionFlow. The two patents omitted from Schedule 3.9 are:
+•  U.S. Patent No. 10,891,234 — covering proportional valve body geometry for the PF-4200 product line; and
+•  U.S. Patent No. 10,891,235 — covering the flow modulation algorithm implemented in the PF-4200 electronic control unit.
+The significance of this omission cannot be understated. Both omitted patents are directly related to the PF-4200 proportional valve, which is the specific product accused of infringing AquaDyne Technologies, LLC's U.S. Patent No. 11,234,567 (see Section V below). The omission of the very patents covering the accused product from the disclosure schedule is particularly concerning for three reasons:
+1.  It creates a gap in the SPA's IP representation (Section 3.9), which requires Seller to list all owned intellectual property. An incomplete schedule could compromise Buyer's ability to enforce the representation post-closing and may affect indemnification rights under Article VIII of the SPA.
+2.  It may indicate that Seller's counsel has not fully catalogued the patents related to the PF-4200, which raises questions about the thoroughness of Target's internal IP management and its defense posture regarding the AquaDyne dispute.
+3.  If the patents were intentionally omitted, this warrants inquiry into whether there is an undisclosed issue with ownership, validity, or enforceability of these patents — for example, whether a prior assignment, license, or encumbrance exists that has not been disclosed to Buyer.
+Recommendation: We recommend that Buyer request immediate correction of Schedule 3.9 to include both patents. Counsel should inquire with Sandra Cho (Target General Counsel) and Stonebridge Whitaker LLP (Jeffrey Denton) regarding the reason for the omission. Chain of title for both patents should be independently confirmed through a supplemental USPTO assignment search. Additionally, the omission should be cross-referenced with our analysis of the AquaDyne dispute set forth in Section V below.
+C. Pending Patent Applications
+PrecisionFlow has 3 pending U.S. patent applications, as follows: Application No. 17/482,116 (next-generation adaptive flow control for proportional valves), Application No. 17/639,504 (enhanced valve seat geometry for high-temperature environments), and Application No. 18/201,338 (AI-assisted predictive maintenance system for hydraulic control networks). All three applications are in prosecution before the USPTO. No final rejections have been issued. Application No. 17/482,116 received a non-final office action dated January 22, 2025 citing prior art under 35 U.S.C. § 103; Target's patent counsel at Hargrove & Lind LLP is preparing a response, which is due April 22, 2025.
+No foreign patent applications or PCT filings were identified; Target's patent portfolio is exclusively U.S.-based. The absence of foreign patent protection is a consideration given that the Monterrey, Mexico facility (PrecisionFlow de México, S.A. de C.V.) manufactures components incorporating proprietary designs. Target's designs are not patent-protected in Mexico or other foreign jurisdictions, which limits enforcement options against potential imitators outside the United States.
+III. Trademark Portfolio
+PrecisionFlow's primary trademark is PRECISIONFLOW® — U.S. Registration No. 3,847,221, registered April 12, 2011, with the United States Patent and Trademark Office. The mark is registered in International Class 7 (hydraulic valves and flow control systems for industrial machinery). The registration is currently active, and all required maintenance filings — including the Section 8 Declaration of Continued Use and Section 9 Renewal Application — appear current. The most recent renewal was filed in April 2021, extending the registration through April 2031.
+No oppositions, cancellation proceedings, or third-party challenges to the mark were identified in our review of TTAB records. Target also uses the marks "PF-Series" and "FlowLogic" in commerce for product sub-brands, but these do not appear to be registered with the USPTO. We recommend evaluating whether federal registration of these marks should be pursued post-acquisition to formalize Buyer's rights.
+No foreign trademark registrations were identified. As with the patent portfolio, the PRECISIONFLOW® mark is not registered in Mexico, which is notable given the manufacturing operations conducted through PrecisionFlow de México, S.A. de C.V. in Monterrey.
+Overall Assessment: The trademark portfolio is narrow but adequately protects the primary brand. No material concerns were identified.
+IV. Trade Secrets and Proprietary Information
+PrecisionFlow maintains proprietary trade secrets related to alloy formulations used in valve seat manufacturing. These formulations, developed over more than a decade by Target's metallurgy team in Dayton, are a key competitive differentiator, providing superior wear resistance and corrosion performance relative to standard commercially available alternatives. Target's engineering leadership has represented that the alloy formulations are not disclosed in any patent filing and are maintained exclusively as trade secrets.
+Protection measures reviewed:
+•  Employee invention assignment and confidentiality agreements: We reviewed a sample of 25 agreements covering key engineering and R&D staff. Agreements appear to be in standard form and include assignment of inventions conceived during employment, non-disclosure obligations extending beyond termination, and post-employment non-compete provisions with 18-month duration (enforceability of non-competes varies by jurisdiction and may be unenforceable or limited in certain states).
+•  Facility access controls: The Dayton facility employs badge-access restrictions for the metallurgy lab and R&D areas. Access logs are maintained electronically.
+•  Vendor NDAs: Target requires non-disclosure agreements from suppliers who receive alloy specifications. We reviewed 8 vendor NDAs; all appeared to be in customary form with standard confidentiality terms and return-of-materials obligations.
+•  Digital security: Target's IT department confirmed that formulation data is stored on encrypted, access-restricted servers with role-based permissions. No formal information security audit has been performed by an independent third party.
+Concerns:
+•  We were unable to confirm whether all 740 employees (or all employees with access to sensitive technical information) have executed confidentiality agreements. Target's HR department indicated that "substantially all" employees have signed agreements but could not provide a definitive count or a complete list of signed versus unsigned agreements.
+•  The Monterrey facility (PrecisionFlow de México, S.A. de C.V.) presents additional trade secret risk. Mexican labor law imposes different requirements regarding employee IP assignments and non-compete covenants, and the enforceability framework differs materially from U.S. law. We recommend separate review by qualified Mexican counsel.
+Overall Assessment: Target's trade secret protection program appears reasonable but would benefit from formalization and a comprehensive audit post-closing, including a complete inventory of signed employee agreements and an independent information security assessment.
+V. AquaDyne Technologies, LLC — Infringement Dispute
+A. Background.  On September 8, 2024, AquaDyne Technologies, LLC ("AquaDyne"), a Delaware limited liability company, sent a cease-and-desist letter to PrecisionFlow alleging that PrecisionFlow's Model PF-4200 proportional valve infringes AquaDyne's U.S. Patent No. 11,234,567 (issued January 10, 2023, titled "Proportional Hydraulic Valve with Enhanced Flow Modulation"). AquaDyne's patent claims relate to a proportional hydraulic valve with specific flow modulation characteristics. The patent contains 22 claims, with claims 1 through 13 directed to apparatus claims and claims 14 through 22 directed to method-of-use claims.
+AquaDyne's cease-and-desist letter demands cessation of manufacture and sale of the PF-4200 and requests a meeting to discuss licensing terms. No lawsuit has been filed as of the date of this memorandum. We note, however, that the six-year statute of limitations under 35 U.S.C. § 286 preserves AquaDyne's ability to bring suit for some time.
+The PF-4200 is one of Target's higher-margin products. While we do not have product-level revenue data, the PF-4200 line is understood to contribute materially to Target's Fluid Power product revenues. The PF-4200 is sold to several of Target's largest customers, including Kessler Heavy Industries and Great Plains Hydro, LLC. Disruption to the PF-4200 product line — whether through injunction, redesign, or licensing — would have a meaningful financial impact on the acquired business.
+B. Non-Infringement Opinion — Hargrove & Lind LLP
+Target retained Hargrove & Lind LLP, based in Washington, D.C., as outside IP counsel to evaluate the AquaDyne infringement allegation. Hargrove & Lind issued a non-infringement opinion dated November 15, 2024 (the "Opinion"). The Opinion concludes that the PF-4200, as currently manufactured and sold, does not infringe claims 1 through 13 of AquaDyne's U.S. Patent No. 11,234,567. The analysis is based on claim construction of the patent in light of the prosecution history and comparison to the PF-4200's design specifications as provided by Target.
+However, the Opinion contains a significant limitation. In Section IV.B of the Opinion, Hargrove & Lind states that it was unable to analyze claim 14 of the AquaDyne patent — the lead method claim — because Target declined to produce certain internal testing data related to the PF-4200's flow modulation performance characteristics. The Opinion expressly states that "our conclusions do not extend to claims 14 through 22" and that "we cannot opine on potential infringement of the method claims without access to the testing data that would confirm or refute whether the PF-4200's operation falls within the scope of claim 14."
+This caveat is significant for the following reasons:
+1.  The Opinion is incomplete on its face. Claims 14 through 22 (the method claims) represent nearly half of the patent's claims and are often the most relevant claims in infringement disputes involving product functionality. A non-infringement opinion that addresses only the apparatus claims while disclaiming the method claims provides materially incomplete comfort.
+2.  Target's refusal to provide testing data is itself a red flag. If the internal testing data would have supported a non-infringement conclusion, one would expect Target to have provided it to counsel. The refusal to do so may suggest that the data could demonstrate that the PF-4200's operation does fall within the scope of claim 14, which would expose Target — and Buyer, post-acquisition — to infringement liability on the method claims.
+3.  The SPA representation should be read carefully. Section 3.9 of the SPA states that Target has "no knowledge of any infringement of third-party intellectual property rights" and references the availability of a "non-infringement opinion from competent patent counsel." As drafted, this representation could be read to suggest that the non-infringement opinion provides comprehensive comfort, when in fact it expressly disclaims coverage of claims 14 through 22. The representation, as currently drafted, is misleadingly incomplete and should be revised to accurately characterize the scope and limitations of the Opinion.
+4.  Litigation risk is not fully mitigated. If AquaDyne files suit and asserts claim 14, Target's defense position is materially weaker because it lacks an opinion covering that claim. Moreover, the incomplete Opinion could undermine Target's ability to argue that it acted in good faith — a consideration directly relevant to willfulness and the potential for enhanced damages under 35 U.S.C. § 284. The absence of an opinion on the method claims could, in the worst case, support a finding that Target was aware of a potential infringement risk and deliberately chose not to investigate it.
+Connection to the omitted patents: The two patents omitted from Disclosure Schedule 3.9 — U.S. Patent Nos. 10,891,234 and 10,891,235 — are Target's own patents covering the PF-4200. The omission of these patents from the schedule, combined with Target's refusal to provide testing data for the non-infringement opinion, raises a cumulative concern about the completeness and transparency of Target's IP disclosures regarding the PF-4200. Taken together, these issues suggest that either Target's internal IP management with respect to the PF-4200 is deficient, or that Target is selectively withholding information related to the product at the center of the AquaDyne dispute.
+C. Recommendations Regarding AquaDyne Dispute
+Based on the foregoing analysis, we recommend the following actions:
+Request supplemental opinion. Buyer should insist that Target direct Hargrove & Lind LLP (or alternative competent patent counsel acceptable to Buyer) to complete the non-infringement analysis for claims 14 through 22, which necessarily requires Target to produce the withheld internal testing data. This should be a condition to closing or, at minimum, a pre-closing covenant in the SPA.
+Obtain and review testing data independently. Buyer's IP team should independently review the PF-4200 testing data to assess infringement risk under claims 14 through 22. If Target continues to withhold the data, Buyer should consider whether this constitutes a material breach of Target's cooperation obligations under the SPA.
+Evaluate litigation exposure. If AquaDyne's claim has merit as to the method claims, potential exposure includes injunctive relief (loss of ability to manufacture and sell the PF-4200), damages (reasonable royalty or lost profits), and potential enhanced damages for willful infringement under 35 U.S.C. § 284. Quantification is not possible without further analysis, but exposure could be material given the PF-4200's contribution to revenue and margin.
+SPA negotiation points:
+•  Require correction of Disclosure Schedule 3.9 to include all 14 issued patents.
+•  Negotiate a specific IP indemnity for the AquaDyne dispute, potentially structured outside the general escrow/basket framework established in Article VIII of the SPA.
+•  Modify the IP representation in Section 3.9 to accurately characterize the non-infringement Opinion's limitations rather than referencing it as unqualified comfort.
+•  Consider a special escrow or holdback from the purchase price for AquaDyne-related losses, with a release mechanism tied to resolution of the dispute.
+Monitor AquaDyne activity. Track whether AquaDyne files a patent infringement lawsuit before closing. If a complaint is filed, reassess the transaction structure and risk allocation, including whether a purchase price adjustment or termination right is warranted.
+VI. Software Licenses
+Target licenses CAD/CAM software from Verteon Software, Inc. under a 5-year enterprise license agreement dated August 15, 2021 (the "Verteon License"). Key terms of the Verteon License are as follows:
+•  Annual license fee: $420,000, payable in quarterly installments.
+•  Term: Five years from execution, expiring August 15, 2026.
+•  Transferability: The license is non-exclusive, non-transferable, and does not contain an express change-of-control consent provision. However, the non-transferability clause may be implicated by an indirect change of control resulting from a stock acquisition. We recommend review of whether the Verteon License requires notification or consent in connection with the transaction and, if so, that Buyer obtain such consent prior to closing.
+Target also utilizes various standard commercial software — including ERP (SAP), accounting (Oracle NetSuite), and productivity applications (Microsoft 365 Enterprise) — under standard enterprise licenses. No unusual terms were identified in our review of these agreements.
+Overall Assessment: The Verteon License is the only material IP-related software license. The approaching expiration in August 2026 is noted for post-closing planning purposes but does not present a diligence concern, as the license is properly disclosed on Disclosure Schedule 3.15 of the SPA and Target is current on all payment obligations.
+VII. Summary of Findings and Risk Assessment
+The following table summarizes the key findings of our intellectual property due diligence review, together with associated risk levels and recommended actions:
+Finding
+Risk Level
+SPA Section
+Recommended Action
+Two patents (U.S. Patent Nos. 10,891,234 and 10,891,235) omitted from Disclosure Schedule 3.9
+High
+Section 3.9 / Schedule 3.9
+Correct schedule; investigate reason for omission; confirm chain of title
+Non-infringement opinion (Hargrove & Lind LLP) does not cover claims 14–22 of AquaDyne patent due to Target's refusal to produce testing data
+High
+Section 3.9 (IP representation re: non-infringement opinion)
+Request supplemental opinion; obtain testing data; negotiate specific IP indemnity
+No foreign patent or trademark protection (Mexico in particular)
+Medium
+N/A (commercial consideration)
+Evaluate post-closing IP filing strategy for Mexico and other key jurisdictions
+Incomplete employee confidentiality agreement coverage
+Low–Medium
+N/A (trade secret protection)
+Post-closing audit of all employee agreements; engage Mexican counsel for Monterrey facility
+Verteon Software license approaching expiration (August 2026)
+Low
+Schedule 3.15 (properly disclosed)
+Post-closing renewal planning
+The two high-risk findings — the omitted patents and the incomplete non-infringement opinion — are interrelated and both concern the PF-4200 product line and the AquaDyne dispute. The omission from Schedule 3.9 of the very patents covering the accused product, combined with Target's refusal to produce the testing data necessary for a complete non-infringement analysis, raises serious questions about the completeness and transparency of Target's IP disclosures. These issues should be elevated to Catherine Reeves and the broader deal team, including Rajan Mehta (General Counsel, Cascadia Industrial Holdings, Inc.), for discussion in the next deal team call scheduled for March 12, 2025. We recommend that resolution of both issues be addressed in the SPA markup to be delivered to Stonebridge Whitaker LLP, and that Buyer consider conditioning closing on receipt of a supplemental non-infringement opinion covering the full scope of AquaDyne's patent claims.
+This memorandum is prepared for the internal use of Holloway & Fitch LLP and Cascadia Industrial Holdings, Inc. in connection with the proposed acquisition of PrecisionFlow Systems, Inc. It is protected by the attorney-client privilege and the work product doctrine. Do not distribute without prior authorization from Catherine Reeves.
+Distribution: Catherine Reeves (Holloway & Fitch LLP), Thomas Avery (Holloway & Fitch LLP), Rajan Mehta (Cascadia Industrial Holdings, Inc.), Aaron Bliss (Ridgeline Capital Partners)

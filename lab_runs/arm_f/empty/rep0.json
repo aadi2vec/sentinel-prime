@@ -1,0 +1,350 @@
+{
+  "arm": "empty",
+  "rep": 0,
+  "untouched": [],
+  "n_untouched": 0,
+  "coverage": 1.0,
+  "abandonment_phrases": [
+    "not supplied"
+  ],
+  "n_abandonment": 1,
+  "pooled": 0.5636,
+  "all_pass": false,
+  "n_criteria": 55,
+  "turns": 12,
+  "elapsed_s": 216,
+  "tokens": 243214,
+  "criteria": [
+    {
+      "id": "C-001",
+      "title": "ISSUE_001: Identifies Northland anti-assignment clause in Section 14.2",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 14.2 of the Northland Refining MSA and quotes its prohibition on assignment, transfer, or delegation 'whether by operation of law or otherwise' without the other party's prior written consent."
+    },
+    {
+      "id": "C-002",
+      "title": "ISSUE_001: Flags absence of explicit change of control definition in Northland MSA",
+      "verdict": "pass",
+      "reasoning": "The report expressly states that the Northland Refining MSA does not contain an express provision addressing change of control and lacks a conventional change-of-control provision. It identifies the broad assignment restriction in Section 14.2 as the principal analogous provision."
+    },
+    {
+      "id": "C-003",
+      "title": "ISSUE_001: Analyzes whether reverse triangular merger constitutes 'assignment by operation of law'",
+      "verdict": "fail",
+      "reasoning": "FAIL. The report notes generally that a merger could potentially involve a transfer by operation of law under Northland Section 14.2, but it does not specifically analyze whether a reverse triangular merger in which Apex survives constitutes such an assignment, nor does it identify the issue as jurisdiction-dependent or legally uncertain."
+    },
+    {
+      "id": "C-004",
+      "title": "ISSUE_001: Flags Northland revenue concentration risk (~19.3% / ~$36.2M)",
+      "verdict": "fail",
+      "reasoning": "The report does not identify Northland as representing approximately 19.3% of Apex's revenue or approximately $36.2 million, nor does it use any such revenue concentration to support a high or critical risk rating. Northland is rated medium based on assignment ambiguity alone."
+    },
+    {
+      "id": "C-005",
+      "title": "ISSUE_002: Identifies Section 1.01 'Change of Control' definition with >50% voting stock threshold",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies the Summit credit agreement's Section 1.01 definition of \"Change of Control\" and states that it includes acquisition of more than 50% of the Borrower's outstanding Voting Stock."
+    },
+    {
+      "id": "C-006",
+      "title": "ISSUE_002: Identifies Section 8.01(j) 'Change in Control' definition with >35% threshold OR board replacement",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Credit Agreement Article VIII, Section 8.01(j) as a separate 'Change in Control' Event of Default provision, with a threshold of more than 35% beneficial ownership of the Borrower's outstanding Voting Stock and an alternative test based on incumbent directors ceasing to constitute a majority of the Board."
+    },
+    {
+      "id": "C-007",
+      "title": "ISSUE_002: Flags inconsistency between the two credit agreement CoC definitions",
+      "verdict": "pass",
+      "reasoning": "The report explicitly identifies two distinct credit agreement concepts: \u201cChange of Control\u201d with a more-than-50% threshold and \u201cChange in Control\u201d with a more-than-35% threshold, and notes the different naming, separate consequences, overlap, and drafting ambiguity. It also recommends addressing the ambiguity expressly."
+    },
+    {
+      "id": "C-008",
+      "title": "ISSUE_002: Notes that merger triggers both credit agreement definitions",
+      "verdict": "fail",
+      "reasoning": "The report explains that a transaction exceeding 50% would trigger both the credit agreement's mandatory-prepayment Change of Control and the 35% Event-of-Default Change in Control provisions. However, it does not expressly apply that conclusion to the Voltan merger or state that Voltan's acquisition of 100% of Apex triggers both definitions."
+    },
+    {
+      "id": "C-009",
+      "title": "ISSUE_002: Identifies mandatory prepayment consequence under Section 2.09",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 2.09(d)'s mandatory prepayment consequence, stating that upon a Change of Control the borrower must prepay all outstanding Revolving Loans in full within 30 days, together with accrued interest, and that commitments terminate."
+    },
+    {
+      "id": "C-010",
+      "title": "ISSUE_002: Identifies event of default consequence under Section 8.01",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 8.01(j) as a separate Change in Control Event of Default, including that acquisition of more than 35% of Voting Stock or specified board turnover may trigger an immediate Event of Default and potential acceleration under Section 8.02(a)."
+    },
+    {
+      "id": "C-011",
+      "title": "ISSUE_002: Quantifies credit facility exposure at $42.5M drawn amount",
+      "verdict": "fail",
+      "reasoning": "The report mentions $42.5 million in outstanding Revolving Loans, but it does not state that this is the current drawn amount out of a $75 million total commitment. Because the required $75 million commitment context is omitted, the criterion is not fully satisfied."
+    },
+    {
+      "id": "C-012",
+      "title": "ISSUE_003: Identifies Kenji buy-out option triggered by change of control in Section 12.3",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 12.3 as granting the non-affected member a buy-out option when either member undergoes a change of control. It quotes the definition covering direct or indirect acquisition by a person or group of 50% or more of a member's voting equity and notes that Kenji may exercise the option if Apex is the affected member."
+    },
+    {
+      "id": "C-013",
+      "title": "ISSUE_003: Identifies carve-out condition (i) \u2014 maintaining Apex management team for 18 months",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 12.3(b)'s carve-out condition requiring the Successor Entity to retain Apex's existing senior management team, including at least the CEO and CTO, for at least 18 months after consummation."
+    },
+    {
+      "id": "C-014",
+      "title": "ISSUE_003: Identifies carve-out condition (ii) \u2014 successor entity >$500M fluid control products revenue",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 12.3(b)'s second cumulative condition: the successor entity's consolidated annual revenue from fluid control products must exceed $500 million. It also discusses the audited financial statements requirement and related ambiguities."
+    },
+    {
+      "id": "C-015",
+      "title": "ISSUE_003: Concludes carve-out does not apply \u2014 Voltan's ~$410M falls short of $500M",
+      "verdict": "fail",
+      "reasoning": "The report describes the $500 million revenue condition and recommends confirming eligibility, but it does not analyze Voltan's approximately $410 million flow-control revenue or conclude that the carve-out likely does not apply because Voltan falls short of the threshold."
+    },
+    {
+      "id": "C-016",
+      "title": "ISSUE_004: Identifies Hendricks termination right in Section 9.1 upon change of control",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 9.1 of the Hendricks License Agreement as granting the Licensor a unilateral right to terminate immediately upon written notice following a Change of Control. It also captures the broad definition in Section 1.3, including mergers, consolidations, reorganizations, and specifically forward, reverse, and triangular mergers."
+    },
+    {
+      "id": "C-017",
+      "title": "ISSUE_004: Flags absence of cure period in Hendricks license",
+      "verdict": "pass",
+      "reasoning": "The report expressly states that the Hendricks license termination right is exercisable at the Licensor's sole and absolute discretion and that no cure period is required."
+    },
+    {
+      "id": "C-018",
+      "title": "ISSUE_004: Identifies FlowLogic technology as embedded in AX-7000 product line",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 487730, Requested 35635. Please try again in 2.803s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-019",
+      "title": "ISSUE_004: Quantifies AX-7000/FlowLogic revenue exposure at ~$52.3M",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 500000, Requested 35626. Please try again in 4.275s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-020",
+      "title": "ISSUE_005: Identifies 'indirect' change of control language in PacWest Section 1.1(c)",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies PacWest Section 1.1(c), quotes the language covering 'any direct or indirect change in the ultimate ownership or control of Supplier,' and explains that the language is broad enough to capture upstream or indirect changes in control, creating transaction risk."
+    },
+    {
+      "id": "C-021",
+      "title": "ISSUE_005: Flags downstream risk \u2014 future change of Voltan ownership could re-trigger",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 500000, Requested 35651. Please try again in 4.278s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-022",
+      "title": "ISSUE_005: Identifies PacWest consent/termination timing (60 days post-closing / 90 days' notice)",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies that PacWest may terminate the agreement on 90 days' written notice and that, if consent is not obtained within 60 days after closing, PacWest may exercise that termination right thereafter."
+    },
+    {
+      "id": "C-023",
+      "title": "ISSUE_005: Quantifies PacWest revenue exposure (~11.7% / ~$21.9M)",
+      "verdict": "fail",
+      "reasoning": "The report discusses PacWest's annual minimum purchase commitment of $4 million but does not quantify PacWest revenue exposure as approximately 11.7% of Apex's TTM revenue or approximately $21.9 million."
+    },
+    {
+      "id": "C-024",
+      "title": "ISSUE_006: Identifies single-trigger equity acceleration in Hesse Section 5.4",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 500000, Requested 35668. Please try again in 4.28s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-025",
+      "title": "ISSUE_006: Flags conflict between single-trigger acceleration and merger agreement RSU rollover",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies the conflict between Section 5.4's automatic single-trigger acceleration of Dr. Hesse's unvested equity awards and the Merger Agreement's contemplated rollover of unvested Company RSUs into Parent RSUs on the existing vesting schedule. It also notes that the conflict remains unresolved and may require a waiver or amendment."
+    },
+    {
+      "id": "C-026",
+      "title": "ISSUE_006: Quantifies RSU acceleration cost at ~$967,230",
+      "verdict": "pass",
+      "reasoning": "The report quantifies the RSU acceleration exposure at approximately $967,230, based on 45,000 unvested RSUs and the implied share value, satisfying the criterion."
+    },
+    {
+      "id": "C-027",
+      "title": "ISSUE_007: Identifies deemed-assignment clause in HQ lease Section 22.2",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 22.2 of the HQ Lease as a \u201cDeemed Assignment\u201d provision and states that changes in control, including mergers, consolidations, and transfers of controlling equity interests, require the Landlord\u2019s prior written consent."
+    },
+    {
+      "id": "C-028",
+      "title": "ISSUE_007: Identifies prior written landlord consent requirement in Section 22.1",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies under the HQ Lease discussion that Section 22.1 requires the Tenant to obtain the Landlord's prior written consent before assigning the lease or transferring any interest."
+    },
+    {
+      "id": "C-029",
+      "title": "ISSUE_007: Identifies 'not unreasonably withheld' consent standard in Section 22.3",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies in the HQ Lease section that Section 22.3 provides: \"Landlord's consent to any Transfer or Deemed Assignment shall not be unreasonably withheld, conditioned, or delayed.\""
+    },
+    {
+      "id": "C-030",
+      "title": "ISSUE_007: Identifies landlord termination right on 120 days' notice under Section 22.4",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 22.4(a) and states that the landlord may terminate the lease by providing at least 120 days' prior written notice if an unauthorized transfer occurs or consent is withheld."
+    },
+    {
+      "id": "C-031",
+      "title": "ISSUE_007: Identifies early termination fee in Section 22.4",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 475975, Requested 35622. Please try again in 1.391s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-032",
+      "title": "ISSUE_007: Quantifies lease early termination fee at $3.24M",
+      "verdict": "pass",
+      "reasoning": "The report expressly quantifies the HQ Lease early termination fee as $3,240,000, calculated as 18 months of monthly base rent at $180,000 per month."
+    },
+    {
+      "id": "C-033",
+      "title": "ISSUE_008: Identifies insurance policy auto-conversion to run-off upon CoC",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies the Great Lakes Indemnity policy's Section IV.F.1 automatic conversion to a Run-Off Basis upon a Change of Control and states that coverage is limited to claims arising from products manufactured, sold, handled, distributed, or disposed of before the Run-Off Conversion Date."
+    },
+    {
+      "id": "C-034",
+      "title": "ISSUE_008: Flags coverage gap risk for post-closing new products",
+      "verdict": "pass",
+      "reasoning": "The report expressly states that run-off coverage excludes products manufactured, sold, handled, distributed, or disposed of on or after the change-of-control date. It also recommends procuring separate replacement product liability coverage effective at or before closing, clearly flagging the post-closing coverage gap."
+    },
+    {
+      "id": "C-035",
+      "title": "ISSUE_008: Notes $25M aggregate coverage limit",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 500000, Requested 35613. Please try again in 4.273s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-036",
+      "title": "ISSUE_009: Identifies cross-contract timing mismatches for consents/actions",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 500000, Requested 35725. Please try again in 4.287s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-037",
+      "title": "ISSUE_009: Notes that pre-closing consent solicitation is necessary for lease and PacWest",
+      "verdict": "pass",
+      "reasoning": "The report expressly recommends obtaining Landlord consent before signing or closing for the HQ Lease and obtaining PacWest consent before signing or closing for the PacWest Supply Agreement."
+    },
+    {
+      "id": "C-038",
+      "title": "ISSUE_009: Notes credit agreement 30-day post-closing prepayment window under Section 2.09(d)",
+      "verdict": "pass",
+      "reasoning": "The report expressly states under Section 2.09(d) that all outstanding Revolving Loans must be prepaid within 30 days following the Change of Control, and it separately identifies the five-business-day notice requirement. Although it recommends assessing payoff, waiver, or refinancing needs before closing, it does not incorrectly state that the 30-day prepayment must occur before closing or characterize the provision itself as a pre-closing blocker."
+    },
+    {
+      "id": "C-039",
+      "title": "ISSUE_010: Identifies JV buy-out pricing mechanism at 4.5x EBITDA",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies Section 12.3(c)'s buy-out price as 4.5 times the JV Company's trailing-twelve-month EBITDA and notes that Apex owns 55% (and Kenji 45%). It also explains that the formula applies to the entire affected Member interest regardless of percentage ownership."
+    },
+    {
+      "id": "C-040",
+      "title": "ISSUE_010: Calculates JV buy-out price at ~$22.95M",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 483726, Requested 35628. Please try again in 2.322s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-041",
+      "title": "ISSUE_010: Flags below-market pricing / value leakage risk from 4.5x EBITDA buy-out",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 485729, Requested 35670. Please try again in 2.567s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-042",
+      "title": "ISSUE_011: Flags Crestline ERP license as potential unreviewed CoC risk",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 483534, Requested 35683. Please try again in 2.306s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-043",
+      "title": "ISSUE_011: Notes operational risk from ERP license termination",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 482254, Requested 35647. Please try again in 2.148s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-044",
+      "title": "ISSUE_012: Notes UCC \u00a7 2-210 interaction with Northland anti-assignment clause",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 480063, Requested 35721. Please try again in 1.894s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-045",
+      "title": "Correct identification of merger structure as reverse triangular merger",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 464998, Requested 35659. Please try again in 78ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-046",
+      "title": "Correctly notes Apex survives as entity in the reverse triangular merger",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 466757, Requested 35667. Please try again in 290ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-047",
+      "title": "All 8 contracts are addressed in the report",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 500000, Requested 35682. Please try again in 4.281s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-048",
+      "title": "Report includes risk ratings for each contract",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 482857, Requested 35631. Please try again in 2.218s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-049",
+      "title": "Hendricks license rated Critical or High risk",
+      "verdict": "pass",
+      "reasoning": "The Hendricks License Agreement is expressly rated High risk. The report identifies the licensor\u2019s immediate, discretionary termination right without a notice or cure period and the resulting loss of license rights, satisfying the criterion."
+    },
+    {
+      "id": "C-050",
+      "title": "Northland Refining rated Critical or High risk",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 482220, Requested 35633. Please try again in 2.142s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-051",
+      "title": "Credit agreement rated Critical or High risk",
+      "verdict": "pass",
+      "reasoning": "The Summit credit agreement is expressly rated High risk. The report identifies the dual, inconsistent Change of Control and Change in Control definitions, including the 35% and 50% thresholds, and highlights the stated $42.5 million revolving-loan exposure and mandatory repayment consequences."
+    },
+    {
+      "id": "C-052",
+      "title": "Report includes section references for each identified provision",
+      "verdict": "pass",
+      "reasoning": "The report provides specific section references for identified change-of-control or analogous provisions in all eight contracts, including Section 12.3 for the Apex-Kenji JV, Sections 1.01, 2.09(d), and 8.01(j) for the Credit Agreement, Section 9.1 for the Hendricks License, Section 5.4 for the Hesse Employment Agreement, Sections 22.1\u201322.4 for the HQ Lease, Section 14.2 for the Northland MSA, Section 10.5 for the PacWest Supply Agreement, and Section IV.F for the Product Liability Policy. This exceeds the requirement of at least six contracts."
+    },
+    {
+      "id": "C-053",
+      "title": "ISSUE_006: Identifies the 45,000 unvested RSUs",
+      "verdict": "pass",
+      "reasoning": "The report expressly identifies the stated current unvested award balance as 45,000 RSUs and explains that Section 5.4 provides automatic single-trigger acceleration upon a Change of Control."
+    },
+    {
+      "id": "C-054",
+      "title": "ISSUE_003: Identifies Apex's 55% JV ownership stake",
+      "verdict": "fail",
+      "reasoning": "judge error: [gpt-5.6-luna] litellm.RateLimitError: RateLimitError: OpenAIException - Rate limit reached for gpt-5.6-luna in organization org-kZI24nqd04rwWKwfne8KENLP on tokens per min (TPM): Limit 500000, Used 482223, Requested 35613. Please try again in 2.14s. Visit https://platform.openai.com/account/rate-limits to learn more."
+    },
+    {
+      "id": "C-055",
+      "title": "Report includes pre-closing action items or recommendations",
+      "verdict": "pass",
+      "reasoning": "The report includes numerous specific pre-closing recommendations, including obtaining lender, licensor, landlord, supplier, insurer, and JV consents or waivers; making required consents conditions precedent to closing; arranging replacement insurance and tail coverage; and resolving the Hesse RSU acceleration and rollover conflict."
+    }
+  ],
+  "task_id": "extract-change-of-control-provisions"
+}

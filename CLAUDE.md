@@ -37,9 +37,8 @@ whether a failed check triggers another solver attempt**. Everything else in thi
 the ledger, the audit trail, the admission ladder, credit assignment — is *supporting
 machinery and instrumentation* for that search, not the thesis.
 
-Read `docs/plans/2026-09-07-rlm-policy-evolution-plan.md` (plan of attack) and
-`docs/superpowers/specs/2026-09-07-execution-policy-search-design.md` (design) first. They
-are the only two live documents.
+Read `docs/PLAN.md` first. It is the only plan, and §3 names the only work in flight; a task
+that cannot be traced to it is drift. Earlier planning documents were deleted deliberately.
 
 ### The policy search (`policy_search.py`, `policy_experiment.py`, `scripts/policy_lab.py`)
 

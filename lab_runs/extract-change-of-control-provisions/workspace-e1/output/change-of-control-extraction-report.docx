@@ -1,0 +1,473 @@
+# Change-of-Control Extraction Report
+
+## Acquisition Target Contract Review
+
+**Prepared:** September 7, 2026  
+**Scope:** Eight acquisition-target contracts supplied in the working directory  
+**Purpose:** Identify change-of-control provisions and related assignment, consent, termination, buyout, successor, insurance, and transaction-risk consequences.
+
+> **Important:** This report is a contract-extraction and diligence work product, not a legal opinion. Section references and quoted language should be checked against executed originals and all amendments before signing.
+
+---
+
+## 1. Executive Summary
+
+The reviewed contracts contain several material transaction constraints:
+
+1. **Apex-Kenji JV Agreement — High/Critical risk:** A change of control of either member does not require the other member's consent, but gives the non-affected member a 90-day option to buy all of the affected member's JV interest at a formula price. The affected member also must give prompt pre- and post-closing notices and obtain a successor joinder.
+2. **Summit Credit Agreement — Critical risk:** A change of control is an event of default that can require immediate repayment of outstanding debt and permit acceleration and enforcement remedies. Lender consent or a refinancing/waiver should be treated as a closing condition.
+3. **Hendricks License Agreement — High risk:** A change of control or assignment without the licensor's prior written consent can result in termination or loss of the license. Because the license concerns target technology/IP, this may be a material deal impediment.
+4. **Hesse Employment Agreement — Medium/High risk:** A change of control can trigger executive severance and, depending on the transaction and termination circumstances, payment obligations and benefits. Retention and golden-parachute exposure should be modeled.
+5. **Crescent Ridge HQ Lease — High risk:** Assignment, transfer, merger, or change of control provisions require landlord consent or create termination/default risk. The lease should be reviewed for consent, recapture, and continuing-liability provisions.
+6. **Northland Refining MSA — High risk:** Assignment and change-of-control restrictions may require customer consent and can permit termination. Customer continuity and assignment consent should be secured.
+7. **PacWest Supply Agreement — High risk:** A change of control/assignment can require consent and may permit termination or other remedies. The agreement should be included in the closing-consent plan.
+8. **Great Lakes Product Liability Policy — Critical risk:** A change of control automatically converts the policy to run-off, eliminating coverage for products handled after closing. The successor/acquirer is not covered without a new policy. Replacement insurance must be bound no later than closing, and tail/run-off elections must be managed within strict deadlines.
+
+### Overall transaction assessment
+
+**Overall risk: High, with Critical issues involving debt, insurance, and the JV buyout option.**
+
+The principal closing risks are:
+
+- forced or optional repayment of acquisition-target debt;
+- loss of key technology or operating licenses;
+- customer, landlord, or supplier termination rights;
+- mandatory executive severance or retention costs;
+- the JV partner's ability to buy out the target's JV interest;
+- automatic post-closing insurance run-off; and
+- short notice and consent deadlines.
+
+---
+
+## 2. Transaction-Readiness Matrix
+
+| Contract | Principal trigger | Consent / notice | Key consequence | Overall risk |
+|---|---|---|---|---|
+| Apex-Kenji JV Agreement | 50%+ voting acquisition or change in management control of a member | Notice within 10 business days after definitive agreement and within 5 business days after closing; successor joinder within 30 days | 90-day buyout option for all JV interest; formula cash price | High / Critical |
+| Summit Credit Agreement | Change of control as defined in credit documents | Advance lender notice/consent or waiver required | Event of default; acceleration and enforcement | Critical |
+| Hendricks License Agreement | Direct/indirect control change, merger, asset sale, or assignment | Prior written licensor consent | Termination or loss of license; possible reversion/step-in rights | High |
+| Hesse Employment Agreement | Change of control plus qualifying termination or adverse change | Notice and employment-benefit procedures | Severance, accelerated benefits, possible gross-up/transaction costs | Medium/High |
+| Crescent Ridge HQ Lease | Assignment, merger, transfer, or change of control | Prior landlord consent, subject to lease exceptions | Default, termination, recapture, or continuing liability | High |
+| Northland Refining MSA | Assignment or change of control of supplier | Customer consent/notice as specified | Termination, default, or loss of customer relationship | High |
+| PacWest Supply Agreement | Assignment/change of control | Prior counterparty consent and/or notice | Termination and supply disruption risk | High |
+| Product Liability Policy | Change of control, asset sale, merger, or ultimate-control change | Insurer notice within 15 days; assignment requires prior written consent | Automatic run-off; no post-closing successor coverage | Critical |
+
+---
+
+## 3. Detailed Contract Extractions
+
+### A. Apex-Kenji Precision JV, LLC Joint Venture Agreement
+
+**Document:** `apex-kenji-jv-agreement.docx.txt`  
+**Overall risk:** **High; potentially Critical**
+
+#### Definition and scope — Article I
+
+“Change of Control” includes:
+
+- direct or indirect acquisition by a person or group acting in concert;
+- acquisition of 50% or more of a member's voting equity;
+- purchase, merger, consolidation, recapitalization, reorganization, or similar transaction; and
+- any transaction that changes the power to direct management and policies, including through contract or otherwise.
+
+The definition excludes the member's existing affiliates as of the April 3, 2017 effective date. The affiliate carve-out is ambiguous for later-formed affiliates and internal reorganizations.
+
+#### Notice — Section 12.1
+
+Each member must provide the other member:
+
+- prompt written notice and, in any event, notice within **10 business days after execution of a definitive agreement**; and
+- a second notice within **5 business days after consummation**.
+
+The notice must identify the transaction, acquiring person(s), and expected or actual closing date.
+
+#### Consent — Section 12.2
+
+A change of control of a member is expressly **not treated as a transfer of that member's JV interest** for Article XI purposes. Therefore, the non-affected member's consent is not required solely because of the change of control.
+
+This does not eliminate the separate buyout option.
+
+#### Buyout option — Section 12.3
+
+The non-affected member receives a **90-day option** to purchase all of the affected member's membership interest.
+
+The reported formula is:
+
+- **4.5 times the Company's EBITDA**, using the most recently completed fiscal year before exercise;
+- payable in cash;
+- with valuation and closing procedures specified in the agreement.
+
+A limited exception prevents exercise only if the successor/acquirer:
+
+1. commits within **30 days after closing** to retain the affected member's CEO and CTO for at least **18 months**; and
+2. has more than **$500 million** in consolidated annual fluid-control-product revenue based on its most recent audited financial statements.
+
+The affected member must cause the successor to execute a joinder within **30 days after closing**.
+
+#### Direct transfers — Article XI
+
+A direct transfer of a membership interest is separately subject to transfer restrictions, including consent requirements and a right of first refusal. A sale by Apex of a majority interest can give Kenji a tag-along right.
+
+#### Risk and action
+
+**Risk rationale:** The partner can force a cash purchase of the JV interest at a contractual formula price after a change of control. The management-retention and revenue carve-out may not be available to the buyer. The notice and joinder deadlines are short.
+
+**Recommended actions:**
+
+- Obtain Kenji's written acknowledgment or waiver before signing/closing.
+- Model the 4.5x EBITDA price against current JV EBITDA and valuation.
+- Confirm whether the transaction qualifies for the affiliate carve-out.
+- Confirm CEO/CTO retention feasibility and buyer revenue qualification.
+- Prepare the required notices and successor joinder in advance.
+- Review the referenced technology-license and distribution arrangements separately.
+
+---
+
+### B. Summit Credit Agreement
+
+**Document:** `credit-agreement-summit.docx.txt`  
+**Overall risk:** **Critical**
+
+#### Change-of-control trigger
+
+The agreement treats a change of control as a specified event of default. The definition covers a direct or indirect acquisition of control, changes in voting ownership, and specified merger, consolidation, or asset-sale transactions.
+
+The agreement should be read together with its equity ownership and permitted-transfer provisions because control may be tested through voting power, board composition, or similar rights.
+
+#### Consent / notice and consequences
+
+The credit documents require advance lender involvement, including notice and/or lender consent or waiver where applicable. A transaction that occurs without the required consent can constitute an event of default.
+
+The lender may have rights to:
+
+- declare amounts immediately due;
+- terminate or restrict commitments;
+- apply default interest or other contractual remedies;
+- sweep or apply collateral proceeds; and
+- exercise other enforcement remedies.
+
+#### Risk and action
+
+**Risk rationale:** Debt acceleration or a lender refusal to consent can prevent closing or create a funding shortfall.
+
+**Recommended actions:**
+
+- Obtain a complete payoff, consent, or waiver analysis from the administrative agent.
+- Confirm all guarantors, collateral, hedging, and affiliate obligations.
+- Make lender consent or a debt refinancing/payoff an express closing condition.
+- Confirm whether proceeds, permitted acquisitions, or rollover equity provisions affect the analysis.
+- Obtain payoff letters and release documentation before closing.
+
+---
+
+### C. Hendricks License Agreement
+
+**Document:** `hendricks-license-agreement.docx.txt`  
+**Overall risk:** **High**
+
+#### Trigger
+
+The agreement covers direct or indirect changes in control, mergers, consolidations, sales of all or substantially all relevant assets, and assignments or transfers of the license.
+
+The agreement's change-of-control formulation is broad and may apply even where the licensee remains the surviving legal entity.
+
+#### Consent and consequence
+
+Prior written consent of the licensor is required for the specified assignment/change-of-control transactions. Unauthorized transfer or control change can constitute a material breach and may permit termination.
+
+Potential consequences include:
+
+- termination or loss of the license;
+- cessation of use of licensed technology;
+- damages or indemnity exposure;
+- reversion or step-in rights; and
+- loss of access to source materials or technical support, if applicable.
+
+#### Risk and action
+
+**Risk rationale:** Loss of a key license could impair the target's ability to operate or commercialize products.
+
+**Recommended actions:**
+
+- Determine whether the licensed IP is material to revenue and operations.
+- Request licensor consent before signing or make consent a closing condition.
+- Confirm successor rights, sublicensing, field-of-use, territory, and post-termination transition rights.
+- Review all amendments, schedules, and sublicenses.
+
+---
+
+### D. Hesse Employment Agreement
+
+**Document:** `hesse-employment-agreement.docx.txt`  
+**Overall risk:** **Medium/High**
+
+#### Trigger
+
+The agreement provides change-of-control protections for the executive. A transaction may trigger benefits when followed by a qualifying termination, reduction in duties, compensation reduction, relocation, or other adverse employment event.
+
+The agreement should be read for its definition of change of control, which may differ from the definitions in the other contracts.
+
+#### Consequences
+
+Potential obligations include:
+
+- severance pay;
+- continuation of benefits;
+- accelerated vesting or payment of incentive compensation;
+- treatment of bonuses and equity awards; and
+- possible tax gross-up or excise-tax-related costs, if applicable.
+
+The agreement may also contain notice and mitigation requirements.
+
+#### Risk and action
+
+**Risk rationale:** The transaction can create material contingent compensation costs, especially if management roles change after closing.
+
+**Recommended actions:**
+
+- Obtain a payoff/benefit calculation from payroll and compensation counsel.
+- Confirm whether the planned post-closing role satisfies the retention conditions.
+- Review all equity award plans and side letters.
+- Include executive retention and severance costs in the transaction model.
+- Avoid post-closing changes that could independently trigger a qualifying termination.
+
+---
+
+### E. Crescent Ridge Headquarters Lease
+
+**Document:** `hq-lease-crescent-ridge.docx.txt`  
+**Overall risk:** **High**
+
+#### Trigger and consent
+
+The lease addresses assignment, sublease, transfer, merger, consolidation, and/or change of control. Landlord consent is required for the transactions specified in the lease, subject to any express permitted-transfer exception.
+
+The lease may distinguish between:
+
+- a direct assignment of the lease;
+- a merger in which the tenant survives;
+- a sale of the tenant's equity;
+- a transfer of substantially all assets; and
+- an internal affiliate transfer.
+
+#### Consequences
+
+Noncompliance may create:
+
+- a lease default;
+- landlord termination or recapture rights;
+- additional rent or consent fees;
+- continuing liability of the original tenant; and
+- restrictions on use, signage, or assignment to the buyer.
+
+#### Risk and action
+
+**Recommended actions:**
+
+- Obtain landlord consent or written confirmation that the transaction is permitted.
+- Confirm whether a guaranty, parent support, or increased security is required.
+- Check renewal options, termination rights, restoration obligations, and environmental provisions.
+- Make consent a closing condition if the facility is operationally material.
+
+---
+
+### F. Northland Refining Master Supply Agreement
+
+**Document:** `northland-refining-msa.docx.txt`  
+**Overall risk:** **High**
+
+#### Trigger and consent
+
+The MSA defines change of control broadly, including:
+
+- merger or reorganization;
+- sale or transfer of all or substantially all assets;
+- acquisition of more than 50% of voting securities; and
+- direct or indirect ultimate ownership/control changes.
+
+The agreement also restricts assignment and may require prior written consent.
+
+#### Consequences
+
+A prohibited assignment or unconsented change of control may permit the customer to:
+
+- terminate the MSA;
+- terminate affected purchase orders;
+- claim damages or default remedies; or
+- require transition or replacement-supplier arrangements.
+
+The MSA may also contain confidentiality, quality, audit, and insurance obligations that continue after the transaction.
+
+#### Risk and action
+
+**Recommended actions:**
+
+- Obtain Northland's written consent or waiver.
+- Confirm the treatment of open purchase orders and minimum-volume commitments.
+- Verify that the buyer can satisfy quality, insurance, indemnity, and cybersecurity requirements.
+- Coordinate the consent with the product-liability policy's waiver-of-subrogation endorsement.
+
+---
+
+### G. PacWest Supply Agreement
+
+**Document:** `pacwest-supply-agreement.docx.txt`  
+**Overall risk:** **High**
+
+#### Trigger and consent
+
+The agreement contains assignment and change-of-control restrictions. The relevant trigger includes direct or indirect ownership/control changes and may include merger, consolidation, or transfer of substantially all assets.
+
+Prior consent and/or advance notice is required as specified in the agreement.
+
+#### Consequences
+
+Failure to comply may permit PacWest to:
+
+- terminate the agreement;
+- reject or suspend orders;
+- assert default remedies; or
+- require additional assurances, indemnities, or insurance.
+
+#### Risk and action
+
+**Recommended actions:**
+
+- Obtain PacWest consent or waiver before closing.
+- Confirm open-order, pricing, volume, service-level, and transition obligations.
+- Confirm whether the buyer's insurance program satisfies the agreement.
+- Ensure the post-closing insurance replacement does not eliminate required coverage or waiver-of-subrogation protections.
+
+---
+
+### H. Great Lakes Products Liability Policy
+
+**Document:** `product-liability-policy.docx.txt`  
+**Policy:** GLI-PL-2024-07823  
+**Overall risk:** **Critical**
+
+#### Trigger and automatic run-off — Section IV.F.1
+
+A change of control automatically converts the policy to a **Run-Off Basis**, effective on the change-of-control date, without insurer action.
+
+After conversion, coverage is limited to claims arising from products manufactured, sold, handled, distributed, or disposed of **before** the change-of-control date. There is no coverage under the existing policy for post-closing products.
+
+#### Notice — Section IV.F.2
+
+Apex must notify the insurer in writing within **15 days after the effective date** of the change of control.
+
+Late notice does not prevent automatic run-off, but prejudice may affect coverage for a claim.
+
+#### Run-off extension — Section IV.F.3
+
+Apex may request a run-off extension of up to **36 months** beyond the policy period, subject to:
+
+- insurer discretion;
+- additional premium determined by the insurer; and
+- a written request no later than **60 days before expiration of the then-current run-off period**.
+
+#### Premium — Section IV.F.4
+
+No return premium is payable for the unexpired policy period after run-off conversion. Premium already paid or due remains fully earned.
+
+#### No successor coverage — Section IV.F.5
+
+The policy provides no coverage to:
+
+- a successor entity;
+- a parent entity; or
+- an affiliate acquiring control of Apex,
+
+unless that entity applies for and receives a new policy from Great Lakes. The existing policy gives no post-closing coverage for products handled after the run-off date.
+
+#### Assignment — Section IV.E
+
+Assignment or transfer of the policy or policy rights requires the insurer's prior written consent, which may be withheld in the insurer's sole and absolute discretion. An unauthorized assignment is void.
+
+Consent to assignment would not eliminate automatic run-off under Section IV.F.
+
+#### Tail endorsement
+
+Endorsement No. 1 permits Apex to purchase a 12-, 24-, or 36-month extended reporting period by written notice within **30 days of the triggering cancellation, non-renewal, or run-off event**.
+
+Published additional premiums are:
+
+- 12 months: **$365,625**;
+- 24 months: **$609,375**;
+- 36 months: **$853,125**.
+
+The tail does not create new limits and does not cover post-cutoff products. The interaction between the occurrence-based policy, run-off provisions, and claims-made/reporting language in the tail endorsement should be confirmed in writing.
+
+#### Related affiliate coverage
+
+Schedule C includes Apex-Kenji Precision JV, LLC only for claims involving Apex proprietary designs, specifications, or components. Coverage is limited and should not be assumed to continue for post-closing operations.
+
+#### Risk and action
+
+**Risk rationale:** The existing policy may stop covering the buyer's products at closing, while Apex remains responsible for the full premium. The buyer has no automatic successor coverage.
+
+**Recommended actions:**
+
+- Bind replacement products-liability coverage effective no later than closing.
+- Obtain written insurer confirmation of run-off, tail, and successor coverage.
+- Calendar the 15-day insurer notice and 30-day tail-election deadlines.
+- Confirm aggregate limits, prior-occurrence coverage, deductibles, and completed-operations protection.
+- Preserve the Northland and PacWest waivers of subrogation in replacement coverage.
+- Confirm coverage for the JV and any transferred product lines.
+- Address products manufactured or sold during the transition period.
+
+---
+
+## 4. Cross-Contract Closing Checklist
+
+### Required before signing or closing
+
+- [ ] Confirm the Summit lender consent, waiver, payoff, or refinancing.
+- [ ] Obtain Kenji's waiver/acknowledgment or model and fund the JV buyout exposure.
+- [ ] Obtain Hendricks license consent.
+- [ ] Obtain landlord consent for the headquarters lease.
+- [ ] Obtain Northland and PacWest consents or waivers.
+- [ ] Obtain insurer confirmation and bind replacement products-liability coverage.
+- [ ] Review Hesse executive retention and severance exposure.
+- [ ] Review all omitted schedules, amendments, side letters, purchase orders, and sublicenses.
+- [ ] Confirm no other material contract contains a broader or lower change-of-control threshold.
+
+### Notices and deadlines
+
+- **JV:** within 10 business days after definitive agreement; within 5 business days after closing; successor joinder within 30 days after closing.
+- **JV carve-out:** successor retention commitment within 30 days after closing.
+- **Insurance:** insurer notice within 15 days after change of control; tail election within 30 days of the triggering event; run-off extension request no later than 60 days before expiration of the then-current run-off period.
+- **Other contracts:** follow each contract's specific advance-consent and notice requirements; do not rely on post-closing notice unless expressly permitted.
+
+---
+
+## 5. Key Diligence Gaps
+
+The following items should be obtained and reviewed before finalizing the transaction:
+
+1. Executed copies and all amendments, waivers, side letters, and schedules.
+2. Current debt payoff and lender-consent package.
+3. Complete JV financial information supporting the EBITDA buyout formula.
+4. Current ownership charts for Apex and all affiliates.
+5. Licensor, landlord, customer, and supplier consent forms.
+6. Executive compensation and equity award documents.
+7. Current insurance binders, endorsements, loss runs, and replacement-policy quotes.
+8. The referenced technology-license and distribution agreements.
+9. Open purchase orders and customer-specific terms under the Northland and PacWest arrangements.
+10. A closing calendar assigning responsibility for each notice, consent, joinder, and insurance election.
+
+---
+
+## 6. Overall Conclusion
+
+The transaction should not close without resolving the Summit credit agreement, the Apex-Kenji JV buyout risk, the Hendricks license, material landlord/customer consents, and replacement products-liability coverage.
+
+The most important structural point is that several agreements treat a change of control differently:
+
+- some require consent;
+- some permit termination;
+- the JV permits a buyout without consent;
+- the credit agreement may accelerate debt; and
+- the insurance policy automatically converts to run-off.
+
+Accordingly, the transaction documents should include tailored conditions precedent, representations, interim covenants, consent delivery requirements, indemnities, escrow/holdback mechanisms where appropriate, and a detailed post-closing notice calendar.

@@ -1,0 +1,1678 @@
+{
+  "budget": {
+    "max_solves": 2,
+    "max_checks": 4
+  },
+  "rounds": [
+    {
+      "promoted": false,
+      "gain": 0.0,
+      "development": {
+        "score": 0.0,
+        "solves": 3,
+        "checks": 0,
+        "rows": [
+          {
+            "id": "development-1",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}"
+              }
+            ]
+          },
+          {
+            "id": "development-2",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}"
+              }
+            ]
+          },
+          {
+            "id": "development-3",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}"
+              }
+            ]
+          }
+        ]
+      },
+      "baseline": {
+        "score": 0.0,
+        "solves": 3,
+        "checks": 0,
+        "rows": [
+          {
+            "id": "validation-0-100",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 306}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 306}"
+              }
+            ]
+          },
+          {
+            "id": "validation-0-101",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 309}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 309}"
+              }
+            ]
+          },
+          {
+            "id": "validation-0-102",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}"
+              }
+            ]
+          }
+        ]
+      },
+      "candidate": {
+        "score": 0.0,
+        "solves": 6,
+        "checks": 6,
+        "rows": [
+          {
+            "id": "validation-0-100",
+            "score": 0.0,
+            "error": null,
+            "solves": 2,
+            "checks": 2,
+            "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 305}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 306}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 305}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              }
+            ]
+          },
+          {
+            "id": "validation-0-101",
+            "score": 0.0,
+            "error": null,
+            "solves": 2,
+            "checks": 2,
+            "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 308}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 309}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 308}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              }
+            ]
+          },
+          {
+            "id": "validation-0-102",
+            "score": 0.0,
+            "error": null,
+            "solves": 2,
+            "checks": 2,
+            "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 311}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 311}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "promoted": true,
+      "gain": 1.0,
+      "development": {
+        "score": 0.0,
+        "solves": 3,
+        "checks": 0,
+        "rows": [
+          {
+            "id": "development-1",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}"
+              }
+            ]
+          },
+          {
+            "id": "development-2",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}"
+              }
+            ]
+          },
+          {
+            "id": "development-3",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}"
+              }
+            ]
+          }
+        ]
+      },
+      "baseline": {
+        "score": 0.0,
+        "solves": 3,
+        "checks": 0,
+        "rows": [
+          {
+            "id": "validation-1-130",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 132, \"beta\": 263}, \"total\": 396}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 132, \"beta\": 263}, \"total\": 396}"
+              }
+            ]
+          },
+          {
+            "id": "validation-1-131",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 133, \"beta\": 265}, \"total\": 399}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 133, \"beta\": 265}, \"total\": 399}"
+              }
+            ]
+          },
+          {
+            "id": "validation-1-132",
+            "score": 0.0,
+            "error": null,
+            "solves": 1,
+            "checks": 0,
+            "answer": "{\"values\": {\"alpha\": 134, \"beta\": 267}, \"total\": 402}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 134, \"beta\": 267}, \"total\": 402}"
+              }
+            ]
+          }
+        ]
+      },
+      "candidate": {
+        "score": 1.0,
+        "solves": 6,
+        "checks": 12,
+        "rows": [
+          {
+            "id": "validation-1-130",
+            "score": 1.0,
+            "error": null,
+            "solves": 2,
+            "checks": 4,
+            "answer": "{\"values\": {\"alpha\": 139, \"beta\": 263}, \"total\": 402}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 132, \"beta\": 263}, \"total\": 396}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": false,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 139, \"beta\": 263}, \"total\": 402}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": true,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              }
+            ]
+          },
+          {
+            "id": "validation-1-131",
+            "score": 1.0,
+            "error": null,
+            "solves": 2,
+            "checks": 4,
+            "answer": "{\"values\": {\"alpha\": 140, \"beta\": 265}, \"total\": 405}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 133, \"beta\": 265}, \"total\": 399}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": false,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 140, \"beta\": 265}, \"total\": 405}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": true,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              }
+            ]
+          },
+          {
+            "id": "validation-1-132",
+            "score": 1.0,
+            "error": null,
+            "solves": 2,
+            "checks": 4,
+            "answer": "{\"values\": {\"alpha\": 141, \"beta\": 267}, \"total\": 408}",
+            "trace": [
+              {
+                "kind": "solve",
+                "attempt": 0,
+                "answer": "{\"values\": {\"alpha\": 134, \"beta\": 267}, \"total\": 402}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": false,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": false,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              },
+              {
+                "kind": "solve",
+                "attempt": 1,
+                "answer": "{\"values\": {\"alpha\": 141, \"beta\": 267}, \"total\": 408}"
+              },
+              {
+                "kind": "check",
+                "name": "arithmetic",
+                "passed": true,
+                "feedback": "Return valid JSON and recompute total as the sum of values."
+              },
+              {
+                "kind": "check",
+                "name": "source_revision",
+                "passed": true,
+                "feedback": "Use every base item and apply amendments in order; last value wins."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "initial_policy": {
+    "checks": [],
+    "max_revisions": 0
+  },
+  "champion_policy": {
+    "checks": [
+      "arithmetic",
+      "source_revision"
+    ],
+    "max_revisions": 1
+  },
+  "test": {
+    "initial": {
+      "score": 0.0,
+      "solves": 3,
+      "checks": 0,
+      "rows": [
+        {
+          "id": "test-1000",
+          "score": 0.0,
+          "error": null,
+          "solves": 1,
+          "checks": 0,
+          "answer": "{\"values\": {\"alpha\": 1002, \"beta\": 2003}, \"total\": 3006}",
+          "trace": [
+            {
+              "kind": "solve",
+              "attempt": 0,
+              "answer": "{\"values\": {\"alpha\": 1002, \"beta\": 2003}, \"total\": 3006}"
+            }
+          ]
+        },
+        {
+          "id": "test-1001",
+          "score": 0.0,
+          "error": null,
+          "solves": 1,
+          "checks": 0,
+          "answer": "{\"values\": {\"alpha\": 1003, \"beta\": 2005}, \"total\": 3009}",
+          "trace": [
+            {
+              "kind": "solve",
+              "attempt": 0,
+              "answer": "{\"values\": {\"alpha\": 1003, \"beta\": 2005}, \"total\": 3009}"
+            }
+          ]
+        },
+        {
+          "id": "test-1002",
+          "score": 0.0,
+          "error": null,
+          "solves": 1,
+          "checks": 0,
+          "answer": "{\"values\": {\"alpha\": 1004, \"beta\": 2007}, \"total\": 3012}",
+          "trace": [
+            {
+              "kind": "solve",
+              "attempt": 0,
+              "answer": "{\"values\": {\"alpha\": 1004, \"beta\": 2007}, \"total\": 3012}"
+            }
+          ]
+        }
+      ]
+    },
+    "champion": {
+      "score": 1.0,
+      "solves": 6,
+      "checks": 12,
+      "rows": [
+        {
+          "id": "test-1000",
+          "score": 1.0,
+          "error": null,
+          "solves": 2,
+          "checks": 4,
+          "answer": "{\"values\": {\"alpha\": 1009, \"beta\": 2003}, \"total\": 3012}",
+          "trace": [
+            {
+              "kind": "solve",
+              "attempt": 0,
+              "answer": "{\"values\": {\"alpha\": 1002, \"beta\": 2003}, \"total\": 3006}"
+            },
+            {
+              "kind": "check",
+              "name": "arithmetic",
+              "passed": false,
+              "feedback": "Return valid JSON and recompute total as the sum of values."
+            },
+            {
+              "kind": "check",
+              "name": "source_revision",
+              "passed": false,
+              "feedback": "Use every base item and apply amendments in order; last value wins."
+            },
+            {
+              "kind": "solve",
+              "attempt": 1,
+              "answer": "{\"values\": {\"alpha\": 1009, \"beta\": 2003}, \"total\": 3012}"
+            },
+            {
+              "kind": "check",
+              "name": "arithmetic",
+              "passed": true,
+              "feedback": "Return valid JSON and recompute total as the sum of values."
+            },
+            {
+              "kind": "check",
+              "name": "source_revision",
+              "passed": true,
+              "feedback": "Use every base item and apply amendments in order; last value wins."
+            }
+          ]
+        },
+        {
+          "id": "test-1001",
+          "score": 1.0,
+          "error": null,
+          "solves": 2,
+          "checks": 4,
+          "answer": "{\"values\": {\"alpha\": 1010, \"beta\": 2005}, \"total\": 3015}",
+          "trace": [
+            {
+              "kind": "solve",
+              "attempt": 0,
+              "answer": "{\"values\": {\"alpha\": 1003, \"beta\": 2005}, \"total\": 3009}"
+            },
+            {
+              "kind": "check",
+              "name": "arithmetic",
+              "passed": false,
+              "feedback": "Return valid JSON and recompute total as the sum of values."
+            },
+            {
+              "kind": "check",
+              "name": "source_revision",
+              "passed": false,
+              "feedback": "Use every base item and apply amendments in order; last value wins."
+            },
+            {
+              "kind": "solve",
+              "attempt": 1,
+              "answer": "{\"values\": {\"alpha\": 1010, \"beta\": 2005}, \"total\": 3015}"
+            },
+            {
+              "kind": "check",
+              "name": "arithmetic",
+              "passed": true,
+              "feedback": "Return valid JSON and recompute total as the sum of values."
+            },
+            {
+              "kind": "check",
+              "name": "source_revision",
+              "passed": true,
+              "feedback": "Use every base item and apply amendments in order; last value wins."
+            }
+          ]
+        },
+        {
+          "id": "test-1002",
+          "score": 1.0,
+          "error": null,
+          "solves": 2,
+          "checks": 4,
+          "answer": "{\"values\": {\"alpha\": 1011, \"beta\": 2007}, \"total\": 3018}",
+          "trace": [
+            {
+              "kind": "solve",
+              "attempt": 0,
+              "answer": "{\"values\": {\"alpha\": 1004, \"beta\": 2007}, \"total\": 3012}"
+            },
+            {
+              "kind": "check",
+              "name": "arithmetic",
+              "passed": false,
+              "feedback": "Return valid JSON and recompute total as the sum of values."
+            },
+            {
+              "kind": "check",
+              "name": "source_revision",
+              "passed": false,
+              "feedback": "Use every base item and apply amendments in order; last value wins."
+            },
+            {
+              "kind": "solve",
+              "attempt": 1,
+              "answer": "{\"values\": {\"alpha\": 1011, \"beta\": 2007}, \"total\": 3018}"
+            },
+            {
+              "kind": "check",
+              "name": "arithmetic",
+              "passed": true,
+              "feedback": "Return valid JSON and recompute total as the sum of values."
+            },
+            {
+              "kind": "check",
+              "name": "source_revision",
+              "passed": true,
+              "feedback": "Use every base item and apply amendments in order; last value wins."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "mode": "SCRIPTED MECHANISM DEMO (not model-improvement evidence)",
+  "caveat": "Shared synthetic template; no claim of legal or domain transfer.",
+  "solver_runs": [
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-vavt3due",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-ra4rfg9l",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-8mmi94qt",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-dqv811wy",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 306}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-fx0dmmep",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 309}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-y92137v1",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-85ycxjbx",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 306}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-tend7yvx",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 102, \"beta\": 203}, \"total\": 305}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-3tmeeiin",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 309}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-49fukct8",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 103, \"beta\": 205}, \"total\": 308}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-co0ykjui",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 312}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-rb7lz3xy",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 104, \"beta\": 207}, \"total\": 311}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-svcc7xvw",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 3, \"beta\": 5}, \"total\": 9}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-pzxxzmk1",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 4, \"beta\": 7}, \"total\": 12}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-aemlhkb_",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 5, \"beta\": 9}, \"total\": 15}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-z1kyqx2s",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 132, \"beta\": 263}, \"total\": 396}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-x5rafnfk",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 133, \"beta\": 265}, \"total\": 399}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-bb_f300i",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 134, \"beta\": 267}, \"total\": 402}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-c1ld1rtc",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 132, \"beta\": 263}, \"total\": 396}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-d7_l0uzt",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\nfor amendment in source['amendments']: values.update(amendment)\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 139, \"beta\": 263}, \"total\": 402}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-yomnbgq8",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 133, \"beta\": 265}, \"total\": 399}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-lgmj0zal",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\nfor amendment in source['amendments']: values.update(amendment)\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 140, \"beta\": 265}, \"total\": 405}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-3542phn0",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 134, \"beta\": 267}, \"total\": 402}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-hsuw4mdg",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\nfor amendment in source['amendments']: values.update(amendment)\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 141, \"beta\": 267}, \"total\": 408}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-yl294gn_",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1002, \"beta\": 2003}, \"total\": 3006}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-g6ictu9f",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1003, \"beta\": 2005}, \"total\": 3009}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-r5ri13t9",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1004, \"beta\": 2007}, \"total\": 3012}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-5i4zip_3",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1002, \"beta\": 2003}, \"total\": 3006}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-kix54uej",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\nfor amendment in source['amendments']: values.update(amendment)\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1009, \"beta\": 2003}, \"total\": 3012}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-2fffgjvr",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1003, \"beta\": 2005}, \"total\": 3009}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-g7nbfk38",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\nfor amendment in source['amendments']: values.update(amendment)\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1010, \"beta\": 2005}, \"total\": 3015}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-zr6khnz4",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": false,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\ntotal = sum(values.values()) + 1\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1004, \"beta\": 2007}, \"total\": 3012}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    },
+    {
+      "workdir": "/Users/aadityasrivathsan/Desktop/rlm_project/lab_runs/policy-lab-20260907/attempts/attempt-gvu63j8u",
+      "system": "gate=ladder audit=on credit=on monitor=on record=on explore=0 machinery=313f994e50ef",
+      "max_iters": 6,
+      "max_llm_calls": 4,
+      "revision": true,
+      "model": "dummy",
+      "memory_learning": "not invoked during evaluation",
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "trajectory": [
+        {
+          "reasoning": "scripted mechanism fixture; not learned reasoning",
+          "code": "import json\nsource = json.load(open('documents/task.txt'))\nvalues = dict(source['base'])\nfor amendment in source['amendments']: values.update(amendment)\ntotal = sum(values.values()) + 0\nSUBMIT(deliverable=json.dumps({'values': values, 'total': total}))",
+          "output": "FINAL: {'deliverable': '{\"values\": {\"alpha\": 1011, \"beta\": 2007}, \"total\": 3018}'}"
+        }
+      ],
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "calls": 0,
+        "semantic_hits": 0
+      }
+    }
+  ],
+  "proposal_runs": [
+    {
+      "current": {
+        "checks": [],
+        "max_revisions": 0
+      },
+      "candidate": {
+        "checks": [
+          "arithmetic"
+        ],
+        "max_revisions": 1
+      },
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      }
+    },
+    {
+      "current": {
+        "checks": [],
+        "max_revisions": 0
+      },
+      "candidate": {
+        "checks": [
+          "arithmetic",
+          "source_revision"
+        ],
+        "max_revisions": 1
+      },
+      "usage": {
+        "dummy": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        }
+      }
+    }
+  ],
+  "model": "scripted",
+  "evaluator": "fixed exact values/total v1",
+  "check_catalog": {
+    "arithmetic": "Check that total equals the sum of the answer's line values.",
+    "source_revision": "Check that line values include every source item with its latest amended value."
+  }
+}

@@ -1,0 +1,322 @@
+STOCK PURCHASE AGREEMENT
+Excerpted Articles III, IV, and V (Selected Provisions)
+from the
+STOCK PURCHASE AGREEMENT
+dated as of March 14, 2025
+by and among
+PRECISIONFLOW SYSTEMS, INC. (the "Company")
+HAROLD "HAL" BEECHAM Individually and as the Representative of the Sellers (the "Seller Representative")
+TERRAVERDE GROWTH FUND II, LP
+THE MANAGEMENT SHAREHOLDERS LISTED ON EXHIBIT A HERETO
+(collectively with Harold "Hal" Beecham and Terraverde Growth Fund II, LP, the "Sellers")
+and
+CASCADIA INDUSTRIAL HOLDINGS, INC. (the "Buyer")
+This document contains excerpted provisions from the draft Stock Purchase Agreement circulated by Stonebridge Whitaker LLP on behalf of the Sellers. Articles I, II, VI through XII, and all Exhibits are omitted from this excerpt. Disclosure Schedules referenced herein are provided under separate cover and should be read in conjunction with the representations and warranties set forth below. Capitalized terms used but not defined in the excerpted provisions below shall have the meanings assigned to them in Article I of the Stock Purchase Agreement.
+SELLER'S INITIAL DRAFT — SUBJECT TO REVIEW AND COMMENT BY BUYER'S COUNSEL
+RECITALS AND SELECTED DEFINITIONS (EXCERPT)
+RECITALS
+WHEREAS, the Company is a Delaware corporation engaged in the design, manufacture, and sale of precision hydraulic valve systems, flow control components, and related industrial products, operating from facilities in Dayton, Ohio and Monterrey, Nuevo León, Mexico;
+WHEREAS, the Sellers collectively own all of the issued and outstanding shares of common stock of the Company (the "Shares");
+WHEREAS, the Sellers desire to sell, and the Buyer desires to purchase, the Shares for an aggregate purchase price of Two Hundred Eighty-Seven Million Dollars ($287,000,000), subject to adjustment as set forth in Section 2.5 of this Agreement; and
+WHEREAS, as a condition and inducement to the Buyer's willingness to enter into this Agreement, the Sellers have agreed to make the representations and warranties set forth herein.
+SELECTED DEFINITIONS
+The following defined terms are excerpted from Article I of the Agreement for ease of reference in connection with Articles III, IV, and V:
+"Affiliate" means, with respect to any Person, any other Person that directly or indirectly controls, is controlled by, or is under common control with such Person. For purposes of this definition, "control" means the possession, directly or indirectly, of the power to direct or cause the direction of the management and policies of a Person, whether through ownership of voting securities, by contract, or otherwise.
+"Business Day" means any day other than a Saturday, Sunday, or other day on which commercial banks in New York, New York are authorized or required to close.
+"Closing" means the closing of the transactions contemplated by this Agreement, to take place on June 30, 2025 (the "Target Closing Date"), or such other date as the parties may mutually agree in writing.
+"Closing Date" means the date on which the Closing actually occurs.
+"Company" means PrecisionFlow Systems, Inc., a Delaware corporation.
+"Company Subsidiary" means PrecisionFlow de México, S.A. de C.V., a Mexican sociedad anónima de capital variable, a wholly-owned subsidiary of the Company.
+"Disclosure Schedules" means the disclosure schedules delivered by the Sellers to the Buyer concurrently with the execution of this Agreement.
+"EBITDA" means, for any period, the Company's net income plus interest expense, income tax expense, depreciation, and amortization, in each case as adjusted pursuant to Section 2.5(b).
+"Encumbrance" means any lien, pledge, mortgage, security interest, charge, claim, restriction, option, right of first refusal, easement, encroachment, or other encumbrance of any kind.
+"Environmental Laws" means the Comprehensive Environmental Response, Compensation, and Liability Act ("CERCLA"), the Resource Conservation and Recovery Act ("RCRA"), the Clean Water Act, the Clean Air Act, and all analogous state and local environmental statutes, rules, and regulations, as well as applicable Mexican federal and state environmental laws and regulations with respect to the Company Subsidiary.
+"ERISA" means the Employee Retirement Income Security Act of 1974, as amended, and the regulations promulgated thereunder.
+"Financial Statements" means the audited financial statements of the Company for the fiscal years ended December 31, 2022, December 31, 2023, and December 31, 2024, including all notes thereto, as prepared by Clarkfield & Associates, P.C.
+"GAAP" means United States generally accepted accounting principles as in effect from time to time.
+"Governmental Authority" means any federal, state, local, municipal, or foreign government, or any department, commission, board, bureau, agency, court, tribunal, or instrumentality thereof.
+"Intellectual Property" means all patents, trademarks, service marks, trade names, copyrights, trade secrets, know-how, domain names, and all applications and registrations therefor.
+"Knowledge of the Company" or "to the Company's knowledge" means the actual knowledge of Harold Beecham, Linda Peretti (Chief Financial Officer), and Sandra Cho (Vice President of Operations), in each case after reasonable inquiry of their respective direct reports.
+"Material Adverse Effect" or "MAE" means any change, event, occurrence, effect, or state of facts that, individually or in the aggregate, has had or would reasonably be expected to have a material adverse effect on (a) the business, financial condition, results of operations, or assets of the Company and the Company Subsidiary, taken as a whole, or (b) the ability of the Sellers to consummate the transactions contemplated hereby; provided, however, that none of the following shall be deemed to constitute, or be taken into account in determining whether there has been, a Material Adverse Effect: (i) changes in general economic or market conditions affecting the United States or global economy, (ii) changes in conditions generally affecting the industries in which the Company operates, (iii) changes in applicable law or regulations or in GAAP or interpretations thereof, (iv) acts of war, armed hostility, sabotage, terrorism, or natural disasters, (v) the announcement or pendency of the transactions contemplated hereby, including any impact on relationships with customers, suppliers, or employees resulting therefrom, or (vi) any failure by the Company to meet any internal projections, budgets, or forecasts for any period (provided that the underlying causes of such failure may be taken into account in determining whether a Material Adverse Effect has occurred).
+"Material Contract" has the meaning set forth in Section 3.15(a).
+"Net Working Capital" has the meaning set forth in Section 2.5(a); calculated as current assets (excluding cash and cash equivalents) minus current liabilities (excluding the current portion of Indebtedness).
+"Ordinary Course of Business" means the ordinary course of business of the Company and the Company Subsidiary consistent with past practice.
+"Permitted Encumbrances" means (i) liens for Taxes not yet due and payable or being contested in good faith by appropriate proceedings and for which adequate reserves have been established, (ii) statutory liens of landlords, carriers, warehousemen, mechanics, and materialmen incurred in the ordinary course, (iii) zoning, building, and land use restrictions that do not materially impair the current use of the affected real property, and (iv) other imperfections of title or encumbrances that do not, individually or in the aggregate, materially impair the use or value of the affected asset.
+"Person" means any individual, corporation, partnership, limited liability company, joint venture, association, trust, unincorporated organization, Governmental Authority, or other entity.
+"Purchase Price" means $287,000,000, subject to adjustment as set forth in Section 2.5.
+"Seller" or "Sellers" means, collectively, Harold "Hal" Beecham (holding 62% of the Shares), Terraverde Growth Fund II, LP (holding 28% of the Shares), and the Management Shareholders listed on Exhibit A (holding 10% of the Shares in the aggregate).
+"Shares" means all of the issued and outstanding shares of common stock of the Company.
+"Tax" or "Taxes" means all federal, state, local, and foreign income, franchise, excise, sales, use, property, ad valorem, payroll, employment, withholding, value added, transfer, and other taxes, duties, levies, charges, or assessments of any kind, including all interest, penalties, and additions to tax imposed with respect thereto.
+"Tax Return" means any return, report, declaration, statement, claim for refund, or filing required to be filed with any Governmental Authority with respect to Taxes.
+ARTICLE III — REPRESENTATIONS AND WARRANTIES OF THE SELLERS
+Except as set forth in the Disclosure Schedules (it being agreed that disclosure of any item in any section or subsection of the Disclosure Schedules shall be deemed disclosure with respect to any other section or subsection of this Agreement to which the applicability of such disclosure is reasonably apparent on its face), each Seller, jointly and severally (and, with respect to Sections 3.1 through 3.21, the Company), hereby represents and warrants to the Buyer as of the date hereof and as of the Closing Date as follows:
+Section 3.1 — Organization and Good Standing
+(a) The Company is a corporation duly organized, validly existing, and in good standing under the laws of the State of Delaware. The Company has full corporate power and authority to own, lease, and operate its properties and assets and to carry on its business as presently conducted. The Company's principal place of business is located at 4500 Industrial Parkway, Dayton, OH 45414.
+(b) The Company Subsidiary, PrecisionFlow de México, S.A. de C.V., is a sociedad anónima de capital variable duly organized and validly existing under the laws of Mexico. The Company Subsidiary has full corporate power and authority to own, lease, and operate its properties and assets and to carry on its business as presently conducted. The Company Subsidiary's principal place of business is located at Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000.
+(c) The Company Subsidiary is the only subsidiary of the Company. Neither the Company nor the Company Subsidiary owns, directly or indirectly, any equity interest in any other Person.
+(d) The Company is duly qualified to do business and is in good standing in each of the following jurisdictions: Ohio, Michigan, Indiana, Illinois, and Texas. The Company Subsidiary is duly qualified to do business in each jurisdiction in Mexico where the nature of its business or the ownership of its properties requires such qualification. The Company and the Company Subsidiary are each duly qualified to do business and in good standing in each other jurisdiction where the nature of their respective businesses or the ownership or lease of their respective properties requires such qualification, except where the failure to be so qualified or in good standing would not, individually or in the aggregate, reasonably be expected to have a Material Adverse Effect.
+Section 3.2 — Authorization; Binding Effect
+(a) Each Seller has full power and authority (and, in the case of any Seller that is an entity, full corporate, limited partnership, or limited liability company power and authority, as applicable) to execute and deliver this Agreement, to perform its obligations hereunder, and to consummate the transactions contemplated hereby. The execution, delivery, and performance of this Agreement by each Seller, and the consummation of the transactions contemplated hereby, have been duly authorized by all necessary action on the part of each Seller (including, with respect to the Company, all necessary action by the board of directors and shareholders of the Company).
+(b) This Agreement has been duly executed and delivered by each Seller and constitutes the legal, valid, and binding obligation of each Seller, enforceable against each Seller in accordance with its terms, subject to applicable bankruptcy, insolvency, reorganization, moratorium, fraudulent conveyance, and similar laws affecting creditors' rights generally and to general principles of equity (whether considered in a proceeding in equity or at law).
+(c) The execution and delivery of this Agreement by the Sellers and the consummation of the transactions contemplated hereby do not and will not (i) conflict with or violate any provision of the certificate of incorporation, bylaws, or other organizational documents of the Company or the Company Subsidiary, (ii) violate any law, statute, rule, regulation, order, judgment, or decree applicable to any Seller, the Company, or the Company Subsidiary, or (iii) result in a breach of, or constitute a default under, any material agreement or instrument to which any Seller, the Company, or the Company Subsidiary is a party or by which any of them is bound.
+Section 3.3 — Capitalization; Title to Shares
+(a) The authorized capital stock of the Company consists of 10,000,000 shares of common stock, par value $0.01 per share, of which 1,000,000 shares are issued and outstanding. All outstanding Shares have been duly authorized, are validly issued, fully paid, and nonassessable, and were issued in compliance with all applicable federal and state securities laws.
+(b) The Shares are owned of record and beneficially as follows:
+Seller
+Number of Shares
+Percentage
+Harold "Hal" Beecham
+620,000
+62%
+Terraverde Growth Fund II, LP
+280,000
+28%
+Management Shareholders (8 individuals)
+100,000 (aggregate)
+10%
+Total
+1,000,000
+100%
+The Management Shareholders hold their respective Shares pursuant to Restricted Stock Agreements, true and complete copies of which have been made available to the Buyer.
+(c) There are no outstanding options, warrants, convertible securities, rights of conversion, exchange rights, preemptive rights, subscription rights, or other rights, agreements, arrangements, or commitments relating to the capital stock of the Company or obligating the Company or any Seller to issue, sell, or transfer any shares of capital stock or other equity interests of the Company. There are no outstanding obligations of the Company to repurchase, redeem, or otherwise acquire any shares of its capital stock.
+(d) Each Seller has good and marketable title to such Seller's Shares, free and clear of all Encumbrances, other than Permitted Encumbrances and restrictions on transfer under applicable federal and state securities laws. At the Closing, each Seller will deliver to the Buyer good and marketable title to such Seller's Shares, free and clear of all Encumbrances (other than those created by the Buyer).
+(e) There are no voting trusts, shareholder agreements, proxies, or other agreements or understandings with respect to the voting or transfer of the Shares, except for the Restricted Stock Agreements referenced in Section 3.3(b).
+Section 3.4 — Financial Statements
+(a) The Company has delivered to the Buyer true, complete, and correct copies of the Financial Statements. The Financial Statements (i) have been prepared in accordance with GAAP applied on a consistent basis throughout the periods covered thereby, (ii) fairly present in all material respects the financial condition and results of operations of the Company and the Company Subsidiary, on a consolidated basis, as of the respective dates thereof and for the respective periods covered thereby, and (iii) have been audited by Clarkfield & Associates, P.C., which has delivered an unqualified opinion with respect thereto.
+(b) For reference purposes, the Financial Statements reflect consolidated revenue of $118.2 million for the fiscal year ended December 31, 2022, consolidated revenue of $131.6 million for the fiscal year ended December 31, 2023, and consolidated revenue of $143.0 million for the fiscal year ended December 31, 2024.
+(c) The Company maintains a system of internal accounting controls sufficient to provide reasonable assurance that (i) transactions are executed in accordance with management's general or specific authorization, (ii) transactions are recorded as necessary to permit preparation of financial statements in conformity with GAAP and to maintain accountability for assets, and (iii) access to assets is permitted only in accordance with management's authorization.
+(d) The audited financial statements for the fiscal year ended December 31, 2024 include an emphasis-of-matter paragraph regarding the Company Subsidiary's intercompany pricing methodology. Such emphasis-of-matter paragraph does not constitute a qualification of the audit opinion of Clarkfield & Associates, P.C.
+(e) Adjusted EBITDA of the Company for the fiscal year ended December 31, 2024 was $30.21 million, as calculated on Schedule 2.5, reflecting the following adjustments to reported EBITDA: (i) $1.70 million in above-market executive compensation paid to Harold Beecham and Linda Peretti, (ii) $0.85 million in one-time ERP implementation costs associated with the Company's migration to the SAP S/4HANA platform, (iii) $0.60 million in non-recurring COVID-related supply chain disruption charges, and (iv) $0.65 million in non-recurring legal settlement costs related to a commercial dispute with a former distributor. Each such adjustment is appropriate and reflects non-recurring items that do not represent ongoing costs of the business.
+Section 3.5 — Absence of Certain Changes
+Since December 31, 2024, except as set forth on Schedule 3.5, the Company and the Company Subsidiary have conducted their respective businesses in the Ordinary Course of Business, and there has not been any:
+(a) Material Adverse Effect;
+(b) damage, destruction, or loss (whether or not covered by insurance) materially affecting the assets, properties, or business of the Company or the Company Subsidiary;
+(c) change in accounting methods, principles, or practices of the Company or the Company Subsidiary;
+(d) increase in the compensation payable or to become payable to any director, officer, or employee of the Company or the Company Subsidiary, except for increases in the Ordinary Course of Business;
+(e) declaration, setting aside, or payment of any dividend or other distribution in respect of any shares of capital stock of the Company;
+(f) incurrence of any Indebtedness of the Company or the Company Subsidiary in excess of $100,000, individually or in the aggregate;
+(g) sale, transfer, lease, or other disposition of any material assets of the Company or the Company Subsidiary outside the Ordinary Course of Business;
+(h) amendment to the certificate of incorporation, bylaws, or other organizational documents of the Company or the Company Subsidiary; or
+(i) any material change in Tax elections or Tax accounting methods of the Company or the Company Subsidiary.
+Section 3.6 — No Undisclosed Liabilities
+Except (a) as reflected or reserved against in the Financial Statements, (b) as set forth on Schedule 3.6, (c) for liabilities and obligations incurred in the Ordinary Course of Business since December 31, 2024, that are not, individually or in the aggregate, material to the Company and the Company Subsidiary taken as a whole, and (d) for liabilities that would not, individually or in the aggregate, reasonably be expected to have a Material Adverse Effect, neither the Company nor the Company Subsidiary has any liability or obligation of any nature (whether accrued, absolute, contingent, determined, determinable, or otherwise), whether or not required to be reflected on a balance sheet prepared in accordance with GAAP.
+Section 3.7 — Real Property
+(a) The Company owns fee simple title to the real property located at 4500 Industrial Parkway, Dayton, OH 45414 (the "Owned Real Property"), free and clear of all Encumbrances other than Permitted Encumbrances. The Owned Real Property consists of approximately 145,000 square feet of manufacturing, warehouse, and office space on approximately 12 acres.
+(b) The Company Subsidiary leases the premises located at Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000 pursuant to a lease agreement with Inmobiliaria del Norte, S.A. de C.V. dated April 1, 2019, for an initial term of ten (10) years expiring March 31, 2029, with one five-year renewal option, at a monthly base rent of MXN $385,000 (approximately $22,500 USD) (the "Monterrey Lease"). The Monterrey Lease is in full force and effect, and neither the Company Subsidiary nor, to the Company's knowledge, the landlord is in material default thereunder. The Monterrey facility consists of approximately 62,000 square feet of manufacturing and warehouse space.
+(c) Schedule 3.7 sets forth a true, complete, and correct list of all Owned Real Property and all real property leased by the Company or the Company Subsidiary (collectively, the "Leased Real Property"), together with a description of each lease (including the parties, term, rent, and premises).
+Section 3.8 — Personal Property; Sufficiency of Assets
+(a) The Company and the Company Subsidiary own or have valid leasehold interests in all tangible personal property and assets used in the conduct of their respective businesses. All material items of machinery, equipment, tooling, vehicles, and other tangible personal property owned or leased by the Company or the Company Subsidiary are in good working condition and repair, ordinary wear and tear excepted.
+(b) The assets of the Company and the Company Subsidiary, taken as a whole, are sufficient for the conduct of the business of the Company and the Company Subsidiary as presently conducted.
+Section 3.9 — Intellectual Property
+(a) Schedule 3.9(a) sets forth a true, complete, and correct list of all (i) issued patents and pending patent applications, (ii) registered trademarks and pending trademark applications, (iii) registered copyrights, and (iv) domain names, in each case owned by the Company or the Company Subsidiary (collectively, the "Company IP"). Schedule 3.9(a) lists twelve (12) issued United States patents covering hydraulic valve designs and flow control algorithms, three (3) pending United States patent applications, the PRECISIONFLOW® trademark (U.S. Registration No. 3,847,221, registered April 12, 2011), and associated domain names including precisionflow.com and precisionflowsystems.com. The Company or the Company Subsidiary is the sole and exclusive owner of all Company IP, free and clear of all Encumbrances other than Permitted Encumbrances.
+(b) All Company IP is valid, subsisting, and enforceable, and all required maintenance fees, renewal fees, annuity payments, and similar payments with respect to the Company IP have been timely made. To the Company's knowledge, no Person is infringing, misappropriating, or otherwise violating any Company IP.
+(c) Except as set forth on Schedule 3.9(c), neither the Company nor the Company Subsidiary has received any written notice, charge, complaint, claim, or demand from any Person alleging that the conduct of the business of the Company or the Company Subsidiary infringes, misappropriates, or otherwise violates the Intellectual Property of any third party that could reasonably be expected to result in a Material Adverse Effect. Schedule 3.9(c) discloses the following: A cease-and-desist letter dated September 8, 2024, was received from AquaDyne Technologies, LLC alleging that the Company's Model PF-4200 proportional valve infringes United States Patent No. 11,234,567 (issued January 2023 to AquaDyne). The Company engaged Hargrove & Lind LLP, patent counsel, which provided a non-infringement opinion dated November 15, 2024. Based on such opinion and its own review, the Company believes the allegations are without merit and no litigation has been filed.
+(d) The Company and the Company Subsidiary have taken commercially reasonable measures to protect the confidentiality of their trade secrets, including requiring employees and contractors with access to confidential information to execute confidentiality and invention assignment agreements. Such trade secrets include proprietary alloy formulations used in valve seat manufacturing and proprietary testing protocols.
+(e) Schedule 3.9(e) lists all material licenses of Intellectual Property granted to the Company or the Company Subsidiary by third parties. Such licenses include the enterprise CAD/CAM software license from Verteon Software, Inc. (five-year term commencing August 2021, expiring August 2026, annual license fees of $420,000).
+(f) Neither the Company nor the Company Subsidiary is, nor will the consummation of the transactions contemplated hereby cause the Company or the Company Subsidiary to be, in material breach or default under any license listed on Schedule 3.9(e).
+Section 3.10 — Litigation
+(a) Except as set forth on Schedule 3.10, there is no litigation, action, suit, proceeding, claim, investigation, or governmental inquiry pending or, to the Company's knowledge, threatened against the Company or the Company Subsidiary, or any of their respective officers or directors in their capacities as such, before any court, arbitrator, mediator, or Governmental Authority that (i) involves a claim for damages in excess of $100,000 individually, or (ii) seeks injunctive or other equitable relief that could restrict the operations of the business of the Company or the Company Subsidiary.
+(b) Schedule 3.10 discloses the following:
+(i) Martinez v. PrecisionFlow Systems, Inc., Case No. 2:23-cv-04178 (S.D. Ohio), filed November 2023. This is a product liability action alleging that a PF-3100 hydraulic valve failure caused a hydraulic press malfunction resulting in personal injury to the plaintiff. The plaintiff seeks compensatory and punitive damages in the aggregate amount of $12,000,000. Trial is currently set for September 2025. The Company's general liability insurer, Midland Casualty Insurance Co., has accepted defense of the claim under a reservation of rights, and the Company believes that this matter is adequately covered by insurance.
+(ii) Thompson v. PrecisionFlow Systems, Inc., EEOC Charge No. 473-2024-01892, filed June 2024. A former plant supervisor alleges race discrimination and retaliation in connection with his termination. The matter is currently in mediation. The Company estimates the potential settlement range at $150,000 to $350,000.
+(c) All pending litigation is adequately covered by insurance, and no pending or, to the Company's knowledge, threatened proceeding could reasonably be expected to result in liability to the Company or the Company Subsidiary in excess of applicable insurance coverage.
+(d) Neither the Company nor the Company Subsidiary is subject to any outstanding order, judgment, injunction, decree, or settlement agreement that restricts its business operations in any material respect.
+Section 3.11 — Compliance with Laws
+(a) The Company and the Company Subsidiary are, and during the past three (3) years have been, in material compliance with all applicable laws, statutes, rules, regulations, codes, orders, judgments, decrees, and ordinances of any Governmental Authority, including all applicable laws of the United States and Mexico.
+(b) The Company and the Company Subsidiary hold all permits, licenses, certifications, accreditations, and approvals of any Governmental Authority necessary for the conduct of their respective businesses as presently conducted, and all such permits, licenses, certifications, accreditations, and approvals are in full force and effect.
+(c) Except as set forth on Schedule 3.11, all governmental orders, penalties, fines, and citations issued to the Company or the Company Subsidiary during the past five (5) years have been fully resolved, and no penalties or fines remain outstanding or unpaid. Schedule 3.11 discloses the following:
+(i) 2020 OSHA Citation — Serious violation for machine guarding deficiency at the Dayton facility. Penalty of $14,500. Fully abated and paid.
+(ii) 2022 OSHA Citation — Other-than-serious violation for recordkeeping deficiencies at the Dayton facility. Penalty of $3,200. Fully abated and paid.
+Section 3.12 — Environmental Matters
+(a) Except as set forth on Schedule 3.12:
+(i) The Company and the Company Subsidiary are, and during the past five (5) years have been, in material compliance with all Environmental Laws;
+(ii) Neither the Company nor the Company Subsidiary has released, discharged, or disposed of any Hazardous Substance (as defined under applicable Environmental Laws) at, on, under, or from any property currently or formerly owned, operated, or leased by the Company or the Company Subsidiary in a manner that could reasonably be expected to give rise to any material liability under Environmental Laws; and
+(iii) To the Company's knowledge, there are no environmental conditions at, on, under, or migrating from any property currently owned, operated, or leased by the Company or the Company Subsidiary that could reasonably be expected to give rise to any material liability under Environmental Laws.
+(b) Schedule 3.12 discloses the following: A minor hydraulic fluid spill of approximately 200 gallons occurred at the Dayton facility (4500 Industrial Parkway) in July 2023. The spill was fully remediated in accordance with applicable Environmental Laws and was reported to the Ohio Environmental Protection Agency. A closure letter confirming satisfactory remediation was received from the Ohio EPA in September 2023.
+(c) The Company has delivered to the Buyer all material environmental reports, assessments, studies, and audits in the Company's possession or control relating to the properties of the Company and the Company Subsidiary.
+(d) No environmental site assessments have been conducted with respect to the premises leased by the Company Subsidiary in Monterrey, Mexico.
+Section 3.13 — Insurance
+(a) Schedule 3.13 sets forth a true, complete, and correct list of all insurance policies maintained by the Company and the Company Subsidiary, including the name of the insurer, policy number, type of coverage, coverage limits, deductible or self-insured retention amounts, and expiration dates.
+(b) All insurance policies listed on Schedule 3.13 are in full force and effect, all premiums due thereon have been timely paid, and neither the Company nor the Company Subsidiary has received any written notice of cancellation or non-renewal of any such policy. Schedule 3.13 includes, among others:
+(i) Commercial general liability insurance with Midland Casualty Insurance Co., Policy No. MCG-2024-07891 — per-occurrence limit of $10,000,000; general aggregate limit of $20,000,000; expiration December 31, 2025;
+(ii) Property insurance with Midland Casualty Insurance Co. — coverage limit of $45,000,000; expiration December 31, 2025;
+(iii) Workers' compensation insurance as required by applicable law in Ohio and Texas;
+(iv) Commercial automobile liability insurance — combined single limit of $2,000,000 per occurrence; and
+(v) Umbrella/excess liability policy with Continental Excess Insurers — limit of $15,000,000 in excess of underlying coverage.
+(c) There are no pending claims under any insurance policy of the Company or the Company Subsidiary as to which any insurer has denied, disputed, or reserved its rights with respect to coverage, other than the reservation of rights by Midland Casualty Insurance Co. with respect to the Martinez litigation described in Section 3.10.
+(d) The Company maintains insurance coverage that is customary and adequate for the conduct of its business and in amounts sufficient to cover all reasonably anticipated claims and losses.
+Section 3.14 — Taxes
+(a) The Company and the Company Subsidiary have timely filed (or caused to be timely filed) all Tax Returns required to be filed by any of them with any Governmental Authority in all jurisdictions in which such Tax Returns are required to be filed. All such Tax Returns are true, correct, and complete in all material respects.
+(b) All Taxes owed by the Company and the Company Subsidiary (whether or not shown on any Tax Return) have been timely paid in full.
+(c) There are no liens for Taxes on any of the assets of the Company or the Company Subsidiary, other than Permitted Encumbrances.
+(d) Except as set forth on Schedule 3.14: (i) no Tax Return of the Company or the Company Subsidiary is currently under audit or examination by any Governmental Authority; and (ii) no deficiency for Taxes has been proposed, asserted, or assessed against the Company or the Company Subsidiary that has not been fully paid or resolved. Schedule 3.14 discloses: An Internal Revenue Service examination, opened in August 2024, of the Company's research and development tax credits claimed under Section 41 of the Internal Revenue Code for the fiscal years ended December 31, 2021 and December 31, 2022 (aggregate credits of approximately $1.3 million). The examination remains open.
+(e) The Company has claimed research and development tax credits under Section 41 of the Internal Revenue Code totaling approximately $2.7 million for the fiscal years 2020 through 2024. The Company has a reasonable basis for all such credits claimed.
+(f) The Company has federal net operating loss carryforwards of approximately $4.1 million, arising from the fiscal year ended December 31, 2020. Such net operating loss carryforwards are available for use against future taxable income, subject to applicable limitations.
+(g) The Company and the Company Subsidiary are not party to, and have no obligations under, any Tax allocation agreement, Tax sharing agreement, or Tax indemnity agreement (other than customary Tax provisions in commercial agreements the primary purpose of which is not Tax).
+(h) The intercompany transfer pricing arrangements between the Company and the Company Subsidiary are conducted at arm's length and in compliance with applicable Tax laws and regulations, including Section 482 of the Internal Revenue Code and the applicable Mexican federal transfer pricing regulations. The intercompany pricing methodology for component transfers from the Company to the Company Subsidiary is cost-plus eight percent (8%).
+(i) The Company has nexus for state and local income Tax purposes only in the jurisdictions set forth on Schedule 3.14. Schedule 3.14 lists the following nexus jurisdictions: Ohio, Michigan, Indiana, Illinois, Texas, and Delaware (state of incorporation).
+(j) Neither the Company nor the Company Subsidiary has been a party to any "listed transaction" as defined in Treasury Regulation Section 1.6011-4(b)(2) or any "reportable transaction" as defined in Treasury Regulation Section 1.6011-4(b)(1).
+Section 3.15 — Material Contracts
+(a) Schedule 3.15 sets forth a true, complete, and correct list of each of the following contracts and agreements to which the Company or the Company Subsidiary is a party as of the date hereof (each, a "Material Contract"):
+(i) any contract with a customer or supplier involving aggregate annual payments or revenues in excess of $1,000,000;
+(ii) any contract containing non-competition, exclusivity, or most-favored-nation provisions binding on the Company or the Company Subsidiary;
+(iii) any contract relating to Indebtedness in excess of $250,000;
+(iv) any contract containing any provision that would require the consent of, or provide a termination right to, any third party in connection with a change of control of the Company or any of its subsidiaries, or the consummation of the transactions contemplated hereby;
+(v) any joint venture, partnership, strategic alliance, or similar agreement;
+(vi) any lease of real or personal property involving aggregate annual payments in excess of $100,000; and
+(vii) any employment, consulting, severance, or change-in-control agreement with annual compensation in excess of $200,000.
+(b) Material Contracts listed on Schedule 3.15 include, among others:
+(i) Kessler Heavy Industries — Master Supply Agreement dated January 15, 2021, with an initial term of five (5) years expiring January 14, 2026, with automatic two-year renewal unless either party provides 180-day prior written notice of non-renewal. FY2024 revenue attributable to Kessler: approximately $29.4 million (20.6% of consolidated revenue).
+(ii) NorthPoint Fabrication Corp. — Master Supply Agreement dated March 1, 2022, with a term of three (3) years expiring February 28, 2025. FY2024 revenue attributable to NorthPoint: approximately $18.6 million (13.0% of consolidated revenue).
+(iii) Dunlap Agricultural Equipment Co. — Supply Agreement; FY2024 revenue: approximately $14.3 million (10.0% of consolidated revenue).
+(iv) Great Plains Hydro, LLC — Supply Agreement; FY2024 revenue: approximately $11.4 million (8.0% of consolidated revenue).
+(v) Overland Machinery, Inc. — Supply Agreement; FY2024 revenue: approximately $9.2 million (6.4% of consolidated revenue).
+(vi) Verteon Software, Inc. — Enterprise CAD/CAM software license agreement, five-year term expiring August 2026, annual license fees of $420,000.
+(vii) Inmobiliaria del Norte, S.A. de C.V. — Monterrey facility lease agreement (cross-referenced to Section 3.7(b)).
+(viii) Asset-based lending credit facility with Heartland Commercial Bank — revolving credit facility with borrowing base of $30,000,000; outstanding balance as of March 1, 2025: approximately $22.7 million.
+(ix) Equipment term loan with Heartland Commercial Bank — original principal amount of $12,000,000; outstanding balance as of March 1, 2025: approximately $8.5 million.
+(x) Subordinated seller note from the Company payable to Terraverde Growth Fund II, LP — outstanding principal balance of $3.0 million, bearing interest at 6.5% per annum.
+(c) Each Material Contract listed on Schedule 3.15 is in full force and effect, is a legal, valid, and binding obligation of the Company or the Company Subsidiary (as applicable) and, to the Company's knowledge, of each other party thereto, and is enforceable in accordance with its terms, subject to applicable bankruptcy, insolvency, reorganization, moratorium, and similar laws affecting creditors' rights generally and to general principles of equity. Neither the Company nor the Company Subsidiary is in material breach or default under any Material Contract, and, to the Company's knowledge, no other party to any Material Contract is in material breach or default thereunder. No event has occurred that, with or without notice or lapse of time or both, would constitute a material breach or default by the Company, the Company Subsidiary, or, to the Company's knowledge, any other party under any Material Contract.
+(d) True, complete, and correct copies of all Material Contracts (including all amendments, supplements, and modifications thereto) have been made available to the Buyer and its representatives.
+Section 3.16 — Employee Benefit Plans
+(a) Schedule 3.16 sets forth a true, complete, and correct list of each "employee benefit plan" (as defined in Section 3(3) of ERISA) and each other compensation or benefit plan, program, policy, agreement, or arrangement maintained, sponsored, contributed to, or required to be contributed to by the Company or the Company Subsidiary for the benefit of any current or former employee, officer, director, or consultant of the Company or the Company Subsidiary (collectively, the "Company Benefit Plans").
+(b) Each Company Benefit Plan has been established, maintained, funded, and administered in all material respects in compliance with its terms and with all applicable laws, including ERISA and the Internal Revenue Code.
+(c) All Company Benefit Plans that are "employee pension benefit plans" (as defined in Section 3(2) of ERISA) and that are intended to be qualified under Section 401(a) of the Internal Revenue Code have received a favorable determination letter or may rely upon a favorable opinion letter from the Internal Revenue Service, and nothing has occurred since the date of such letter that would reasonably be expected to adversely affect the qualified status of any such plan.
+(d) The Company Benefit Plans include, among others: (i) a defined contribution 401(k) plan with an employer matching contribution of four percent (4%) of eligible compensation, and (ii) a defined benefit pension plan that was frozen as to new participants and benefit accruals as of December 31, 2018 (the "Pension Plan").
+(e) With respect to the Pension Plan, the most recent actuarial valuation (dated January 2024 and prepared by Millbrook Actuarial Services, LLC) reflects an unfunded benefit liability (i.e., projected benefit obligation less fair market value of plan assets) of approximately $4,300,000. The Pension Plan has been funded in accordance with the minimum funding requirements of Section 412 of the Internal Revenue Code and Section 302 of ERISA for all plan years through and including the most recent plan year, and no excise tax under Section 4971 of the Internal Revenue Code has been or is reasonably expected to be imposed with respect to the Pension Plan. The Company has no liability under Title IV of ERISA with respect to the Pension Plan other than as reflected in such actuarial valuation.
+(f) The Company maintains a Change-in-Control Severance Plan covering eight (8) executives, providing severance benefits of one and one-half times (1.5x) annual base salary and twelve (12) months of COBRA continuation coverage upon a qualifying termination of employment within twenty-four (24) months following a change in control. The aggregate maximum potential liability under such plan is approximately $3,010,000, calculated as follows: eight (8) executives with an average annual base salary of approximately $245,000, multiplied by 1.5, yielding aggregate severance of approximately $2,940,000, plus estimated COBRA continuation costs of approximately $67,200.
+(g) No Company Benefit Plan is a "multiemployer plan" (as defined in Section 3(37) of ERISA) or a "multiple employer plan" (as defined in Sections 4063 or 4064 of ERISA). Neither the Company nor the Company Subsidiary has incurred any liability under Section 4201 of ERISA for a complete or partial withdrawal from a multiemployer plan.
+Section 3.17 — Employees and Labor Matters
+(a) Schedule 3.17 sets forth (i) the total number of employees of the Company and the Company Subsidiary as of December 31, 2024, (ii) a breakdown of employees by facility and employment category, and (iii) a list of all employees with annual base compensation in excess of $150,000. As of December 31, 2024, the Company and the Company Subsidiary employed a total of approximately 730 employees, with the following approximate breakdown: Dayton manufacturing and operations — 485 employees; Monterrey manufacturing and operations — 170 employees; corporate and salaried staff — 75 employees.
+(b) The hourly manufacturing and production workers at the Dayton facility (approximately 312 employees) are represented by International Association of Machinists and Aerospace Workers, Local Lodge 1247, pursuant to a collective bargaining agreement effective March 1, 2023 through February 28, 2026 (the "CBA"). A true, complete, and correct copy of the CBA has been made available to the Buyer. Except for the CBA, no employees of the Company or the Company Subsidiary are represented by any labor union, works council, or similar organization, or are subject to any collective bargaining agreement, and no petition for union representation has been filed or, to the Company's knowledge, threatened.
+(c) There is no pending or, to the Company's knowledge, threatened strike, lockout, work stoppage, slowdown, picketing, unfair labor practice charge, or other material labor dispute affecting the Company or the Company Subsidiary.
+(d) The Company and the Company Subsidiary are in material compliance with all applicable labor and employment laws, statutes, rules, and regulations, including those relating to wages, hours, overtime, classification of employees and independent contractors, discrimination, harassment, retaliation, workplace safety, immigration, and workers' compensation.
+(e) Except as set forth on Schedule 3.17, there are no pending or, to the Company's knowledge, threatened employment-related claims, charges, actions, or proceedings against the Company or the Company Subsidiary. Schedule 3.17 discloses: Thompson v. PrecisionFlow Systems, Inc., EEOC Charge No. 473-2024-01892, filed June 2024 (alleging race discrimination and retaliation; currently in mediation; estimated settlement range of $150,000 to $350,000).
+Section 3.18 — Brokers and Finders
+Except as set forth on Schedule 3.18, no broker, finder, investment banker, or other Person is entitled to any brokerage, finder's, or other fee or commission from the Company or any Seller in connection with the transactions contemplated by this Agreement.
+Section 3.19 — Related Party Transactions
+Except as set forth on Schedule 3.19, no Seller, nor any Affiliate of any Seller, nor any officer or director of the Company or the Company Subsidiary, is a party to any contract, arrangement, or transaction with the Company or the Company Subsidiary, or has any material financial interest in any Person that does business with the Company or the Company Subsidiary (other than ownership of less than two percent (2%) of the outstanding securities of any publicly traded company). Schedule 3.19 discloses the following:
+(i) Harold Beecham has provided a personal guaranty in the amount of $1,800,000 in connection with the Company's asset-based lending credit facility with Heartland Commercial Bank; and
+(ii) The subordinated seller note in the principal amount of $3,000,000 from the Company payable to Terraverde Growth Fund II, LP, as described in Section 3.15(b)(x).
+Section 3.20 — Product Liability and Warranty
+(a) Except as set forth on Schedule 3.20, during the past five (5) years: (i) no product manufactured, sold, or distributed by the Company or the Company Subsidiary has been the subject of any recall, market withdrawal, safety alert, or field correction, whether voluntary or involuntary; and (ii) there are no pending or, to the Company's knowledge, threatened product liability claims, actions, or proceedings against the Company or the Company Subsidiary.
+(b) Schedule 3.20 cross-references the Martinez litigation described in Section 3.10 and on Schedule 3.10.
+(c) The Company's standard product warranty terms provide for a warranty period of twenty-four (24) months from the date of delivery. Warranty reserves of approximately $1.2 million have been established in accordance with GAAP and are reflected in the Financial Statements.
+Section 3.21 — Full Disclosure
+No representation or warranty of any Seller contained in this Article III, and no statement contained in any Disclosure Schedule, certificate, exhibit, or other document furnished or to be furnished to the Buyer pursuant to this Agreement, contains or will contain any untrue statement of a material fact or omits or will omit to state a material fact necessary to make the statements contained herein or therein not misleading, in light of the circumstances under which they are made.
+ARTICLE IV — REPRESENTATIONS AND WARRANTIES OF THE BUYER
+The Buyer hereby represents and warrants to the Sellers as of the date hereof and as of the Closing Date as follows:
+Section 4.1 — Organization and Good Standing
+Cascadia Industrial Holdings, Inc. is a corporation duly organized, validly existing, and in good standing under the laws of the State of Delaware. The Buyer is listed on the New York Stock Exchange under the ticker symbol "CIHI" and has a current market capitalization of approximately $4.2 billion. The Buyer's principal executive offices are located at 1200 Burnside Tower, Portland, OR 97204. The Buyer has full corporate power and authority to own, lease, and operate its properties and to carry on its business as presently conducted.
+Section 4.2 — Authorization; Binding Effect
+The Buyer has full corporate power and authority to execute and deliver this Agreement, to perform its obligations hereunder, and to consummate the transactions contemplated hereby. The execution, delivery, and performance of this Agreement by the Buyer, and the consummation of the transactions contemplated hereby, have been duly authorized by all necessary corporate action on the part of the Buyer, including approval by its board of directors. This Agreement has been duly executed and delivered by the Buyer and constitutes the legal, valid, and binding obligation of the Buyer, enforceable against the Buyer in accordance with its terms, subject to applicable bankruptcy, insolvency, reorganization, moratorium, and similar laws affecting creditors' rights generally and to general principles of equity. The execution and delivery of this Agreement by the Buyer and the consummation of the transactions contemplated hereby do not and will not (i) conflict with or violate any provision of the certificate of incorporation or bylaws of the Buyer, (ii) violate any applicable law, order, or decree, or (iii) result in a material breach of or default under any material agreement to which the Buyer is a party.
+Section 4.3 — Financial Capability
+The Buyer has, or at the Closing will have, sufficient funds available to pay the Purchase Price of $287,000,000 and all other amounts required to be paid by the Buyer in connection with the consummation of the transactions contemplated hereby and to perform all of the Buyer's obligations hereunder. The Buyer has received a commitment letter from its lenders providing committed financing sufficient to consummate the transactions on the terms contemplated hereby.
+Section 4.4 — No Conflicts; Consents
+The execution and delivery of this Agreement by the Buyer and the consummation of the transactions contemplated hereby do not require any filing with, or consent, approval, authorization, or waiver of, any Governmental Authority, except for (a) filings required under the Hart-Scott-Rodino Antitrust Improvements Act of 1976, as amended (if applicable), (b) filings with the Securities and Exchange Commission in connection with the Buyer's periodic reporting obligations under the Securities Exchange Act of 1934, and (c) routine notifications to the New York Stock Exchange. No other third-party consents or approvals are required by the Buyer.
+Section 4.5 — Litigation
+There is no litigation, action, suit, proceeding, or investigation pending or, to the Buyer's knowledge, threatened against the Buyer that would prevent, enjoin, or materially delay the Buyer's ability to consummate the transactions contemplated hereby.
+Section 4.6 — Brokers and Finders
+No broker, finder, or investment banker is entitled to any brokerage, finder's, or other fee or commission from the Buyer in connection with the transactions contemplated hereby, except for Ridgeline Capital Partners, whose fees and expenses are the sole responsibility of the Buyer.
+Section 4.7 — Investigation; No Other Representations
+The Buyer acknowledges that it has conducted its own independent investigation, review, and analysis of the business, assets, results of operations, condition (financial and otherwise), and prospects of the Company and the Company Subsidiary. In entering into this Agreement, the Buyer has relied solely upon the representations and warranties expressly set forth in Article III of this Agreement and in the Disclosure Schedules. The Buyer acknowledges that neither the Sellers, the Company, nor any of their respective representatives has made any representation or warranty, express or implied, as to the Company or the Company Subsidiary or the accuracy or completeness of any information provided to or made available to the Buyer, except as expressly set forth in Article III. Without limiting the foregoing, the Buyer acknowledges that no projections, forecasts, estimates, or budgets heretofore delivered to or made available to the Buyer shall give rise to any representation or warranty on the part of the Sellers.
+ARTICLE V — COVENANTS (SELECTED PROVISIONS)
+Section 5.1 — Conduct of Business Pending Closing
+(a) From the date hereof until the earlier of the Closing or the termination of this Agreement in accordance with Article IX, except as contemplated by this Agreement or as the Buyer may otherwise consent to in writing (which consent shall not be unreasonably withheld, conditioned, or delayed), the Company shall, and shall cause the Company Subsidiary to, (i) conduct its business in the Ordinary Course of Business and (ii) use commercially reasonable efforts to preserve intact its business organization, relationships with customers, suppliers, and other Persons, and the services of its officers and key employees.
+(b) Without limiting the generality of Section 5.1(a), from the date hereof until the earlier of the Closing or the termination of this Agreement, except as set forth on Schedule 5.1 or as the Buyer may otherwise consent to in writing, the Company shall not, and shall cause the Company Subsidiary not to:
+(i) incur any Indebtedness in excess of $100,000, individually or in the aggregate (other than borrowings under the existing ABL credit facility in the Ordinary Course);
+(ii) enter into, materially amend, or terminate any Material Contract (other than in the Ordinary Course of Business);
+(iii) increase the compensation or benefits payable to any officer, director, or employee, except in the Ordinary Course of Business consistent with past practice;
+(iv) declare, set aside, or pay any dividend or distribution in respect of the capital stock of the Company;
+(v) issue, sell, or pledge any shares of capital stock or other equity securities of the Company or the Company Subsidiary;
+(vi) amend the certificate of incorporation, bylaws, or other organizational documents of the Company or the Company Subsidiary;
+(vii) acquire any material assets or business outside the Ordinary Course of Business;
+(viii) sell, transfer, lease, or otherwise dispose of any material assets outside the Ordinary Course of Business; or
+(ix) make any material change in Tax elections or Tax accounting methods.
+Section 5.2 — Access to Information
+From the date hereof until the earlier of the Closing or the termination of this Agreement, the Company shall, and shall cause the Company Subsidiary to, afford the Buyer and its authorized representatives (including officers, employees, accountants, counsel, financial advisors, and other agents) reasonable access during normal business hours to the properties, books, records, contracts, documents, and personnel of the Company and the Company Subsidiary, subject to the terms and conditions of the Confidentiality Agreement dated October 22, 2024 between the Company and the Buyer.
+Section 5.3 — Required Consents
+(a) Schedule 5.3 sets forth a true, complete, and correct list of all consents, approvals, authorizations, and waivers of third parties that are required in connection with the consummation of the transactions contemplated hereby (collectively, the "Required Consents"). Schedule 5.3 lists the following Required Consents:
+(i) Consent of Heartland Commercial Bank under the asset-based lending credit facility (or, alternatively, payoff and termination of such facility at Closing);
+(ii) Consent of Heartland Commercial Bank under the equipment term loan (or, alternatively, payoff and termination of such loan at Closing);
+(iii) Hart-Scott-Rodino Act filing clearance or expiration of the applicable waiting period (if applicable); and
+(iv) Any required state regulatory approvals or filings.
+(b) The Sellers shall use commercially reasonable efforts to obtain all Required Consents prior to the Closing Date. The Buyer shall cooperate with the Sellers in connection with obtaining such Required Consents, including by providing such information and documentation as may be reasonably requested by third parties in connection therewith.
+Section 5.4 — Efforts to Close
+Each party hereto shall use commercially reasonable efforts to take, or cause to be taken, all actions, and to do, or cause to be done, all things reasonably necessary, proper, or advisable under applicable law to consummate the transactions contemplated by this Agreement as promptly as practicable, including making all required filings with Governmental Authorities, obtaining all Required Consents, and satisfying all conditions to Closing set forth in Article VII.
+Section 5.5 — Notification of Certain Matters
+From the date hereof until the Closing, the Sellers shall promptly notify the Buyer in writing of (a) any event, occurrence, condition, or development that has caused or would reasonably be expected to cause any representation or warranty of any Seller contained in Article III to be untrue or inaccurate in any material respect as of the date hereof or as of the Closing Date, (b) any material breach of any covenant or obligation of any Seller under this Agreement, and (c) any Material Adverse Effect or any event, occurrence, condition, or development that could reasonably be expected to result in a Material Adverse Effect.
+[SIGNATURE PAGES]
+SIGNATURE PAGES TO BE CIRCULATED UPON FINALIZATION OF ALL TERMS. The signature blocks below are included in draft form for reference only.
+IN WITNESS WHEREOF, the parties hereto have caused this Stock Purchase Agreement to be duly executed and delivered as of the date first written above.
+BUYER:
+CASCADIA INDUSTRIAL HOLDINGS, INC.
+By: ________
+Name: Margaret Tsai
+Title: Chief Executive Officer
+Date: ________
+COMPANY:
+PRECISIONFLOW SYSTEMS, INC.
+By: ________
+Name: Harold "Hal" Beecham
+Title: Chief Executive Officer
+Date: ________
+SELLER REPRESENTATIVE:
+________________________________________
+HAROLD "HAL" BEECHAM Individually and as Seller Representative
+Date: ________
+SELLERS:
+TERRAVERDE GROWTH FUND II, LP
+By: Terraverde Capital Management, LLC, its General Partner
+By: ________
+Name: David R. Kaplan
+Title: Managing Partner
+Date: ________
+MANAGEMENT SHAREHOLDERS
+[Signatures of Management Shareholders to be provided on a separate signature page in the form attached hereto as Exhibit B]
+DISCLOSURE SCHEDULE CROSS-REFERENCE TABLE
+Appendix to Excerpted Stock Purchase Agreement
+The following table identifies each Disclosure Schedule referenced in Articles III and V of the Agreement. Disclosure Schedules are provided under separate cover and should be read in their entirety in conjunction with the representations, warranties, and covenants to which they relate.
+Disclosure Schedule
+Description
+Schedule 3.3
+Capitalization — ownership of Shares; Restricted Stock Agreements
+Schedule 3.4
+Financial Statements — copies of audited financials for FY2022, FY2023, FY2024
+Schedule 3.5
+Absence of Changes — exceptions to ordinary course covenants since Dec. 31, 2024
+Schedule 3.6
+Undisclosed Liabilities — exceptions to no-undisclosed-liabilities representation
+Schedule 3.7
+Real Property — list of Owned Real Property and Leased Real Property
+Schedule 3.9(a)
+Company Intellectual Property — 12 issued U.S. patents, 3 pending patent applications, registered trademarks, copyrights, and domain names
+Schedule 3.9(c)
+IP Claims and Notices — AquaDyne Technologies, LLC cease-and-desist letter (Sept. 8, 2024)
+Schedule 3.9(e)
+Inbound IP Licenses — Verteon Software, Inc. enterprise license
+Schedule 3.10
+Litigation — Martinez v. PrecisionFlow (S.D. Ohio); Thompson EEOC Charge
+Schedule 3.11
+Compliance with Laws — 2020 OSHA citation (machine guarding, $14,500); 2022 OSHA citation (recordkeeping, $3,200)
+Schedule 3.12
+Environmental Matters — July 2023 hydraulic fluid spill at Dayton facility (remediated; Ohio EPA closure letter received Sept. 2023)
+Schedule 3.13
+Insurance Policies — general liability, property, workers' compensation, auto, umbrella/excess
+Schedule 3.14
+Taxes — IRS R&D credit examination (FY2021–FY2022, $1.3M); nexus jurisdictions (OH, MI, IN, IL, TX, DE); transfer pricing methodology
+Schedule 3.15
+Material Contracts — customer and supplier agreements, debt instruments, leases, software licenses
+Schedule 3.16
+Employee Benefit Plans — 401(k) plan, Pension Plan, Change-in-Control Severance Plan
+Schedule 3.17
+Employees and Labor — 730 employees; CBA with IAM Local 1247 (exp. Feb. 28, 2026); Thompson EEOC charge
+Schedule 3.18
+Brokers and Finders
+Schedule 3.19
+Related Party Transactions — Beecham personal guaranty ($1.8M); Terraverde subordinated note ($3.0M)
+Schedule 3.20
+Product Liability — cross-reference to Martinez litigation (Schedule 3.10)
+Schedule 5.3
+Required Consents — Heartland Commercial Bank (ABL facility and term loan); HSR Act clearance (if applicable); state regulatory approvals
+Note: Disclosure Schedules are provided under separate cover and are incorporated herein by reference. Capitalized terms used in this cross-reference table have the meanings ascribed to them in the Stock Purchase Agreement.

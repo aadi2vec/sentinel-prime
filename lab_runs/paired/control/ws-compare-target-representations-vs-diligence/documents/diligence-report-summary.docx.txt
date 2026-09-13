@@ -1,0 +1,475 @@
+CONFIDENTIAL — DUE DILIGENCE REPORT SUMMARY
+Proposed Acquisition of PrecisionFlow Systems, Inc. by Cascadia Industrial Holdings, Inc.
+Prepared by:
+Holloway & Fitch LLP 900 Second Avenue, Suite 3200 Seattle, WA 98104
+and
+Ridgeline Capital Partners Chicago, IL
+March 10, 2025
+PRIVILEGED AND CONFIDENTIAL — ATTORNEY WORK PRODUCT This report and the information contained herein are protected by the attorney-client privilege, the work product doctrine, and applicable confidentiality agreements. This report is prepared solely for the benefit of the persons and entities identified below and may not be disclosed, distributed, or reproduced without the prior written consent of Holloway & Fitch LLP.
+Distribution List:
+Recipient
+Title / Affiliation
+Catherine Reeves
+Lead Partner, Holloway & Fitch LLP
+Thomas Avery
+Senior Associate, Holloway & Fitch LLP
+Rajan Mehta
+General Counsel, Cascadia Industrial Holdings, Inc.
+David Kowalski
+Chief Financial Officer, Cascadia Industrial Holdings, Inc.
+Aaron Bliss
+Managing Director, Ridgeline Capital Partners
+DRAFT — For Internal Discussion Purposes Only
+TOC \o "1-2" \h \z \u Right-click to update Table of Contents
+I. Executive Summary
+Cascadia Industrial Holdings, Inc. (NYSE: CIHI) ("Buyer" or "Cascadia") proposes to acquire one hundred percent (100%) of the outstanding common stock of PrecisionFlow Systems, Inc., a Delaware corporation headquartered in Dayton, Ohio ("PrecisionFlow," the "Target," or the "Company"), for an aggregate purchase price of $287 million, representing a 9.5x multiple of adjusted EBITDA of $30.21 million. The transaction is structured as a stock purchase and is governed by a draft Stock Purchase Agreement (the "SPA") circulated by Stonebridge Whitaker LLP (Jeffrey Denton, lead partner), counsel to the Sellers, on February 28, 2025.
+PrecisionFlow is a manufacturer of hydraulic control systems, including proportional valves, directional control valves, and integrated fluid power assemblies. The Company was founded in 2004 by Harold "Hal" Beecham and maintains manufacturing operations in Dayton, Ohio and Monterrey, Mexico (through its wholly-owned subsidiary, PrecisionFlow de México, S.A. de C.V.). For the fiscal year ended December 31, 2024, the Company reported revenue of $143.0 million and employs approximately 740 people across both facilities.
+The parties intend to execute the SPA on March 14, 2025, with a target closing date of June 30, 2025. An escrow deposit of $22.96 million (8% of the aggregate purchase price) will be held for eighteen (18) months following the closing to secure the Sellers' indemnification obligations.
+Overall Assessment. PrecisionFlow is a fundamentally sound business with attractive financial characteristics, including strong revenue growth (CAGR of approximately 10% from FY2022 through FY2024), solid gross margins (34.2% in FY2024), and a product portfolio that is complementary to Cascadia's existing Fluid Power division. Notwithstanding the foregoing, our diligence has identified a number of material items requiring attention before signing, which are described in detail in the body of this report and summarized below:
+•  Intellectual Property: Two patents directly related to the PF-4200 proportional valve are omitted from Disclosure Schedule 3.9, and the non-infringement opinion obtained in connection with the AquaDyne Technologies cease-and-desist letter is materially incomplete due to Target's refusal to produce internal testing data.
+•  Material Contracts: The Kessler Heavy Industries MSA contains an undisclosed change-of-control termination right affecting 20.6% of revenue; the NorthPoint Fabrication MSA ($18.6M in annual revenue) expired on February 28, 2025, and has not been renewed.
+•  Environmental: The Phase I Environmental Site Assessment identified a recognized environmental condition at the Dayton facility that is not disclosed in Schedule 3.12, and no Phase II investigation has been completed.
+•  Tax: Target has California income tax nexus exposure arising from an unreported physical presence and approximately $3.8 million in California-sourced sales, with no California returns filed since at least 2022.
+•  Financial: A $0.60 million EBITDA add-back characterized as COVID-related supply chain costs appears recurring in nature, and the pension plan unfunded liability is understated by approximately $2.5 million based on updated actuarial assumptions.
+•  Litigation/Insurance: The Martinez product liability claim ($12M demand) exceeds the per-occurrence insurance limit ($10M) by $2 million, creating a potential coverage gap.
+•  Corporate: Hal Beecham's 2021 divorce settlement contains a disputed provision potentially encumbering 3.1% of the outstanding shares.
+•  Employment: An October 2024 OSHA citation is actively contested, rendering the SPA compliance representation technically inaccurate; the employee headcount in Schedule 3.17 is understated by 10.
+•  Real Property: The Monterrey facility lease requires landlord consent for an indirect change of control, but the consent is not listed on the Required Consents schedule (Schedule 5.3).
+Recommendation. We recommend that the deal team address the enumerated issues prior to signing through disclosure schedule corrections, additional targeted diligence, SPA modifications, and commercial actions as detailed in Section XIII of this report.
+II. Diligence Scope and Methodology
+The diligence review was conducted during the period from January 15, 2025 through March 7, 2025. All materials were made available through a virtual data room maintained by the Seller, managed by Sandra Cho, General Counsel of PrecisionFlow. The data room contained approximately 4,200 documents organized by category.
+Management Presentations. The diligence team participated in in-person and virtual management presentations conducted by Hal Beecham (Chief Executive Officer), Linda Peretti (Chief Financial Officer), and Sandra Cho (General Counsel) on January 22–23, 2025, February 5, 2025, and February 19, 2025.
+Financial Diligence. Financial diligence was conducted jointly by Ridgeline Capital Partners (Aaron Bliss, Managing Director) and Holloway & Fitch LLP. The analysis encompassed a review of audited financial statements for FY2022, FY2023, and FY2024, all audited by Clarkfield & Associates, P.C. (Robert Faulkner, CPA, Engagement Partner, Dayton, OH). The quality of earnings analysis, working capital review, and debt schedule verification were performed by the Ridgeline team with legal support from Holloway & Fitch.
+Legal Diligence. Legal diligence was conducted by Holloway & Fitch LLP across the following workstreams: Corporate/Governance, Intellectual Property, Environmental, Employment/Benefits, Material Contracts, Litigation, Tax, Insurance, and Real Property.
+Environmental Diligence. Environmental review included an analysis of the Phase I Environmental Site Assessment prepared by Greenleaf Environmental Consulting, LLC (Dayton, OH), dated October 2024, as well as a review of Ohio EPA correspondence related to the Company's reporting history.
+Intellectual Property Diligence. IP diligence was conducted by the Holloway & Fitch IP group. The review encompassed USPTO database searches for all patents and trademarks, a review of the full patent portfolio, trademark registrations, software licenses, and third-party claims, including the AquaDyne Technologies infringement dispute.
+Tax Diligence. Tax diligence included a review of federal and state income tax returns for FY2019 through FY2024, R&D credit documentation and associated IRS correspondence, and Mexican subsidiary (PrecisionFlow de México) tax filings and transfer pricing documentation.
+Actuarial Review. Buyer's independent actuary was retained by Ridgeline Capital Partners to evaluate the funded status of the Target's defined benefit pension plan using current market assumptions.
+Limitations. Certain information requests remain outstanding as of the date of this report. Most notably, the Target's internal testing data for the PF-4200 proportional valve was requested on multiple occasions (January 28, February 11, and February 25, 2025) and was not produced. This gap is of particular significance in connection with the AquaDyne intellectual property dispute, as discussed in Section V.C below.
+III. Corporate and Governance
+PrecisionFlow Systems, Inc. is a Delaware corporation headquartered at 4500 Industrial Parkway, Dayton, OH 45414. The Company was incorporated in the State of Delaware in 2004 by Harold "Hal" Beecham. Good standing certificates have been obtained for the State of Delaware (corporate domicile) and the State of Ohio (foreign qualification). The Company maintains one wholly-owned subsidiary: PrecisionFlow de México, S.A. de C.V., located at Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000. The subsidiary's corporate status was confirmed through local Mexican counsel.
+Capitalization. The Company's outstanding common stock is held by three shareholder groups as follows:
+Shareholder
+Ownership Percentage
+Harold "Hal" Beecham (Founder & CEO)
+62%
+Terraverde Growth Fund II, LP (Delaware LP; Cleveland-based lower-middle-market PE fund)
+28%
+Management Pool (8 executives, restricted stock agreements)
+10%
+Total
+100%
+No preferred stock is outstanding. No outstanding warrants, options (other than the restricted stock agreements comprising the management pool), or convertible securities were identified during our review of the corporate records.
+Board of Directors. The Board consists of five (5) members: Hal Beecham, Linda Peretti, two Terraverde designees, and one independent director.
+III.A. Shareholder Title Issues — Karen Beecham Disputed Claim
+During our verification of the capitalization table and chain of title for all outstanding shares, we identified a potentially material encumbrance on a portion of Hal Beecham's equity interest.
+Specifically, our review of public court records from the Montgomery County, Ohio Court of Common Pleas, Domestic Relations Division, reveals that Hal Beecham's divorce from his ex-wife, Karen Beecham, was finalized in 2021. The divorce settlement agreement, which was incorporated into the final decree, contains a provision awarding Karen Beecham a claim to five percent (5%) of Hal Beecham's shares of common stock in PrecisionFlow Systems, Inc. If valid and enforceable, this claim would encumber 5% of Hal's 62% interest, or approximately 3.1% of the total outstanding shares of the Company.
+At the proposed aggregate purchase price of $287 million, 3.1% of equity value equates to approximately $8.9 million in share value that may be subject to Karen Beecham's claim.
+Seller's counsel at Stonebridge Whitaker LLP (Jeffrey Denton) has represented informally during a telephone call on February 20, 2025 that Hal Beecham disputes this provision and that the matter is the subject of ongoing post-decree proceedings in the domestic relations court. However, no court order resolving the dispute has been produced in the data room, and no formal legal opinion has been provided regarding the validity or enforceability of Karen Beecham's claim. We note separately that Hal Beecham holds a $1.8 million personal guaranty on the Target's ABL credit facility with First Midwestern Bank, N.A., which will need to be released at closing in accordance with the terms of the SPA.
+Risk Flag. If Karen Beecham's claim is valid and enforceable, Hal Beecham may not have clear title to the full 62% of shares attributed to him on the capitalization table. The SPA contains a representation by each Seller (Section 3.3) that such Seller holds "good and marketable title to all shares of Company Common Stock set forth opposite such Seller's name on the capitalization table, free and clear of all liens, encumbrances, pledges, security interests, claims, options, and restrictions of any kind." The potential Karen Beecham claim could constitute a breach of this representation and could delay or block the closing if not resolved.
+We recommend the following actions: (1) obtain a certified court order resolving the post-decree dispute, or a signed release and waiver from Karen Beecham, prior to closing; (2) in the alternative, structure a portion of the $22.96 million escrow to specifically address the disputed 3.1% of shares (approximately $8.9 million) until the claim is resolved; and (3) require Seller's counsel to provide a formal legal opinion regarding the status of the dispute and the enforceability of the settlement provision.
+IV. Financial Diligence
+IV.A. Historical Financial Performance
+Audited financial statements for the fiscal years ended December 31, 2022, December 31, 2023, and December 31, 2024 were reviewed. All three years were audited by Clarkfield & Associates, P.C. (Robert Faulkner, CPA, Engagement Partner, Dayton, OH). The FY2024 audit report contains an unqualified opinion, except for an emphasis-of-matter paragraph regarding the Mexican subsidiary's intercompany pricing methodology (a cost-plus 8% transfer pricing arrangement between PrecisionFlow de México and the parent company). This is a known item and is disclosed in the notes to the audited financial statements.
+Revenue Summary:
+Fiscal Year
+Revenue
+Dayton Facility
+Monterrey Facility
+FY2022
+$118.2M
+—
+—
+FY2023
+$131.6M
+—
+—
+FY2024
+$143.0M
+$104.8M
+$38.2M
+Revenue CAGR from FY2022 to FY2024 is approximately 9.96%.
+FY2024 Key Financial Metrics:
+Metric
+Amount
+Revenue
+$143.0M
+Gross Profit
+$48.906M
+Gross Margin
+34.2%
+Reported EBITDA
+$26.41M
+EBITDA Margin
+18.47%
+Capital Expenditures
+$7.3M
+Balance Sheet Data (as of December 31, 2024):
+Line Item
+Amount
+Accounts Receivable
+$24.1M
+Inventory
+$19.7M
+Cash and Cash Equivalents
+$5.8M
+Prepaid Expenses
+$2.6M
+Accounts Payable
+$11.9M
+Accrued Expenses
+$4.7M
+Current Portion of Long-Term Debt
+$3.2M
+Closing Indebtedness (estimated):
+Debt Instrument
+Outstanding Balance
+ABL Credit Facility (First Midwestern Bank, N.A.)
+$22.7M
+Equipment Term Loan
+$8.5M
+Subordinated Seller Note (Terraverde Growth Fund II, LP)
+$3.0M
+Total Closing Indebtedness
+$34.2M
+Estimated cash at closing: $5.8 million.
+IV.B. EBITDA Adjustments and Quality of Earnings Analysis
+The Seller proposes total EBITDA adjustments of $3.80 million, yielding an adjusted EBITDA of $30.21 million ($26.41M reported + $3.80M adjustments). At the agreed 9.5x multiple, this produces the $287.0 million aggregate purchase price. The adjusted EBITDA margin is 21.13% ($30.21M ÷ $143.0M). The individual adjustments and our findings are as follows:
+1. Hal Beecham Above-Market Compensation — $1.70M. This adjustment represents the difference between Beecham's total compensation (including above-market perquisites) and the estimated market-rate cost for a replacement CEO of comparable experience in a manufacturing company of this size and complexity. We reviewed comparable CEO compensation data from industry surveys and public company proxy disclosures. The adjustment appears supportable. No issue flagged.
+2. One-Time ERP Implementation Costs — $0.85M. This adjustment relates to the implementation of a new enterprise resource planning system completed in Q2 2024. The costs are supported by invoices from the ERP vendor, and the implementation is confirmed as complete. The non-recurring nature of this charge is well-documented. No issue flagged.
+3. Non-Recurring Legal Settlement Costs — $0.65M. This adjustment relates to the settlement of a commercial dispute with a former distributor in Q1 2024. The one-time nature of the charge is confirmed by the settlement agreement, which contains a full and final release. No issue flagged.
+4. COVID-Related Supply Chain Disruption Charges — $0.60M. The Seller characterizes this adjustment as non-recurring costs attributable to COVID-related supply chain disruptions carried into early 2024, including expedited freight charges, alternative sourcing premiums, and inventory write-downs.
+Risk Flag. Ridgeline Capital Partners' analysis of the $0.60 million COVID supply chain add-back has identified a significant concern regarding the characterization of these charges as non-recurring. Our review of the Company's financial records reveals that PrecisionFlow has incurred materially similar "supply chain disruption" charges in each of the prior two fiscal years: $0.55 million in FY2022 and $0.45 million in FY2023. The charges in all three years relate to the same categories of expense — expedited freight, alternative sourcing premiums, and inventory write-downs attributable to supply chain disruptions — and are booked to the same general ledger accounts.
+While the Seller characterizes the FY2024 charges as COVID-related and therefore one-time in nature, the consistent appearance of materially similar charges across three consecutive fiscal years strongly suggests that these represent recurring operational costs embedded in the Company's supply chain cost structure rather than non-recurring items. We note further that the U.S. Department of Health and Human Services ended the COVID-19 public health emergency on May 11, 2023, making the characterization of charges incurred in FY2024 as "COVID-related" questionable at best.
+If the $0.60 million add-back is rejected, adjusted EBITDA decreases from $30.21 million to $29.61 million. At the agreed 9.5x multiple, the implied enterprise value decreases by $5.7 million (from $287.0 million to $281.3 million). We recommend challenging this adjustment during purchase price negotiations.
+IV.C. Net Working Capital
+The SPA establishes a net working capital ("NWC") target of $18.4 million, based on a trailing twelve-month average methodology. NWC is defined in the SPA as current assets (excluding cash and cash equivalents) minus current liabilities (excluding the current portion of long-term debt).
+NWC Calculation as of December 31, 2024:
+Component
+Amount
+Accounts Receivable
+$24.1M
+Inventory
+$19.7M
+Prepaid Expenses
+$2.6M
+Total Current Assets (ex-cash)
+$46.4M
+Accounts Payable
+$11.9M
+Accrued Expenses
+$4.7M
+Total Current Liabilities (ex-current LTD)
+$16.6M
+NWC (per SPA methodology)
+$29.8M
+The Seller's trailing twelve-month average NWC calculation yields a target of $18.4 million. We have reviewed the underlying monthly calculations and observe that NWC was significantly lower during Q1 and Q2 2024, reflecting a seasonal trough in the business cycle, which pulls the trailing average substantially below the year-end snapshot. The December 31 NWC of $29.8 million significantly exceeds the $18.4 million target, which will result in a positive purchase price adjustment at closing in favor of the Seller.
+We recommend verifying the Seller's month-by-month NWC calculations and confirming that the methodology for treatment of individual line items is applied consistently across all twelve months of the trailing period.
+Inventory Observation. Inventory levels increased from $16.2 million (FY2023) to $19.7 million (FY2024), representing a 21.6% increase year-over-year, versus revenue growth of only 8.7% over the same period. The disproportionate inventory build may indicate aging or slow-moving inventory that warrants further review, including an analysis of inventory reserves and obsolescence provisions.
+IV.D. Pension and Retirement Plans — Liability Assessment
+The Target maintains a 401(k) defined contribution plan with a 4% employer match. Our review of the plan documents, Form 5500 filings, and plan administration records indicates that the 401(k) plan appears compliant with applicable ERISA requirements. No issues were identified with respect to this plan.
+The Target also maintains a defined benefit pension plan that was frozen as of December 31, 2018. No further benefit accruals have occurred since the freeze date. The most recent actuarial valuation provided by the Seller is dated January 2024 and reports an unfunded liability of $4.3 million (projected benefit obligation of approximately $18.9 million less plan assets of approximately $14.6 million).
+However, Buyer's independent actuary, retained by Ridgeline Capital Partners, has performed an updated estimate of the plan's funded status incorporating current market conditions. The independent actuary's analysis specifically accounts for the material decline in interest rates during the second half of 2024, which resulted in a decrease in the applicable discount rate from approximately 5.4% (as used in the January 2024 valuation) to approximately 4.6% as of year-end 2024. The lower discount rate increases the present value of the plan's projected benefit obligation. The independent actuary's updated estimate places the unfunded liability at approximately $6.8 million — a $2.5 million increase over the Seller-provided valuation.
+The SPA's benefits representation at Section 3.16 states that all employee benefit plans are "funded in accordance with all applicable requirements of ERISA and the Code" and specifically references the $4.3 million unfunded liability figure from the January 2024 valuation. The $2.5 million gap between the Seller's disclosed figure and the current estimate is material and suggests that the benefits representation may understate the actual pension obligation as of the anticipated closing date.
+Risk Flag. The $2.5 million incremental pension liability should be addressed through either a purchase price adjustment, a specific indemnification obligation, or an updated actuarial valuation to be completed prior to closing. At a minimum, the SPA should be revised to reference a bring-down actuarial valuation to be performed within sixty (60) days of the closing date, with a true-up mechanism for any variance from the disclosed funded status.
+V. Intellectual Property
+V.A. Patent Portfolio
+Our review of the United States Patent and Trademark Office ("USPTO") database and the Target's internal IP records confirms that PrecisionFlow holds fourteen (14) issued U.S. patents covering hydraulic valve designs and flow control algorithms, plus three (3) pending patent applications. We have verified all fourteen issued patents by number, issue date, and expiration date. The complete list of patents, including registration details, is set forth in the IP Diligence Memorandum prepared by the Holloway & Fitch IP group, which is incorporated herein by reference.
+Of particular note, U.S. Patent No. 10,891,234 ("Proportional Valve Assembly with Integrated Flow Sensing") and U.S. Patent No. 10,891,235 ("Adaptive Control Algorithm for Proportional Hydraulic Valves") both relate specifically to the PF-4200 proportional valve product line, which is the product at the center of the AquaDyne Technologies infringement dispute discussed in Section V.C below.
+Risk Flag. Seller's Disclosure Schedule 3.9 (Intellectual Property) lists only twelve (12) issued U.S. patents. The two omitted patents — U.S. Patent Nos. 10,891,234 and 10,891,235 — are the very patents that cover the PF-4200 proportional valve. This omission is of significant concern for several reasons: first, the omitted patents are directly relevant to the AquaDyne infringement dispute (Section V.C); second, the SPA's IP representation at Section 3.9 states that Schedule 3.9 sets forth a "true, correct, and complete" list of all Company Intellectual Property, which is inaccurate as drafted; and third, the omission — when viewed alongside Target's refusal to produce the PF-4200 internal testing data — raises questions about whether the incomplete disclosures are inadvertent or deliberate. Schedule 3.9 must be corrected prior to signing to include all fourteen issued patents and all three pending applications.
+V.B. Trademarks and Trade Secrets
+Trademarks. The key trademark is PRECISIONFLOW® — U.S. Registration No. 3,847,221, registered April 12, 2011. The registration is current and properly maintained. No oppositions or cancellation proceedings were identified in the USPTO records.
+Trade Secrets. The Target maintains proprietary alloy formulations used in valve seat manufacturing. The Company has implemented reasonable trade secret protections, including employee nondisclosure agreements signed by all employees with access to formulation data and restricted physical and electronic access to the relevant technical documentation. No known misappropriation claims have been identified.
+Software Licenses. The Target licenses CAD/CAM software from Verteon Software, Inc. under a five-year enterprise license agreement expiring August 2026, with annual license fees of $420,000. The license agreement was reviewed and is in good standing, with all payments current. The license is properly disclosed on Disclosure Schedule 3.15 (Material Contracts). No discrepancy identified.
+V.C. AquaDyne Infringement Dispute
+On September 8, 2024, PrecisionFlow received a cease-and-desist letter from AquaDyne Technologies, LLC, a Delaware limited liability company, alleging that PrecisionFlow's Model PF-4200 proportional valve infringes AquaDyne's U.S. Patent No. 11,234,567 (issued January 2023). The AquaDyne patent is directed to proportional flow control valve assemblies and methods of proportional flow control.
+In response, PrecisionFlow retained outside IP counsel at Hargrove & Lind LLP (Washington, D.C.) to evaluate the infringement claim. Hargrove & Lind issued a non-infringement opinion dated November 15, 2024, concluding that the PF-4200 proportional valve does not infringe the asserted claims of the AquaDyne patent.
+Critical Finding. Our review of the Hargrove & Lind opinion reveals that it contains a significant and material caveat. Specifically, Hargrove & Lind states that their claim-by-claim analysis could not address claim 14 of U.S. Patent No. 11,234,567 because PrecisionFlow declined to produce certain internal testing data related to the PF-4200 valve's flow response characteristics. Claim 14 is a broad method claim directed to a proportional flow control methodology that, based on our review of the patent claims, appears to encompass the general operating principles described in PrecisionFlow's publicly available technical literature for the PF-4200.
+The Hargrove & Lind opinion expressly states: "Our conclusions are limited to claims 1–13 and 15–22 of the '567 patent. We express no opinion as to claim 14 due to the unavailability of the testing data described herein."
+No litigation has been filed by AquaDyne to date, but the cease-and-desist letter expressly reserves all rights, including the right to seek injunctive relief and damages.
+Risk Flag. The non-infringement opinion is materially incomplete. The unanalyzed claim (claim 14) could form the basis for an infringement finding, and the breadth of the claim language suggests it presents the highest risk among all twenty-two claims of the AquaDyne patent. The Target's refusal to produce its own internal testing data to its own retained counsel raises serious questions about what that data would reveal regarding the PF-4200's operation relative to the method recited in claim 14. When combined with the omission of the two PF-4200-related patents from Schedule 3.9 (see Section V.A above), the AquaDyne dispute represents a significant and concentrated IP risk area. The SPA's IP representation regarding the existence and adequacy of non-infringement opinions may be misleadingly incomplete if the Hargrove & Lind caveat is not specifically disclosed.
+Based on management estimates provided during presentations, PF-4200 product line revenue is approximately $22 million per year, representing approximately 15% of total FY2024 revenue. An adverse infringement finding — particularly one resulting in an injunction — could have a material impact on the Company's revenue and operations.
+VI. Environmental
+VI.A. Dayton Facility — 4500 Industrial Parkway, Dayton, OH 45414
+The Dayton facility is a 12-acre owned site housing approximately 185,000 square feet of manufacturing and corporate office space. Our environmental diligence for this facility focused on a review of the Phase I Environmental Site Assessment conducted by Greenleaf Environmental Consulting, LLC (Dayton, OH), dated October 2024, and Ohio EPA correspondence.
+Phase I ESA Findings. The Phase I ESA identified a recognized environmental condition ("REC") on the property. Specifically, the ESA documented historical solvent use by a prior tenant that occupied the property before PrecisionFlow acquired it in 2004. The REC relates to possible soil contamination in the northeast corner of the property associated with the prior tenant's operations, which are reported to have included degreasing activities using chlorinated solvents. Greenleaf Environmental Consulting's report expressly recommends that a Phase II subsurface investigation be conducted to delineate the nature and extent of potential contamination.
+A Phase II investigation has not been completed. During management presentations, Target representatives stated that the Company does not believe the historical contamination poses a current risk to operations or to the surrounding community. However, no technical basis for this position was provided, and no sampling data, remediation records, or environmental consultant opinions supporting this conclusion were produced in the data room.
+Separately, a 2023 hydraulic fluid spill (approximately 200 gallons, occurring in July 2023) was self-reported to the Ohio Environmental Protection Agency, remediated by Target, and a closure letter was received from Ohio EPA in September 2023. This matter appears to be fully resolved and does not present an ongoing concern.
+Risk Flag. Seller's Disclosure Schedule 3.12 (Environmental) references only the 2023 hydraulic fluid spill and the corresponding Ohio EPA closure letter. The Phase I REC finding — historical solvent contamination in the northeast corner of the property — is not disclosed in Schedule 3.12. This omission renders the environmental representation at Section 3.12 of the SPA potentially inaccurate and incomplete. Without a Phase II investigation, the extent of contamination and the potential cost of remediation are unknown. Historical chlorinated solvent contamination is a well-recognized source of significant environmental liability under the Comprehensive Environmental Response, Compensation, and Liability Act ("CERCLA") and Ohio Revised Code Chapter 3746, and such contamination frequently involves groundwater migration extending beyond the originally affected area.
+We recommend the following: (1) require the Seller to complete a Phase II subsurface investigation prior to closing, or establish a dedicated environmental escrow sufficient to cover potential remediation costs; (2) require correction of Schedule 3.12 to disclose the REC identified in the Phase I ESA; and (3) consider requiring an environmental indemnity or the procurement of a pollution legal liability insurance policy to address potential post-closing environmental liabilities.
+VI.B. Monterrey Facility
+PrecisionFlow de México, S.A. de C.V. leases approximately 15,000 square feet of manufacturing space at Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000. No environmental site assessments have been conducted for the Monterrey facility. While this represents a gap in the environmental diligence record, we note that the facility is leased (not owned) and is situated within an established industrial park. We recommend requesting environmental compliance documentation from the Mexican subsidiary, including any permits, inspections, or correspondence with Mexican environmental authorities (SEMARNAT or state-level agencies).
+VII. Employment and Benefits
+VII.A. Workforce Overview
+Based on our review of HR records, payroll data, and organizational charts provided during diligence, PrecisionFlow employs 740 employees as of December 31, 2024, distributed as follows:
+•  Dayton, OH facility: 485 employees, including 312 hourly manufacturing workers represented by the International Association of Machinists and Aerospace Workers ("IAM") Local 1247 under a collective bargaining agreement ("CBA") expiring February 28, 2026, and approximately 173 salaried/exempt employees.
+•  Monterrey, Mexico facility: 180 employees, including 10 employees hired during Q4 2024.
+•  Corporate/salaried staff: 75 employees.
+Risk Flag. Seller's Disclosure Schedule 3.17 (Employees) lists 730 employees, not 740. The discrepancy of 10 employees appears to correspond to the Q4 2024 hires at the Monterrey facility, who were onboarded in October and November 2024. While this may reflect a drafting error or stale data used in preparing the disclosure schedules, the schedule should be corrected for accuracy prior to signing.
+Collective Bargaining Agreement. The CBA with IAM Local 1247 expires February 28, 2026. It is properly disclosed on Schedule 3.17 with the correct expiration date. The CBA contains standard provisions regarding wages, benefits, grievance procedures, and work rules. Our review of the grievance log did not identify any pending grievances that are individually or collectively material. No issues identified with respect to the CBA disclosure.
+VII.B. Executive Compensation and Change-in-Control
+Eight (8) executives participate in the Company's Change-in-Control Severance Plan (the "CIC Plan"), which provides for severance payments equal to 1.5x base salary plus twelve (12) months of COBRA continuation coverage upon a qualifying termination (termination without cause or resignation for good reason) within twenty-four (24) months of a change in control.
+The average base salary of the eight participating executives is $245,000. The aggregate maximum CIC severance exposure is calculated as follows:
+Component
+Calculation
+Amount
+Cash Severance
+8 × $245,000 × 1.5
+$2,940,000
+COBRA Continuation
+8 × $8,400 (est. annual premium)
+$67,200
+Total Maximum CIC Exposure
+$3,007,200
+The CIC Plan is properly disclosed in the data room and has been factored into the Buyer's transaction expense estimates. The restricted stock agreements for the management pool (10% of outstanding shares split among 8 executives) all include acceleration provisions upon a change in control. These provisions have been reviewed and are consistent with the SPA's treatment of outstanding equity.
+VII.C. OSHA Compliance History
+Our review of OSHA records and the Company's internal safety files identified three OSHA citations within the past five years:
+1.  2020 — Serious violation for inadequate machine guarding at the Dayton facility. Penalty assessed: $14,500. Status: Abated and fully resolved.
+2.  2022 — Other-than-serious violation for recordkeeping deficiencies. Penalty assessed: $3,200. Status: Abated and fully resolved.
+3.  October 2024 — Serious violation for failure to comply with lockout/tagout procedures (29 C.F.R. § 1910.147) at the Dayton facility. Penalty assessed: $28,700. Status: Currently being contested. The Company has retained outside safety counsel and filed a notice of contest with the Occupational Safety and Health Review Commission ("OSHRC"). No hearing date has been set.
+Total OSHA penalties assessed across all three citations: $46,400.
+Risk Flag. The October 2024 OSHA citation ($28,700) is actively contested and has not been resolved. The SPA representation on compliance with law (Section 3.11) states that the Company is "in material compliance with all applicable laws, statutes, regulations, and ordinances" and that all governmental orders, penalties, and citations have been "fully resolved." The pending OSHRC contest renders this representation technically inaccurate as of the signing date. While the $28,700 monetary penalty is not individually material in the context of a $287 million transaction, the characterization of all citations as "fully resolved" is factually incorrect. Moreover, the underlying lockout/tagout violation — which relates to one of the most common causes of serious workplace injuries in manufacturing environments — could indicate systemic safety concerns that warrant further investigation.
+We recommend: (1) correction of the applicable disclosure schedule to identify the pending contest and its current status; (2) qualification of the Section 3.11 representation to expressly carve out the October 2024 citation; and (3) a review of the Company's lockout/tagout compliance program, including training records, written procedures, and periodic inspection documentation, to assess whether the cited violation is an isolated incident or indicative of a broader compliance deficiency.
+VII.D. Pension Plan — Updated Liability Estimate
+The discussion of the $2.5 million discrepancy between the Seller's actuarial valuation ($4.3 million unfunded liability) and the Buyer's independent actuary's updated estimate ($6.8 million unfunded liability) is set forth in detail in Section IV.D above. The pension plan was frozen as of December 31, 2018, and no further benefit accruals have occurred. The issue is solely one of funding adequacy relative to the present value of accrued benefits under current market conditions, particularly in light of the material decline in the applicable discount rate during the second half of 2024.
+VIII. Material Contracts
+VIII.A. Customer Contracts — Revenue Concentration
+The Company's top five customers accounted for 58% of FY2024 revenue ($82.9 million of $143.0 million):
+Rank
+Customer
+FY2024 Revenue
+% of Total
+1
+Kessler Heavy Industries
+$29.4M
+20.6%
+2
+NorthPoint Fabrication Corp.
+$18.6M
+13.0%
+3
+Dunlap Agricultural Equipment Co.
+$14.3M
+10.0%
+4
+Great Plains Hydro, LLC
+$11.4M
+8.0%
+5
+Overland Machinery, Inc.
+$9.2M
+6.4%
+Top 5 Total
+$82.9M
+58.0%
+The Company exhibits significant customer concentration risk, particularly in the top two accounts (Kessler and NorthPoint), which together represent 33.6% of total revenue. As discussed in Sections VIII.B and VIII.C below, both of these customer relationships present material diligence findings.
+VIII.B. Kessler Heavy Industries MSA
+The Kessler Heavy Industries Master Supply Agreement ("Kessler MSA") is dated January 15, 2021. The agreement has an initial five-year term expiring January 14, 2026, with automatic two-year renewal periods unless either party provides 180 days' written notice of non-renewal.
+Critical Finding. Section 12.3 of the Kessler MSA contains a change-of-control clause permitting Kessler to terminate the MSA on sixty (60) days' written notice following a "change in control" of PrecisionFlow. The term "change in control" is defined broadly in the Kessler MSA to include any transaction resulting in a change in the majority ownership or voting control of PrecisionFlow. The proposed acquisition by Cascadia — a purchase of 100% of the outstanding common stock — unambiguously constitutes a "change in control" under this definition.
+Risk Flag. Disclosure Schedule 3.15 (Material Contracts) lists the Kessler MSA but does not disclose the existence of the change-of-control termination right contained in Section 12.3. The SPA requires disclosure of any contract containing change-of-control provisions, consent requirements, or termination triggers related to the contemplated transaction (Section 3.15(b)). Kessler is the Company's largest customer, representing $29.4 million — or 20.6% — of FY2024 revenue. If Kessler were to exercise its termination right post-closing, the resulting revenue loss would be highly material to the Company's financial performance and to the valuation assumptions underlying the purchase price.
+We recommend: (1) immediate correction of Schedule 3.15 to disclose the Section 12.3 change-of-control termination right; (2) that Buyer consider requiring the Seller to obtain a written waiver or consent from Kessler Heavy Industries prior to closing, structured as a closing condition in the SPA; and (3) an assessment of whether additional purchase price protection mechanisms, such as a customer retention escrow or an earn-out component tied to Kessler revenue retention, are warranted.
+VIII.C. NorthPoint Fabrication Corp. MSA
+The NorthPoint Fabrication Corp. Master Supply Agreement ("NorthPoint MSA") is dated March 1, 2022, with a three-year initial term. The NorthPoint MSA expired by its own terms on February 28, 2025 — fourteen days before the anticipated SPA signing date of March 14, 2025.
+The NorthPoint MSA has not been formally renewed. Based on our discussions with Target management (specifically, Linda Peretti, CFO), the parties continue to transact business under the same commercial terms on an informal, purchase-order basis, but no written renewal, extension, or new agreement has been executed. Ms. Peretti characterized the relationship as "strong" and stated that renewal discussions are ongoing, but acknowledged that no binding agreement is currently in place.
+NorthPoint Fabrication Corp. is the Target's second-largest customer, representing $18.6 million (13.0%) of FY2024 revenue.
+Risk Flag. The SPA representation on Material Contracts (Section 3.15) states that all contracts listed on Schedule 3.15 are "in full force and effect." The NorthPoint MSA is listed on Schedule 3.15 but is not in full force and effect — it expired by its own terms on February 28, 2025. This makes the "in full force and effect" representation inaccurate as of the signing date with respect to this contract.
+Operating without a binding agreement creates significant risk that NorthPoint could cease purchasing from PrecisionFlow on short notice and without contractual remedy. At $18.6 million in annual revenue, the loss of NorthPoint would reduce total revenue by 13% and could materially impact EBITDA and the financial projections supporting the purchase price.
+We recommend: (1) requiring the Target to negotiate and execute a renewal or new MSA with NorthPoint prior to closing, or structuring such renewal as a closing condition; (2) at a minimum, disclosing the expired status of the NorthPoint MSA in the schedule and qualifying the "in full force and effect" representation accordingly; and (3) assessing Buyer's comfort level with proceeding to closing without a binding NorthPoint agreement in place.
+VIII.D. Other Material Contracts
+Customer Agreements. The supply agreements with Dunlap Agricultural Equipment Co., Great Plains Hydro, LLC, and Overland Machinery, Inc. were reviewed and appear to be in good standing. No change-of-control provisions or unusual termination rights were identified in these agreements. No issues flagged.
+Verteon Software, Inc. Enterprise License. The Target licenses CAD/CAM software from Verteon Software, Inc. under a five-year enterprise license agreement expiring August 2026, with annual license fees of $420,000. The license agreement is properly disclosed on Schedule 3.15 and includes an assignment provision permitting transfer in connection with a change of control of the licensee without the licensor's prior consent. No discrepancy identified.
+ABL Credit Facility ($22.7M outstanding). The revolving credit facility with First Midwestern Bank, N.A. contains a standard change-of-control default provision. Full payoff of the outstanding balance is anticipated at closing. Hal Beecham's $1.8 million personal guaranty is to be released at closing pursuant to the terms of the SPA.
+Equipment Term Loan ($8.5M outstanding). Full payoff anticipated at closing. No material issues identified.
+Subordinated Seller Note to Terraverde ($3.0M). Payoff anticipated at closing as part of the closing indebtedness calculation. No material issues identified.
+Total closing indebtedness: $22.7M + $8.5M + $3.0M = $34.2M.
+IX. Litigation
+IX.A. Martinez Product Liability Lawsuit
+Martinez v. PrecisionFlow Systems, Inc., Case No. 2:23-cv-04178, United States District Court for the Southern District of Ohio, filed November 2023.
+The plaintiff, a maintenance technician at a manufacturing facility operated by a PrecisionFlow customer, alleges that a PF-3100 hydraulic valve manufactured by the Company failed during normal operation, causing a hydraulic press malfunction that resulted in serious personal injuries to the plaintiff, including a crush injury to the right hand requiring multiple surgical procedures. The plaintiff seeks $12 million in compensatory and punitive damages.
+Trial is currently scheduled for September 2025, which would occur post-closing. Discovery is ongoing.
+The Company's liability insurer, Midland Casualty Insurance Co., has accepted the defense under a reservation of rights. The applicable commercial general liability policy provides coverage of $10 million per occurrence and $20 million in the aggregate.
+Risk Flag. If the plaintiff were to obtain a judgment at or near the $12 million demand figure, there would be a $2 million coverage gap ($12 million demand minus the $10 million per-occurrence policy limit). The SPA's litigation representation (Section 3.10) states that all pending litigation is "adequately covered by insurance." Given the $2 million potential shortfall between the demand and the applicable policy limit, this representation may be inaccurate. While the ultimate outcome of the litigation remains uncertain, the possibility of a judgment exceeding policy limits is not a remote scenario given the severity of the plaintiff's alleged injuries and the nature of the claims.
+Sandra Cho (General Counsel) characterized the claim as "defensible" during the February 5, 2025 management presentation. However, no written assessment from defense counsel regarding the merits, likely outcome, or recommended settlement authority was produced in the data room. We note further that the reservation of rights letter from Midland Casualty reserves the right to deny coverage for punitive damages if awarded under Ohio law.
+We recommend: (1) obtaining defense counsel's written case assessment and settlement authority recommendation; (2) requesting modification of the SPA litigation representation to acknowledge the potential coverage gap and carve out the Martinez matter from the "adequately covered" language; and (3) evaluating whether a litigation-specific indemnity or escrow is warranted to protect against the uninsured exposure.
+IX.B. Thompson EEOC Charge
+Thompson v. PrecisionFlow Systems, Inc., EEOC Charge No. 473-2024-01892, filed June 2024. The charging party, a former plant supervisor at the Dayton facility, alleges race discrimination and retaliation in connection with his termination. The matter is currently in mediation through the EEOC's voluntary mediation program. The Company's employment counsel estimates a potential settlement range of $150,000 to $350,000.
+This matter is properly disclosed on Disclosure Schedule 3.10 (Litigation). The estimated settlement range appears reasonable and is within the scope of normal-course employment litigation for a company of this size. No material discrepancy identified.
+IX.C. AquaDyne Infringement Dispute
+The AquaDyne Technologies cease-and-desist letter, the incomplete Hargrove & Lind non-infringement opinion, and the associated intellectual property risks are discussed in detail in Section V.C above. No formal litigation has been filed by AquaDyne to date, but the dispute remains an active risk area. See Section V.C for the full analysis.
+X. Tax
+X.A. Federal Tax
+The Target has filed all federal income tax returns for FY2019 through FY2024. The returns were reviewed and appear consistent with the audited financial statements for the corresponding periods.
+R&D Tax Credits (IRC § 41). The Company has claimed research and development tax credits totaling $2.7 million for FY2020 through FY2024. The FY2021 and FY2022 credits ($0.6 million and $0.7 million, respectively, totaling $1.3 million) are currently under examination by the Internal Revenue Service (examination opened August 2024). This matter is properly disclosed on Disclosure Schedule 3.14 (Taxes). The SPA's tax representation at Section 3.14 is appropriately qualified by the disclosure schedule. The Company's tax advisors at Clarkfield & Associates, P.C. believe the credits are defensible and are cooperating with the IRS examination. No discrepancy identified between the representations and our diligence findings.
+Net Operating Loss Carryforwards. The Target has approximately $4.1 million in federal net operating loss ("NOL") carryforwards arising from FY2020. These NOLs are available to offset future taxable income (subject to the 80% limitation under Section 172 for post-2017 NOLs). However, the 100% stock acquisition will trigger an ownership change under IRC § 382, which will impose an annual limitation on the Target's ability to utilize the NOL carryforwards post-closing. The SPA's tax representation discusses the existence of the NOLs but does not address the Section 382 implications. Ridgeline Capital Partners has separately flagged the need to assess the annual Section 382 limitation on post-closing NOL utilization.
+X.B. State Tax — California Nexus Exposure
+The Target currently files state income tax returns in Ohio, Michigan, Indiana, Illinois, and Texas.
+Our review of the Company's sales records, employee roster, and payroll data reveals that the Target has employed a full-time sales representative based in San Jose, California since January 2022. This individual operates from a home office, calls on customers in the California market, and is carried on the Company's payroll with a California mailing address. Additionally, the Company generated approximately $3.8 million in California-sourced sales in FY2024, with comparable revenue amounts in FY2022 and FY2023.
+Despite this physical presence in California — which clearly establishes income tax nexus under both physical presence standards and California's economic nexus thresholds — the Target has not filed California income or franchise tax returns for any period since at least 2022.
+The SPA tax representation (Section 3.14) states that the Company has "filed or caused to be filed all Tax Returns required to be filed in all jurisdictions in which such filing is required by applicable law." The Company's failure to file California returns since at least 2022 represents a clear potential breach of this representation.
+Risk Flag. Estimated exposure includes: (a) California corporation franchise/income tax on California-apportioned income for FY2022 through FY2024 — the precise liability will depend on the applicable apportionment factors (single-sales-factor apportionment under California law), but based on the Company's California-sourced revenue and estimated profit margins, the cumulative tax liability could range from $100,000 to $300,000 or more across the three open years; (b) California minimum franchise tax of $800 per year for three years ($2,400); (c) failure-to-file penalties of 25% of the tax due for each delinquent year; and (d) statutory interest. The total exposure is uncertain but could be material depending on the full extent of the Company's California-apportioned income across all open years.
+We recommend: (1) engaging California tax counsel to estimate the total exposure, including tax, penalties, and interest for all open years; (2) requiring the Seller to file all delinquent California returns and pay any resulting tax, penalties, and interest prior to closing, or structuring a tax indemnity and escrow to cover the estimated exposure; and (3) correcting the SPA tax representation and Disclosure Schedule 3.14 to disclose the California filing deficiency.
+X.C. Mexican Subsidiary — Transfer Pricing
+PrecisionFlow de México, S.A. de C.V. maintains intercompany pricing arrangements with the parent company for the transfer of component parts and sub-assemblies at cost-plus 8%. This arrangement was flagged in the Clarkfield & Associates audit emphasis-of-matter paragraph and is described in the notes to the audited financial statements.
+Mexico's tax authority (Servicio de Administración Tributaria, or "SAT") has not audited the transfer pricing arrangement to date. The SPA's tax representation at Section 3.14 is specifically qualified for "matters disclosed in the audited financial statements, including the notes thereto," and the transfer pricing arrangement is described on Disclosure Schedule 3.14. While transfer pricing risk exists — Mexico is known to be aggressive on transfer pricing enforcement for manufacturing and maquiladora arrangements — this is a known and properly disclosed risk. No discrepancy between the representations and our diligence findings was identified.
+XI. Insurance
+XI.A. General Insurance Review
+The Target maintains the following insurance policies:
+Coverage Type
+Carrier
+Limits
+Commercial General Liability
+Midland Casualty Insurance Co.
+$10M per occurrence / $20M aggregate
+Product Liability
+Included in CGL policy
+$10M per occurrence / $20M aggregate
+Property Insurance
+Reviewed — adequate
+Standard replacement cost
+Workers' Compensation
+Reviewed — adequate
+Statutory limits
+Auto Liability
+Reviewed — adequate
+Standard limits
+Directors & Officers Liability
+Reviewed — standard coverage
+Standard limits
+No claims other than the Martinez product liability matter (Section IX.A) and the 2023 hydraulic fluid spill (Section VI.A) have been reported in the past three years.
+XI.B. Insurance Coverage for Martinez Litigation
+As discussed in Section IX.A, the Martinez product liability claim ($12 million demand) exceeds the per-occurrence policy limit ($10 million) by $2 million. The reservation of rights letter from Midland Casualty Insurance Co. was reviewed; in addition to reserving general coverage defenses, the letter expressly reserves the right to deny coverage for punitive damages if awarded under Ohio law. Ohio law permits the recovery of punitive damages in product liability cases upon a showing of actual malice.
+Risk Flag. The potential uninsured exposure is at least $2 million (the excess of the demand over the per-occurrence limit), and could be significantly higher if punitive damages are awarded and Midland Casualty successfully denies coverage for those amounts. The SPA representation at Section 3.10 that all pending litigation is "adequately covered by insurance" may be inaccurate in light of this exposure. We recommend the actions set forth in Section IX.A, including modification of the SPA representation and consideration of a litigation-specific indemnity or escrow.
+XII. Real Property
+XII.A. Dayton Facility (Owned)
+The Dayton facility is a 12-acre site located at 4500 Industrial Parkway, Dayton, OH 45414. The property is owned by PrecisionFlow Systems, Inc. in fee simple. The building is approximately 185,000 square feet and houses the Company's primary manufacturing operations and corporate offices.
+A title search confirmed no material encumbrances other than the existing mortgage lien related to the ABL credit facility with First Midwestern Bank, N.A., which will be satisfied and released at closing. The environmental condition affecting the northeast corner of the property is discussed in Section VI.A above.
+XII.B. Monterrey Facility (Leased)
+PrecisionFlow de México, S.A. de C.V. leases approximately 15,000 square feet of manufacturing space from Inmobiliaria del Norte, S.A. de C.V. at Parque Industrial del Norte, Blvd. Industriales 2450, Monterrey, Nuevo León, Mexico 64000. The lease commenced on April 1, 2019, with a ten-year term expiring March 31, 2029. Monthly rent is MXN $385,000 (approximately $22,500 USD at current exchange rates).
+Critical Finding. Section 14.2 of the Monterrey lease agreement contains a consent-to-assignment clause requiring the landlord's prior written approval for any "direct or indirect change of control" of the lessee entity. The acquisition of 100% of PrecisionFlow's outstanding common stock by Cascadia constitutes an indirect change of control of PrecisionFlow de México (the lessee), thereby triggering this consent requirement.
+Risk Flag. The SPA's Required Consents schedule (Schedule 5.3) does not list the Inmobiliaria del Norte landlord consent as a required consent for the transaction. This is a significant omission. The Monterrey facility accounts for $38.2 million in revenue — 26.7% of total FY2024 revenue. If the landlord does not consent to the change of control, PrecisionFlow de México could be in default under the lease, potentially resulting in lease termination and the loss of the Monterrey manufacturing operations. The cost, complexity, and timeline associated with relocating manufacturing operations in Monterrey would be substantial and could cause significant disruption to the Company's supply chain and customer deliveries.
+We recommend: (1) immediately adding the Inmobiliaria del Norte consent to Schedule 5.3; (2) beginning the process of obtaining landlord consent well in advance of the June 30, 2025 target closing date; (3) evaluating whether landlord consent should be structured as a closing condition in the SPA; and (4) assessing the cost and timeline for relocating Monterrey operations if consent is ultimately refused.
+XIII. Summary of Key Risk Items and Recommended Actions
+The following table consolidates all identified risk items and recommended actions, organized by severity.
+Critical / High Priority Items
+1. IP — Patent Schedule Omission and AquaDyne Dispute (Issues V.A and V.C)
+•  Finding: Disclosure Schedule 3.9 lists only 12 of 14 issued U.S. patents. The two omitted patents (Nos. 10,891,234 and 10,891,235) cover the PF-4200 proportional valve — the product accused of infringement by AquaDyne Technologies. The Hargrove & Lind non-infringement opinion is materially incomplete because it does not address claim 14 of the AquaDyne patent due to Target's refusal to produce internal testing data.
+•  SPA Section: 3.9 (Intellectual Property); Schedule 3.9.
+•  Recommended Action: Correct Schedule 3.9; require production of PF-4200 testing data; obtain supplemental opinion covering claim 14; consider IP-specific indemnity.
+2. Material Contracts — Kessler Change-of-Control Termination Right (Issue VIII.B)
+•  Finding: Section 12.3 of the Kessler MSA permits Kessler to terminate on 60 days' notice upon a change of control. The right is not disclosed on Schedule 3.15. Kessler represents 20.6% of FY2024 revenue.
+•  SPA Section: 3.15(b) (Material Contracts); Schedule 3.15.
+•  Recommended Action: Correct Schedule 3.15; obtain Kessler waiver/consent; consider customer retention escrow.
+3. Material Contracts — NorthPoint MSA Expired (Issue VIII.C)
+•  Finding: NorthPoint MSA expired February 28, 2025, and has not been renewed. "In full force and effect" representation is inaccurate. NorthPoint represents 13.0% of FY2024 revenue.
+•  SPA Section: 3.15 (Material Contracts); Schedule 3.15.
+•  Recommended Action: Require contract renewal as closing condition; qualify representation.
+4. Real Property — Monterrey Lease Consent Not Listed (Issue XII.B)
+•  Finding: Section 14.2 of the Monterrey lease requires landlord consent for indirect change of control. Not listed on Schedule 5.3 (Required Consents). Monterrey represents 26.7% of FY2024 revenue.
+•  SPA Section: Schedule 5.3 (Required Consents).
+•  Recommended Action: Add to Schedule 5.3; obtain landlord consent; consider as closing condition.
+5. Environmental — Phase I REC Not Disclosed (Issue VI.A)
+•  Finding: Phase I ESA identified a recognized environmental condition (historical solvent contamination) not disclosed on Schedule 3.12. No Phase II completed.
+•  SPA Section: 3.12 (Environmental); Schedule 3.12.
+•  Recommended Action: Correct Schedule 3.12; require Phase II or establish environmental escrow; consider pollution liability policy.
+6. Corporate — Karen Beecham Disputed Share Claim (Issue III.A)
+•  Finding: Hal Beecham's 2021 divorce settlement awards ex-wife a claim to 5% of his shares (3.1% of total outstanding, ~$8.9M). No court resolution provided.
+•  SPA Section: 3.3 (Title to Shares).
+•  Recommended Action: Obtain court order or Karen Beecham release; structure escrow for disputed shares.
+7. Tax — California Nexus Exposure (Issue X.B)
+•  Finding: Target has physical presence in California (sales rep since 2022) and $3.8M California-sourced revenue but has not filed California returns. Potential tax, penalties, and interest estimated at $100K–$300K+.
+•  SPA Section: 3.14 (Taxes); Schedule 3.14.
+•  Recommended Action: Engage California tax counsel; require filing of delinquent returns or tax indemnity/escrow; correct Schedule 3.14.
+Medium Priority Items
+8. Financial — Questionable COVID Supply Chain EBITDA Add-Back (Issue IV.B)
+•  Finding: $0.60M add-back characterized as COVID-related, but similar charges incurred in FY2022 ($0.55M) and FY2023 ($0.45M). Likely recurring. Purchase price impact: $5.7M at 9.5x.
+•  Recommended Action: Challenge add-back in price negotiations.
+9. Financial — Pension Liability Understatement (Issue IV.D)
+•  Finding: Seller's actuarial valuation reports $4.3M unfunded; Buyer's actuary estimates $6.8M. Gap of $2.5M due to discount rate decline.
+•  SPA Section: 3.16 (Employee Benefits).
+•  Recommended Action: Purchase price adjustment, specific indemnity, or bring-down actuarial valuation.
+10. Litigation/Insurance — Martinez Coverage Gap (Issue IX.A; cross-ref XI.B)
+•  Finding: $12M claim vs. $10M per-occurrence limit. $2M uninsured exposure; punitive damages coverage also reserved.
+•  SPA Section: 3.10 (Litigation).
+•  Recommended Action: Obtain defense counsel assessment; qualify SPA representation; consider litigation escrow.
+11. Employment — October 2024 OSHA Citation (Issue VII.C)
+•  Finding: $28,700 lockout/tagout citation actively contested before OSHRC. SPA states all citations "fully resolved."
+•  SPA Section: 3.11 (Compliance with Law).
+•  Recommended Action: Correct disclosure schedule; qualify representation; review compliance program.
+12. Employment — Employee Count Discrepancy (Issue VII.A)
+•  Finding: Schedule 3.17 lists 730 employees; actual count is 740 (discrepancy from Q4 2024 Monterrey hires).
+•  SPA Section: 3.17 (Employees); Schedule 3.17.
+•  Recommended Action: Correct Schedule 3.17.
+Recommended Next Steps — Summary
+Disclosure Schedule Corrections Required:
+•  Schedule 3.9 (Intellectual Property) — add two omitted patents
+•  Schedule 3.12 (Environmental) — disclose Phase I REC
+•  Schedule 3.15 (Material Contracts) — disclose Kessler change-of-control provision; update NorthPoint status
+•  Schedule 3.17 (Employees) — correct headcount from 730 to 740
+•  Schedule 5.3 (Required Consents) — add Monterrey landlord consent
+•  Schedule 3.14 (Taxes) — disclose California filing deficiency
+Additional Diligence Required:
+•  Phase II environmental investigation at Dayton facility
+•  Updated actuarial valuation for pension plan
+•  California tax exposure quantification
+•  Defense counsel case assessment for Martinez litigation
+•  Production and analysis of PF-4200 internal testing data
+SPA Modifications Recommended:
+•  Environmental indemnity and/or escrow
+•  Tax indemnity for California exposure
+•  Litigation representation qualification (Martinez coverage gap)
+•  Compliance representation qualification (OSHA citation)
+•  Title representation qualification or escrow (Karen Beecham claim)
+•  Benefits representation update (pension valuation)
+Commercial Actions Required:
+•  NorthPoint Fabrication contract renewal
+•  Kessler Heavy Industries consent/waiver
+•  Inmobiliaria del Norte (Monterrey landlord) consent
+•  Karen Beecham release or court order
+Purchase Price Considerations:
+•  Challenge $0.60M COVID supply chain add-back ($5.7M impact at 9.5x)
+•  Pension liability adjustment ($2.5M)
+Properly Disclosed Items — No Discrepancy
+The following items were reviewed during diligence and confirmed to be properly disclosed in the applicable SPA representations and disclosure schedules. No corrective action is required:
+•  R&D Tax Credit IRS Examination (Schedule 3.14) — FY2021–FY2022 credits under IRS examination; properly disclosed.
+•  Mexican Subsidiary Transfer Pricing (Schedule 3.14 and audit notes) — cost-plus 8% arrangement; properly disclosed and qualified.
+•  CBA with IAM Local 1247 (Schedule 3.17) — expiration date February 28, 2026; properly disclosed.
+•  Verteon Software License (Schedule 3.15) — 5-year term expiring August 2026; properly disclosed and assignable upon change of control.
+XIV. Conclusion
+PrecisionFlow Systems, Inc. is an attractive acquisition target with strong revenue growth, solid margins, and a complementary product portfolio that will enhance Cascadia's Fluid Power division. The Company's manufacturing capabilities in Dayton and Monterrey, its established customer relationships, and its proprietary technology in hydraulic control systems represent meaningful strategic value for the Buyer.
+However, the discrepancies identified during diligence between the Seller's draft SPA representations and disclosure schedules, on the one hand, and our diligence findings, on the other, are significant in number and, in several cases, in potential financial impact. The critical items — including the incomplete IP disclosures surrounding the AquaDyne dispute, the undisclosed Kessler change-of-control termination right, the expired NorthPoint contract, the undisclosed environmental condition, the California tax nexus exposure, and the disputed Beecham share ownership — each require attention before the SPA can be executed with confidence that the Buyer's interests are adequately protected.
+We recommend that the deal team schedule a call with the client team — specifically Margaret Tsai (CEO, Cascadia Industrial Holdings), David Kowalski (CFO), and Rajan Mehta (General Counsel) — to discuss these findings and prioritize which items must be resolved prior to signing on March 14, 2025 versus those that can be addressed as closing conditions or through indemnification structures in the SPA.
+A redline of the SPA incorporating our recommended changes to the representations, disclosure schedules, and closing conditions will be circulated under separate cover.
+This report was prepared by Thomas Avery, Senior Associate, Holloway & Fitch LLP, with contributions from the Holloway & Fitch IP group and financial analysis from Ridgeline Capital Partners (Aaron Bliss, Managing Director).
+Reviewed and approved by Catherine Reeves, Lead Partner, Holloway & Fitch LLP.
+Appendix A — Documents Reviewed (Reference List)
+The following is a list of the principal documents reviewed during the course of the due diligence investigation. This list is not exhaustive; additional documents reviewed in the virtual data room are catalogued in the Holloway & Fitch diligence index maintained as part of the firm's files.
+1.  Draft Stock Purchase Agreement, circulated by Stonebridge Whitaker LLP on behalf of the Sellers, dated February 28, 2025, together with all draft Disclosure Schedules (Schedules 3.1 through 5.3).
+2.  PrecisionFlow Systems, Inc. Audited Financial Statements for the fiscal years ended December 31, 2022, December 31, 2023, and December 31, 2024, audited by Clarkfield & Associates, P.C. (Robert Faulkner, CPA, Engagement Partner).
+3.  Phase I Environmental Site Assessment, prepared by Greenleaf Environmental Consulting, LLC (Dayton, OH), dated October 2024.
+4.  Non-Infringement Opinion re AquaDyne Technologies, LLC (U.S. Patent No. 11,234,567), prepared by Hargrove & Lind LLP (Washington, D.C.), dated November 15, 2024.
+5.  USPTO patent records for all 14 issued U.S. patents and 3 pending patent applications held by PrecisionFlow Systems, Inc.
+6.  USPTO trademark records for PRECISIONFLOW® (U.S. Reg. No. 3,847,221).
+7.  Kessler Heavy Industries Master Supply Agreement, dated January 15, 2021.
+8.  NorthPoint Fabrication Corp. Master Supply Agreement, dated March 1, 2022.
+9.  Monterrey Facility Lease Agreement between PrecisionFlow de México, S.A. de C.V. and Inmobiliaria del Norte, S.A. de C.V., dated April 1, 2019.
+10.  Verteon Software, Inc. Enterprise License Agreement.
+11.  ABL Credit Agreement with First Midwestern Bank, N.A.
+12.  Equipment Term Loan Agreement.
+13.  Subordinated Seller Note issued to Terraverde Growth Fund II, LP.
+14.  OSHA citation records (2020, 2022, and October 2024).
+15.  IRS examination correspondence regarding R&D tax credits (FY2021–FY2022).
+16.  Federal and state income tax returns for FY2019 through FY2024.
+17.  PrecisionFlow de México, S.A. de C.V. Mexican tax filings and transfer pricing documentation.
+18.  Actuarial valuation report for the PrecisionFlow Systems, Inc. Defined Benefit Pension Plan, dated January 2024.
+19.  HR records, payroll data, and organizational charts.
+20.  Collective Bargaining Agreement between PrecisionFlow Systems, Inc. and IAM Local 1247.
+21.  Insurance policies issued by Midland Casualty Insurance Co. (CGL, property, workers' compensation, auto, D&O), including the reservation of rights letter in the Martinez matter.
+22.  Litigation files: Martinez v. PrecisionFlow Systems, Inc., Case No. 2:23-cv-04178 (S.D. Ohio); Thompson v. PrecisionFlow Systems, Inc., EEOC Charge No. 473-2024-01892.
+23.  Change-in-Control Severance Plan.
+24.  Restricted Stock Agreements (8 executives).
+25.  Hal Beecham divorce settlement and related domestic relations court filings (Montgomery County, Ohio, 2021).
+26.  Ohio EPA correspondence, including September 2023 closure letter regarding the 2023 hydraulic fluid spill.
+27.  Cease-and-desist letter from AquaDyne Technologies, LLC, dated September 8, 2024.
+28.  Good standing certificates (Delaware, Ohio).
+29.  Certificate of incorporation, bylaws, and corporate minute books for PrecisionFlow Systems, Inc. and PrecisionFlow de México, S.A. de C.V.
+END OF REPORT — PRIVILEGED AND CONFIDENTIAL — ATTORNEY WORK PRODUCT DRAFT — For Internal Discussion Purposes Only © 2025 Holloway & Fitch LLP. All rights reserved.

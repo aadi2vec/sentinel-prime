@@ -1,0 +1,19 @@
+{
+  "version": 0,
+  "parent_version": null,
+  "items": [
+    {
+      "id": "lesson.analyze-every-document",
+      "scope": "global",
+      "kind": "note",
+      "text": "Before writing any deliverable, analyze EVERY file in the documents/ directory. List the directory first, then read each file in full and analyze it individually. Never write a deliverable that says analysis was 'not supplied', 'not available', 'could not be performed', or that a document was not provided \u2014 every document in the workspace IS provided. If a file is hard to parse, extract what text you can and analyze that. A deliverable that skips a document scores zero on every criterion tied to it.",
+      "created_at": "2026-09-07T22:23:30.097195+00:00",
+      "meta": {
+        "source": "arm_f",
+        "targets": [],
+        "hand_written": true
+      }
+    }
+  ],
+  "history": {}
+}
