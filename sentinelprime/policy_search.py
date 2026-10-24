@@ -214,12 +214,86 @@ class PolicyProposer(dspy.Module):
 
 
 class PolicySearch:
+    """The search loop, with two ways to promote and one thing neither may do.
+
+    The original rule was quality-only: mean improvement of at least `min_gain`, and no
+    observed per-case regression. It has a structural blind spot, which is the whole reason
+    `min_cost_gain` exists. A candidate that reaches the *same* answers with fewer outer
+    calls scores `gain == 0`, which is below any positive `min_gain`, so it can never be
+    promoted — the search cannot find efficiency even when a candidate hands it one. That is
+    not a tuning choice; it is a rule that cannot express half the objective.
+
+    So there are two promotion rules, and the evidence records which one fired:
+
+      - **quality**: mean score up by at least `min_gain`, no per-case regression. Cost is
+        not consulted. A candidate that is better is promoted even if it is dearer, up to the
+        `Budget` ceiling that bounds every candidate anyway.
+      - **efficiency**: no per-case regression, mean score *not lower*, and at least
+        `min_cost_gain` fewer outer calls. This is the success gate — a cost saving is only
+        ever credited on a batch where quality held. An efficiency promotion that cost a
+        single case its score is refused, and that asymmetry is the point: quality may be
+        bought with compute, compute may not be bought with quality.
+
+    **The standing objection, which this rule mitigates rather than solves.** Dropping a
+    check always lowers cost, and on a batch where that check never fires it looks free. So
+    the efficiency rule has a systematic bias toward deleting checks the current batch does
+    not exercise. Three things hold it in check and none of them is a proof: per-case
+    non-regression means the batch must not contain a case the check was catching;
+    `min_cost_gain` means a saving has to be material rather than one call; and validation
+    batches are family-disjoint with a fresh one per round, so a check that matters on
+    another family gets its chance in a later round and the policy that dropped it can be
+    out-promoted then. A check that matters *nowhere in the validation set* will be deleted
+    and should be.
+
+    **What "cost" means here, stated rather than implied.** Outer calls — solver attempts
+    plus check invocations — because that is what `Budget` counts. Not tokens, not FLOPs, not
+    money. A candidate with fewer calls may still spend more tokens per call, so an
+    efficiency promotion is evidence about call count and about nothing else. The same honest
+    limit `Budget` carries, one level up.
+    """
+
     def __init__(self, runner: PolicyRunner, evaluate: Callable, propose: Callable,
-                 archive: PolicyArchive, min_gain: float = 0.01):
+                 archive: PolicyArchive, min_gain: float = 0.01,
+                 min_cost_gain: float = 0.1):
         if not math.isfinite(min_gain) or min_gain <= 0:
             raise ValueError("min_gain must be finite and positive")
+        # Zero is refused, not treated as "any saving counts". A rule that promotes on one
+        # fewer check call would promote on sampling noise in which checks happened to fire,
+        # and the archive would then carry an efficiency promotion with no efficiency in it.
+        if not math.isfinite(min_cost_gain) or not 0 < min_cost_gain < 1:
+            raise ValueError("min_cost_gain must be a fraction in (0, 1)")
         self.runner, self.evaluate, self.propose = runner, evaluate, propose
         self.archive, self.min_gain = archive, min_gain
+        self.min_cost_gain = min_cost_gain
+
+    def _promotion(self, baseline: dict, trial: dict) -> tuple[bool, str | None]:
+        """Which rule, if any, promotes this candidate. Returns (promoted, rule).
+
+        The rule name is returned rather than just the decision because it goes into the
+        archive. A champion promoted for being cheaper and one promoted for being better are
+        different claims about the same policy, and `promoted: true` alone does not say
+        which — the same reason `describe()` distinguishes a frozen budget from a live one.
+        """
+        if baseline["score"] is None or trial["score"] is None:
+            return False, None  # Incomplete evaluation cannot promote.
+        # Evaluated per case, not on the mean: a mean can rise while a case falls, and a
+        # policy that trades one case away for another has not been shown to be better.
+        no_regression = all(b["score"] <= t["score"]
+                            for b, t in zip(baseline["rows"], trial["rows"]))
+        if not no_regression:
+            return False, None
+        if trial["score"] - baseline["score"] >= self.min_gain:
+            return True, "quality"
+        base_cost = baseline["solves"] + baseline["checks"]
+        trial_cost = trial["solves"] + trial["checks"]
+        # `>=` on the mean, not `>`: the efficiency rule's job is to admit a candidate that
+        # held quality, and requiring it to also improve would collapse it into the quality
+        # rule. Per-case non-regression above is what makes "held" mean something stronger
+        # than "averaged out".
+        if (trial["score"] >= baseline["score"] and base_cost > 0
+                and (base_cost - trial_cost) / base_cost >= self.min_cost_gain):
+            return True, "efficiency"
+        return False, None
 
     def _score(self, policy: Policy, cases: list[Case]) -> dict:
         rows = []
@@ -282,11 +356,17 @@ class PolicySearch:
             trial = self._score(candidate, batch)
             complete = baseline["score"] is not None and trial["score"] is not None
             gain = trial["score"] - baseline["score"] if complete else None
-            # Conservative small-sample rule: mean improvement AND no observed case regression.
-            promoted = bool(complete and gain >= self.min_gain and all(
-                b["score"] <= t["score"] for b, t in zip(baseline["rows"], trial["rows"])))
-            evidence = {"promoted": promoted, "gain": gain, "development": dev,
-                        "baseline": baseline, "candidate": trial}
+            promoted, rule = self._promotion(baseline, trial)
+            base_cost = baseline["solves"] + baseline["checks"]
+            trial_cost = trial["solves"] + trial["checks"]
+            evidence = {"promoted": promoted, "rule": rule, "gain": gain,
+                        # Recorded on every round, promoted or not, so a sweep can be read
+                        # for what the search gave up as well as what it took: a candidate
+                        # refused while cheaper is a data point about `min_gain`.
+                        "cost": {"baseline": base_cost, "candidate": trial_cost,
+                                 "saved": (base_cost - trial_cost) / base_cost
+                                 if base_cost else None},
+                        "development": dev, "baseline": baseline, "candidate": trial}
             self.archive.record(candidate, promoted, evidence)
             rounds.append(evidence)
         return {"budget": asdict(self.runner.budget), "rounds": rounds,
