@@ -296,16 +296,21 @@ def test_cacheable_prefix_ends_before_the_per_task_content():
 
 # ---- Subagents reaching the live path -------------------------------------------------
 
+CHILD_TOOLS = {"spawn_child", "collect_child"}
+
+
 def test_children_are_off_unless_asked_for(tmp_path):
+    # Intersected rather than compared whole: the write path contributes its own tools by
+    # default, and a test about children must not fail when an unrelated default changes.
     agent = PrimeAgent(harness=_harness(tmp_path), root_lm=dspy.LM("openai/gpt-4o-mini"))
-    assert agent.rlm.tools == {}
+    assert set(agent.rlm.tools) & CHILD_TOOLS == set()
 
 
 def test_enabling_children_exposes_spawn_and_collect_tools(tmp_path):
     """Spawning without a way to collect is why subagents were dead weight before."""
     agent = PrimeAgent(harness=_harness(tmp_path), root_lm=dspy.LM("openai/gpt-4o-mini"),
                        enable_children=True)
-    assert set(agent.rlm.tools) == {"spawn_child", "collect_child"}
+    assert set(agent.rlm.tools) & CHILD_TOOLS == CHILD_TOOLS
 
 
 def test_child_runs_the_task_and_its_result_is_collectable(tmp_path):
@@ -483,3 +488,125 @@ def test_coverage_is_none_when_the_workdir_has_no_documents(tmp_path):
                        root_lm=dspy.LM("openai/gpt-4o-mini"), rlm=rlm)
     agent.run_task("no documents here", workdir=str(tmp_path))
     assert agent.last_coverage is None
+
+
+# --- the error budget on the live path ----------------------------------------------
+#
+# `ProgressMonitor` detects and records but never acts. The error budget is the first
+# mechanism permitted to stop `refine()`, and `learn()` is the caller that consults it.
+
+def _budgeted(tmp_path, **kw):
+    from sentinelprime.errorbudget import ErrorBudget, Objective
+    from sentinelprime.audit import AuditLog
+    harness = _harness(tmp_path)
+    budget = ErrorBudget([Objective("turn_limit_rate", ceiling=0.5, min_observations=3)],
+                         audit_log=AuditLog(str(tmp_path / "audit.json")), **kw)
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=StubRLM(), error_budget=budget)
+    return agent, budget
+
+
+def _failed(task_id="t1"):
+    return parse_lab_result(
+        {"task_id": task_id, "criteria": [{"id": "c1", "passed": False, "reason": "x"}]})
+
+
+def test_learn_without_a_budget_behaves_exactly_as_before(tmp_path, monkeypatch):
+    """Invariant 7: an unset collaborator must leave the code behaving as it did before
+    that collaborator existed."""
+    harness = _harness(tmp_path)
+    monkeypatch.setattr(harness, "refine", lambda trajectory, feedback: "REFINED")
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=StubRLM())
+    assert agent.error_budget is None
+    assert agent.learn(trajectory=[{"a": 1}], feedback=_failed()) == "REFINED"
+
+
+def test_a_healthy_budget_lets_refine_through(tmp_path, monkeypatch):
+    agent, _ = _budgeted(tmp_path)
+    monkeypatch.setattr(agent.harness, "refine", lambda trajectory, feedback: "REFINED")
+    assert agent.learn(trajectory=[{"a": 1}], feedback=_failed()) == "REFINED"
+
+
+def test_a_breached_budget_stops_refine(tmp_path, monkeypatch):
+    agent, budget = _budgeted(tmp_path)
+    monkeypatch.setattr(agent.harness, "refine",
+                        lambda trajectory, feedback: pytest.fail("refine ran while frozen"))
+    for _ in range(3):
+        budget.observe("turn_limit_rate", 1.0)
+    agent.learn(trajectory=[{"a": 1}], feedback=_failed())
+    assert budget.frozen
+
+
+def test_a_frozen_round_reports_an_empty_reversibility_window(tmp_path):
+    """`learn()` must still return a RefineResult — a None would make every caller branch
+    on the freeze. An empty window is the honest record: the round happened and changed
+    nothing, so `rollback(from_version)` is a no-op rather than undoing someone else's."""
+    agent, budget = _budgeted(tmp_path)
+    before = agent.harness.backend.current_version().number
+    for _ in range(3):
+        budget.observe("turn_limit_rate", 1.0)
+    result = agent.learn(trajectory=[{"a": 1}], feedback=_failed())
+    assert result.created == [] and result.updated == [] and result.deleted == []
+    assert result.from_version == result.to_version == before
+
+
+def test_a_frozen_budget_keeps_observing_credit(tmp_path):
+    """The freeze stops self-modification, not measurement. Credit observation is how a
+    human sees whether the SLI recovered, so halting it would blind the thing that decides
+    when to thaw."""
+    agent, budget = _budgeted(tmp_path)
+    seen = []
+    agent.harness.credit = lambda *a, **kw: seen.append(a)
+    for _ in range(3):
+        budget.observe("turn_limit_rate", 1.0)
+    agent.learn(trajectory=[{"a": 1}], feedback=_failed())
+    assert seen
+
+
+def test_the_freeze_names_the_task_that_tripped_it(tmp_path):
+    """`_freeze` stamps `cause_task_id`, so the audit record has to be told which task the
+    breach was observed on rather than whichever one built the budget."""
+    agent, budget = _budgeted(tmp_path)
+    for _ in range(3):
+        budget.observe("turn_limit_rate", 1.0)
+    agent.learn(trajectory=[{"a": 1}], feedback=_failed(task_id="task-42"))
+    records = [r for r in budget.audit_log.records() if r.op == "freeze"]
+    assert len(records) == 1 and records[0].cause_task_id == "task-42"
+
+
+def test_a_run_that_hit_its_iteration_limit_is_observed_as_such(tmp_path, monkeypatch):
+    """monitor.py names the failure: "a wrong strategy gets *elaborated* until max_iters".
+    A rising share of tasks running to the limit is that failure in aggregate."""
+    agent, budget = _budgeted(tmp_path)
+    agent.rlm.max_iters = 2
+    monkeypatch.setattr(agent.harness, "refine", lambda trajectory, feedback: "REFINED")
+    agent.learn(trajectory=[{"a": 1}, {"b": 2}], feedback=_failed())
+    assert budget.mean("turn_limit_rate") == 1.0
+
+
+def test_a_run_that_finished_early_is_observed_as_such(tmp_path, monkeypatch):
+    agent, budget = _budgeted(tmp_path)
+    agent.rlm.max_iters = 6
+    monkeypatch.setattr(agent.harness, "refine", lambda trajectory, feedback: "REFINED")
+    agent.learn(trajectory=[{"a": 1}], feedback=_failed())
+    assert budget.mean("turn_limit_rate") == 0.0
+
+
+def test_an_unregistered_objective_is_not_silently_observed(tmp_path, monkeypatch):
+    """`observe` raises on an unknown name, and a budget configured with a narrower set of
+    objectives must not make `learn()` crash on the ones it does not carry."""
+    from sentinelprime.errorbudget import ErrorBudget, Objective
+    from sentinelprime.audit import AuditLog
+    from sentinelprime.harness import RefineResult
+    harness = _harness(tmp_path)
+    monkeypatch.setattr(harness, "refine", lambda trajectory, feedback: RefineResult(
+        created=["a"], updated=[], deleted=[], from_version=0, to_version=1, rejected=[]))
+    budget = ErrorBudget([Objective("edit_admission_rate", floor=0.2)],
+                         audit_log=AuditLog(str(tmp_path / "audit.json")))
+    agent = PrimeAgent(harness=harness, root_lm=dspy.LM("openai/gpt-4o-mini"),
+                       rlm=StubRLM(), error_budget=budget)
+    agent.rlm.max_iters = 6
+    assert agent.learn(trajectory=[{"a": 1}], feedback=_failed()).created == ["a"]
+    assert "turn_limit_rate" not in budget.objectives
+    assert budget.mean("edit_admission_rate") == 1.0

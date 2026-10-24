@@ -28,6 +28,8 @@ def test_the_full_stack_is_on_by_default(tmp_path):
     assert a.harness.proposal_log is not None
     assert a.harness.credit_assigner is not None
     assert a.agent.monitor is not None
+    assert a.error_budget is not None
+    assert a.agent.error_budget is a.error_budget
 
 
 def test_state_lands_under_the_given_root(tmp_path):
@@ -62,7 +64,10 @@ def test_monitor_off(tmp_path):
 
 
 def test_audit_off_disables_the_audit_log(tmp_path):
-    assert _a(tmp_path, audit=False, credit=False).harness.audit_log is None
+    # Credit and the error budget both read or write the audit log, so an audit ablation
+    # has to drop them with it rather than be refused.
+    a = _a(tmp_path, audit=False, credit=False, error_budget=False)
+    assert a.harness.audit_log is None
 
 
 def test_credit_without_audit_is_refused(tmp_path):
@@ -70,6 +75,49 @@ def test_credit_without_audit_is_refused(tmp_path):
     # would make an ablation report a mechanism as on while it did nothing.
     with pytest.raises(ValueError, match="audit"):
         _a(tmp_path, audit=False, credit=True)
+
+
+def test_error_budget_off_leaves_refinement_ungoverned(tmp_path):
+    a = _a(tmp_path, error_budget=False)
+    assert a.error_budget is None and a.agent.error_budget is None
+
+
+def test_an_error_budget_without_audit_is_refused(tmp_path):
+    """A freeze nobody records is a silent outage: the run reads as having had nothing to
+    learn rather than as one that was halted. Same class of refusal as credit/audit."""
+    with pytest.raises(ValueError, match="audit"):
+        _a(tmp_path, audit=False, credit=False, error_budget=True)
+
+
+# --- the budget actually guards something -------------------------------------------
+
+def test_every_default_objective_is_one_the_agent_observes(tmp_path):
+    """The `credit=True, audit=False` hazard, one level up. An objective nobody feeds never
+    reaches `min_observations`, so it never breaches — and the budget then reports itself
+    as guarding a metric it is structurally blind to. So every default objective must come
+    back with an observation after a single real round."""
+    from sentinelprime.feedback import parse_lab_result
+    from sentinelprime.harness import RefineResult
+
+    a = _a(tmp_path)
+    a.harness.refine = lambda trajectory, feedback: RefineResult(
+        created=["a"], updated=[], deleted=[], from_version=0, to_version=1,
+        rejected=["b"])
+    feedback = parse_lab_result(
+        {"task_id": "t1", "criteria": [{"id": "c1", "passed": False, "reason": "x"}]})
+    a.agent.learn(trajectory=[{"output": "x"}], feedback=feedback)
+    unfed = [name for name in a.error_budget.objectives
+             if a.error_budget.mean(name) is None]
+    assert unfed == []
+
+
+def test_the_default_objectives_avoid_task_success(tmp_path):
+    """§5 records a pooled criterion rate spanning 0.400-0.691 across five runs of one
+    *identical* configuration. A budget defined on task success would freeze the loop on
+    sampling noise, so every default objective is a property of the machinery instead."""
+    a = _a(tmp_path)
+    assert "score" not in a.error_budget.objectives
+    assert "criterion_rate" not in a.error_budget.objectives
 
 
 # --- the compiled program re-enters here --------------------------------------------
@@ -107,6 +155,21 @@ def test_describe_carries_the_machinery_fingerprint(tmp_path):
 
 def test_describe_of_an_ungated_assembly_says_so(tmp_path):
     assert "gate=none" in _a(tmp_path, gate=None).describe()
+
+
+def test_describe_names_the_budget_state(tmp_path):
+    assert "budget=on" in _a(tmp_path).describe()
+    assert "budget=off" in _a(tmp_path / "b", error_budget=False).describe()
+
+
+def test_describe_distinguishes_a_frozen_run_from_a_governed_one(tmp_path):
+    """A run that was halted and a run that was free are not the same experiment, and
+    `budget=on` alone does not say which this was."""
+    a = _a(tmp_path)
+    for _ in range(5):
+        a.error_budget.observe("turn_limit_rate", 1.0)
+    a.error_budget.allows_refine()
+    assert "budget=frozen" in a.describe()
 
 
 def test_credit_thresholds_are_part_of_the_assembly_surface(tmp_path):

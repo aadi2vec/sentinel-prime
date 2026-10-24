@@ -116,6 +116,40 @@ def source_revision(task: str, raw: str) -> CheckResult:
 CHECKS = {"arithmetic": arithmetic, "source_revision": source_revision}
 
 
+def build_catalogs(synthesized=None) -> tuple[dict[str, str], dict]:
+    """The vocabulary a candidate `Policy` may select from: descriptions and callables.
+
+    Returned as a pair because the two halves are consumed by different objects and a
+    check present in only one is broken in opposite ways: `PolicyProposer` can only *name*
+    checks the description catalog lists, `PolicyRunner` can only *run* ones the callable
+    catalog holds. Building them separately is how a synthesized check ends up either
+    unreachable or unrunnable, so they are built here together or not at all.
+
+    `synthesized` is a `{name: CheckSpec}` mapping that cleared `synthesis.admissible` on
+    the graded corpus. None -> the hand-written catalog, byte-identical to what it was
+    before synthesis existed: §3's honest limit ("the proposer picks from two hand-written
+    checks") is the *baseline*, and a gain has to be measured against it.
+
+    A name collision with a hand-written check is refused rather than resolved. Shadowing
+    `arithmetic` would silently change what the baseline arm measured while still reporting
+    itself as the same catalog.
+    """
+    descriptions, checks = dict(CATALOG), dict(CHECKS)
+    if not synthesized:
+        return descriptions, checks
+    from sentinelprime.synthesis import compile_check, describe_spec
+    collisions = sorted(set(synthesized) & set(checks))
+    if collisions:
+        raise ValueError(
+            f"synthesized check name(s) {collisions} collide with hand-written checks; "
+            f"shadowing one would change what the baseline arm measured while still "
+            f"reporting itself as the same catalog")
+    for name, spec in synthesized.items():
+        descriptions[name] = describe_spec(spec)
+        checks[name] = compile_check(spec)
+    return descriptions, checks
+
+
 def make_cases(prefix: str, start: int, count: int = 3) -> list[Case]:
     """Different generated instances, not different domains or unseen task templates.
 
