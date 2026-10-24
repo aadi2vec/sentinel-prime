@@ -19,7 +19,7 @@ this from a minimal core into the real mechanism.
 from __future__ import annotations
 import json
 import uuid
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from datetime import datetime, timezone
 
 import dspy
@@ -106,7 +106,12 @@ class ContinualHarness(dspy.Module):
         the rendered prompt block alone makes that unmeasurable, and an ablation of the
         gate needs the number, not the prose.
         """
-        items = self.backend.read(scope=scope)
+        # Valid time first, and *outside* the `context is None` early return below. An item
+        # whose validity interval has closed is out of force unconditionally — it is not a
+        # reuse decision about this context, it is a statement that the guidance no longer
+        # applies at all. Putting it behind the gate would leave a retired lesson in the
+        # prompt on every ungated read, which is every read that passes no context.
+        items = [it for it in self.backend.read(scope=scope) if not it.invalid_at]
         if context is None:
             # No context -> ungated (base behavior preserved).
             return items
@@ -114,6 +119,31 @@ class ContinualHarness(dspy.Module):
         # current context (e.g. an external note whose source has moved). Items with no
         # audit record are not blocked.
         return [it for it in items if self._admissible(it, context)]
+
+    def in_force_at(self, when: str, scope: str | None = None) -> list[MemoryItem]:
+        """The guidance that was in force at `when` — the query retirement used to destroy.
+
+        This is the read side of valid time, and the reason the fields exist rather than
+        being a field written and never read (constraint 4's own failure mode). Before it,
+        reconstructing the ledger as of some past moment meant `backend.rollback()`, which
+        mutates the live ledger to answer a read-only question and loses everything written
+        since. Nothing here writes.
+
+        Reuse gating is deliberately *not* applied: that gate answers "should this be reused
+        in the context in front of me now", which is a question about the present and has no
+        meaning at a past instant. This reports what was in force, not what would have been
+        admitted.
+
+        **The honest limit: one interval per item, not a history of them.** The ledger holds
+        one row per id, so a rewrite overwrites the text and opens a new interval — the period
+        before the rewrite becomes unanswerable here. What matters is the direction it fails
+        in: because the rewrite also moves `valid_at` forward, a query before it returns a
+        *gap* rather than the current text mislabelled as having been in force then. The
+        earlier versions are still in `AuditLog`, which is the half of the pair that keeps
+        every one; recovering the text of a superseded lesson means reading the transaction
+        axis, not this one.
+        """
+        return [it for it in self.backend.read(scope=scope) if it.in_force_at(when)]
 
     def read(self, scope: str | None = None, context: dict | None = None) -> str:
         # Serialize the ledger into a supplemental prompt block. Empty ledger -> "" so that
@@ -180,6 +210,16 @@ class ContinualHarness(dspy.Module):
                 text=op["text"],
                 created_at=_now(),
                 meta=op.get("meta", {}),
+                # A write opens a fresh validity interval, and on an *update* that means
+                # reopening a closed one. This is the mirror of credit's forget()-on-retire
+                # rule and it is load-bearing for the same reason: retirement now leaves a
+                # row behind, and `forget()` clears its blame so a rewrite gets a fresh
+                # trial — but a rewrite that inherited the closed interval would sit in the
+                # ledger, unblamed, and never be read again. New text is a new claim about
+                # the world, so it gets a new interval. Constructing a fresh item is what
+                # reopens it: `invalid_at` is deliberately *not* carried over from the row
+                # being replaced, so do not turn this into an in-place mutation.
+                valid_at=_now(),
             )
             self.backend.write([item])
             (updated if item_id in existing else created).append(item_id)
@@ -228,13 +268,24 @@ class ContinualHarness(dspy.Module):
                 created_at=_now())
 
     def _retire(self, feedback: Feedback, from_version: int, to_version: int) -> list[str]:
-        # Only retire what is actually in the ledger; the assigner may still hold
-        # observations for items removed by some earlier round.
-        present = {i.id for i in self.backend.read()}
-        retired = [i for i in self.credit_assigner.retirable() if i in present]
+        # Only retire what is actually in force; the assigner may still hold observations
+        # for items some earlier round removed. "In the ledger" and "in force" stopped
+        # being the same thing when retirement began closing intervals instead of deleting
+        # rows, and the weaker test would re-retire a lesson that already left force —
+        # emitting a second audit record, under a different cause_task_id and therefore a
+        # different content_hash, for one departure.
+        in_force = {i.id: i for i in self.backend.read() if not i.invalid_at}
+        retired = [i for i in self.credit_assigner.retirable() if i in in_force]
         if not retired:
             return []
-        self.backend.delete(retired)
+        # Close the interval rather than deleting the row. Retirement is a claim about an
+        # *interval* — this lesson stopped clearing its targets over a bounded window — and
+        # deleting it threw the interval away along with the text. A proposed `delete` op is
+        # the other claim, "this is wrong", which has no interval to close and still deletes.
+        # The write lands inside refine()'s snapshot window, so rollback(from_version)
+        # reopens it exactly as it used to restore a deleted row.
+        left_force = _now()
+        self.backend.write([replace(in_force[i], invalid_at=left_force) for i in retired])
         if self.audit_log is not None:
             for item_id in retired:
                 why = self.credit_assigner.explain(item_id)
@@ -400,7 +451,39 @@ class ContinualHarness(dspy.Module):
         self.backend.rollback(version)
 
     def explain(self, version: int) -> str:
-        # The compliance UI: reconstruct why the ledger changed at `version`.
+        """The compliance UI: reconstruct why the ledger changed at `version`.
+
+        The `[guidance]` line is what valid time bought. `AuditLog.explain` already renders
+        `[machinery]` as "the admission bar in force at the time", and invariant 8 claims the
+        system can prove the guidance was valid at the time — but for the guidance *itself*
+        that was only true until a lesson was retired, because retirement deleted the row and
+        with it the text. The chain could name the edit and not quote what the run was told.
+
+        Appended here rather than in `AuditLog` because the audit log has no backend: one log
+        plus one ledger is what answers this, which is exactly why the two time axes live in
+        two objects (see `MemoryItem`).
+        """
         if self.audit_log is None:
             return "(no audit log configured)"
-        return self.audit_log.explain(version)
+        chain = self.audit_log.explain(version)
+        records = self.audit_log.by_version(version)
+        if not records:
+            return chain
+        # The instant the edit was recorded, which is the closest thing in the record to
+        # "when this happened". The honest limit: it is *not* the instant the task ran, so a
+        # lesson added and retired between the task and the edit would not show. Nothing in
+        # an AuditRecord carries the task's own start time.
+        at = records[0].created_at
+        rows = {i.id: i for i in self.backend.read()}
+        ids = {i.id for i in self.in_force_at(at)}
+        # A lesson *this round* retired was in force going into the round, and the compliance
+        # question is what the run that produced the failure was told — so it belongs on the
+        # line even though the half-open interval correctly excludes it at `at`. Without this
+        # the one case valid time was built for reads as though the lesson had never existed,
+        # which is the behaviour deletion already had.
+        ids |= {r.edit_id for r in records if r.op == "retire"} & rows.keys()
+        in_force = sorted((rows[i] for i in ids), key=lambda i: i.id)
+        if not in_force:
+            return f"{chain}\n\n[guidance      ] ledger was empty entering v{version}"
+        body = "; ".join(f"{i.id}: {i.text}" for i in in_force)
+        return f"{chain}\n\n[guidance      ] in force entering v{version} — {body}"

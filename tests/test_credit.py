@@ -132,7 +132,11 @@ def test_refine_retires_a_lesson_that_stopped_earning_its_place(tmp_path):
     result = h.refine(trajectory=[], feedback=_fb(c1=False))
 
     assert result.retired == ["lesson.c1"]
-    assert [i.id for i in h.backend.read()] == []
+    # Retirement closes the lesson's validity interval rather than deleting the row, so the
+    # contract is that it stops being *surfaced* — the row surviving is what lets
+    # `in_force_at` still answer for the period it was in force. See test_bitemporal.py.
+    assert [i.id for i in h.admissible_items()] == []
+    assert h.read() == ""
 
 
 def test_retirement_is_reversible_like_any_other_round(tmp_path):
@@ -148,9 +152,9 @@ def test_retirement_is_reversible_like_any_other_round(tmp_path):
     h.credit(["lesson.c1"], _fb(c1=False))
 
     result = h.refine(trajectory=[], feedback=_fb(c1=False))
-    assert [i.id for i in h.backend.read()] == []
+    assert [i.id for i in h.admissible_items()] == []
     h.rollback(result.from_version)
-    assert [i.id for i in h.backend.read()] == ["lesson.c1"]
+    assert [i.id for i in h.admissible_items()] == ["lesson.c1"]
 
 
 def test_retirement_is_audited_with_the_evidence_that_justified_it(tmp_path):
